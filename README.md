@@ -1,1 +1,1 @@
-# itm300-course
+# itm300-course info
