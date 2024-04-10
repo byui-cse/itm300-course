@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Module 06 — Content Creation, Case Study Introduction</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.eot');
+            src: url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.eot#iefix-8k8p81') format('embedded-opentype'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.ttf') format('truetype'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.woff') format('woff'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.svg#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/lib/highlight/styles/monokai-sublime.min.css">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/cse450.css?v1.5">
+    <meta charset="utf-8">
+
+</head>
+<body class="">
+     <div id="modal-screen">
+        <div id="contents-wrapper">
+            <div class="toc">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#stakeholders">Stakeholders</a></li>
+</ul>
+</div>
+
+            <a href="#" id="hide-contents" title="Close Table of Contents"><i class="far fa-window-close"></i></a>
+        </div>
+    </div>
+	<header>
+        <span class="icon-byui-logo"></span>
+        <div id="titles">
+            <h1>ITM 310 - Applied Cloud Computing</h1>
+            <h2>Module 06 — Content Creation, Case Study Introduction</h2>
+            <nav><a href="https://byui-cse.github.io/itm310-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm310-course/module-01/">Module 1</a><a href="https://byui-cse.github.io/itm310-course/module-02/">Module 2</a><a href="https://byui-cse.github.io/itm310-course/module-03/">Module 3</a><a href="https://byui-cse.github.io/itm310-course/module-04/">Module 4</a><a href="https://byui-cse.github.io/itm310-course/module-05/">Module 5</a><a href="https://byui-cse.github.io/itm310-course/module-06/">Module 6</a><a href="https://byui-cse.github.io/itm310-course/module-07/">Module 7</a></nav>
+        </div>
+        <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
+    </header>
+	<article>
+		<p><img alt="Printing Machine" src="https://byui-cse.github.io/itm310-course/shared/img/printing.jpg" />
+<em><a href="https://unsplash.com/photos/Tzm3Oyu_6sk">Photo by Bank Phrom on Unsplash</a></em></p>
+<h2 id="introduction">Introduction</h2>
+<p>You've been hired by HackPressIO, a new content creation startup, to assist with their content creation.</p>
+<h2 id="stakeholders">Stakeholders</h2>
+<p>These are the individuals your team will be helping during the case study:</p>
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/thomas.jpg">
+    <h5>Thomas, COO of HackPressIO</h5>
+    <blockquote><p>We've recently acquired the rights to the estates of several deceased authors. We're experimenting with a concept where we train AI models from their published works, and use those models to generate new works with their style and voice.</p><p>We had hired a team to work on this project, but there were some technical issues they couldn't overcome. My little brother Johnny suggested we bring you on board to try and save the project.</p></blockquote>
+</div>
+
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/monika.jpg">
+    <h5>Monika, Senior Developer</h5>
+    <blockquote><p>We have a lot of the scaffolding for the project in place, but the models need a lot of refinement. I'll give you full access to the code implemented by the previous team, and I'll be happy to answer any questions you might have about it.</p></blockquote>
+</div>
+
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/johnny.jpg">
+    <h5>Johnny, Data Science Intern</h5>
+    <blockquote><p>Hey!</p><p>Isn't Thomas great? He's always been an inspiration to me, and one of the reasons I got into machine learning in the first place. It would mean a lot to me if you can help him out.</p>
+    </blockquote>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Stakeholder Focus Areas</p>
+<p>The stakeholders are particularly interested in:</p>
+<ol>
+<li>Building a recurrent neural network pipeline that can take an arbitrary collection of written works by an author, and generate new text with that author's style and voice.</li>
+</ol>
+</div>
+<p>You've been invited to a strategy meeting tomorrow. </p>
+<h4 id="data">Data</h4>
+<ul>
+<li><a href="https://raw.githubusercontent.com/byui-cse/cse450-course/master/data/austen/austen.txt">Jane Austen Text</a></li>
+</ul>
+<p><a href="https://colab.research.google.com/github/byui-cse/cse450-course/blob/master/notebooks/starter_publishing.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://unsplash.com/photos/mjRwhvqEC0U">COO photo by Jonas Kakaroto on Unsplash</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://unsplash.com/photos/8kdA2IJsjcU">Senior Developer photo by Mimi Thian on Unsplash</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://unsplash.com/photos/iczrMDNuvzkml-pxK0Ovmw">Data Science Intern photo by Fábio Lucas on Unsplash</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+	</article>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/highlight/highlight.pack.js"></script>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.js"></script>
+    <script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/contrib/auto-render.min.js"></script>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/smartquotes/smartquotes.min.js"></script>
+    <script>
+
+        /* Startup scripts for katex rendering */
+    	renderMathInElement(document.body,
+		{
+			delimiters: [
+				{left: "$$", right: "$$", display: true},
+				{left: "$", right: "$", display: false},
+			]
+    	});
+
+        /* Highlighting code */
+    	hljs.initHighlightingOnLoad();
+    	var elements = document.querySelectorAll('.language-text')
+		for (var i = 0; i < elements.length; i++) {
+  			elements[i].classList.add('hljs');
+		}
+
+        /* TOC support */
+        var hideContents = function(e){
+            console.log(e.target);
+            if(e.target.id === 'modal-screen' || e.target.nodeName.toLowerCase() === 'i') {
+                e.preventDefault();
+                document.querySelector('#contents-wrapper').classList.remove('active');
+                document.querySelector('#modal-screen').classList.remove('active');
+            }
+        }
+
+        var showContents = function(e){
+            e.preventDefault();
+            document.querySelector('#contents-wrapper').classList.add('active');
+            document.querySelector('#modal-screen').classList.add('active');
+        }
+
+        document.querySelector("#hide-contents").addEventListener('click', hideContents);
+        document.querySelector("#modal-screen").addEventListener('click', hideContents);
+        document.querySelector("#show-contents").addEventListener('click', showContents);
+    	
+    </script>
+</body>
+</html>
