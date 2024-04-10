@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Module 02 — More Hints</title>
+	<title>Module 01: Hints</title>
     <style>
         @font-face {
             font-family: 'icomoon';
@@ -24,11 +24,12 @@
         <div id="contents-wrapper">
             <div class="toc">
 <ul>
-<li><a href="#using-a-function-to-transform-a-feature">Using a Function to Transform a Feature</a></li>
-<li><a href="#minmax-scaling-a-feature">MinMax Scaling a Feature</a></li>
-<li><a href="#dealing-with-dates">Dealing with Dates</a></li>
-<li><a href="#use-a-decision-tree">Use a decision tree</a></li>
-<li><a href="#imbalanced-datasets">Imbalanced datasets</a></li>
+<li><a href="#module-01-hints">Module 01 - Hints</a><ul>
+<li><a href="#vpc-subnets-and-nat-gateway-info">VPC, Subnets, and NAT Gateway Info</a></li>
+<li><a href="#mysql-dump-and-restore">MySql Dump and Restore</a></li>
+<li><a href="#ubuntu-installing-extra-packages">Ubuntu Installing Extra Packages</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -39,44 +40,24 @@
         <span class="icon-byui-logo"></span>
         <div id="titles">
             <h1>ITM 310 - Applied Cloud Computing</h1>
-            <h2>Module 02 — More Hints</h2>
+            <h2>Module 01: Hints</h2>
             <nav><a href="https://byui-cse.github.io/itm310-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm310-course/module-01/">Module 1</a><a href="https://byui-cse.github.io/itm310-course/module-02/">Module 2</a><a href="https://byui-cse.github.io/itm310-course/module-03/">Module 3</a><a href="https://byui-cse.github.io/itm310-course/module-04/">Module 4</a><a href="https://byui-cse.github.io/itm310-course/module-05/">Module 5</a><a href="https://byui-cse.github.io/itm310-course/module-06/">Module 6</a><a href="https://byui-cse.github.io/itm310-course/module-07/">Module 7</a></nav>
         </div>
         <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
     </header>
 	<article>
-		<div class="admonition warning">
-<p class="admonition-title">Don't Sell Yourself Short</p>
-<p>Coding and Data Science is hard. Most of what I'm going to put here, you could look up on your own from official docs, tutorials, and Stack Overflow questions. </p>
-<p>As we proceed throughout the semester, you'll get fewer hints and be expected to look more stuff up on your own.</p>
-<p>If you haven't tried independent research yet, you might want to try that for a few hours, then come back here.</p>
+		<h2 id="module-01-hints">Module 01 - Hints</h2>
+<h3 id="vpc-subnets-and-nat-gateway-info">VPC, Subnets, and NAT Gateway Info</h3>
+<p><a href="https://jasonwatmore.com/post/2021/05/30/aws-create-a-vpc-with-public-and-private-subnets-and-a-nat-gateway">AWS Create a VPC with Public and Private Subnets and a NAT Gateway</a></p>
+<div class="admonition note">
+<p class="admonition-title">wget and chmod</p>
+<p>This modules requires you to download some script files to run in bash. wget is a free command-line utility tool to download files. Here is <a href="https://phoenixnap.com/kb/wget-command-with-examples">an article that explains how to use wget</a>. </p>
+<p>Once you have the files downloaded, you'll have to give permission to execute the file. <a href="https://learnubuntu.com/chmod-command/">chmod</a> is used to update permissions. Always be careful of what you allow to run on your machine and verify the contents prior to running.</p>
 </div>
-<h2 id="using-a-function-to-transform-a-feature">Using a Function to Transform a Feature</h2>
-<p>Sometimes you want to do a complex transformation where you create a new feature based on the data in one or more existing features, or where you need to use boolean logic in your transformation. </p>
-<p>One way to accomplish this is with <code>apply()</code> plus a function or lambda, as shown in the following colab notebook:</p>
-<p><a href="https://colab.research.google.com/github/byui-cse/cse450-course/blob/master/notebooks/hint_functions.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<h2 id="minmax-scaling-a-feature">MinMax Scaling a Feature</h2>
-<p>If we need to do some kind of distance-based algorithm with these features, it would help to transform them to the same scale first.</p>
-<p>Min-max scaling will make the values span the range 0.0 - 1.0, as shown in the following colab notebook:</p>
-<p><a href="https://colab.research.google.com/github/byui-cse/cse450-course/blob/master/notebooks/hint_scaling.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<h2 id="dealing-with-dates">Dealing with Dates</h2>
-<p>Sometimes we need to calculate the span between two dates using different units. Or, we might need to to do more complex calculations on a date using boolean logic. The following colab notebook shows some examples of that:</p>
-<p><a href="https://colab.research.google.com/github/byui-cse/cse450-course/blob/master/notebooks/hint_dates.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<h2 id="use-a-decision-tree">Use a decision tree</h2>
-<p>If you're really struggling with how to make a decision tree, you should try reading through the documentation a couple more times.</p>
-<p>If that still doesn't help, this notebook can give you some more guidance:</p>
-<p><a href="https://colab.research.google.com/github/byui-cse/cse450-course/blob/master/notebooks/hint_decisiontrees.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<h2 id="imbalanced-datasets">Imbalanced datasets</h2>
-<p>Often in classification problems, you'll build a model that seems to do fantastically well when testing. Sometimes it'll seem like no matter what you do with the model, you get high levels of accuracy.</p>
-<p>When this happens, it is often because of an imbalanced dataset — one where you have many more instances of one target value than another.</p>
-<p>For example, if 80% of my samples report <code>true</code> for the target, I could achieve close to an 80% accuracy rate on my test data just by using this code:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">true_or_false_for_this_sample</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
-    <span class="k">return</span> <span class="kc">True</span>
-</code></pre></div>
-
-<p>There are <a href="https://stats.stackexchange.com/questions/28029/training-a-decision-tree-against-unbalanced-data">several ways to address this problem</a>, but two of the most common are oversampling and undersampling.</p>
-<p>This Colab notebook shows an example:</p>
-<p><a href="https://colab.research.google.com/github/byui-cse/cse450-course/blob/master/notebooks/hint_imbalanced.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<h3 id="mysql-dump-and-restore">MySql Dump and Restore</h3>
+<p><a href="https://www.sqlshack.com/how-to-backup-and-restore-mysql-databases-using-the-mysqldump-command/">How to backup and restore a MySql database</a></p>
+<h3 id="ubuntu-installing-extra-packages">Ubuntu Installing Extra Packages</h3>
+<p><a href="https://help.ubuntu.com/community/AptGet/Howto">How to use APT-GET to install packages in Ubuntu</a></p>
 	</article>
 	<script src="https://byui-cse.github.io/itm310-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.js"></script>

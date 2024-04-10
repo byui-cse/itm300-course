@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{TITLE}}</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.eot');
+            src: url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.eot#iefix-8k8p81') format('embedded-opentype'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.ttf') format('truetype'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.woff') format('woff'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.svg#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/lib/highlight/styles/monokai-sublime.min.css">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/cse450.css?v1.5">
+    <meta charset="utf-8">
+
+</head>
+<body class="">
+     <div id="modal-screen">
+        <div id="contents-wrapper">
+            <div class="toc">
+<ul>
+<li><a href="#efs-creation">EFS Creation</a><ul>
+<li><a href="#verify-aws-region">Verify AWS Region</a></li>
+<li><a href="#create-security-groups">Create Security Groups</a><ul>
+<li><a href="#create-sg-for-ec2">Create SG for EC2</a></li>
+<li><a href="#create-sg-for-efs">Create SG for EFS</a></li>
+<li><a href="#verify-settings">Verify settings</a></li>
+</ul>
+</li>
+<li><a href="#create-efs">Create EFS</a></li>
+<li><a href="#create-an-ec2-instance">Create an EC2 Instance</a></li>
+<li><a href="#connect-to-the-ec2-instance">Connect to the EC2 Instance</a></li>
+<li><a href="#mount-the-drive">mount the drive</a></li>
+<li><a href="#create-another-ec2-instances">Create another EC2 Instances</a></li>
+<li><a href="#do-the-automatic-add-from-the-console">Do the automatic add from the console</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+            <a href="#" id="hide-contents" title="Close Table of Contents"><i class="far fa-window-close"></i></a>
+        </div>
+    </div>
+	<header>
+        <span class="icon-byui-logo"></span>
+        <div id="titles">
+            <h1>ITM 310 - Applied Cloud Computing</h1>
+            <h2>{{TITLE}}</h2>
+            <nav><a href="https://byui-cse.github.io/itm310-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm310-course/module-01/">Module 1</a><a href="https://byui-cse.github.io/itm310-course/module-02/">Module 2</a><a href="https://byui-cse.github.io/itm310-course/module-03/">Module 3</a><a href="https://byui-cse.github.io/itm310-course/module-04/">Module 4</a><a href="https://byui-cse.github.io/itm310-course/module-05/">Module 5</a><a href="https://byui-cse.github.io/itm310-course/module-06/">Module 6</a><a href="https://byui-cse.github.io/itm310-course/module-07/">Module 7</a></nav>
+        </div>
+        <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
+    </header>
+	<article>
+		<h1 id="efs-creation">EFS Creation</h1>
+<h2 id="verify-aws-region">Verify AWS Region</h2>
+<p>For this example we will use the built-in default VPC for the lab as well as remain in the US-EAST-1 Region</p>
+<h2 id="create-security-groups">Create Security Groups</h2>
+<h3 id="create-sg-for-ec2">Create SG for EC2</h3>
+<p>Create a security group for SSH Access</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Security</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="n">EC2</span><span class="o">-</span><span class="n">SG</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Allow</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">Access</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">Developers</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">VPC</span><span class="w"> </span><span class="p">(</span><span class="kd">def</span><span class="n">ault</span><span class="p">)</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="n">Inbound</span><span class="w"> </span><span class="n">Rules</span>
+<span class="w">    </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">SSH</span>
+<span class="w">    </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mf">0</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">lab</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">down</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">production</span>
+<span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="n">Outbound</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">leave</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">traffic</span><span class="w"> </span><span class="kr">on</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mf">0</span>
+</code></pre></div>
+
+<h3 id="create-sg-for-efs">Create SG for EFS</h3>
+<p>Create a security group for the EFS</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Security</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="n">EFS</span><span class="o">-</span><span class="n">SG</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Description</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Allow</span><span class="w"> </span><span class="n">Access</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">Website</span><span class="w"> </span><span class="n">EFS</span><span class="w"> </span><span class="n">Drive</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">VPC</span><span class="w"> </span><span class="p">(</span><span class="kd">def</span><span class="n">ault</span><span class="p">)</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="n">Inbound</span><span class="w"> </span><span class="n">Rules</span>
+<span class="w">    </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">NFS</span>
+<span class="w">    </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="n">EC2</span><span class="o">-</span><span class="n">SG</span><span class="w"> </span><span class="p">(</span><span class="n">scroll</span><span class="w"> </span><span class="n">down</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">security</span><span class="w"> </span><span class="n">groups</span><span class="p">)</span>
+<span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="n">Outbound</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">leave</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">traffic</span><span class="w"> </span><span class="kr">on</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mf">0</span>
+</code></pre></div>
+
+<h3 id="verify-settings">Verify settings</h3>
+<p>Click on the individual security groups and verify that the inbound and outbound rules are correct.</p>
+<p>EC2-SG</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Inbound</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">SSH</span><span class="p">,</span><span class="w"> </span><span class="n">TCP</span><span class="p">,</span><span class="w"> </span><span class="mf">22</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mf">0</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Outbound</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">All</span><span class="w"> </span><span class="n">traffic</span><span class="p">,</span><span class="w"> </span><span class="n">All</span><span class="p">,</span><span class="w"> </span><span class="n">All</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mf">0</span>
+</code></pre></div>
+
+<p>EFS-SG</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Inbound</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">NFS</span><span class="p">,</span><span class="w"> </span><span class="n">TCP</span><span class="p">,</span><span class="w"> </span><span class="mf">2049</span><span class="p">,</span><span class="w"> </span><span class="n">sg</span><span class="o">-</span><span class="n">XXXXXXXXXXXXXXXXX</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">EC2</span><span class="o">-</span><span class="n">SG</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Outbound</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">All</span><span class="w"> </span><span class="n">traffic</span><span class="p">,</span><span class="w"> </span><span class="n">All</span><span class="p">,</span><span class="w"> </span><span class="n">All</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mf">0</span>
+</code></pre></div>
+
+<h2 id="create-efs">Create EFS</h2>
+<p>1) Create file system
+2) Customize button</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Website</span><span class="w"> </span><span class="n">Drive</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Regional</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="n">Uncheck</span><span class="w"> </span><span class="s">&quot;Enable automatic backups&quot;</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="n">Lifecycle</span><span class="w"> </span><span class="n">Management</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Transition</span><span class="w"> </span><span class="nb">int</span><span class="n">o</span><span class="w"> </span><span class="n">Archive</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="n">None</span>
+<span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="n">Throughput</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Bursting</span>
+<span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="kr">Next</span>
+
+<span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">availability</span><span class="w"> </span><span class="n">zones</span><span class="w"> </span><span class="n">by</span>
+<span class="w">    </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="c1">Remove the default security group</span>
+<span class="w">    </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">EFS</span><span class="o">-</span><span class="n">SG</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="kr">Next</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="kr">Next</span><span class="w"> </span><span class="p">(</span><span class="n">again</span><span class="p">)</span>
+<span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="n">Create</span>
+</code></pre></div>
+
+<h2 id="create-an-ec2-instance">Create an EC2 Instance</h2>
+<p>Go to AWS and create an ec2 instance. Use the 2023 Linux AMI. These should be in the us-east-1 region.</p>
+<p>1) Create Instance
+2) Give it a name
+3) Select the vockey for the Key Pair
+4) Click Edit on Network Settings</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Choose</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">subnet</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="p">(</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1</span><span class="n">c</span><span class="p">)</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">security</span><span class="w"> </span><span class="n">group</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="n">Common</span><span class="w"> </span><span class="n">Security</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="n">EC2</span><span class="o">-</span><span class="n">SG</span>
+</code></pre></div>
+
+<p>5) Launch Instance</p>
+<h2 id="connect-to-the-ec2-instance">Connect to the EC2 Instance</h2>
+<h2 id="mount-the-drive">mount the drive</h2>
+<p>1) sudo mkdir /mnt/efs
+2) sudo mkdir /mnt/efs/fs1</p>
+<p>Go out to your EFS console</p>
+<p>1) Click on the WebDrive
+2) Click attach
+3) Select the *Using NFS Client"</p>
+<p>Back on your console</p>
+<p>1) cd /mnt/efs
+1) Copy your command (it should look like this)
+    1) sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-XXXXXXXXXXXXXXX.efs.us-east-1.amazonaws.com:/ fs1
+    2) MAKE SURE YOU CHANGE THE efs at the end to fs1</p>
+<p>1) give your user access
+2) sudo chown ec2-user:ec2-user /mnt/efs/fs1
+3) sudo chmod 755 /mnt/efs/fs1</p>
+<h2 id="create-another-ec2-instances">Create another EC2 Instances</h2>
+<h2 id="do-the-automatic-add-from-the-console">Do the automatic add from the console</h2>
+<p>Create an EC2 instance.</p>
+<p>1) Give it a name
+2) Choose vockey for the key pair
+3) Network settings -&gt; Edit</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="n">Choose</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">subnet</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="mf">.</span><span class="n">g</span><span class="mf">.</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1</span><span class="n">b</span><span class="p">)</span>
+<span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="n">Select</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">security</span><span class="w"> </span><span class="n">group</span>
+<span class="mf">3</span><span class="p">)</span><span class="w"> </span><span class="n">EC2</span><span class="o">-</span><span class="n">SG</span>
+</code></pre></div>
+
+<p>4) Configure Storage -&gt; Advanced
+    1) File systems -&gt; Show Details
+    2) Make sure EFS is selected
+    3) Add shared file system
+    4) Select the file system if you don't see it
+    5) Confirm mount point is /mnt/efs/fs1
+    6) Uncheck Automatically create and attach security groups
+    7) Leave Automatically mount shared file system... checked
+4) Launch instance</p>
+<p>Connect to the server</p>
+<p>Make sure both checks pass to ensure that the mount has been added and that permissions have been given</p>
+<p>cd /mnt/efs/fs1
+ls -la</p>
+<p>Now you can create files on either ec2 instance and have it show up on the other</p>
+<p>touch "first.txt"</p>
+<p>switch to the other computer</p>
+<p>ls -la</p>
+<p>touch "second.txt"</p>
+<p>switch back to first ec2 instance</p>
+<p>ls -la</p>
+	</article>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/highlight/highlight.pack.js"></script>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.js"></script>
+    <script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/contrib/auto-render.min.js"></script>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/smartquotes/smartquotes.min.js"></script>
+    <script>
+
+        /* Startup scripts for katex rendering */
+    	renderMathInElement(document.body,
+		{
+			delimiters: [
+				{left: "$$", right: "$$", display: true},
+				{left: "$", right: "$", display: false},
+			]
+    	});
+
+        /* Highlighting code */
+    	hljs.initHighlightingOnLoad();
+    	var elements = document.querySelectorAll('.language-text')
+		for (var i = 0; i < elements.length; i++) {
+  			elements[i].classList.add('hljs');
+		}
+
+        /* TOC support */
+        var hideContents = function(e){
+            console.log(e.target);
+            if(e.target.id === 'modal-screen' || e.target.nodeName.toLowerCase() === 'i') {
+                e.preventDefault();
+                document.querySelector('#contents-wrapper').classList.remove('active');
+                document.querySelector('#modal-screen').classList.remove('active');
+            }
+        }
+
+        var showContents = function(e){
+            e.preventDefault();
+            document.querySelector('#contents-wrapper').classList.add('active');
+            document.querySelector('#modal-screen').classList.add('active');
+        }
+
+        document.querySelector("#hide-contents").addEventListener('click', hideContents);
+        document.querySelector("#modal-screen").addEventListener('click', hideContents);
+        document.querySelector("#show-contents").addEventListener('click', showContents);
+    	
+    </script>
+</body>
+</html>

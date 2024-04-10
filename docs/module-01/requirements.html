@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Module 01 — Case Study Requirements</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.eot');
+            src: url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.eot#iefix-8k8p81') format('embedded-opentype'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.ttf') format('truetype'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.woff') format('woff'), url('https://byui-cse.github.io/itm310-course/shared/fonts/byui/icomoon.svg#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/lib/highlight/styles/monokai-sublime.min.css">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm310-course/shared/cse450.css?v1.5">
+    <meta charset="utf-8">
+
+</head>
+<body class="">
+     <div id="modal-screen">
+        <div id="contents-wrapper">
+            <div class="toc">
+<ul>
+<li><a href="#scenario">Scenario</a></li>
+<li><a href="#stakeholders">Stakeholders</a></li>
+<li><a href="#module-01-requirements">Module 01 Requirements</a></li>
+<li><a href="#assumptions">Assumptions</a></li>
+</ul>
+</div>
+
+            <a href="#" id="hide-contents" title="Close Table of Contents"><i class="far fa-window-close"></i></a>
+        </div>
+    </div>
+	<header>
+        <span class="icon-byui-logo"></span>
+        <div id="titles">
+            <h1>ITM 310 - Applied Cloud Computing</h1>
+            <h2>Module 01 — Case Study Requirements</h2>
+            <nav><a href="https://byui-cse.github.io/itm310-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm310-course/module-01/">Module 1</a><a href="https://byui-cse.github.io/itm310-course/module-02/">Module 2</a><a href="https://byui-cse.github.io/itm310-course/module-03/">Module 3</a><a href="https://byui-cse.github.io/itm310-course/module-04/">Module 4</a><a href="https://byui-cse.github.io/itm310-course/module-05/">Module 5</a><a href="https://byui-cse.github.io/itm310-course/module-06/">Module 6</a><a href="https://byui-cse.github.io/itm310-course/module-07/">Module 7</a></nav>
+        </div>
+        <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
+    </header>
+	<article>
+		<p><img alt="Example University" src="https://byui-cse.github.io/itm310-course/shared/img/university.jpg" />
+<em><a href="https://unsplash.com/@darya_tryfanava">Photo by Darya Tryfanava on Unsplash</a></em></p>
+<h2 id="scenario">Scenario</h2>
+<p>Example University is preparing for the new school year. The admissions department has received complaints that their web application for student records is slow or not available during the peak admissions period because of the high number of inquiries.</p>
+<p>You are a cloud engineer. Your manager has asked you to create a proof of concept (POC) to host the web application in the AWS Cloud. Your manager would like you to design and implement a new hosting architecture that will improve the experience for users of the web application. You’re responsible for building the infrastructure to host the student records web application in the cloud.</p>
+<p>Your challenge is to plan, design, build, and deploy the web application to the AWS Cloud in a way that is consistent with best practices of the AWS Well-Architected Framework. During the peak admissions period, the application must support thousands of users, and be highly available, scalable, load balanced, secure, and high performing.</p>
+<h2 id="stakeholders">Stakeholders</h2>
+<p>These are the individuals your team will be helping during the case study:</p>
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/ali.jpg">
+    <h5>Dr. Ali Houshman, President of Example University</h5>
+    <blockquote><p>I welcome you to this crucial discussion concerning our university's student records system.</p><p>It has become apparent that our current system is plagued by inefficiencies, causing disruptions and eroding student confidence.</p><p>I am optimistic that together, we can develop a proof of concept to transition our system to the cloud, ensuring greater efficiency and reliability.</p>
+</blockquote>
+</div>
+
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/mary.jpg">
+    <h5>Mary Cordova, CTO</h5>
+    <blockquote><p>Thank you, Dr. Houshman, for your guidance.</p><p>From a technical perspective, our priorities entail scaling the system, implementing load balancing, and minimizing downtime in the event of server failures, and decoupling services.</p><p>These are key to getting the efficiency and reliability we need.</p></blockquote>
+</div>
+
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/ali.jpg">
+    <h5>Dr. Ali Houshman, President of Example University</h5>
+    <blockquote><p>Mary, your points are well taken.</p><p>Nonetheless, it's imperative that we adhere to our budget constraints.</p><p>These requirements seem to incur significant costs.</p></blockquote>
+</div>
+
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/christina.jpg">
+    <h5>Christina Stone, CFO</h5>
+    <blockquote><p>Dr. Houshman, you raise a valid point.</p><p>Before we begin, I require a thorough estimate of the annual expenses tied to the proposed new system.</p><p>While Mary advocates for cost reduction through migration to "the cloud," I'm still skeptical.</p></blockquote>
+</div>
+
+<div class="dialogue">
+    <img src="https://byui-cse.github.io/itm310-course/shared/img/mary.jpg">
+    <h5>Mary Cordova, CTO</h5>
+    <blockquote><p>Certainly, with the utilization of appropriate services, I am confident we can address these challenges effectively and in a cost efficient manner.</p><p>Before proceeding to the next phase, we will submit an architecture design to ensure adherence to a well-architected framework that is still within budget.</p><p>Additionally, there are some security concerns we must address. I recommend we  migrate our databases to a private network and lock down the database credentials. Given our past experiences with hacking attempts, safeguarding our systems is of utmost importance.</p></blockquote>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Stakeholder Focus Areas</p>
+<p>The shareholders are particularly interested in the following areas:</p>
+<ol>
+<li>Creating a working proof of concept.</li>
+<li>Finding a way to decouple the services to achieve cost reductions and efficiency.</li>
+<li>Make the new system more fault tolerant.</li>
+<li>Secure all important services.</li>
+</ol>
+</div>
+<h2 id="module-01-requirements">Module 01 Requirements</h2>
+<p>The project must meet the following requirements:</p>
+<ol>
+<li><strong>Functional:</strong> – The solution meets the functional requirements, such as the ability to view, add, delete, or modify the student records, without any perceivable delay.</li>
+<li><strong>Load balanced:</strong> The solution can properly balance user traffic to avoid overloaded or underutilized resources</li>
+<li><strong>Scalable:</strong> The solution is designed to scale to meet the demands that are placed on the application.</li>
+<li><strong>Highly Available:</strong> The solution is designed to have limited downtime when a web server becomes unavailable.</li>
+<li><strong>Secure:</strong> <ul>
+<li>The database is secured and can't be accessed directly from public networks.</li>
+<li>The web servers and database can be accessed only over the appropriate ports</li>
+<li>The web application is accessible over the internet.</li>
+<li>The database credentials aren't hardcoded into the web application.</li>
+</ul>
+</li>
+<li><strong>Cost Optimization:</strong> The solution is designed to keep costs low.</li>
+<li><strong>High Performing:</strong> The routine operations (viewing, adding, deleting, or modifying records) are performed without a perceivable delay under normal, variable, and peak loads.</li>
+</ol>
+<h2 id="assumptions">Assumptions</h2>
+<p>This project will be built in a controlled lab environment that has restrictions on services, features, and budget. Consider the following assumptions for the project:</p>
+<ul>
+<li>The application is deployed in one AWS Region (the solution does not need to be multi-Regional).</li>
+<li>The website does not need to be available over HTTPS or a custom domain.</li>
+<li>The solution is deployed on Ubuntu machines by using the JavaScript code that is provided.</li>
+<li>Use the JavaScript code as written unless the instructions specifically direct you to change the code.</li>
+<li>The solution uses services and features within the restrictions of the lab environment.</li>
+<li>The database is hosted only in a single Availability Zone.</li>
+<li>The website is publicly accessible without authentication.</li>
+<li>Estimation of cost is approximate.*</li>
+</ul>
+<p>Disclaimer: A security best practice is to allow access to the website through the university network and authentication. However, because you are building this application as a POC, those features are beyond the scope of this project. You are encouraged to implement this additional functionality.</p>
+<div class="admonition note">
+<p class="admonition-title">Wondering Where to Start?</p>
+<p>Here is an <a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-modernizing-applications/welcome.html">article</a> on some basic steps to approach modernizing applications in the AWS Cloud</p>
+</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://unsplash.com/photos/d55fhArDES0">University photo by Darya Tryfanava on Unsplash</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://unsplash.com/photos/WMD64tMfc4k">President photo by Ali Morshedlou on Unsplash</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://unsplash.com/photos/0Zx1bDv5BNY">CFO photo by Christina @ wocintechchat.com on Unsplash</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://unsplash.com/photos/wS73LE0GnKs">CTO photo by LinkedIn Sales Solutions </a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+	</article>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/highlight/highlight.pack.js"></script>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/katex.min.js"></script>
+    <script src="https://byui-cse.github.io/itm310-course/shared/lib/katex/contrib/auto-render.min.js"></script>
+	<script src="https://byui-cse.github.io/itm310-course/shared/lib/smartquotes/smartquotes.min.js"></script>
+    <script>
+
+        /* Startup scripts for katex rendering */
+    	renderMathInElement(document.body,
+		{
+			delimiters: [
+				{left: "$$", right: "$$", display: true},
+				{left: "$", right: "$", display: false},
+			]
+    	});
+
+        /* Highlighting code */
+    	hljs.initHighlightingOnLoad();
+    	var elements = document.querySelectorAll('.language-text')
+		for (var i = 0; i < elements.length; i++) {
+  			elements[i].classList.add('hljs');
+		}
+
+        /* TOC support */
+        var hideContents = function(e){
+            console.log(e.target);
+            if(e.target.id === 'modal-screen' || e.target.nodeName.toLowerCase() === 'i') {
+                e.preventDefault();
+                document.querySelector('#contents-wrapper').classList.remove('active');
+                document.querySelector('#modal-screen').classList.remove('active');
+            }
+        }
+
+        var showContents = function(e){
+            e.preventDefault();
+            document.querySelector('#contents-wrapper').classList.add('active');
+            document.querySelector('#modal-screen').classList.add('active');
+        }
+
+        document.querySelector("#hide-contents").addEventListener('click', hideContents);
+        document.querySelector("#modal-screen").addEventListener('click', hideContents);
+        document.querySelector("#show-contents").addEventListener('click', showContents);
+    	
+    </script>
+</body>
+</html>
