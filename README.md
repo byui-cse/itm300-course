@@ -1,10 +1,10 @@
-# CSE 450
-This repository holds the public course materials for ITM 310.
+# ITM 300
+This repository holds the public course materials for ITM 300.
 
 ## Overview
 The materials for this course may be found in the `/source` folder. Most content is written in [markdown](https://www.markdownguide.org/basic-syntax/) format, a popular markup language with plain text formatting.
 
-The course's build toolchain copies all directories and files from the `/source` folder to the `/docs` folder. The contents of this folder are automatically published to the [course site published on GitHub Pages](http://byui-cse.github.io/itm310-course/).
+The course's build toolchain copies all directories and files from the `/source` folder to the `/docs` folder. The contents of this folder are automatically published to the [course site published on GitHub Pages](http://byui-cse.github.io/itm300-course/).
 
 All markdown files are transformed by the build script into HTML. A default template is used for this transformation (`/templates/default.html`). The default template loads a few CSS and JS libraries, such as:
 

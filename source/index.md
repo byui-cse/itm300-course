@@ -3,7 +3,7 @@ title: Course Index
 body-class: index-page
 ---
 
-## CSE 450 - Course Index
+## CSE 300 - Course Index
 
 This is a handy index page for the course content and readings in CSE 450. This content is subject to change without notice and is for informational purposes only. 
 
