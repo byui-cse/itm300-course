@@ -80,9 +80,9 @@ You may take the AWS Cloud Practitioner certification exam in lieu of the final.
 
 See your Canvas section for exact grade weights for each assignment, but in general, assignments are weighted similar to the following:
 
- * Reading Assignments and Self-Assessment Quizzes: 20%
+ * Reading Assignments and Self-Assessment Quizzes: 10%
  * Knowledge Checks and Test Preparation Quizzes: 15%
- * Labs: 30%
+ * Labs: 40%
  * Mid-term Project: 10%
  * Final: 25%
 

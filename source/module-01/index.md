@@ -3,30 +3,29 @@ title: Module 01: Overview
 body-class: index-page
 ---
 
-![Monolithic App]({{URLROOT}}/shared/img/aws-monolithic.png)
-*[Photo by Dall-E-3](https://openai.com/dall-e-3)*
+<!-- ![Monolithic App]({{URLROOT}}/shared/img/aws-monolithic.png)
+*[Photo by Dall-E-3](https://openai.com/dall-e-3)* -->
 
-## Module 01 - Overview
+## Module 01 - Cloud Computing Concepts
 
-This module you'll take a monolithic website and move it to AWS. You will then decouple the application components and implement high availability and scalability.
-
-!!! warning "Subject to Change"
-	
-	Keep in mind that your instructor may deviate somewhat from the following guide, and they have final say on assignment requirements, delivery methods, and due dates. So be sure to pay attention to both in-class and Canvas announcements.
+This module you'll be introducted to cloud computing concepts.
 
 
-For your convenience, here are links to the module 01 assignments:
+#### Preparation Material
 
-#### Case Study Information
+[Iaas Paas Saas](https://cloud.google.com/learn/paas-vs-iaas-vs-saas){:target="_blank"}
 
-* [Case Study Preparation Reading](./preparation.html)
-* [Case Study Requirements](./requirements.html)
-* [Case Study Phases](./phases.html)
-* [AWS Academy Link](https://awsacademy.instructure.com)<br>This case study uses the **Cloud Web Application Builder Lab** Course 
+#### Project Lab
 
-#### Templates
+* [Case Study Preparation Reading](./lab.html)
 
-* [Individual Reflection Template]({{URLROOT}}/course/reflection.docx)
+#### AWS Lab
+
+* [AWS Academy Link](https://awsacademy.instructure.com){target="_blank"} The AWS Lab for this module is **Lab - 1 Introduction to AWS IAM (Module 4)**
+
+#### Additional Materials
+
+<!-- * [Individual Reflection Template]({{URLROOT}}/course/reflection.docx) -->
 
 #### Hints and Helps
 
