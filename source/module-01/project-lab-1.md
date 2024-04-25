@@ -5,7 +5,7 @@ body-class: index-page
 
 ## Download the following files:
 
-Download the [zip file](./quick-oil-s3-static-site.zip) containing the website you are going to host on S3.
+Download the [zip file](./quick-oil-s3-static-site.zip) containing the website you are going to host on S3. You'll need to unzip the files prior to uploading them to your s3 bucket.
 
 ## Open up the lab evironment
 
