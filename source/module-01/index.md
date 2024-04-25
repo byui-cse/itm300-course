@@ -24,7 +24,7 @@ Please review the following:
 
 #### Project Lab
 
-* [Case Study Preparation Reading](./project-lab-1.html)
+* [Host a Static Website with s3](./project-lab-1.html)
 
 <!-- #### Additional Materials -->
 

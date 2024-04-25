@@ -16,9 +16,11 @@ Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner La
 
 Follow the instructions found on this tutorial:
 
-https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html
+[Hosting Website on S3 Setup](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
 
-**NOTE** When you update the s3 bucket to allow static site hosting you must click the PROPERTIES tab to find Edit static web hosting.
+!!! note "Updated instructions"
+
+    When you update the s3 bucket to allow static site hosting you must click the PROPERTIES tab to find Edit static web hosting.
 
 
 ## Helpful other links:
