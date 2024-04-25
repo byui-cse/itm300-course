@@ -13,20 +13,23 @@ This module you'll be introducted to cloud computing concepts.
 
 #### Preparation Material
 
+Please review the following:
+
 [Iaas Paas Saas](https://cloud.google.com/learn/paas-vs-iaas-vs-saas){:target="_blank"}
-
-#### Project Lab
-
-* [Case Study Preparation Reading](./lab.html)
 
 #### AWS Lab
 
 * [AWS Academy Link](https://awsacademy.instructure.com){target="_blank"} The AWS Lab for this module is **Lab - 1 Introduction to AWS IAM (Module 4)**
 
-#### Additional Materials
+
+#### Project Lab
+
+* [Case Study Preparation Reading](./project-lab-1.html)
+
+<!-- #### Additional Materials -->
 
 <!-- * [Individual Reflection Template]({{URLROOT}}/course/reflection.docx) -->
 
-#### Hints and Helps
+<!-- #### Hints and Helps
 
-* [Hints](./hints.html)
+* [Hints](./hints.html) -->
