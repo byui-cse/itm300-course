@@ -25,5 +25,5 @@ Follow the instructions found on this tutorial:
 
 ## Helpful other links:
 
-https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html
+[Website Hosting on Amazon AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
 
