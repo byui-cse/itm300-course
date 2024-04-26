@@ -6,7 +6,7 @@ body-class: index-page
 ![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo.jpg)
 *[Photo by Dall-E-3](https://openai.com/dall-e-3)*
 
-# Product Objective
+## Product Objective
 
 You will be hosting a static website for your client as a placeholder until the final site is up and ready. You will be hosting the site in an S3 bucket. The files are provided for you.
 
