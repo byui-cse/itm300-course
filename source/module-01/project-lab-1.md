@@ -3,6 +3,10 @@ title: Module 01: Project 1 Lab - Static Site on S3
 body-class: index-page
 ---
 
+# Product Objective
+
+You will be hosting a static website for your client as a placeholder until the final site is up and ready. You will be hosting the site in an S3 bucket. The files are provided for you.
+
 ## Download the following files:
 
 Download the [zip file](./quick-oil-s3-static-site.zip) containing the website you are going to host on S3. You'll need to unzip the files prior to uploading them to your s3 bucket.
