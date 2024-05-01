@@ -73,7 +73,17 @@
 </ul>
 <p><a href="https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html">Hosting Website on EC2 using a LAMP stack</a></p>
 <h2 id="download-the-following-files">Download the following files:</h2>
-<p>Use wget to download the zip containing the website you are going to host on EC2. </p>
+<p>Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.</p>
+<div class="admonition info">
+<p class="admonition-title">Quickly Connecting to your Instance</p>
+<p>If you use the vockey when you set up the server, you can do the following to easily connect without needing to use a ssh client.</p>
+<p>From the EC2 view of all instances do the following:</p>
+<ul>
+<li>Click the checkmark next to your instance name</li>
+<li>Click Connect at the top of the screen.</li>
+<li>Click Connect at the bottom of the next screen.</li>
+</ul>
+</div>
 <p>You'll need to unzip the files and place them in the correct location on the server.</p>
 <p>Helpful commands</p>
 <div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">dnf</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">wget</span>
