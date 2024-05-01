@@ -60,11 +60,13 @@ sudo dnf install -y wget
 wget https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
 mkdir /tmp/lab-app
 unzip quick-oil-part2.zip -d /tmp/lab-app
-mv /tmp/lab-app/quick-oil/* /var/www/html
+mv /tmp/lab-app/quick-oil-part2/* /var/www/html
 rm -rf /tmp/lab-app/
 ```
 
 ## Helpful other links:
 
-[Website Hosting on Amazon AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
+[nginx on Amazon Linux 2023](https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20)
+
+[nginx on Amazon Linux 2023 LAMP](https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b)
 
