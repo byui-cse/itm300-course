@@ -104,15 +104,15 @@
 <div class="codehilite"><pre><span></span><code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt
 </code></pre></div>
 
-<p>Country Name (2 letter code) [XX]:<strong>US</strong>
-State or Province Name (full name) []:<strong>Idaho</strong>
-Locality Name (eg, city) [Default City]:<strong>Rexburg</strong>
-Organization Name (eg, company) [Default Company Ltd]:<strong>MyCo</strong>
-Organizational Unit Name (eg, section) []:<strong>Development</strong></p>
+<p>Country Name (2 letter code) [XX]:<strong>US</strong></p>
+<p>State or Province Name (full name) []:<strong>Idaho</strong></p>
+<p>Locality Name (eg, city) [Default City]:<strong>Rexburg</strong></p>
+<p>Organization Name (eg, company) [Default Company Ltd]:<strong>MyCo</strong></p>
+<p>Organizational Unit Name (eg, section) []:<strong>Development</strong></p>
 <p>For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
 52.91.237.254 becomes 52-91.237-254. Then add .nip.io to the end to get the common name.</p>
-<p>Common Name (eg, your name or your server's hostname) []:<strong>52-91-237-254.nip.io</strong><br />
-Email Address []:<strong>youremail@byui.edu</strong></p>
+<p>Common Name (eg, your name or your server's hostname) []:<strong>52-91-237-254.nip.io</strong></p>
+<p>Email Address []:<strong>youremail@byui.edu</strong></p>
 <div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
 </code></pre></div>
 

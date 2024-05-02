@@ -78,15 +78,20 @@ sudo dnf install -y openssl mod_ssl
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt
 ```
 Country Name (2 letter code) [XX]:**US**
+
 State or Province Name (full name) []:**Idaho**
+
 Locality Name (eg, city) [Default City]:**Rexburg**
+
 Organization Name (eg, company) [Default Company Ltd]:**MyCo**
+
 Organizational Unit Name (eg, section) []:**Development**
 
 For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
 52.91.237.254 becomes 52-91.237-254. Then add .nip.io to the end to get the common name.
 
-Common Name (eg, your name or your server's hostname) []:**52-91-237-254.nip.io**  
+Common Name (eg, your name or your server's hostname) []:**52-91-237-254.nip.io**
+  
 Email Address []:**youremail@byui.edu**
 
 ```
