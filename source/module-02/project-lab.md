@@ -8,7 +8,7 @@ body-class: index-page
 
 ## Product Objective
 
-You will be hosting a website for your client on EC2. We'll also install a ssl certificate. The files are provided for you.
+You will be hosting a website for your client on EC2. We'll also install a ssl certificate. The files for the website are provided for you.
 
 
 ## Open up the lab evironment
@@ -31,7 +31,7 @@ Follow the instructions (steps 1-3 only) found on this tutorial with these addit
 * Use the vockey for your keypair
 * Use the vehicleapp-vpc VPC
 * place the EC2 instance in the vehicleapp-subnet-public1 subnet. 
-* Auto assign an IP address
+* No not auto assign an IP address
 * Create a security Group and name it vehicle-sg
     * Enable ports 80, 443, and 22 all from anywhere
 
@@ -63,6 +63,10 @@ unzip quick-oil-part2.zip -d /tmp/lab-app
 mv /tmp/lab-app/quick-oil-part2/* /var/www/html
 rm -rf /tmp/lab-app/
 ```
+
+## Assign an Elastic IP
+
+Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic IP address and then associate that elastic IP address with your instance.
 
 ## Enable SSL
 
@@ -104,3 +108,4 @@ Submit a screenshot of your website running over https. You'll need to accept th
 
 [nginx on Amazon Linux 2023 LAMP](https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b)
 
+[OpenSSL Quick Reference Guide](https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm)

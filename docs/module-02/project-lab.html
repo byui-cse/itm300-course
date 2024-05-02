@@ -29,6 +29,7 @@
 <li><a href="#create-a-vpc">Create a VPC</a></li>
 <li><a href="#tutorial-instructions">Tutorial Instructions:</a></li>
 <li><a href="#download-the-following-files">Download the following files:</a></li>
+<li><a href="#assign-an-elastic-ip">Assign an Elastic IP</a></li>
 <li><a href="#enable-ssl">Enable SSL</a></li>
 <li><a href="#helpful-other-links">Helpful other links:</a></li>
 </ul>
@@ -50,7 +51,7 @@
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo.jpg" />
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>You will be hosting a website for your client on EC2. We'll also install a ssl certificate. The files are provided for you.</p>
+<p>You will be hosting a website for your client on EC2. We'll also install a ssl certificate. The files for the website are provided for you.</p>
 <h2 id="open-up-the-lab-evironment">Open up the lab evironment</h2>
 <p>Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner Lab and go to the AWS console by clicking on the green dot when it appears.</p>
 <h2 id="create-a-vpc">Create a VPC</h2>
@@ -66,7 +67,7 @@
 <li>Use the vockey for your keypair</li>
 <li>Use the vehicleapp-vpc VPC</li>
 <li>place the EC2 instance in the vehicleapp-subnet-public1 subnet. </li>
-<li>Auto assign an IP address</li>
+<li>No not auto assign an IP address</li>
 <li>Create a security Group and name it vehicle-sg<ul>
 <li>Enable ports 80, 443, and 22 all from anywhere</li>
 </ul>
@@ -95,6 +96,8 @@
 <span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
 </code></pre></div>
 
+<h2 id="assign-an-elastic-ip">Assign an Elastic IP</h2>
+<p>Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic IP address and then associate that elastic IP address with your instance.</p>
 <h2 id="enable-ssl">Enable SSL</h2>
 <p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA.</p>
 <div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
@@ -119,6 +122,7 @@
 <h2 id="helpful-other-links">Helpful other links:</h2>
 <p><a href="https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20">nginx on Amazon Linux 2023</a></p>
 <p><a href="https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b">nginx on Amazon Linux 2023 LAMP</a></p>
+<p><a href="https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm">OpenSSL Quick Reference Guide</a></p>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
