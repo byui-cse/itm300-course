@@ -8,7 +8,7 @@ body-class: index-page
 
 ## Product Objective
 
-You will be hosting a website for your client on EC2. We'll also install a ssl certificate. The files for the website are provided for you.
+You will be hosting a website for your client on EC2. We'll also install an ssl certificate. The files for the website are provided for you.
 
 
 ## Open up the lab evironment

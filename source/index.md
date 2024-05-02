@@ -3,6 +3,9 @@ title: Course Index
 body-class: index-page
 ---
 
+![ITM 300 Cloud Foundations]({{URLROOT}}/shared/img/course-header.png)
+*[Photo by Dall-E-3](https://openai.com/dall-e-3)*
+
 ## ITM 300 - Course Index
 
 This is a handy index page for the course content and readings in ITM 300. This content is subject to change without notice and is for informational purposes only. 
