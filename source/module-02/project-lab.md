@@ -88,10 +88,10 @@ Organization Name (eg, company) [Default Company Ltd]:**MyCo**
 Organizational Unit Name (eg, section) []:**Development**
 
 For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
-52.91.237.254 becomes 52-91.237-254. Then add .nip.io to the end to get the common name.
+52.91.237.254 becomes 52-91-237-254. Then add .nip.io to the end to get the common name.
 
 Common Name (eg, your name or your server's hostname) []:**52-91-237-254.nip.io**
-  
+
 Email Address []:**youremail@byui.edu**
 
 ```
