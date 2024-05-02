@@ -29,6 +29,7 @@
 <li><a href="#create-a-vpc">Create a VPC</a></li>
 <li><a href="#tutorial-instructions">Tutorial Instructions:</a></li>
 <li><a href="#download-the-following-files">Download the following files:</a></li>
+<li><a href="#enable-ssl">Enable SSL</a></li>
 <li><a href="#helpful-other-links">Helpful other links:</a></li>
 </ul>
 </div>
@@ -49,7 +50,7 @@
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo.jpg" />
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>You will be hosting a website for your client on EC2. The files are provided for you.</p>
+<p>You will be hosting a website for your client on EC2. We'll also install a ssl certificate. The files are provided for you.</p>
 <h2 id="open-up-the-lab-evironment">Open up the lab evironment</h2>
 <p>Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner Lab and go to the AWS console by clicking on the green dot when it appears.</p>
 <h2 id="create-a-vpc">Create a VPC</h2>
@@ -92,6 +93,27 @@
 <span class="n">unzip</span><span class="w"> </span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
 <span class="n">mv</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">/*</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
 <span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
+</code></pre></div>
+
+<h2 id="enable-ssl">Enable SSL</h2>
+<p>We'll use openssl to generate a private key that is self signed. You'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't sign it.</p>
+<p>Make sure you open port 443 in your security group.</p>
+<div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt
+</code></pre></div>
+
+<p>Country Name (2 letter code) [XX]:<strong>US</strong>
+State or Province Name (full name) []:<strong>Idaho</strong>
+Locality Name (eg, city) [Default City]:<strong>Rexburg</strong>
+Organization Name (eg, company) [Default Company Ltd]:<strong>MyCo</strong>
+Organizational Unit Name (eg, section) []:<strong>Development</strong></p>
+<p>For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
+52.91.237.254 becomes 52-91.237-254. Then add .nip.io to the end to get the common name.</p>
+<p>Common Name (eg, your name or your server's hostname) []:<strong>52-91-237-254.nip.io</strong><br />
+Email Address []:<strong>youremail@byui.edu</strong></p>
+<div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
 </code></pre></div>
 
 <h2 id="helpful-other-links">Helpful other links:</h2>
