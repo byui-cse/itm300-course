@@ -96,8 +96,7 @@
 </code></pre></div>
 
 <h2 id="enable-ssl">Enable SSL</h2>
-<p>We'll use openssl to generate a private key that is self signed. You'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't sign it.</p>
-<p>Make sure you open port 443 in your security group.</p>
+<p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA.</p>
 <div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
 </code></pre></div>
 
@@ -116,6 +115,7 @@
 <div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
 </code></pre></div>
 
+<p>Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.</p>
 <h2 id="helpful-other-links">Helpful other links:</h2>
 <p><a href="https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20">nginx on Amazon Linux 2023</a></p>
 <p><a href="https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b">nginx on Amazon Linux 2023 LAMP</a></p>

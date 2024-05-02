@@ -66,9 +66,7 @@ rm -rf /tmp/lab-app/
 
 ## Enable SSL
 
-We'll use openssl to generate a private key that is self signed. You'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't sign it.
-
-Make sure you open port 443 in your security group.
+We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA.
 
 ```
 sudo dnf install -y openssl mod_ssl
@@ -97,6 +95,8 @@ Email Address []:**youremail@byui.edu**
 ```
 sudo systemctl restart httpd
 ```
+
+Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.
 
 ## Helpful other links:
 
