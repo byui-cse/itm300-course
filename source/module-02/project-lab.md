@@ -41,7 +41,7 @@ Follow the instructions (steps 1-3 only) found on this tutorial with these addit
 
 Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.
 
-!!! info "Quickly Connecting to your Instance"
+!!! note "Quickly Connecting to your Instance"
 
     If you use the vockey when you set up the server, you can do the following to easily connect without needing to use a ssh client.
 
