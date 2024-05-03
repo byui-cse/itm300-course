@@ -101,7 +101,7 @@ Create a PHP file in the Apache document root.
 echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
 ```
 
-Go to http://my.public.dns.amazonaws.com/phpinfo.php and make sure you get a page that works (note that it is on http and not https)
+Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (note that it is on http and not https)
 
 Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.
 

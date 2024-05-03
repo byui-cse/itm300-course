@@ -123,7 +123,7 @@ To add group write permissions, recursively change the file permissions of /var/
 <div class="codehilite"><pre><span></span><code><span class="nx">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="cp">&lt;?php</span> <span class="nb">phpinfo</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">/var/www/html/phpinfo.php</span>
 </code></pre></div>
 
-<p>Go to http://my.public.dns.amazonaws.com/phpinfo.php and make sure you get a page that works (note that it is on http and not https)</p>
+<p>Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (note that it is on http and not https)</p>
 <p>Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">rm</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">phpinfo</span><span class="o">.</span><span class="n">php</span>
 </code></pre></div>
