@@ -27,6 +27,7 @@
 <li><a href="#product-objective">Product Objective</a></li>
 <li><a href="#open-up-the-lab-evironment">Open up the lab evironment</a></li>
 <li><a href="#create-a-vpc">Create a VPC</a></li>
+<li><a href="#create-an-ec2-instance">Create an EC2 instance</a></li>
 <li><a href="#tutorial-instructions">Tutorial Instructions:</a></li>
 <li><a href="#download-the-following-files">Download the following files:</a></li>
 <li><a href="#assign-an-elastic-ip">Assign an Elastic IP</a></li>
@@ -61,21 +62,18 @@
 <li>Number of Availability Zones: 2</li>
 <li>VPC Endpoints: None</li>
 </ul>
-<h2 id="tutorial-instructions">Tutorial Instructions:</h2>
-<p>Follow the instructions (steps 1-3 only) found on this tutorial with these additional requirements:</p>
+<h2 id="create-an-ec2-instance">Create an EC2 instance</h2>
 <ul>
+<li>Name the server vehicleapp-1</li>
 <li>Use the vockey for your keypair</li>
 <li>Use the vehicleapp-vpc VPC</li>
 <li>place the EC2 instance in the vehicleapp-subnet-public1 subnet. </li>
-<li>No not auto assign an IP address</li>
+<li>Enable auto assign an IP address</li>
 <li>Create a security Group and name it vehicle-sg<ul>
-<li>Enable ports 80, 443, and 22 all from anywhere</li>
+<li>Enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere</li>
 </ul>
 </li>
 </ul>
-<p><a href="https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html">Hosting Website on EC2 using a LAMP stack</a></p>
-<h2 id="download-the-following-files">Download the following files:</h2>
-<p>Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.</p>
 <div class="admonition note">
 <p class="admonition-title">Quickly Connecting to your Instance</p>
 <p>If you use the vockey when you set up the server, you can do the following to easily connect without needing to use a ssh client.</p>
@@ -86,6 +84,11 @@
 <li>Click Connect at the bottom of the next screen.</li>
 </ul>
 </div>
+<h2 id="tutorial-instructions">Tutorial Instructions:</h2>
+<p>Follow the instructions (Steps 1-3 only) found on this tutorial with these additional requirements:</p>
+<p><a href="https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html">Hosting Website on EC2 using a LAMP stack</a></p>
+<h2 id="download-the-following-files">Download the following files:</h2>
+<p>Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.</p>
 <p>You'll need to unzip the files and place them in the correct location on the server.</p>
 <p>Helpful commands</p>
 <div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">dnf</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">wget</span>

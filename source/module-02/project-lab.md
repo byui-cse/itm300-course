@@ -24,22 +24,15 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
 * Number of Availability Zones: 2
 * VPC Endpoints: None
 
-## Tutorial Instructions:
+## Create an EC2 instance
 
-Follow the instructions (steps 1-3 only) found on this tutorial with these additional requirements:
-
+* Name the server vehicleapp-1
 * Use the vockey for your keypair
 * Use the vehicleapp-vpc VPC
 * place the EC2 instance in the vehicleapp-subnet-public1 subnet. 
-* No not auto assign an IP address
+* Enable auto assign an IP address
 * Create a security Group and name it vehicle-sg
-    * Enable ports 80, 443, and 22 all from anywhere
-
-[Hosting Website on EC2 using a LAMP stack](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
-
-## Download the following files:
-
-Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.
+    * Enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere
 
 !!! note "Quickly Connecting to your Instance"
 
@@ -50,6 +43,17 @@ Use wget to download the zip containing the website you are going to host on EC2
     * Click the checkmark next to your instance name
     * Click Connect at the top of the screen.
     * Click Connect at the bottom of the next screen.
+    
+## Tutorial Instructions:
+
+Follow the instructions (Steps 1-3 only) found on this tutorial with these additional requirements:
+
+[Hosting Website on EC2 using a LAMP stack](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
+
+## Download the following files:
+
+Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.
+
 
 You'll need to unzip the files and place them in the correct location on the server.
 
