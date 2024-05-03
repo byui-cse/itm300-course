@@ -46,7 +46,70 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
     
 ## Tutorial Instructions:
 
-Follow the instructions (Steps 1-3 only) found on this tutorial with these additional requirements:
+Once you are connected to the EC2, run the following commands. Full instructions and explainations are found in the link below.
+
+```
+sudo dnf update -y
+```
+
+Install the latest versions of Apache web server and PHP packages.
+
+```
+sudo dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
+```
+
+Install the MariaDB software packages. Use the dnf install command to install multiple software packages and all related dependencies at the same time.
+
+```
+sudo dnf install mariadb105-server
+```
+
+Start the Apache web server.
+
+```
+sudo systemctl start httpd
+```
+
+Use the systemctl command to configure the Apache web server to start at each system boot. 
+
+```
+sudo systemctl enable httpd
+```
+
+Add your user (in this case, ec2-user) to the apache group.
+
+```
+sudo usermod -a -G apache ec2-user
+exit
+```
+
+You'll need to disconnect and reconnect to the EC2 terminal
+
+Change the group ownership of /var/www and its contents to the apache group.
+To add group write permissions and to set the group ID on future subdirectories, change the directory permissions of /var/www and its subdirectories.
+To add group write permissions, recursively change the file permissions of /var/www and its subdirectories:
+
+```
+sudo chown -R ec2-user:apache /var/www
+sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec sudo chmod 0664 {} \;
+```
+
+Create a PHP file in the Apache document root.
+
+```
+echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+```
+
+Go to http://my.public.dns.amazonaws.com/phpinfo.php and make sure you get a page that works (note that it is on http and not https)
+
+Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.
+
+```
+rm /var/www/html/phpinfo.php
+```
+
+
 
 [Hosting Website on EC2 using a LAMP stack](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
 
