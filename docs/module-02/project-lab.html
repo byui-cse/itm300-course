@@ -70,7 +70,7 @@
 <li>place the EC2 instance in the vehicleapp-subnet-public1 subnet. </li>
 <li>Enable auto assign an IP address</li>
 <li>Create a security Group and name it vehicle-sg<ul>
-<li>Enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere</li>
+<li>Add security rules to enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere</li>
 </ul>
 </li>
 </ul>
@@ -131,9 +131,7 @@ To add group write permissions, recursively change the file permissions of /var/
 <p>Full instructions are found here if you want more details on the code above:</p>
 <p><a href="https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html">Hosting Website on EC2 using a LAMP stack</a></p>
 <h2 id="download-the-following-files">Download the following files:</h2>
-<p>Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.</p>
-<p>You'll need to unzip the files and place them in the correct location on the server.</p>
-<p>Helpful commands</p>
+<p>Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">dnf</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">wget</span>
 <span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">byui</span><span class="o">-</span><span class="n">cse</span><span class="o">/</span><span class="n">itm300</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">module</span><span class="o">-</span><span class="mi">02</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span>
 <span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
@@ -145,7 +143,7 @@ To add group write permissions, recursively change the file permissions of /var/
 <h2 id="assign-an-elastic-ip">Assign an Elastic IP</h2>
 <p>Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic IP address and then associate that elastic IP address with your instance.</p>
 <h2 id="enable-ssl">Enable SSL</h2>
-<p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA.</p>
+<p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.</p>
 <div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
 </code></pre></div>
 

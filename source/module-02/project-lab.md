@@ -32,7 +32,7 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
 * place the EC2 instance in the vehicleapp-subnet-public1 subnet. 
 * Enable auto assign an IP address
 * Create a security Group and name it vehicle-sg
-    * Enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere
+    * Add security rules to enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere
 
 !!! note "Quickly Connecting to your Instance"
 
@@ -116,12 +116,8 @@ Full instructions are found here if you want more details on the code above:
 
 ## Download the following files:
 
-Use wget to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.
+Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.
 
-
-You'll need to unzip the files and place them in the correct location on the server.
-
-Helpful commands
 
 ```
 sudo dnf install -y wget
@@ -138,7 +134,7 @@ Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic I
 
 ## Enable SSL
 
-We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA.
+We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.
 
 ```
 sudo dnf install -y openssl mod_ssl
