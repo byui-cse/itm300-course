@@ -110,6 +110,7 @@ rm /var/www/html/phpinfo.php
 ```
 
 
+Full instructions are found here if you want more details on the code above:
 
 [Hosting Website on EC2 using a LAMP stack](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
 
