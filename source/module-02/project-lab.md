@@ -44,7 +44,7 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
     * Click Connect at the top of the screen.
     * Click Connect at the bottom of the next screen.
     
-## Tutorial Instructions:
+## Server Setup:
 
 Once you are connected to the EC2, run the following commands. Full instructions and explainations are found in the link below.
 
