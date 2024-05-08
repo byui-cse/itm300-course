@@ -148,21 +148,22 @@
 <p>In /var/www/html/scripts/login.js update line 23 and 24 <strong>UserPoolId</strong> and <strong>ClientId</strong>. These values can be found from the Cognito user pool information.</p>
 <p>In /var/www/html/scripts/getMessage.js update line 10 <strong>hostedUI</strong>. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.</p>
 <p>Here is an example link: </p>
-<p>```https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&amp;response_type=code&amp;scope=email+openid+phone&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">You</span><span class="err">&#39;ll update it so that it has the following:</span>
-
-<span class="err">* Your Cognito Domain (Found under app integration tab): https://vehicleappname.auth.us-east-1.amazoncognito.com/</span>
-<span class="err">* oauth2/authorize? (this stays the same for everyone)</span>
-<span class="err">* client_id=YOUR-CLIENT-ID-GOES-HERE</span>
-<span class="err">* &amp;response_type=token</span>
-<span class="err">* &amp;scope=email+openid+phone</span>
-<span class="err">* &amp;redirect=https://ec2-44-223-155-86.nip.io/</span>
-
-<span class="err">I would end up with something like this:</span>
+<div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&amp;response_type=code&amp;scope=email+openid+phone&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
 </code></pre></div>
 
-<p>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&amp;response_type=token&amp;scope=email+openid+phone&amp;redirect_uri=https://ec2-44-223-155-81.nip.io/
-```</p>
+<p>You'll update it so that it has the following:</p>
+<ul>
+<li>Your Cognito Domain (Found under app integration tab): https://vehicleappname.auth.us-east-1.amazoncognito.com/</li>
+<li>oauth2/authorize? (this stays the same for everyone)</li>
+<li>client_id=YOUR-CLIENT-ID-GOES-HERE</li>
+<li>&amp;response_type=token</li>
+<li>&amp;scope=email+openid+phone</li>
+<li>&amp;redirect=https://ec2-44-223-155-86.nip.io/</li>
+</ul>
+<p>I would end up with something like this:</p>
+<div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&amp;response_type=token&amp;scope=email+openid+phone&amp;redirect_uri=https://ec2-44-223-155-81.nip.io/
+</code></pre></div>
+
 <h2 id="log-in">Log in</h2>
 <p>Once you've connected everything, you can log in.</p>
 <p>Go to the login page of your website. Enter the username and password.</p>
