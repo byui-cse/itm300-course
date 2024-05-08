@@ -44,7 +44,7 @@ We'll first create a user pool which will store all of our users.
 * Choose a unique name for your app (e.g. Vehicle App - Quick)
 * Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's NIP.IO address.
 
-!!! info "Your nip.io address"
+!!! note "Your nip.io address"
 
     To get your nip.io address, open a tab with your EC2 instance that you created last week. Find the IPv4 address that has been assigned to your instance. You'll use this address to create your nip.io address:
 
