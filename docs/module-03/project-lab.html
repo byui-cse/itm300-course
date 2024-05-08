@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Module 03: Project 3 Lab - Connect with Cognito</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.eot');
+            src: url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.eot#iefix-8k8p81') format('embedded-opentype'), url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.ttf') format('truetype'), url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.woff') format('woff'), url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.svg#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/highlight/styles/monokai-sublime.min.css">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/cse450.css?v1.5.1">
+    <meta charset="utf-8">
+
+</head>
+<body class="index-page">
+     <div id="modal-screen">
+        <div id="contents-wrapper">
+            <div class="toc">
+<ul>
+<li><a href="#product-objective">Product Objective</a></li>
+<li><a href="#open-up-the-lab-evironment">Open up the lab evironment</a></li>
+<li><a href="#create-a-user-pool">Create a User Pool</a></li>
+<li><a href="#add-an-application">Add an Application</a></li>
+<li><a href="#create-a-user">Create a User</a></li>
+<li><a href="#explore-the-hosted-ui">Explore the Hosted UI</a></li>
+<li><a href="#update-password-for-user">Update Password for User</a></li>
+<li><a href="#connect-with-our-app">Connect with our APP</a></li>
+<li><a href="#update-the-app-logic">Update the App logic</a></li>
+</ul>
+</div>
+
+            <a href="#" id="hide-contents" title="Close Table of Contents"><i class="far fa-window-close"></i></a>
+        </div>
+    </div>
+	<header>
+        <span class="icon-byui-logo"></span>
+        <div id="titles">
+            <h1>ITM 300 - Cloud Foundations</h1>
+            <h2>Module 03: Project 3 Lab - Connect with Cognito</h2>
+            <nav><a href="https://byui-cse.github.io/itm300-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm300-course/modules/">Modules</a><a href="https://byui-cse.github.io/itm300-course/test-prep/">Test Prep</a></nav>
+        </div>
+        <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
+    </header>
+	<article>
+		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo.jpg" />
+<em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
+<h2 id="product-objective">Product Objective</h2>
+<p>You will be connecting your website with AWS Cognito. Cognito will allow you to register users, store usernames and passwords, and login and logout. For this lab we'll be creating cognito user pool, create users, learn about the hosted UI, and connect the website to cognito to allow us to get a JWT token after authenticating with cognito.</p>
+<h2 id="open-up-the-lab-evironment">Open up the lab evironment</h2>
+<p>Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner Lab and go to the AWS console by clicking on the green dot when it appears.</p>
+<h2 id="create-a-user-pool">Create a User Pool</h2>
+<h2 id="add-an-application">Add an Application</h2>
+<h2 id="create-a-user">Create a User</h2>
+<h2 id="explore-the-hosted-ui">Explore the Hosted UI</h2>
+<h2 id="update-password-for-user">Update Password for User</h2>
+<h2 id="connect-with-our-app">Connect with our APP</h2>
+<h2 id="update-the-app-logic">Update the App logic</h2>
+	</article>
+	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
+	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
+    <script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/contrib/auto-render.min.js"></script>
+	<script src="https://byui-cse.github.io/itm300-course/shared/lib/smartquotes/smartquotes.min.js"></script>
+    <script>
+
+        /* Startup scripts for katex rendering */
+    	renderMathInElement(document.body,
+		{
+			delimiters: [
+				{left: "$$", right: "$$", display: true},
+				{left: "$", right: "$", display: false},
+			]
+    	});
+
+        /* Highlighting code */
+    	hljs.initHighlightingOnLoad();
+    	var elements = document.querySelectorAll('.language-text')
+		for (var i = 0; i < elements.length; i++) {
+  			elements[i].classList.add('hljs');
+		}
+
+        /* TOC support */
+        var hideContents = function(e){
+            console.log(e.target);
+            if(e.target.id === 'modal-screen' || e.target.nodeName.toLowerCase() === 'i') {
+                e.preventDefault();
+                document.querySelector('#contents-wrapper').classList.remove('active');
+                document.querySelector('#modal-screen').classList.remove('active');
+            }
+        }
+
+        var showContents = function(e){
+            e.preventDefault();
+            document.querySelector('#contents-wrapper').classList.add('active');
+            document.querySelector('#modal-screen').classList.add('active');
+        }
+
+        document.querySelector("#hide-contents").addEventListener('click', hideContents);
+        document.querySelector("#modal-screen").addEventListener('click', hideContents);
+        document.querySelector("#show-contents").addEventListener('click', showContents);
+    	
+    </script>
+</body>
+</html>

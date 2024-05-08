@@ -1,5 +1,5 @@
 ---
-title: Module 01: Project 2 Lab - Host a Website on EC2
+title: Module 02: Project 2 Lab - Host a Website on EC2
 body-class: index-page
 ---
 
