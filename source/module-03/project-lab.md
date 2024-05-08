@@ -3,7 +3,7 @@ title: Module 03: Project 3 Lab - Connect with Cognito
 body-class: index-page
 ---
 
-![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo.jpg)
+![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-login.jpg)
 *[Photo by Dall-E-3](https://openai.com/dall-e-3)*
 
 ## Product Objective
