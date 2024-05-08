@@ -74,8 +74,10 @@ The Hosted UI will open in a new tab. We could use this interface for our user l
 
 ## Update Password for User
 
-Log in as janedoe
+Log in as janedoe.
+
 You'll see that you are promped with a Change Password prompt.
+
 Update your password to Ilove2SeeTheTemple!!
 
 You'll notice that it will try to send you back to localhost:5500. This was the first allowed callback URL.
@@ -109,7 +111,10 @@ In /var/www/html/scripts/login.js update line 23 and 24 **UserPoolId** and **Cli
 
 In /var/www/html/scripts/getMessage.js update line 10 **hostedUI**. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.
 
-Here is an example link: https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&response_type=code&scope=email+openid+phone&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
+Here is an example link: 
+
+```https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&response_type=code&scope=email+openid+phone&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
+```
 
 You'll update it so that it has the following:
 
@@ -122,8 +127,9 @@ You'll update it so that it has the following:
 
 I would end up with something like this:
 
+```
 https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://ec2-44-223-155-81.nip.io/
-
+```
 
 ## Log in
 
