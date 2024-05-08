@@ -48,16 +48,7 @@ We'll first create a user pool which will store all of our users.
 * Choose a unique hosted URL name ()
 * Choose Other for App type
 * Choose a unique name for your app (e.g. Vehicle App - Quick)
-* Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's NIP.IO address.
-
-!!! note "Your nip.io address"
-
-    To get your nip.io address, open a tab with your EC2 instance that you created last week. Find the IPv4 address that has been assigned to your instance. You'll use this address to create your nip.io address:
-
-    If my IPv4 address was 1.2.3.4, you would replace all periods with dashes and add .nip.io to the end of the address like this: 1-2-3-4.nip.io.
-
-    You'll then use this address in the Allowed Callback URLs: https://1-2-3-4.nip.io
-    (Make sure you update this to your address)
+* Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's Public IPv4 DNS address.
 
 ## Create a User
 
@@ -130,12 +121,12 @@ You'll update it so that it has the following:
 * client_id=YOUR-CLIENT-ID-GOES-HERE
 * &response_type=token
 * &scope=email+openid+phone
-* &redirect=https://44-223-155-86.nip.io/
+* &redirect=ec2-44-221-155-86.compute-1.amazonaws.com
 
 I would end up with something like this:
 
 ```
-https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://44-223-155-81.nip.io/
+https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=ec2-44-221-155-86.compute-1.amazonaws.com
 ```
 
 ## Log in

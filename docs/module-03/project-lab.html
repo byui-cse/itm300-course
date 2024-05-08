@@ -101,15 +101,8 @@
 <li>Choose a unique hosted URL name ()</li>
 <li>Choose Other for App type</li>
 <li>Choose a unique name for your app (e.g. Vehicle App - Quick)</li>
-<li>Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's NIP.IO address.</li>
+<li>Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's Public IPv4 DNS address.</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Your nip.io address</p>
-<p>To get your nip.io address, open a tab with your EC2 instance that you created last week. Find the IPv4 address that has been assigned to your instance. You'll use this address to create your nip.io address:</p>
-<p>If my IPv4 address was 1.2.3.4, you would replace all periods with dashes and add .nip.io to the end of the address like this: 1-2-3-4.nip.io.</p>
-<p>You'll then use this address in the Allowed Callback URLs: https://1-2-3-4.nip.io
-(Make sure you update this to your address)</p>
-</div>
 <h2 id="create-a-user">Create a User</h2>
 <p>Once your user pool is created, scroll down to where you see users and click Create User</p>
 <ul>
@@ -163,10 +156,10 @@
 <li>client_id=YOUR-CLIENT-ID-GOES-HERE</li>
 <li>&amp;response_type=token</li>
 <li>&amp;scope=email+openid+phone</li>
-<li>&amp;redirect=https://44-223-155-86.nip.io/</li>
+<li>&amp;redirect=ec2-44-221-155-86.compute-1.amazonaws.com</li>
 </ul>
 <p>I would end up with something like this:</p>
-<div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&amp;response_type=token&amp;scope=email+openid+phone&amp;redirect_uri=https://44-223-155-81.nip.io/
+<div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&amp;response_type=token&amp;scope=email+openid+phone&amp;redirect_uri=ec2-44-221-155-86.compute-1.amazonaws.com
 </code></pre></div>
 
 <h2 id="log-in">Log in</h2>

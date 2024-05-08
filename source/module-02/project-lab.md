@@ -101,7 +101,7 @@ Create a PHP file in the Apache document root.
 echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
 ```
 
-Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (note that it is on http and not https)
+Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (**note that it is on http and not https**)
 
 Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.
 
@@ -134,7 +134,7 @@ Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic I
 
 ## Enable SSL
 
-We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.
+We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. We'll use amazon's Public IPv4 DNS  for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.
 
 ```
 sudo dnf install -y openssl mod_ssl
@@ -153,10 +153,12 @@ Organization Name (eg, company) [Default Company Ltd]:**MyCo**
 
 Organizational Unit Name (eg, section) []:**Development**
 
-For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
-52.91.237.254 becomes 52-91-237-254. Then add .nip.io to the end to get the common name.
+<!-- For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
+52.91.237.254 becomes 52-91-237-254. Then add .nip.io to the end to get the common name. -->
 
-Common Name (eg, your name or your server's hostname) []:**52-91-237-254.nip.io**
+For the common name we'll use the public dns that amazon provides. We would normally use the domain name for the business. Get this from your EC2 instance
+
+Common Name (eg, your name or your server's hostname) []:**ec2-44-221-155-86.compute-1.amazonaws.com**
 
 Email Address []:**youremail@byui.edu**
 

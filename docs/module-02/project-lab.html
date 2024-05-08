@@ -123,7 +123,7 @@ To add group write permissions, recursively change the file permissions of /var/
 <div class="codehilite"><pre><span></span><code><span class="nx">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="cp">&lt;?php</span> <span class="nb">phpinfo</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">/var/www/html/phpinfo.php</span>
 </code></pre></div>
 
-<p>Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (note that it is on http and not https)</p>
+<p>Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (<strong>note that it is on http and not https</strong>)</p>
 <p>Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">rm</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">phpinfo</span><span class="o">.</span><span class="n">php</span>
 </code></pre></div>
@@ -143,7 +143,7 @@ To add group write permissions, recursively change the file permissions of /var/
 <h2 id="assign-an-elastic-ip">Assign an Elastic IP</h2>
 <p>Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic IP address and then associate that elastic IP address with your instance.</p>
 <h2 id="enable-ssl">Enable SSL</h2>
-<p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. Using nip.io we'll create a pseudo domain name we can use for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.</p>
+<p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. We'll use amazon's Public IPv4 DNS  for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.</p>
 <div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
 </code></pre></div>
 
@@ -155,9 +155,11 @@ To add group write permissions, recursively change the file permissions of /var/
 <p>Locality Name (eg, city) [Default City]:<strong>Rexburg</strong></p>
 <p>Organization Name (eg, company) [Default Company Ltd]:<strong>MyCo</strong></p>
 <p>Organizational Unit Name (eg, section) []:<strong>Development</strong></p>
-<p>For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
-52.91.237.254 becomes 52-91-237-254. Then add .nip.io to the end to get the common name.</p>
-<p>Common Name (eg, your name or your server's hostname) []:<strong>52-91-237-254.nip.io</strong></p>
+<!-- For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
+52.91.237.254 becomes 52-91-237-254. Then add .nip.io to the end to get the common name. -->
+
+<p>For the common name we'll use the public dns that amazon provides. We would normally use the domain name for the business. Get this from your EC2 instance</p>
+<p>Common Name (eg, your name or your server's hostname) []:<strong>ec2-44-221-155-86.compute-1.amazonaws.com</strong></p>
 <p>Email Address []:<strong>youremail@byui.edu</strong></p>
 <div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
 </code></pre></div>
