@@ -140,3 +140,4 @@ Go to the login page of your website. Enter the username and password.
 
 If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.
 
+The error console should also give you further ideas if something isn't working correctly.
