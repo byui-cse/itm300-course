@@ -8,7 +8,7 @@ body-class: index-page
 
 ## Product Objective
 
-You will be connecting your website with AWS Cognito. Cognito will allow you to register users, store usernames and passwords, and login and logout. For this lab we'll be creating cognito user pool, create users, learn about the hosted UI, and connect the website to cognito to allow us to get a JWT token after authenticating with cognito.
+You will be connecting your website with AWS Cognito. Cognito will allow you to register users, store usernames and passwords, and login and logout. For this lab we'll be creating Cognito user pool, create users, learn about the hosted UI, and connect the website to Cognito to allow us to get a JWT token after authenticating with Cognito.
 
 
 ## Open up the lab evironment
@@ -19,6 +19,12 @@ Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner La
 ## Create a User Pool
 
 We'll first create a user pool which will store all of our users.
+
+!!! key "Security Concerns"
+
+    We will be creating a very simple setup. There are many more options that can be enabled to enhance the security of the app. This tutorial will cover basics to get you exposure to the concepts. In a production app, you'd want to enable more of the security features.
+
+    It is recommended that you play around with different options after you get the tutorial completed to expand your knowledge and understanding of the options available.
 
 * Search for Cognito in AWS.
 * Click on Create User Pool

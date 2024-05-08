@@ -204,7 +204,7 @@ article ol li {
 
 article li {
   line-height: 1.5;
-  font-size: 18px;
+  font-size: 21px;
   font-family: Georgia, Cambria, "Times New Roman", Times, serif; 
   margin: 0 0 10px 0;
   color: var(--text-color);
@@ -351,6 +351,11 @@ article .dialogue blockquote em{
 .def { background-color: var(--definition-background-color); }
 .warning { background-color: var(--warning-background-color); }
 .time { background-color: var(--time-background-color); }
+.key { background-color: var(--delivery-flexible-color)}
+
+.key > p:first-child:before {
+  content: '\f084';
+}
 
 .note > p:first-child:before {
   content:'\f05a';
