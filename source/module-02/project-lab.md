@@ -162,9 +162,25 @@ Common Name (eg, your name or your server's hostname) []:**ec2-44-221-155-86.com
 
 Email Address []:**youremail@byui.edu**
 
+Once we have our cert created, we need to go replace the build-in localhost cert.
+
+```
+sudo nano /etc/httpd/conf.d/ssl.conf
+```
+
+Replace SSLCertificateFile /etc/pki/tls/certs/localhost.crt with SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
+
+Replace SSLCertificateKeyFile /etc/pki/tls/private/localhost.key with SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
+
+Ctrl-O
+Ctrl-X
+
+
 ```
 sudo systemctl restart httpd
 ```
+
+Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click on the lock icon to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.
 
 Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.
 

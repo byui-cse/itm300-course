@@ -24,9 +24,13 @@ Please review the following:
 
 
 [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/){:target="_blank"}
+
 [AWS Infrastructure Overview](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html){:target="_blank"}
+
 [AWS Regions vs Availability Zones](https://www.youtube.com/watch?v=VCipWYhC6n4){:target="_blank"}
+
 [AWS Cognito](https://aws.amazon.com/cognito/){:target="_blank"}
+
 [AWS Cognito Tutorial Video](https://www.youtube.com/watch?v=zTSGrd3HD0k){:target="_blank"}
 
 

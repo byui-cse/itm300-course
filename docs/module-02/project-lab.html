@@ -161,9 +161,18 @@ To add group write permissions, recursively change the file permissions of /var/
 <p>For the common name we'll use the public dns that amazon provides. We would normally use the domain name for the business. Get this from your EC2 instance</p>
 <p>Common Name (eg, your name or your server's hostname) []:<strong>ec2-44-221-155-86.compute-1.amazonaws.com</strong></p>
 <p>Email Address []:<strong>youremail@byui.edu</strong></p>
+<p>Once we have our cert created, we need to go replace the build-in localhost cert.</p>
+<div class="codehilite"><pre><span></span><code>sudo nano /etc/httpd/conf.d/ssl.conf
+</code></pre></div>
+
+<p>Replace SSLCertificateFile /etc/pki/tls/certs/localhost.crt with SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt</p>
+<p>Replace SSLCertificateKeyFile /etc/pki/tls/private/localhost.key with SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key</p>
+<p>Ctrl-O
+Ctrl-X</p>
 <div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
 </code></pre></div>
 
+<p>Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click on the lock icon to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.</p>
 <p>Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.</p>
 <h2 id="helpful-other-links">Helpful other links:</h2>
 <p><a href="https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20">nginx on Amazon Linux 2023</a></p>
