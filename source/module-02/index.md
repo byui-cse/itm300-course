@@ -16,8 +16,10 @@ This module you'll learn about how cloud billing works and the costs associated 
 Please review the following:
 
 [AWS Pricing Calculator](https://calculator.aws/){:target="_blank"}
+
 [Understanding Subnets](https://www.techopedia.com/6/28587/internet/8-steps-to-understanding-ip-subnetting){:target="_blank"}
 
+[Ports and TCP/IP](https://www.geeksforgeeks.org/tcp-ip-ports-and-its-applications/){:target="_blank"}
 
 #### AWS Lab
 
