@@ -27,7 +27,6 @@
 <li><a href="#product-objective">Product Objective</a></li>
 <li><a href="#open-up-the-lab-evironment">Open up the lab evironment</a></li>
 <li><a href="#create-a-user-pool">Create a User Pool</a></li>
-<li><a href="#add-an-application">Add an Application</a></li>
 <li><a href="#create-a-user">Create a User</a></li>
 <li><a href="#explore-the-hosted-ui">Explore the Hosted UI</a></li>
 <li><a href="#update-password-for-user">Update Password for User</a></li>
@@ -56,12 +55,60 @@
 <h2 id="open-up-the-lab-evironment">Open up the lab evironment</h2>
 <p>Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner Lab and go to the AWS console by clicking on the green dot when it appears.</p>
 <h2 id="create-a-user-pool">Create a User Pool</h2>
-<h2 id="add-an-application">Add an Application</h2>
+<p>We'll first create a user pool which will store all of our users.</p>
+<p>Search for Cognito in AWS.
+Click on Create User Pool
+Don't click Federated identity providers
+Choose User Name under Cognito user pool sign-in options
+    You could store more user details, but for our example we'll simply be storing usernames and passwords.</p>
+<p>User the cognito defaults
+No MFA
+    Using Multifactor Authentication is more secure and would normally be enabled in a production environment
+Uncheck Cognito user pool sign-in options</p>
+<p>Uncheck Enable self-registration
+    We are going to manually add users, which are just the administrators of the application.
+Leave all other defaults</p>
+<p>Choose Send email with Cognito</p>
+<p>Give the User Pool a name of VehicleAppUserPool
+Check Use the Cognito Hosted UI
+Choose a unique hosted URL name ()
+Choose Other for App type
+Choose a unique name for your app (e.g. Vehicle App - Quick)
+Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's NIP.IO address.</p>
+<div class="admonition info">
+<p class="admonition-title">Your nip.io address</p>
+<p>To get your nip.io address, open a tab with your EC2 instance that you created last week. Find the IPv4 address that has been assigned to your instance. You'll use this address to create your nip.io address:</p>
+<p>If my IPv4 address was 1.2.3.4, you would replace all periods with dashes and add .nip.io to the end of the address like this: 1-2-3-4.nip.io.</p>
+<p>You'll then use this address in the Allowed Callback URLs: https://1-2-3-4.nip.io
+(Make sure you update this to your address)</p>
+</div>
 <h2 id="create-a-user">Create a User</h2>
+<p>Once your user pool is created, scroll down to where you see users and click Create User</p>
+<p>Don't send an invite
+Create a user named janedoe
+Password: ILove2SeeTheTemple!</p>
+<p>You'll notice that the user has a confirmation status of Force change password. We will go update their status by logging in to the hosted UI.</p>
 <h2 id="explore-the-hosted-ui">Explore the Hosted UI</h2>
+<p>Click on the tab App Integration
+Scroll to the bottom of the screen and click on VehicleApp</p>
+<p>Scroll down until you see View Hosted UI and click on it.</p>
+<p>The Hosted UI will open in a new tab. We could use this interface for our user login page. However, we will be using an API call to authenticate with Cognito to give the user a more unified experience with the website.</p>
 <h2 id="update-password-for-user">Update Password for User</h2>
+<p>Log in as janedoe
+You'll see that you are promped with a Change Password prompt.
+Update your password to Ilove2SeeTheTemple!!</p>
+<p>You'll notice that it will try to send you back to localhost:5500. This was the first allowed callback URL.</p>
 <h2 id="connect-with-our-app">Connect with our APP</h2>
 <h2 id="update-the-app-logic">Update the App logic</h2>
+<p>Download the newest website app:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">dnf</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">wget</span>
+<span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">byui</span><span class="o">-</span><span class="n">cse</span><span class="o">/</span><span class="n">itm300</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">module</span><span class="o">-</span><span class="mi">03</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part3</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span>
+<span class="n">unzip</span><span class="w"> </span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part3</span><span class="o">.</span><span class="n">zip</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
+<span class="n">mv</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part3</span><span class="o">/*</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
+<span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
+</code></pre></div>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
