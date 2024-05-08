@@ -124,12 +124,12 @@ You'll update it so that it has the following:
 * client_id=YOUR-CLIENT-ID-GOES-HERE
 * &response_type=token
 * &scope=email+openid+phone
-* &redirect=https://ec2-44-223-155-86.nip.io/
+* &redirect=https://44-223-155-86.nip.io/
 
 I would end up with something like this:
 
 ```
-https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://ec2-44-223-155-81.nip.io/
+https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://44-223-155-81.nip.io/
 ```
 
 ## Log in
