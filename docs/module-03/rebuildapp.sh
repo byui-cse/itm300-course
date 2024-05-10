@@ -47,7 +47,7 @@ read ec2_domain
 file_path_message="/var/www/html/scripts/getMessage.js"
 
 # Define the separator to insert between the domains in getMessage.js
-other_separator="/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=\${user_client_id}&redirect_uri="
+other_separator="/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=${user_client_id}&redirect_uri="
 
 # Concatenate the Cognito domain, separator, and EC2 domain
 combined_domain="${cognito_domain}${other_separator}${ec2_domain}"

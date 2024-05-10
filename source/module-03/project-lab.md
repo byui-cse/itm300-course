@@ -49,6 +49,7 @@ We'll first create a user pool which will store all of our users.
 * Choose Other for App type
 * Choose a unique name for your app (e.g. Vehicle App - Quick)
 * Add the following to the allowed callback urls: your website's Public IPv4 DNS address.
+* Advanced App client Settings: Make sure that Allow_User_SRP_Auth is Checked
 
 ## Create a User
 
