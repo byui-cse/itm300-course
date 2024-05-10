@@ -47,13 +47,14 @@ read ec2_domain
 file_path_message="/var/www/html/scripts/getMessage.js"
 
 # Define the separator to insert between the domains in getMessage.js
-other_separator="s@/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=${user_client_id}&redirect_uri=@"
+other_separator="/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id="
+second_separator="&redirect_uri="
 
 # Concatenate the Cognito domain, separator, and EC2 domain
-combined_domain="s@${cognito_domain}${other_separator}${ec2_domain}@"
+# combined_domain="${cognito_domain}${other_separator}${ec2_domain}"
 
 # Use sed to replace the line containing 'const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";'
-sed -i "s@const hostedUI = \"REPLACE-WITH-YOUR-HOSTED-ID\";@const hostedUI = '${combined_domain}';@" "$file_path_message"
+sed -i "s@const hostedUI = \"REPLACE-WITH-YOUR-HOSTED-ID\";@const hostedUI = '${cognito_domain}${other_separator}${user_client_id}${second_separator}${ec2_domain}';@" "$file_path_message"
 
 echo "getMessage Hosted UI updated in $file_path_message"
 
