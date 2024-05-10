@@ -7,3 +7,5 @@ sudo rm -rf /var/www/html/*
 unzip quick-oil-part3.zip -d /tmp/lab-app
 mv /tmp/lab-app/quick-oil-part3/* /var/www/html
 rm -rf /tmp/lab-app/
+rm quick-oil-part3.zip
+rm $0
