@@ -54,7 +54,7 @@ second_separator="&redirect_uri="
 # combined_domain="${cognito_domain}${other_separator}${ec2_domain}"
 
 # Use sed to replace the line containing 'const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";'
-sed -i "s@const hostedUI = \"REPLACE-WITH-YOUR-HOSTED-ID\";@const hostedUI = '${cognito_domain}${other_separator}${user_client_id}${second_separator}${ec2_domain}';@" "$file_path_message"
+sed -i "s/const hostedUI = \"REPLACE-WITH-YOUR-HOSTED-ID\";/const hostedUI = '${cognito_domain}${other_separator}${user_client_id}${second_separator}${ec2_domain}';/" "$file_path_message"
 
 echo "getMessage Hosted UI updated in $file_path_message"
 
