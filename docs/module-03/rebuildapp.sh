@@ -35,22 +35,25 @@ echo "App Client ID updated in $file_path"
 
 ######################################################33
 
+# Prompt the user for the Cognito Domain
 echo "Please enter your Cognito Domain:"
 read cognito_domain
 
-
+# Prompt the user for the EC2 IPv4 URL
 echo "Please enter your EC2 IPv4 URL:"
 read ec2_domain
 
-# Define the file path of login.js
+# Define the file path of getMessage.js
 file_path_message="/var/www/html/scripts/getMessage.js"
 
-other_separator="/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=${user_client_id}&redirect_uri="
+# Define the separator to insert between the domains in getMessage.js
+other_separator="/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=\${user_client_id}&redirect_uri="
 
+# Concatenate the Cognito domain, separator, and EC2 domain
 combined_domain="${cognito_domain}${other_separator}${ec2_domain}"
 
-# Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
-sed -i "s/const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";/const hostedUI: '$combined_domain'/" "$file_path_message"
+# Use sed to replace the line containing 'const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";'
+sed -i "s@const hostedUI = \"REPLACE-WITH-YOUR-HOSTED-ID\";@const hostedUI = '${combined_domain}';@" "$file_path_message"
 
 echo "getMessage Hosted UI updated in $file_path_message"
 
