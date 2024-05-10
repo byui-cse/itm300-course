@@ -35,7 +35,7 @@ We'll first create a user pool which will store all of our users.
 * User the cognito defaults
 * No MFA
     * Using Multifactor Authentication is more secure and would normally be enabled in a production environment
-* Uncheck Cognito user pool sign-in options
+* Uncheck Allow User Self-Recovery
 
 * Uncheck Enable self-registration
     * We are going to manually add users, which are just the administrators of the application.
