@@ -20,6 +20,8 @@ sed -i "s/UserPoolId: 'REPLACE-WITH-YOUR-USER-POOL-ID',/UserPoolId: '$user_pool_
 
 echo "User Pool ID updated in $file_path"
 
+######################################################33
+
 echo "Please enter your App Client ID:"
 read user_client_id
 
@@ -30,5 +32,27 @@ file_path="/var/www/html/scripts/login.js"
 sed -i "s/ClientId: 'REPLACE-WITH-YOUR-CLIENT-ID'/ClientId: '$user_client_id'/" "$file_path"
 
 echo "App Client ID updated in $file_path"
+
+######################################################33
+
+echo "Please enter your Cognito Domain:"
+read cognito_domain
+
+
+echo "Please enter your EC2 IPv4 URL:"
+read ec2_domain
+
+# Define the file path of login.js
+file_path_message="/var/www/html/scripts/getMessage.js"
+
+separator = "/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=${user_client_id}&redirect_uri="
+
+combined_domain="${cognito_domain}${separator}${ec2_domain}"
+
+# Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
+sed -i "s/const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";/const hostedUI: '$cognito_domain'/" "$file_path_message"
+
+echo "getMessage Hosted UI updated in $file_path_message"
+
 
 rm $0
