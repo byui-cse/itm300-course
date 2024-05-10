@@ -137,12 +137,12 @@ You'll update it so that it has the following:
 * client_id=YOUR-CLIENT-ID-GOES-HERE
 * &response_type=token
 * &scope=email+openid+phone
-* &redirect=ec2-44-221-155-86.compute-1.amazonaws.com
+* &redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com (This is your IPv4 domain name)
 
 I would end up with something like this:
 
 ```
-https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=ec2-44-221-155-86.compute-1.amazonaws.com
+https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com
 ```
 
 ## Log in
