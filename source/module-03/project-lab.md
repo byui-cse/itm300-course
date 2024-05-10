@@ -94,6 +94,9 @@ wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/rebuild
 chmod +x ./rebuildapp.sh
 ```
 
+Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.
+
+
 ```
 sudo bash ./rebuildapp.sh
 ```
@@ -115,9 +118,9 @@ Visit your Public IPv4 DNS address in a new tab to make sure the website is runn
 
 You'll need to make a few changes to the code to connect your app to the cognito user pool you just created.
 
-Using whatever text editor you like, or optionally after installing cloud9, go out and update the following files:
+<!-- Using whatever text editor you like, or optionally after installing cloud9, go out and update the following files:
 
-In /var/www/html/scripts/login.js update line 23 and 24 **UserPoolId** and **ClientId**. These values can be found from the Cognito user pool information.
+In /var/www/html/scripts/login.js update line 23 and 24 **UserPoolId** and **ClientId**. These values can be found from the Cognito user pool information. -->
 
 In /var/www/html/scripts/getMessage.js update line 10 **hostedUI**. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.
 

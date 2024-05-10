@@ -20,7 +20,7 @@ sed -i "s/UserPoolId: 'REPLACE-WITH-YOUR-USER-POOL-ID',/UserPoolId: '$user_pool_
 
 echo "User Pool ID updated in $file_path"
 
-echo "Please enter your User Client ID:"
+echo "Please enter your App Client ID:"
 read user_client_id
 
 # Define the file path of login.js
@@ -29,6 +29,6 @@ file_path="/var/www/html/scripts/login.js"
 # Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
 sed -i "s/ClientId: 'REPLACE-WITH-YOUR-CLIENT-ID'/ClientId: '$user_client_id'/" "$file_path"
 
-echo "User Client ID updated in $file_path"
+echo "App Client ID updated in $file_path"
 
 rm $0

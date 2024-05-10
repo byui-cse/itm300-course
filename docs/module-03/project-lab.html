@@ -136,6 +136,7 @@
 <div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
 </code></pre></div>
 
+<p>Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.</p>
 <div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
 </code></pre></div>
 
@@ -152,8 +153,10 @@ rm -rf /tmp/lab-app/
 <p>Visit your Public IPv4 DNS address in a new tab to make sure the website is running</p>
 <h2 id="connect-with-our-app">Connect with our APP</h2>
 <p>You'll need to make a few changes to the code to connect your app to the cognito user pool you just created.</p>
-<p>Using whatever text editor you like, or optionally after installing cloud9, go out and update the following files:</p>
-<p>In /var/www/html/scripts/login.js update line 23 and 24 <strong>UserPoolId</strong> and <strong>ClientId</strong>. These values can be found from the Cognito user pool information.</p>
+<!-- Using whatever text editor you like, or optionally after installing cloud9, go out and update the following files:
+
+In /var/www/html/scripts/login.js update line 23 and 24 **UserPoolId** and **ClientId**. These values can be found from the Cognito user pool information. -->
+
 <p>In /var/www/html/scripts/getMessage.js update line 10 <strong>hostedUI</strong>. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.</p>
 <p>Here is an example link: </p>
 <div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&amp;response_type=code&amp;scope=email+openid+phone&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
