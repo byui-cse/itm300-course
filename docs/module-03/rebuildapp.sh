@@ -45,12 +45,12 @@ read ec2_domain
 # Define the file path of login.js
 file_path_message="/var/www/html/scripts/getMessage.js"
 
-separator = "/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=${user_client_id}&redirect_uri="
+other_separator="/oauth2/authorize?response_type=token&scope=email+openid+phone&client_id=${user_client_id}&redirect_uri="
 
-combined_domain="${cognito_domain}${separator}${ec2_domain}"
+combined_domain="${cognito_domain}${other_separator}${ec2_domain}"
 
 # Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
-sed -i "s/const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";/const hostedUI: '$cognito_domain'/" "$file_path_message"
+sed -i "s/const hostedUI = "REPLACE-WITH-YOUR-HOSTED-ID";/const hostedUI: '$combined_domain'/" "$file_path_message"
 
 echo "getMessage Hosted UI updated in $file_path_message"
 
