@@ -48,7 +48,7 @@ We'll first create a user pool which will store all of our users.
 * Choose a unique hosted URL name ()
 * Choose Other for App type
 * Choose a unique name for your app (e.g. Vehicle App - Quick)
-* Add the following to the allowed callback urls: http://localhost:5500, http://localhost:3000, and your website's Public IPv4 DNS address.
+* Add the following to the allowed callback urls: your website's Public IPv4 DNS address.
 
 ## Create a User
 
