@@ -87,6 +87,19 @@ Connect to your Vehicle App EC2 Instance
 Download the newest website app:
 
 ```
+wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/rebuildapp.sh
+```
+
+```
+chmod +x ./rebuildapp.sh
+```
+
+```
+sudo bash ./rebuildapp.sh
+```
+
+
+<!-- ```
 sudo dnf install -y wget
 wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/quick-oil-part3.zip
 mkdir /tmp/lab-app
@@ -94,9 +107,9 @@ sudo rm -rf /var/www/html/*
 unzip quick-oil-part3.zip -d /tmp/lab-app
 mv /tmp/lab-app/quick-oil-part3/* /var/www/html
 rm -rf /tmp/lab-app/
-```
+``` -->
 
-Visit your nip.io address in a new tab to make sure the website is running
+Visit your Public IPv4 DNS address in a new tab to make sure the website is running
 
 ## Connect with our APP
 
