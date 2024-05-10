@@ -112,7 +112,7 @@ Deploy the Lambda function by clicking the Deploy button
 
     If you make any changes to your function, you must click Deploy to deploy the new changes. 
 
-## Create API Gateway
+## Create the API Gateway
 
 Search for API Gateway.
 
@@ -181,5 +181,6 @@ You'll need to update line #1 of requestServiceHelper.mjs in the scripts folder.
 
 * Click Stages on the left bar
 * Under stage details find Invoke URL and copy that address
+* Paste that as the value of the baseUrl on the first line of requestServiceHelper.mjs
 
 Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.
