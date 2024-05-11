@@ -48,7 +48,7 @@ file_path_message="/var/www/html/scripts/getMessage.js"
 
 sed -i "s|REPLACE-WITH-COGNITO-URL|${cognito_domain}|g; \
         s|REPLACE-WITH-CLIENT-ID|${user_client_id}|g; \
-        s|REPLACE-WITH-EC2-URL|https://${ec2_domain}|g" "$file_path_message"
+        s|REPLACE-WITH-EC2-URL|https%3A%2F%2F${ec2_domain}|g" "$file_path_message"
 
 echo "getMessage Hosted UI updated in $file_path_message"
 
