@@ -40,7 +40,7 @@ echo "Please enter your Cognito Domain:"
 read cognito_domain
 
 # Prompt the user for the EC2 IPv4 URL
-echo "Please enter your EC2 IPv4 URL:"
+echo "Please enter your EC2 IPv4 URL: (e.g. ec2-44-223-155-81.compute-1.amazonaws.com)"
 read ec2_domain
 
 # Define the file path of getMessage.js
