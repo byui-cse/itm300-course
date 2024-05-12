@@ -12,13 +12,16 @@ rm quick-oil-part4.zip
 ######################################################
 
 echo "Please enter your API Gateway Invoke URL:"
-read invoke_url
+read -r invoke_url  # Use -r option to prevent backslashes from being interpreted
 
-# Define the file path of login.js
+# Define the file path of requestServiceHelper.js
 file_path="/var/www/html/scripts/requestServiceHelper.js"
 
-# Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
-sed -i "s/REPLACE-WITH-INVOKE-URL/${invoke_url}/g" "$file_path"
+# Escape special characters in the URL for use in sed
+escaped_url=$(sed 's/[&/\]/\\&/g' <<< "$invoke_url")
+
+# Use sed to replace the placeholder in the JavaScript file
+sed -i "s|REPLACE-WITH-INVOKE-URL|${escaped_url}|g" "$file_path"
 
 echo "Invoke URL updated in $file_path"
 
