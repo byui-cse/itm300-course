@@ -34,20 +34,20 @@ Update index.mjs with:
 ```
 import { getServiceRequests } from './dataService.mjs';
 
+const commonHeaders = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT'
+};
+
 export const handler = async (event) => {
-  // console.log("here");
   try {
     const jsonArray = getServiceRequests();
     const response = {
       statusCode: 200,
-  
       body: JSON.stringify(jsonArray),
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Headers" : "Content-Type",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"        
-      },
+      headers: commonHeaders
     };
     return response;
   } catch (error) {
@@ -55,12 +55,7 @@ export const handler = async (event) => {
     const response = {
       statusCode: 500,
       body: JSON.stringify({ message: 'Internal Server Error' }),
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Headers" : "Content-Type",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"          
-      },
+      headers: commonHeaders
     };
     return response;
   }

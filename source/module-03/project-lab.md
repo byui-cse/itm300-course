@@ -115,14 +115,14 @@ rm -rf /tmp/lab-app/
 
 Visit your Public IPv4 DNS address in a new tab to make sure the website is running
 
-## Connect with our APP
+<!-- ## Connect with our APP
 
-You'll need to make a few changes to the code to connect your app to the cognito user pool you just created.
+You'll need to make a few changes to the code to connect your app to the cognito user pool you just created. -->
 
 <!-- Using whatever text editor you like, or optionally after installing cloud9, go out and update the following files:
 
 In /var/www/html/scripts/login.js update line 23 and 24 **UserPoolId** and **ClientId**. These values can be found from the Cognito user pool information. -->
-
+<!-- 
 In /var/www/html/scripts/getMessage.js update line 10 **hostedUI**. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.
 
 Here is an example link: 
@@ -144,13 +144,14 @@ I would end up with something like this:
 
 ```
 https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com
-```
+``` -->
 
 ## Log in
 
 Once you've connected everything, you can log in.
 
-Go to the login page of your website. Enter the username and password.
+* Go to the login page of your website. 
+* Enter the username and password.
 
 If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.
 

@@ -31,7 +31,6 @@
 <li><a href="#explore-the-hosted-ui">Explore the Hosted UI</a></li>
 <li><a href="#update-password-for-user">Update Password for User</a></li>
 <li><a href="#update-the-app-logic">Update the App logic</a></li>
-<li><a href="#connect-with-our-app">Connect with our APP</a></li>
 <li><a href="#log-in">Log in</a></li>
 </ul>
 </div>
@@ -152,33 +151,45 @@ rm -rf /tmp/lab-app/
 ``` -->
 
 <p>Visit your Public IPv4 DNS address in a new tab to make sure the website is running</p>
-<h2 id="connect-with-our-app">Connect with our APP</h2>
-<p>You'll need to make a few changes to the code to connect your app to the cognito user pool you just created.</p>
+<!-- ## Connect with our APP
+
+You'll need to make a few changes to the code to connect your app to the cognito user pool you just created. -->
+
 <!-- Using whatever text editor you like, or optionally after installing cloud9, go out and update the following files:
 
 In /var/www/html/scripts/login.js update line 23 and 24 **UserPoolId** and **ClientId**. These values can be found from the Cognito user pool information. -->
+<!-- 
+In /var/www/html/scripts/getMessage.js update line 10 **hostedUI**. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.
 
-<p>In /var/www/html/scripts/getMessage.js update line 10 <strong>hostedUI</strong>. For this value, you'll need to copy the Hosted UI link and then make a few modifications to it.</p>
-<p>Here is an example link: </p>
+Here is an example link: 
+
+
 <div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&amp;response_type=code&amp;scope=email+openid+phone&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
 </code></pre></div>
 
-<p>You'll update it so that it has the following:</p>
-<ul>
-<li>Your Cognito Domain (Found under app integration tab): https://vehicleappname.auth.us-east-1.amazoncognito.com/</li>
-<li>oauth2/authorize? (this stays the same for everyone)</li>
-<li>client_id=YOUR-CLIENT-ID-GOES-HERE</li>
-<li>&amp;response_type=token</li>
-<li>&amp;scope=email+openid+phone</li>
-<li>&amp;redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com (This is your IPv4 domain name)</li>
-</ul>
-<p>I would end up with something like this:</p>
-<div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&amp;response_type=token&amp;scope=email+openid+phone&amp;redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com
-</code></pre></div>
+
+
+You'll update it so that it has the following:
+
+* Your Cognito Domain (Found under app integration tab): https://vehicleappname.auth.us-east-1.amazoncognito.com/
+* oauth2/authorize? (this stays the same for everyone)
+* client_id=YOUR-CLIENT-ID-GOES-HERE
+* &response_type=token
+* &scope=email+openid+phone
+* &redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com (This is your IPv4 domain name)
+
+I would end up with something like this:
+
+```
+https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmumoh7smpbqsva&response_type=token&scope=email+openid+phone&redirect_uri=https://ec2-14-223-155-86.compute-1.amazonaws.com
+``` -->
 
 <h2 id="log-in">Log in</h2>
 <p>Once you've connected everything, you can log in.</p>
-<p>Go to the login page of your website. Enter the username and password.</p>
+<ul>
+<li>Go to the login page of your website. </li>
+<li>Enter the username and password.</li>
+</ul>
 <p>If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.</p>
 <p>The error console should also give you further ideas if something isn't working correctly.</p>
 	</article>
