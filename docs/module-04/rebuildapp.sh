@@ -18,7 +18,7 @@ read invoke_url
 file_path="/var/www/html/scripts/requestServiceHelper.js"
 
 # Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
-sed -i "s/REPLACE-WITH-INVOKE-URL/$invoke_url/g" "$file_path"
+sed -i "s/REPLACE-WITH-INVOKE-URL/${invoke_url}/g" "$file_path"
 
 echo "Invoke URL updated in $file_path"
 
