@@ -28,7 +28,7 @@
 <li><a href="#instructions">Instructions</a></li>
 <li><a href="#create-a-lambda-function">Create a Lambda Function</a></li>
 <li><a href="#create-the-api-gateway">Create the API Gateway</a></li>
-<li><a href="#update-the-app-files">Update the app files</a></li>
+<li><a href="#update-the-app-logic">Update the App logic</a></li>
 </ul>
 </div>
 
@@ -193,22 +193,24 @@ Response headers
 </ul>
 </li>
 </ul>
-<h2 id="update-the-app-files">Update the app files</h2>
-<p>Upload the new files to your webserver</p>
-<div class="codehilite"><pre><span></span><code><span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">byui</span><span class="o">-</span><span class="n">cse</span><span class="o">/</span><span class="n">itm300</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">module</span><span class="o">-</span><span class="mi">03</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part3</span><span class="o">.</span><span class="n">zip</span>
-<span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
-<span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/*</span>
-<span class="n">unzip</span><span class="w"> </span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part4</span><span class="o">.</span><span class="n">zip</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
-<span class="n">mv</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part4</span><span class="o">/*</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
-<span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
+<h2 id="update-the-app-logic">Update the App logic</h2>
+<p>Connect to your Vehicle App EC2 Instance</p>
+<p>Download the newest website app:</p>
+<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
 </code></pre></div>
 
-<p>You'll need to update line #1 of requestServiceHelper.mjs in the scripts folder. Get the invoke URL from your API Gateway:</p>
+<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
+</code></pre></div>
+
+<p>Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
 <ul>
 <li>Click Stages on the left bar</li>
 <li>Under stage details find Invoke URL and copy that address</li>
-<li>Paste that as the value of the baseUrl on the first line of requestServiceHelper.mjs</li>
+<li>Paste that as the Invoke URL when prompted</li>
 </ul>
+<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
+</code></pre></div>
+
 <p>Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.</p>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>

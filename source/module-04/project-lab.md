@@ -159,23 +159,31 @@ Response headers
     * State: New Stage
     * Stage Name: prod
 
-## Update the app files
+## Update the App logic
 
-Upload the new files to your webserver
+Connect to your Vehicle App EC2 Instance
+
+Download the newest website app:
 
 ```
-wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/quick-oil-part3.zip
-mkdir /tmp/lab-app
-sudo rm -rf /var/www/html/*
-unzip quick-oil-part4.zip -d /tmp/lab-app
-mv /tmp/lab-app/quick-oil-part4/* /var/www/html
-rm -rf /tmp/lab-app/
+wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
 ```
 
-You'll need to update line #1 of requestServiceHelper.mjs in the scripts folder. Get the invoke URL from your API Gateway:
+```
+chmod +x ./rebuildapp.sh
+```
+
+Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
 
 * Click Stages on the left bar
 * Under stage details find Invoke URL and copy that address
-* Paste that as the value of the baseUrl on the first line of requestServiceHelper.mjs
+* Paste that as the Invoke URL when prompted
+
+
+```
+sudo bash ./rebuildapp.sh
+```
+
+
 
 Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.
