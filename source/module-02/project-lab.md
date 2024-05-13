@@ -116,7 +116,7 @@ Full instructions are found here if you want more details on the code above:
 
 ## Download the following files:
 
-Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh.
+Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh. You'll need to run each of these commands one line at a time.
 
 
 ```
@@ -165,15 +165,19 @@ Email Address []:**youremail@byui.edu**
 Once we have our cert created, we need to go replace the build-in localhost cert.
 
 ```
-sudo nano /etc/httpd/conf.d/ssl.conf
+sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#' /etc/httpd/conf.d/ssl.conf
 ```
 
-Replace SSLCertificateFile /etc/pki/tls/certs/localhost.crt with SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
+```
+sudo sed -i 's#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#' /etc/httpd/conf.d/ssl.conf
+```
+
+<!-- Replace SSLCertificateFile /etc/pki/tls/certs/localhost.crt with SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
 
 Replace SSLCertificateKeyFile /etc/pki/tls/private/localhost.key with SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
 
 Ctrl-O
-Ctrl-X
+Ctrl-X -->
 
 
 ```
