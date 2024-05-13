@@ -15,6 +15,8 @@ Please review the following:
 
 [Nano Introduction](nano-introduction.pdf){:target="_blank"}
 
+[VIM Introduction](https://vimschool.netlify.app/introduction/vimtutor/){:target="_blank"}
+
 [HTTP Verbs](https://www.youtube.com/watch?v=tkfVQK6UxDI){:target="_blank"}
 
 [HTTP Status Codes](https://www.youtube.com/watch?v=wJa5CTIFj7U){:target="_blank"}
