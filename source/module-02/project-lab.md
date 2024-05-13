@@ -172,6 +172,14 @@ sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertifica
 sudo sed -i 's#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#' /etc/httpd/conf.d/ssl.conf
 ```
 
+!!! note "Using SED"
+
+    Explanation:
+
+    sudo sed -i 's#old_text#new_text#' /path/to/file: This command replaces old_text with new_text in the specified file (/path/to/file). The # symbol is used as a delimiter instead of the usual / to avoid conflict with the file paths that contain /.
+
+    So we are replacing the localhost key and certificate with the new key we just created.
+
 <!-- Replace SSLCertificateFile /etc/pki/tls/certs/localhost.crt with SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
 
 Replace SSLCertificateKeyFile /etc/pki/tls/private/localhost.key with SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
