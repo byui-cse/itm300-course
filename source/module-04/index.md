@@ -13,7 +13,7 @@ body-class: index-page
 
 Please review the following:
 
-[Nano Introduction](nano-introductino.pdf){:target="_blank"}
+[Nano Introduction](nano-introduction.pdf){:target="_blank"}
 
 [HTTP Verbs](https://www.youtube.com/watch?v=tkfVQK6UxDI){:target="_blank"}
 
