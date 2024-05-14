@@ -1,25 +1,25 @@
 ---
-title: Module 05: Overview
+title: Module 06: Overview
 body-class: index-page
 ---
 
 <!-- ![Monolithic App]({{URLROOT}}/shared/img/aws-monolithic.png)
 *[Photo by Dall-E-3](https://openai.com/dall-e-3)* -->
 
-## Module 05 - Networking &amp; Content Delivery
+## Module 05 - Compute
 
 
 #### Preparation Material
 
 Please review the following:
 
-* [DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"}
+<!-- * [DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"} -->
 
 
 
 #### AWS Lab
 
-* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **AWS Lab :: Activity - AWS Elastic Beanstalk (Module 6) **
+* No lab for AWS, work on the Midterm instead.
 
 <!-- !!! note "Lab Updates"
 
@@ -27,7 +27,7 @@ Please review the following:
 
 #### Project Lab
 
-* [DynamoDB Creating and Reading](./project-lab.html)
+* [Posting to DynamoDB](./project-lab.html)
 
 <!-- #### Additional Materials -->
 

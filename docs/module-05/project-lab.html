@@ -121,12 +121,12 @@
   <span class="n">DeleteCommand</span><span class="p">,</span>
 <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
 
     <span class="n">const</span> <span class="n">mydynamodb</span> <span class="o">=</span> <span class="n">DynamoDBDocumentClient</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
 
     <span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
+<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
     <span class="n">const</span> <span class="n">statusToExcludeNew</span> <span class="o">=</span> <span class="s2">&quot;New Request&quot;</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>

@@ -71,12 +71,12 @@ import {
   DeleteCommand,
 } from "@aws-sdk/lib-dynamodb";
 
-export const getDynamoServiceRequests = async () => {
     const client = new DynamoDBClient({});
     
     const mydynamodb = DynamoDBDocumentClient.from(client);
     
     const tableName = "VehicleServices";    
+export const getDynamoServiceRequests = async () => {
     const statusToExclude = "Completed";
     const statusToExcludeNew = "New Request";
     try {
