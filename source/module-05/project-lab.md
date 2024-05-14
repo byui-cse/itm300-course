@@ -8,182 +8,137 @@ body-class: index-page
 
 ## Product Objective
 
-You will be connecting your website to an API gateway which will return back service requests. A lambda function will generate the json that will contain the information about the service requests which will be sent back to the app. For now, we'll just hard code the json, but later we'll pull the information dynamically.
+You will be creating a dynamodb table that will store service requests. We will also update our lambda function to pull from the database.
 
 
 ## Instructions
 
-We will do three main steps in this lab. First we will create a lambda function which will generate json data containing service request information. This information will be displayed on our app as well as in the shop to let customer's know which vehicles are currently being worked on.
+We will do two main steps in this lab. First we will create a dynamodb table. This is where we will store future service requests and information about vehicles.
 
-Second, we'll create an API gateway and an **endpoint** that we can connect to. This enpoint will return back the information provided by the lambda function.
+Second, we'll update the lambda function to read from the dynamodb table to pull in the information.
 
-Third, we'll update our app code to display the current service requests.
+## Create a DynamoDB table
 
-## Create a Lambda Function
+Search for DynamoDB in AWS
 
-Search for Lambda in AWS
+* Create table
 
-* Create function
-* Author from scratch
-* Function Name: getServiceRequest
+* Table Name: **VehicleServices**
 
-* Change default execution role: Use an existing Role: LabRole
+* Partition Key: **license_plate** (String)
+* Sort Key: **service_id** (String)
 
-Update index.mjs with:
+* Customize Settings
+* Capacity mode: On-demand
 
-```
-import { getServiceRequests } from './dataService.mjs';
+* Secondary Indexes: Create global index
+  * Global Secondary Index:
+    * Index Name: StatusIndex
+      * Partition Key: service_status (String)
+      * Sort Key: license_plate (String)
+  * Create Index
 
-const commonHeaders = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT'
-};
+* Create Table
 
-export const handler = async (event) => {
-  try {
-    const jsonArray = getServiceRequests();
-    const response = {
-      statusCode: 200,
-      body: JSON.stringify(jsonArray),
-      headers: commonHeaders
-    };
-    return response;
-  } catch (error) {
-    console.error('Error:', error);
-    const response = {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Internal Server Error' }),
-      headers: commonHeaders
-    };
-    return response;
-  }
-};
-```
+Wait for the Status to be: Active
 
-!!! note "HTTP Status Codes"
+* Click on VehicleServices
 
-    We return one of two status codes depending on if the function does what it is supposed to do.
+* Actions -> Create Item
+  * license_plate: 8B1111
+  * service_id: 1
+  * Add new attribute (String): phone_number: 208-444-5555
+  * Add new attribute (String): service_description: Oil Change on a 2007 Saturn Outlook
+  * Add new attribute (String): service_status: Finishing up
+  * Create item
 
-    **200** OK: This means everything went well.
+## Update Lambda
 
-    **500** Internal Server Error
+Search for Lambda and open your getServiceRequests lambda function
 
-    The preparation material for this week has videos that go into what each status code is. We'll use more in the future as well as using different HTTP verbs besides GET.
+* Under Code -> Right click on getServiceRequests and choose New File
+* Name it dynamoService.mjs
+* Paste the following code into that file:
 
-Create a file named dataService.mjs
 
 ```
-export const getServiceRequests = () => {
-  return [
-    { id: 1, phone: '208-555-5555', service: 'Oil Change on a 2007 Saturn Outlook' },
-    { id: 2, phone: '208-555-9999', service: 'I need the brakes fixed on my 2010 Buick LeSabre' },
-    { id: 3, phone: '208-555-9111', service: 'My radiator exploded. Help!' }
-  ];
-};
-```
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  ScanCommand,
+  PutCommand,
+  GetCommand,
+  DeleteCommand,
+} from "@aws-sdk/lib-dynamodb";
 
-Click Test
-
-Give the Test a name and then click Invoke. You should receive a response similar to this:
-
-```
-{
-  "statusCode": 200,
-  "body": "[{\"id\":1,\"phone\":\"208-555-5555\",\"service\":\"Oil Change on a 2007 Saturn Outlook\"},{\"id\":2,\"phone\":\"208-555-9999\",\"service\":\"I need the brakes fixed on my 2010 Buick LeSabre\"},{\"id\":3,\"phone\":\"208-555-9111\",\"service\":\"My radiator exploded. Help!\"}]",
-  "headers": {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
-  }
+export const getDynamoServiceRequests = async () => {
+    const client = new DynamoDBClient({});
+    
+    const mydynamodb = DynamoDBDocumentClient.from(client);
+    
+    const tableName = "VehicleServices";    
+    const statusToExclude = "Completed";
+    try {
+        const params = {
+            TableName: tableName,
+            FilterExpression: "attribute_not_exists(service_status) OR #service_status <> :status",
+            ExpressionAttributeNames: {
+                "#service_status": "service_status"
+            },
+            ExpressionAttributeValues: {
+                ":status": statusToExclude
+            }
+        };      
+        const body = await mydynamodb.send(new ScanCommand(params));
+        return body.Items; // Return JSON string of items
+    } catch (error) {
+        console.error("Error fetching DynamoDB service requests:", error);
+        throw error; // Re-throw the error to handle it further up the call stack
+    }
 }
 ```
 
-Deploy the Lambda function by clicking the Deploy button
+We will replace the previous dataService with the new dynamoService.
 
-!!! key "Don't forget to Deploy"
-
-    If you make any changes to your function, you must click Deploy to deploy the new changes. 
-
-## Create the API Gateway
-
-Search for API Gateway.
-
-Scroll down to REST API and Click **Build**
-
-* New API
-* API Name : vehicleapp
-
-* API endpoint type: Regional
-
-* Create API
-
-* Create resource:
-
-    * Resource path: /
-    * Resource name: service-request
-    * CORS checked
-
-* Click /service-request
-
-    * Create method
-
-    * Method type: GET
-    * Integration type: Lambda Function
-    * TURN ON LAMBDA PROXY INTEGRATION
-    * Lambda Function (make sure your region is correct): getServiceRequest
-
-Before we deploy the API you should test the API to make sure it is returning the correct data.
-
-Click the **Test** tab and then click the Test button. You should get a response like this:
+* Add this line to the top of the index.js file:
 
 ```
-Response body
-
-[{"id":1,"phone":"208-555-5555","service":"Oil Change on a 2007 Saturn Outlook"},{"id":2,"phone":"208-555-9999","service":"I need the brakes fixed on my 2010 Buick LeSabre"},{"id":3,"phone":"208-555-9111","service":"My radiator exploded. Help!"}]
-
-Response headers
-
-{
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
-  "Access-Control-Allow-Origin": "*",
-  "Content-Type": "application/json",...
+import { getDynamoServiceRequests } from './dynamoService.mjs';
 ```
 
-
-* Click Deploy API
-
-    * State: New Stage
-    * Stage Name: prod
-
-## Update the App logic
-
-Connect to your Vehicle App EC2 Instance
-
-Download the newest website app:
+* Change the name of the function being called
+* Replace     const jsonArray = await getServiceRequests(); with
 
 ```
-wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
+const jsonArray = await getDynamoServiceRequests();
 ```
 
-```
-chmod +x ./rebuildapp.sh
-```
+Click Deploy and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.
 
-Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
+Go to the website and verify that you are getting a single ticket back.
 
-* Click Stages on the left bar
-* Under stage details find Invoke URL and copy that address
-* Paste that as the Invoke URL when prompted
+## Add information to the database
 
+Go back to the dynamodb table and click "explore table items"
+Click run. Down below it should return the 8B1111 item
 
-```
-sudo bash ./rebuildapp.sh
-```
+Click the checkbox next to 8B1111. 
+Click Actions->Duplicate Item
 
+Update the values on this page to this:
 
+* license_plate: 1J1957
+* service_id: 2
+* phone_number: 208-867-5309
+* service_description: Brakes for a 08 Mazda 6
+* status: New Request
 
-Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.
+Click create item
+
+Go back to the website and you should see both items under service request.
+
+## Update a vehicle
+
+Go update the value of the service_status of the 8B1111 vehicle to have a service_status of Completed
+
+Go view the website and you should only see one service request.

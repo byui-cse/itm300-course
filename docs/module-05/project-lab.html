@@ -26,9 +26,10 @@
 <ul>
 <li><a href="#product-objective">Product Objective</a></li>
 <li><a href="#instructions">Instructions</a></li>
-<li><a href="#create-a-lambda-function">Create a Lambda Function</a></li>
-<li><a href="#create-the-api-gateway">Create the API Gateway</a></li>
-<li><a href="#update-the-app-logic">Update the App logic</a></li>
+<li><a href="#create-a-dynamodb-table">Create a DynamoDB table</a></li>
+<li><a href="#update-lambda">Update Lambda</a></li>
+<li><a href="#add-information-to-the-database">Add information to the database</a></li>
+<li><a href="#update-a-vehicle">Update a vehicle</a></li>
 </ul>
 </div>
 
@@ -48,170 +49,139 @@
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo-service-requests.jpg" />
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>You will be connecting your website to an API gateway which will return back service requests. A lambda function will generate the json that will contain the information about the service requests which will be sent back to the app. For now, we'll just hard code the json, but later we'll pull the information dynamically.</p>
+<p>You will be creating a dynamodb table that will store service requests. We will also update our lambda function to pull from the database.</p>
 <h2 id="instructions">Instructions</h2>
-<p>We will do three main steps in this lab. First we will create a lambda function which will generate json data containing service request information. This information will be displayed on our app as well as in the shop to let customer's know which vehicles are currently being worked on.</p>
-<p>Second, we'll create an API gateway and an <strong>endpoint</strong> that we can connect to. This enpoint will return back the information provided by the lambda function.</p>
-<p>Third, we'll update our app code to display the current service requests.</p>
-<h2 id="create-a-lambda-function">Create a Lambda Function</h2>
-<p>Search for Lambda in AWS</p>
+<p>We will do two main steps in this lab. First we will create a dynamodb table. This is where we will store future service requests and information about vehicles.</p>
+<p>Second, we'll update the lambda function to read from the dynamodb table to pull in the information.</p>
+<h2 id="create-a-dynamodb-table">Create a DynamoDB table</h2>
+<p>Search for DynamoDB in AWS</p>
 <ul>
-<li>Create function</li>
-<li>Author from scratch</li>
 <li>
-<p>Function Name: getServiceRequest</p>
+<p>Create table</p>
 </li>
 <li>
-<p>Change default execution role: Use an existing Role: LabRole</p>
-</li>
-</ul>
-<p>Update index.mjs with:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getServiceRequests</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./dataService.mjs&#39;</span><span class="p">;</span>
-
-<span class="n">const</span> <span class="n">commonHeaders</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Headers&#39;</span><span class="p">:</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Methods&#39;</span><span class="p">:</span> <span class="s1">&#39;OPTIONS,POST,GET,PUT&#39;</span>
-<span class="p">};</span>
-
-<span class="n">export</span> <span class="n">const</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="n">getServiceRequests</span><span class="p">();</span>
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">statusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-      <span class="n">body</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">jsonArray</span><span class="p">),</span>
-      <span class="n">headers</span><span class="p">:</span> <span class="n">commonHeaders</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">statusCode</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
-      <span class="n">body</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">({</span> <span class="n">message</span><span class="p">:</span> <span class="s1">&#39;Internal Server Error&#39;</span> <span class="p">}),</span>
-      <span class="n">headers</span><span class="p">:</span> <span class="n">commonHeaders</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
-<div class="admonition note">
-<p class="admonition-title">HTTP Status Codes</p>
-<p>We return one of two status codes depending on if the function does what it is supposed to do.</p>
-<p><strong>200</strong> OK: This means everything went well.</p>
-<p><strong>500</strong> Internal Server Error</p>
-<p>The preparation material for this week has videos that go into what each status code is. We'll use more in the future as well as using different HTTP verbs besides GET.</p>
-</div>
-<p>Create a file named dataService.mjs</p>
-<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">getServiceRequests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;208-555-5555&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Oil Change on a 2007 Saturn Outlook&#39;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;208-555-9999&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;I need the brakes fixed on my 2010 Buick LeSabre&#39;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;208-555-9111&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;My radiator exploded. Help!&#39;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="p">];</span>
-<span class="p">};</span>
-</code></pre></div>
-
-<p>Click Test</p>
-<p>Give the Test a name and then click Invoke. You should receive a response similar to this:</p>
-<div class="codehilite"><pre><span></span><code>{
-  &quot;statusCode&quot;: 200,
-  &quot;body&quot;: &quot;[{\&quot;id\&quot;:1,\&quot;phone\&quot;:\&quot;208-555-5555\&quot;,\&quot;service\&quot;:\&quot;Oil Change on a 2007 Saturn Outlook\&quot;},{\&quot;id\&quot;:2,\&quot;phone\&quot;:\&quot;208-555-9999\&quot;,\&quot;service\&quot;:\&quot;I need the brakes fixed on my 2010 Buick LeSabre\&quot;},{\&quot;id\&quot;:3,\&quot;phone\&quot;:\&quot;208-555-9111\&quot;,\&quot;service\&quot;:\&quot;My radiator exploded. Help!\&quot;}]&quot;,
-  &quot;headers&quot;: {
-    &quot;Content-Type&quot;: &quot;application/json&quot;,
-    &quot;Access-Control-Allow-Headers&quot;: &quot;Content-Type&quot;,
-    &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
-    &quot;Access-Control-Allow-Methods&quot;: &quot;OPTIONS,POST,GET,PUT&quot;
-  }
-}
-</code></pre></div>
-
-<p>Deploy the Lambda function by clicking the Deploy button</p>
-<div class="admonition key">
-<p class="admonition-title">Don't forget to Deploy</p>
-<p>If you make any changes to your function, you must click Deploy to deploy the new changes. </p>
-</div>
-<h2 id="create-the-api-gateway">Create the API Gateway</h2>
-<p>Search for API Gateway.</p>
-<p>Scroll down to REST API and Click <strong>Build</strong></p>
-<ul>
-<li>New API</li>
-<li>
-<p>API Name : vehicleapp</p>
+<p>Table Name: <strong>VehicleServices</strong></p>
 </li>
 <li>
-<p>API endpoint type: Regional</p>
+<p>Partition Key: <strong>license_plate</strong> (String)</p>
 </li>
 <li>
-<p>Create API</p>
+<p>Sort Key: <strong>service_id</strong> (String)</p>
 </li>
 <li>
-<p>Create resource:</p>
-<ul>
-<li>Resource path: /</li>
-<li>Resource name: service-request</li>
-<li>CORS checked</li>
+<p>Customize Settings</p>
+</li>
+<li>
+<p>Capacity mode: On-demand</p>
+</li>
+<li>
+<p>Secondary Indexes: Create global index</p>
+</li>
+<li>Global Secondary Index:<ul>
+<li>Index Name: StatusIndex</li>
+<li>Partition Key: service_status (String)</li>
+<li>Sort Key: license_plate (String)</li>
 </ul>
 </li>
 <li>
-<p>Click /service-request</p>
-<ul>
-<li>
-<p>Create method</p>
+<p>Create Index</p>
 </li>
 <li>
-<p>Method type: GET</p>
-</li>
-<li>Integration type: Lambda Function</li>
-<li>TURN ON LAMBDA PROXY INTEGRATION</li>
-<li>Lambda Function (make sure your region is correct): getServiceRequest</li>
-</ul>
+<p>Create Table</p>
 </li>
 </ul>
-<p>Before we deploy the API you should test the API to make sure it is returning the correct data.</p>
-<p>Click the <strong>Test</strong> tab and then click the Test button. You should get a response like this:</p>
-<div class="codehilite"><pre><span></span><code>Response body
-
-[{&quot;id&quot;:1,&quot;phone&quot;:&quot;208-555-5555&quot;,&quot;service&quot;:&quot;Oil Change on a 2007 Saturn Outlook&quot;},{&quot;id&quot;:2,&quot;phone&quot;:&quot;208-555-9999&quot;,&quot;service&quot;:&quot;I need the brakes fixed on my 2010 Buick LeSabre&quot;},{&quot;id&quot;:3,&quot;phone&quot;:&quot;208-555-9111&quot;,&quot;service&quot;:&quot;My radiator exploded. Help!&quot;}]
-
-Response headers
-
-{
-  &quot;Access-Control-Allow-Headers&quot;: &quot;Content-Type&quot;,
-  &quot;Access-Control-Allow-Methods&quot;: &quot;OPTIONS,POST,GET,PUT&quot;,
-  &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
-  &quot;Content-Type&quot;: &quot;application/json&quot;,...
-</code></pre></div>
-
+<p>Wait for the Status to be: Active</p>
 <ul>
 <li>
-<p>Click Deploy API</p>
-<ul>
-<li>State: New Stage</li>
-<li>Stage Name: prod</li>
-</ul>
+<p>Click on VehicleServices</p>
 </li>
+<li>
+<p>Actions -&gt; Create Item</p>
+</li>
+<li>license_plate: 8B1111</li>
+<li>service_id: 1</li>
+<li>Add new attribute (String): phone_number: 208-444-5555</li>
+<li>Add new attribute (String): service_description: Oil Change on a 2007 Saturn Outlook</li>
+<li>Add new attribute (String): service_status: Finishing up</li>
+<li>Create item</li>
 </ul>
-<h2 id="update-the-app-logic">Update the App logic</h2>
-<p>Connect to your Vehicle App EC2 Instance</p>
-<p>Download the newest website app:</p>
-<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
-</code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
-</code></pre></div>
-
-<p>Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
+<h2 id="update-lambda">Update Lambda</h2>
+<p>Search for Lambda and open your getServiceRequests lambda function</p>
 <ul>
-<li>Click Stages on the left bar</li>
-<li>Under stage details find Invoke URL and copy that address</li>
-<li>Paste that as the Invoke URL when prompted</li>
+<li>Under Code -&gt; Right click on getServiceRequests and choose New File</li>
+<li>Name it dynamoService.mjs</li>
+<li>Paste the following code into that file:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
+<span class="kn">import</span> <span class="p">{</span>
+  <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
+  <span class="n">ScanCommand</span><span class="p">,</span>
+  <span class="n">PutCommand</span><span class="p">,</span>
+  <span class="n">GetCommand</span><span class="p">,</span>
+  <span class="n">DeleteCommand</span><span class="p">,</span>
+<span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
+
+<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
+
+    <span class="n">const</span> <span class="n">mydynamodb</span> <span class="o">=</span> <span class="n">DynamoDBDocumentClient</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+
+    <span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
+    <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
+            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR #service_status &lt;&gt; :status&quot;</span><span class="p">,</span>
+            <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span>
+            <span class="p">},</span>
+            <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span>
+            <span class="p">}</span>
+        <span class="p">};</span>      
+        <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">Items</span><span class="p">;</span> <span class="o">//</span> <span class="n">Return</span> <span class="n">JSON</span> <span class="n">string</span> <span class="n">of</span> <span class="n">items</span>
+    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error fetching DynamoDB service requests:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+        <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 
-<p>Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.</p>
+<p>We will replace the previous dataService with the new dynamoService.</p>
+<ul>
+<li>Add this line to the top of the index.js file:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getDynamoServiceRequests</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./dynamoService.mjs&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<ul>
+<li>Change the name of the function being called</li>
+<li>Replace     const jsonArray = await getServiceRequests(); with</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">jsonArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">getDynamoServiceRequests</span><span class="p">();</span>
+</code></pre></div>
+
+<p>Click Deploy and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.</p>
+<p>Go to the website and verify that you are getting a single ticket back.</p>
+<h2 id="add-information-to-the-database">Add information to the database</h2>
+<p>Go back to the dynamodb table and click "explore table items"
+Click run. Down below it should return the 8B1111 item</p>
+<p>Click the checkbox next to 8B1111. 
+Click Actions-&gt;Duplicate Item</p>
+<p>Update the values on this page to this:</p>
+<ul>
+<li>license_plate: 1J1957</li>
+<li>service_id: 2</li>
+<li>phone_number: 208-867-5309</li>
+<li>service_description: Brakes for a 08 Mazda 6</li>
+<li>status: New Request</li>
+</ul>
+<p>Click create item</p>
+<p>Go back to the website and you should see both items under service request.</p>
+<h2 id="update-a-vehicle">Update a vehicle</h2>
+<p>Go update the value of the service_status of the 8B1111 vehicle to have a service_status of Completed</p>
+<p>Go view the website and you should only see one service request.</p>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
