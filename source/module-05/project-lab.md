@@ -78,15 +78,17 @@ export const getDynamoServiceRequests = async () => {
     
     const tableName = "VehicleServices";    
     const statusToExclude = "Completed";
+    const statusToExcludeNew = "New Request";
     try {
         const params = {
             TableName: tableName,
-            FilterExpression: "attribute_not_exists(service_status) OR #service_status <> :status",
+            FilterExpression: "attribute_not_exists(service_status) OR (#service_status <> :status AND #service_status <> :statusNew)",
             ExpressionAttributeNames: {
                 "#service_status": "service_status"
             },
             ExpressionAttributeValues: {
-                ":status": statusToExclude
+                ":status": statusToExclude,
+                ":statusNew": statusToExcludeNew
             }
         };      
         const body = await mydynamodb.send(new ScanCommand(params));
@@ -131,7 +133,7 @@ Update the values on this page to this:
 * service_id: 2
 * phone_number: 208-867-5309
 * service_description: Brakes for a 08 Mazda 3
-* status: New Request
+* status: Accepted
 
 Click create item
 

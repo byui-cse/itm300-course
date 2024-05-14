@@ -128,15 +128,17 @@
 
     <span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
     <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
+    <span class="n">const</span> <span class="n">statusToExcludeNew</span> <span class="o">=</span> <span class="s2">&quot;New Request&quot;</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR #service_status &lt;&gt; :status&quot;</span><span class="p">,</span>
+            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusNew)&quot;</span><span class="p">,</span>
             <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span>
             <span class="p">},</span>
             <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span>
+                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span><span class="p">,</span>
+                <span class="s2">&quot;:statusNew&quot;</span><span class="p">:</span> <span class="n">statusToExcludeNew</span>
             <span class="p">}</span>
         <span class="p">};</span>      
         <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
@@ -177,7 +179,7 @@ Click run. Down below it should return the 8B1111 item</p>
 <li>service_id: 2</li>
 <li>phone_number: 208-867-5309</li>
 <li>service_description: Brakes for a 08 Mazda 3</li>
-<li>status: New Request</li>
+<li>status: Accepted</li>
 </ul>
 <p>Click create item</p>
 <p>Go back to the website and you should see both items under service request.</p>
