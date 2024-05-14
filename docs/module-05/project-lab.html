@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Module 04: Project 4 Lab - REST API Gateway</title>
+	<title>Module 05: Project 5 Lab - DynamoDB</title>
     <style>
         @font-face {
             font-family: 'icomoon';
@@ -39,7 +39,7 @@
         <span class="icon-byui-logo"></span>
         <div id="titles">
             <h1>ITM 300 - Cloud Foundations</h1>
-            <h2>Module 04: Project 4 Lab - REST API Gateway</h2>
+            <h2>Module 05: Project 5 Lab - DynamoDB</h2>
             <nav><a href="https://byui-cse.github.io/itm300-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm300-course/modules/">Modules</a><a href="https://byui-cse.github.io/itm300-course/test-prep/">Test Prep</a></nav>
         </div>
         <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
@@ -106,9 +106,9 @@
 <p>Create a file named dataService.mjs</p>
 <div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">getServiceRequests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="s2">&quot;service_id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;phone_number&quot;</span><span class="p">:</span><span class="s2">&quot;208-555-5555&quot;</span><span class="p">,</span><span class="s2">&quot;service_description&quot;</span><span class="p">:</span><span class="s2">&quot;Oil Change on a 2007 Saturn Outlook&quot;</span><span class="p">,</span><span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;Finishing up&quot;</span><span class="p">,</span><span class="s2">&quot;license_plate&quot;</span><span class="p">:</span><span class="s2">&quot;8B1111&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="s2">&quot;service_id&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;phone_number&quot;</span><span class="p">:</span><span class="s2">&quot;208-555-9999&quot;</span><span class="p">,</span><span class="s2">&quot;service_description&quot;</span><span class="p">:</span><span class="s2">&quot;I need the brakes fixed on my 2010 Buick LeSabre&quot;</span><span class="p">,</span><span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;Waiting For Pickup&quot;</span><span class="p">,</span><span class="s2">&quot;license_plate&quot;</span><span class="p">:</span><span class="s2">&quot;1J1957&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span><span class="s2">&quot;service_id&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;phone_number&quot;</span><span class="p">:</span><span class="s2">&quot;208-555-9111&quot;</span><span class="p">,</span><span class="s2">&quot;service_description&quot;</span><span class="p">:</span><span class="s2">&quot;My radiator exploded. Help!&quot;</span><span class="p">,</span><span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;Parts Ordered&quot;</span><span class="p">,</span><span class="s2">&quot;license_place&quot;</span><span class="p">:</span><span class="s2">&quot;1M1337&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;208-555-5555&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Oil Change on a 2007 Saturn Outlook&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;208-555-9999&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;I need the brakes fixed on my 2010 Buick LeSabre&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;208-555-9111&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">service</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;My radiator exploded. Help!&#39;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">];</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -171,17 +171,17 @@
 </ul>
 <p>Before we deploy the API you should test the API to make sure it is returning the correct data.</p>
 <p>Click the <strong>Test</strong> tab and then click the Test button. You should get a response like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">Response</span><span class="w"> </span><span class="nv">body</span>
+<div class="codehilite"><pre><span></span><code>Response body
 
-[{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">1</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-5555&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;Oil Change on a 2007 Saturn Outlook&quot;</span>,<span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;Finishing up&quot;</span>,<span class="s2">&quot;license_plate&quot;</span>:<span class="s2">&quot;8B1111&quot;</span>},{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">2</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-9999&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;I need the brakes fixed on my 2010 Buick LeSabre&quot;</span>,<span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;Waiting For Pickup&quot;</span>,<span class="s2">&quot;license_plate&quot;</span>:<span class="s2">&quot;1J1957&quot;</span>},{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">3</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-9111&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;My radiator exploded. Help!&quot;</span>,<span class="s2">&quot;status&quot;</span>:<span class="s2">&quot;Parts Ordered&quot;</span>,<span class="s2">&quot;license_place&quot;</span>:<span class="s2">&quot;1M1337&quot;</span>}]
+[{&quot;id&quot;:1,&quot;phone&quot;:&quot;208-555-5555&quot;,&quot;service&quot;:&quot;Oil Change on a 2007 Saturn Outlook&quot;},{&quot;id&quot;:2,&quot;phone&quot;:&quot;208-555-9999&quot;,&quot;service&quot;:&quot;I need the brakes fixed on my 2010 Buick LeSabre&quot;},{&quot;id&quot;:3,&quot;phone&quot;:&quot;208-555-9111&quot;,&quot;service&quot;:&quot;My radiator exploded. Help!&quot;}]
 
-<span class="nv">Response</span><span class="w"> </span><span class="nv">headers</span>
+Response headers
 
 {
-<span class="w">  </span><span class="s2">&quot;Access-Control-Allow-Headers&quot;</span>:<span class="w"> </span><span class="s2">&quot;Content-Type&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;Access-Control-Allow-Methods&quot;</span>:<span class="w"> </span><span class="s2">&quot;OPTIONS,POST,GET,PUT&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span>:<span class="w"> </span><span class="s2">&quot;*&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;Content-Type&quot;</span>:<span class="w"> </span><span class="s2">&quot;application/json&quot;</span>,...
+  &quot;Access-Control-Allow-Headers&quot;: &quot;Content-Type&quot;,
+  &quot;Access-Control-Allow-Methods&quot;: &quot;OPTIONS,POST,GET,PUT&quot;,
+  &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
+  &quot;Content-Type&quot;: &quot;application/json&quot;,...
 </code></pre></div>
 
 <ul>

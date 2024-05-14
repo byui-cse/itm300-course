@@ -1,5 +1,5 @@
 ---
-title: Module 04: Project 4 Lab - REST API Gateway
+title: Module 05: Project 5 Lab - DynamoDB
 body-class: index-page
 ---
 
@@ -77,9 +77,9 @@ Create a file named dataService.mjs
 ```
 export const getServiceRequests = () => {
   return [
-    {"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","status":"Finishing up","license_plate":"8B1111"},
-    {"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","status":"Waiting For Pickup","license_plate":"1J1957"},
-    {"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","status":"Parts Ordered","license_place":"1M1337"}
+    { id: 1, phone: '208-555-5555', service: 'Oil Change on a 2007 Saturn Outlook' },
+    { id: 2, phone: '208-555-9999', service: 'I need the brakes fixed on my 2010 Buick LeSabre' },
+    { id: 3, phone: '208-555-9111', service: 'My radiator exploded. Help!' }
   ];
 };
 ```
@@ -142,7 +142,7 @@ Click the **Test** tab and then click the Test button. You should get a response
 ```
 Response body
 
-[{"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","status":"Finishing up","license_plate":"8B1111"},{"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","status":"Waiting For Pickup","license_plate":"1J1957"},{"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","status":"Parts Ordered","license_place":"1M1337"}]
+[{"id":1,"phone":"208-555-5555","service":"Oil Change on a 2007 Saturn Outlook"},{"id":2,"phone":"208-555-9999","service":"I need the brakes fixed on my 2010 Buick LeSabre"},{"id":3,"phone":"208-555-9111","service":"My radiator exploded. Help!"}]
 
 Response headers
 
