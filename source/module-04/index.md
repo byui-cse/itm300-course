@@ -28,7 +28,7 @@ Please review the following:
 
 #### AWS Lab
 
-* [AWS Academy Link](https://awsacademy.instructure.com){target="_blank"} The AWS Lab for this module is **AWS Lab :: Activity - AWS Lambda (Module 6)**
+* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **AWS Lab :: Activity - AWS Lambda (Module 6)**
 
 <!-- !!! note "Lab Updates"
 

@@ -77,9 +77,9 @@ Create a file named dataService.mjs
 ```
 export const getServiceRequests = () => {
   return [
-    {"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","status":"Finishing up","license_plate":"8B1111"},
-    {"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","status":"Waiting For Pickup","license_plate":"1J1957"},
-    {"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","status":"Parts Ordered","license_place":"1M1337"}
+    {"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","service_status":"Finishing up","license_plate":"8B1111"},
+    {"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","service_status":"Waiting For Pickup","license_plate":"1J1957"},
+    {"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","service_status":"Parts Ordered","license_place":"1M1337"}
   ];
 };
 ```
@@ -91,7 +91,7 @@ Give the Test a name and then click Invoke. You should receive a response simila
 ```
 {
   "statusCode": 200,
-  "body": "[{\"id\":1,\"phone\":\"208-555-5555\",\"service\":\"Oil Change on a 2007 Saturn Outlook\"},{\"id\":2,\"phone\":\"208-555-9999\",\"service\":\"I need the brakes fixed on my 2010 Buick LeSabre\"},{\"id\":3,\"phone\":\"208-555-9111\",\"service\":\"My radiator exploded. Help!\"}]",
+  "body": "[{\"id\":1,\"phone\":\"208-555-5555\",\"service\":\"Oil Change on a 2007 Saturn Outlook\"},{\"id\":2,\"phone\":\"208-555-9999\",\"service_status\":\"I need the brakes fixed on my 2010 Buick LeSabre\"},{\"id\":3,\"phone\":\"208-555-9111\",\"service\":\"My radiator exploded. Help!\"}]",
   "headers": {
     "Content-Type": "application/json",
     "Access-Control-Allow-Headers": "Content-Type",
@@ -142,7 +142,7 @@ Click the **Test** tab and then click the Test button. You should get a response
 ```
 Response body
 
-[{"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","status":"Finishing up","license_plate":"8B1111"},{"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","status":"Waiting For Pickup","license_plate":"1J1957"},{"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","status":"Parts Ordered","license_place":"1M1337"}]
+[{"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","service_status":"Finishing up","license_plate":"8B1111"},{"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","service_status":"Waiting For Pickup","license_plate":"1J1957"},{"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","service_status":"Parts Ordered","license_place":"1M1337"}]
 
 Response headers
 

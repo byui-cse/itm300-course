@@ -19,7 +19,7 @@ Please review the following:
 
 #### AWS Lab
 
-* [AWS Academy Link](https://awsacademy.instructure.com){target="_blank"} The AWS Lab for this module is **Lab - 1 Introduction to AWS IAM (Module 4)**
+* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **Lab - 1 Introduction to AWS IAM (Module 4)**
 
 
 #### Project Lab

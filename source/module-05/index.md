@@ -12,13 +12,13 @@ body-class: index-page
 #### Preparation Material
 
 Please review the following:
-
+* [DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"}
 
 
 
 #### AWS Lab
 
-* [AWS Academy Link](https://awsacademy.instructure.com){target="_blank"} The AWS Lab for this module is **AWS Lab :: Activity - AWS Elastic Beanstalk (Module 6) **
+* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **AWS Lab :: Activity - AWS Elastic Beanstalk (Module 6) **
 
 <!-- !!! note "Lab Updates"
 

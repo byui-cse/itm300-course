@@ -122,15 +122,15 @@ Go to the website and verify that you are getting a single ticket back.
 Go back to the dynamodb table and click "explore table items"
 Click run. Down below it should return the 8B1111 item
 
-Click the checkbox next to 8B1111. 
-Click Actions->Duplicate Item
+* Check the checkbox next to 8B1111. 
+* Click Actions->Duplicate Item
 
 Update the values on this page to this:
 
 * license_plate: 1J1957
 * service_id: 2
 * phone_number: 208-867-5309
-* service_description: Brakes for a 08 Mazda 6
+* service_description: Brakes for a 08 Mazda 3
 * status: New Request
 
 Click create item
@@ -139,6 +139,6 @@ Go back to the website and you should see both items under service request.
 
 ## Update a vehicle
 
-Go update the value of the service_status of the 8B1111 vehicle to have a service_status of Completed
+Go update the value of the service_status of the 8B1111 vehicle to have a *service_status* of **Completed**
 
 Go view the website and you should only see one service request.

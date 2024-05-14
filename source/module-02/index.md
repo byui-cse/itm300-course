@@ -23,7 +23,7 @@ Please review the following:
 
 #### AWS Lab
 
-* [AWS Academy Link](https://awsacademy.instructure.com){target="_blank"} The AWS Lab for this module is **Lab - 2 Build your VPC and Launch a Web Server (Module 5)**
+* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **Lab - 2 Build your VPC and Launch a Web Server (Module 5)**
 
 !!! note "Lab Updates"
 
