@@ -174,17 +174,49 @@ wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuild
 chmod +x ./rebuildapp.sh
 ```
 
-Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
-
-* Click Stages on the left bar
-* Under stage details find Invoke URL and copy that address
-* Paste that as the Invoke URL when prompted
-
+Next run the script which will install the newest files.
 
 ```
 sudo bash ./rebuildapp.sh
 ```
 
+ You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
 
+* Click Stages on the left bar
+* Under stage details find Invoke URL and copy that address
+* Paste that as the Invoke URL when prompted
 
-Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.
+Once you've updated the files, verify the app is working. Go to the Request Service page. and make sure it displays the three current service requests at the bottom of the request service page.
+
+## Lab Summary:
+
+In this cloud fundamentals lab, the objective was to integrate a website with an API Gateway connected to an AWS Lambda function. The Lambda function generates JSON data containing service request information, which is then displayed on the website.
+
+### Key Concepts Explained:
+
+1. **AWS Lambda:** AWS Lambda is a serverless compute service provided by Amazon Web Services (AWS). It allows you to run code in response to events without provisioning or managing servers. In this lab, a Lambda function (getServiceRequest) was created to dynamically generate service request data.
+
+2. **API Gateway:** API Gateway is a fully managed service that enables developers to create, publish, maintain, monitor, and secure APIs at any scale. It acts as a front door for applications to access data, business logic, or functionality from back-end services, like Lambda functions. Here, an API Gateway with an endpoint (/service-request) was set up to trigger the Lambda function and return its response to the website.
+
+3. **HTTP Status Codes:** HTTP status codes are standard response codes given by web servers on the internet. In this lab:
+
+      - 200 OK indicates that the request was successful, and the Lambda function executed as expected, returning the desired data.
+      - 500 Internal Server Error indicates a failure on the server side, typically due to an issue with the Lambda function's execution. These codes are essential for communicating the outcome of API requests back to the client.
+
+4. **Integration and Deployment:** Integration between Lambda and API Gateway was achieved using a Lambda proxy integration. This integration simplifies the communication between the API Gateway and Lambda function, allowing the Lambda function to directly handle incoming HTTP requests and respond with the appropriate data. After setting up the integration, the API was deployed to a specific stage (prod) to make it accessible to the website. Typically, you'd have a dev (development) and prod (production) stage. Using a prod stage ensures that only stable and verified versions of the API are exposed to customers or clients, minimizing the risk of introducing bugs or disruptions to service.
+
+5. **App Logic Update:** The website's app logic was updated to consume the data provided by the API Gateway. This involved modifying the app code to make HTTP requests to the API endpoint (/service-request) and then displaying the retrieved service request information on the website's interface.
+
+### Reflection Questions:
+
+* What role does AWS Lambda play in modern cloud architectures? How does its serverless nature benefit application development?
+
+* Explain the importance of API Gateway in the context of microservices and serverless applications. How does API Gateway simplify the process of exposing AWS Lambda functions as HTTP endpoints?
+
+* Describe the significance of HTTP status codes like 200 OK and 500 Internal Server Error when building and consuming APIs. How can understanding these codes help in troubleshooting and improving the reliability of applications?
+
+* Discuss the advantages of using a Lambda proxy integration with API Gateway. How does this integration model differ from other integration types, and what are its benefits for developers?
+
+* Reflect on the deployment process of both the Lambda function and the API Gateway. Why is it important to version and deploy APIs when making changes to the underlying services?
+
+* After updating the app logic to consume the API data, what considerations should be made regarding error handling and data parsing within the application code? How can these practices enhance the overall user experience?

@@ -29,6 +29,11 @@
 <li><a href="#create-a-lambda-function">Create a Lambda Function</a></li>
 <li><a href="#create-the-api-gateway">Create the API Gateway</a></li>
 <li><a href="#update-the-app-logic">Update the App logic</a></li>
+<li><a href="#lab-summary">Lab Summary:</a><ul>
+<li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
+<li><a href="#reflection-questions">Reflection Questions:</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -202,16 +207,62 @@
 <div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
 </code></pre></div>
 
-<p>Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
+<p>Next run the script which will install the newest files.</p>
+<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
+</code></pre></div>
+
+<p>You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
 <ul>
 <li>Click Stages on the left bar</li>
 <li>Under stage details find Invoke URL and copy that address</li>
 <li>Paste that as the Invoke URL when prompted</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
-</code></pre></div>
-
-<p>Once you've updated the files, you should visit your app and make sure it displays the three current service requests at the bottom of the request service page.</p>
+<p>Once you've updated the files, verify the app is working. Go to the Request Service page. and make sure it displays the three current service requests at the bottom of the request service page.</p>
+<h2 id="lab-summary">Lab Summary:</h2>
+<p>In this cloud fundamentals lab, the objective was to integrate a website with an API Gateway connected to an AWS Lambda function. The Lambda function generates JSON data containing service request information, which is then displayed on the website.</p>
+<h3 id="key-concepts-explained">Key Concepts Explained:</h3>
+<ol>
+<li>
+<p><strong>AWS Lambda:</strong> AWS Lambda is a serverless compute service provided by Amazon Web Services (AWS). It allows you to run code in response to events without provisioning or managing servers. In this lab, a Lambda function (getServiceRequest) was created to dynamically generate service request data.</p>
+</li>
+<li>
+<p><strong>API Gateway:</strong> API Gateway is a fully managed service that enables developers to create, publish, maintain, monitor, and secure APIs at any scale. It acts as a front door for applications to access data, business logic, or functionality from back-end services, like Lambda functions. Here, an API Gateway with an endpoint (/service-request) was set up to trigger the Lambda function and return its response to the website.</p>
+</li>
+<li>
+<p><strong>HTTP Status Codes:</strong> HTTP status codes are standard response codes given by web servers on the internet. In this lab:</p>
+<ul>
+<li>200 OK indicates that the request was successful, and the Lambda function executed as expected, returning the desired data.</li>
+<li>500 Internal Server Error indicates a failure on the server side, typically due to an issue with the Lambda function's execution. These codes are essential for communicating the outcome of API requests back to the client.</li>
+</ul>
+</li>
+<li>
+<p><strong>Integration and Deployment:</strong> Integration between Lambda and API Gateway was achieved using a Lambda proxy integration. This integration simplifies the communication between the API Gateway and Lambda function, allowing the Lambda function to directly handle incoming HTTP requests and respond with the appropriate data. After setting up the integration, the API was deployed to a specific stage (prod) to make it accessible to the website. Typically, you'd have a dev (development) and prod (production) stage. Using a prod stage ensures that only stable and verified versions of the API are exposed to customers or clients, minimizing the risk of introducing bugs or disruptions to service.</p>
+</li>
+<li>
+<p><strong>App Logic Update:</strong> The website's app logic was updated to consume the data provided by the API Gateway. This involved modifying the app code to make HTTP requests to the API endpoint (/service-request) and then displaying the retrieved service request information on the website's interface.</p>
+</li>
+</ol>
+<h3 id="reflection-questions">Reflection Questions:</h3>
+<ul>
+<li>
+<p>What role does AWS Lambda play in modern cloud architectures? How does its serverless nature benefit application development?</p>
+</li>
+<li>
+<p>Explain the importance of API Gateway in the context of microservices and serverless applications. How does API Gateway simplify the process of exposing AWS Lambda functions as HTTP endpoints?</p>
+</li>
+<li>
+<p>Describe the significance of HTTP status codes like 200 OK and 500 Internal Server Error when building and consuming APIs. How can understanding these codes help in troubleshooting and improving the reliability of applications?</p>
+</li>
+<li>
+<p>Discuss the advantages of using a Lambda proxy integration with API Gateway. How does this integration model differ from other integration types, and what are its benefits for developers?</p>
+</li>
+<li>
+<p>Reflect on the deployment process of both the Lambda function and the API Gateway. Why is it important to version and deploy APIs when making changes to the underlying services?</p>
+</li>
+<li>
+<p>After updating the app logic to consume the API data, what considerations should be made regarding error handling and data parsing within the application code? How can these practices enhance the overall user experience?</p>
+</li>
+</ul>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
