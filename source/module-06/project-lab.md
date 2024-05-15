@@ -8,10 +8,12 @@ body-class: index-page
 
 ## Product Objective
 
-For this lab we'll handle requests from our app to put service requests into the dynamodb we created last week.
+For this lab we'll handle requests from our app to put service requests into the dynamodb table we created last week.
 
 
 ## Instructions
+
+You will be adding a POST method to the API Gateway we created earlier. Then you will add the necessary code to place the new information into the dynamodb table we created earlier. Finally, we'll update the logic of the app to interface with the new endpoint.
 
 ### Add a Post method to the API Gateway
 
@@ -183,4 +185,13 @@ sudo bash ./rebuildapp.sh
 
 
 
-Once you've updated the files, you should visit your app and add a service request. Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.
+Once you've updated the files, visit your app and add a service request. 
+
+Customers may wonder why their service request didn't show up immediately after they pressed submit. Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.
+
+Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.
+
+### Reflective Questions:
+
+* What security considerations should be taken into account when implementing a POST method that adds data to a DynamoDB table via API Gateway?
+* How does the separation of concerns between frontend (website) and backend (AWS services) contribute to the maintainability and modularity of our cloud-based application?

@@ -29,6 +29,7 @@
 <li><a href="#add-a-post-method-to-the-api-gateway">Add a Post method to the API Gateway</a></li>
 <li><a href="#update-lambda-code">Update lambda code</a></li>
 <li><a href="#update-app-code">Update App Code</a></li>
+<li><a href="#reflective-questions">Reflective Questions:</a></li>
 </ul>
 </li>
 </ul>
@@ -50,8 +51,9 @@
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo-service-requests.jpg" />
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>For this lab we'll handle requests from our app to put service requests into the dynamodb we created last week.</p>
+<p>For this lab we'll handle requests from our app to put service requests into the dynamodb table we created last week.</p>
 <h2 id="instructions">Instructions</h2>
+<p>You will be adding a POST method to the API Gateway we created earlier. Then you will add the necessary code to place the new information into the dynamodb table we created earlier. Finally, we'll update the logic of the app to interface with the new endpoint.</p>
 <h3 id="add-a-post-method-to-the-api-gateway">Add a Post method to the API Gateway</h3>
 <ul>
 <li>Create method under the /service-request resource</li>
@@ -205,7 +207,14 @@
 <div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
 </code></pre></div>
 
-<p>Once you've updated the files, you should visit your app and add a service request. Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.</p>
+<p>Once you've updated the files, visit your app and add a service request. </p>
+<p>Customers may wonder why their service request didn't show up immediately after they pressed submit. Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.</p>
+<p>Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.</p>
+<h3 id="reflective-questions">Reflective Questions:</h3>
+<ul>
+<li>What security considerations should be taken into account when implementing a POST method that adds data to a DynamoDB table via API Gateway?</li>
+<li>How does the separation of concerns between frontend (website) and backend (AWS services) contribute to the maintainability and modularity of our cloud-based application?</li>
+</ul>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
