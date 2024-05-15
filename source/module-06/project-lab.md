@@ -185,7 +185,7 @@ sudo bash ./rebuildapp.sh
 
 
 
-Once you've updated the files, visit your app and add a service request. 
+Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.
 
 Customers may wonder why their service request didn't show up immediately after they pressed submit. Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.
 
