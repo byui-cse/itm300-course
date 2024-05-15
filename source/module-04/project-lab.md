@@ -84,7 +84,13 @@ export const getServiceRequests = () => {
 };
 ```
 
-Click Test
+Deploy the Lambda function by clicking the Deploy button
+
+!!! key "Don't forget to Deploy"
+
+    If you make any changes to your function, you must click Deploy to deploy the new changes.
+
+Click the dropdown arrow next to the blue Test button and choose Configure test event. 
 
 Give the Test a name and then click Invoke. You should receive a response similar to this:
 
@@ -100,12 +106,7 @@ Give the Test a name and then click Invoke. You should receive a response simila
   }
 }
 ```
-
-Deploy the Lambda function by clicking the Deploy button
-
-!!! key "Don't forget to Deploy"
-
-    If you make any changes to your function, you must click Deploy to deploy the new changes. 
+ 
 
 ## Create the API Gateway
 
