@@ -194,8 +194,25 @@ In this lab, the objective was to integrate with an API Gateway connected to an 
 
 ### Key Concepts Explained:
 
-1. **AWS Lambda:** AWS Lambda is a serverless compute service provided by Amazon Web Services (AWS). It allows you to run code in response to events without provisioning or managing servers. In this lab, a Lambda function (getServiceRequest) was created to dynamically generate service request data.
+!!! note "APIs"
 
+    An API is like a bridge that allows different software programs to talk to each other and work together. It defines a set of rules and protocols that determine how different parts of software can interact. Think of it as a waiter at a restaurant taking your order (request) and bringing you the food (response) from the kitchen.
+
+    Here's a breakdown:
+
+    **What is an API?**
+        An API is a set of rules and protocols that lets software applications communicate with each other. It defines how one piece of software can request information or perform actions from another piece of software.
+
+    **How does it work?**
+        Imagine you have an app on your phone that needs weather information. Instead of creating its own weather service, the app can use an API provided by a weather website. The app sends a request (like "give me the weather forecast for today") to the weather website's API. The API then processes this request and sends back the weather data (response) that the app can use to display the forecast.
+
+    **Why are APIs important?**
+        APIs allow developers to leverage existing functionality without reinventing the wheel. They enable software to be modular and interconnected, which promotes code reuse, collaboration, and faster development of new applications.
+
+    **Real-world analogy:**
+        Think of APIs like a menu at a restaurant. The menu lists all the dishes (services) available, along with descriptions (API documentation) of what each dish contains and how to order it. When you order from the menu (send a request), the kitchen (API server) prepares your food (response) according to the instructions provided.
+
+1. **AWS Lambda:** AWS Lambda is a serverless compute service provided by Amazon Web Services (AWS). It allows you to run code in response to events without provisioning or managing servers. In this lab, a Lambda function (getServiceRequest) was created to dynamically generate service request data.
 2. **API Gateway:** API Gateway is a fully managed service that enables developers to create, publish, maintain, monitor, and secure APIs at any scale. It acts as a front door for applications to access data, business logic, or functionality from back-end services, like Lambda functions. Here, an API Gateway with an endpoint (/service-request) was set up to trigger the Lambda function and return its response to the website.
 
 3. **HTTP Status Codes:** HTTP status codes are standard response codes given by web servers on the internet. In this lab:

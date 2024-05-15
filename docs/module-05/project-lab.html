@@ -30,6 +30,11 @@
 <li><a href="#update-lambda">Update Lambda</a></li>
 <li><a href="#add-information-to-the-database">Add information to the database</a></li>
 <li><a href="#update-a-vehicle">Update a vehicle</a></li>
+<li><a href="#lab-summary">Lab Summary:</a><ul>
+<li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
+<li><a href="#reflection-questions">Reflection Questions:</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -158,8 +163,7 @@
 </code></pre></div>
 
 <ul>
-<li>Change the name of the function being called</li>
-<li>Replace     const jsonArray = await getServiceRequests(); with</li>
+<li>Change the name of the function being called by repalacing <em>const jsonArray = await getServiceRequests();</em> with</li>
 </ul>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">jsonArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">getDynamoServiceRequests</span><span class="p">();</span>
 </code></pre></div>
@@ -186,6 +190,34 @@ Click run. Down below it should return the 8B1111 item</p>
 <h2 id="update-a-vehicle">Update a vehicle</h2>
 <p>Go update the value of the service_status of the 8B1111 vehicle to have a <em>service_status</em> of <strong>Completed</strong></p>
 <p>Go view the website and you should only see one service request.</p>
+<h2 id="lab-summary">Lab Summary:</h2>
+<p>In this lab, the primary objective was to create a DynamoDB table named <em>VehicleServices</em> to store service requests related to vehicle maintenance. Additionally, the lab focused on updating a Lambda function to interact with this DynamoDB table for fetching and manipulating service request data.</p>
+<h3 id="key-concepts-explained">Key Concepts Explained:</h3>
+<div class="admonition note">
+<p class="admonition-title">DynamoDB</p>
+<p>Amazon DynamoDB is a fully managed NoSQL database service provided by Amazon Web Services (AWS). It is designed to provide seamless scalability, low-latency performance, and high availability for applications that require fast and flexible data storage. DynamoDB is suitable for a wide range of use cases, from mobile and web applications to gaming, IoT (Internet of Things), and real-time analytics.</p>
+<p>Key features and concepts of DynamoDB include:</p>
+<p><strong>Fully Managed Service:</strong> DynamoDB is a serverless database service, which means AWS manages all aspects of database provisioning, scaling, and maintenance, allowing developers to focus on building applications without managing infrastructure.</p>
+<p><strong>NoSQL Database:</strong> DynamoDB is a NoSQL (non-relational) database that offers flexible schema design, allowing developers to store and retrieve data in a schema-less format. It supports various data types, including scalar types (like string, number, boolean) and complex types (like lists and maps).</p>
+<p><strong>Scalability and Performance:</strong> DynamoDB automatically scales to accommodate growing workloads by distributing data across multiple servers and partitions. It provides single-digit millisecond latency for read and write operations, making it suitable for applications that require high-performance data access.</p>
+<p><strong>Data Model:</strong> DynamoDB uses primary keys for data retrieval and storage. Tables can have a partition key (and optionally a sort key), enabling efficient querying and indexing of data. Global and local secondary indexes can be defined to support different access patterns.</p>
+<p><strong>Consistency and Durability:</strong> DynamoDB offers configurable consistency models (strong consistency or eventual consistency) based on application requirements. It also provides built-in replication and backup capabilities for data durability and disaster recovery.</p>
+</div>
+<ol>
+<li><strong>DynamoDB:</strong> In this lab, a DynamoDB table was created with specific attributes like <em>license_plate</em> and <em>service_id</em> to store service request details.</li>
+<li><strong>DynamoDB Table Configuration:</strong> The lab covered the configuration of a DynamoDB table, including defining a primary partition key (license_plate) and a sort key (service_id). Additionally, a global secondary index (StatusIndex) was created to facilitate efficient querying based on the <em>service_status</em> attribute.</li>
+<li><strong>Lambda Function Integration with DynamoDB:</strong> The Lambda function (getServiceRequests) was updated to use the AWS SDK for DynamoDB to interact with the VehicleServices table. The function was modified to retrieve service requests based on certain filtering conditions (e.g., excluding completed or new requests) using a ScanCommand.</li>
+<li><strong>Data Manipulation in DynamoDB:</strong> The lab demonstrated how to add and update items in the DynamoDB table directly from the AWS Management Console. By duplicating an existing item and updating its attributes (e.g., changing service_status to "Accepted" for a new service request).</li>
+</ol>
+<h3 id="reflection-questions">Reflection Questions:</h3>
+<ul>
+<li>Explain the significance of partition keys and sort keys in DynamoDB. How does the choice of these keys impact the performance and querying capabilities of the database table?</li>
+<li>Discuss the benefits of using a global secondary index (GSI) in DynamoDB. What scenarios would require the creation of GSIs, and how do they enhance query flexibility?</li>
+<li>Reflect on the differences between scanning and querying data in DynamoDB. Why is it important to optimize data access patterns to minimize resource consumption and improve performance?</li>
+<li>Describe the role of Lambda functions in serverless architectures. How does integrating Lambda with DynamoDB enable event-driven data processing and application logic execution?</li>
+<li>Explore the challenges and best practices of managing NoSQL databases like DynamoDB for scalable and responsive applications. How can developers optimize data modeling and indexing strategies to ensure efficient data access and storage?</li>
+<li>Consider the trade-offs between NoSQL and relational databases for cloud-based applications. What factors would influence the choice of database technology based on application requirements and scalability considerations?</li>
+</ul>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>

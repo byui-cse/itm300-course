@@ -108,8 +108,7 @@ We will replace the previous dataService with the new dynamoService.
 import { getDynamoServiceRequests } from './dynamoService.mjs';
 ```
 
-* Change the name of the function being called
-* Replace     const jsonArray = await getServiceRequests(); with
+* Change the name of the function being called by repalacing *const jsonArray = await getServiceRequests();* with
 
 ```
 const jsonArray = await getDynamoServiceRequests();
@@ -144,3 +143,39 @@ Go back to the website and you should see both items under service request.
 Go update the value of the service_status of the 8B1111 vehicle to have a *service_status* of **Completed**
 
 Go view the website and you should only see one service request.
+
+## Lab Summary:
+
+In this lab, the primary objective was to create a DynamoDB table named *VehicleServices* to store service requests related to vehicle maintenance. Additionally, the lab focused on updating a Lambda function to interact with this DynamoDB table for fetching and manipulating service request data.
+
+### Key Concepts Explained:
+
+!!! note "DynamoDB"
+
+    Amazon DynamoDB is a fully managed NoSQL database service provided by Amazon Web Services (AWS). It is designed to provide seamless scalability, low-latency performance, and high availability for applications that require fast and flexible data storage. DynamoDB is suitable for a wide range of use cases, from mobile and web applications to gaming, IoT (Internet of Things), and real-time analytics.
+
+    Key features and concepts of DynamoDB include:
+
+    **Fully Managed Service:** DynamoDB is a serverless database service, which means AWS manages all aspects of database provisioning, scaling, and maintenance, allowing developers to focus on building applications without managing infrastructure.
+
+    **NoSQL Database:** DynamoDB is a NoSQL (non-relational) database that offers flexible schema design, allowing developers to store and retrieve data in a schema-less format. It supports various data types, including scalar types (like string, number, boolean) and complex types (like lists and maps).
+
+    **Scalability and Performance:** DynamoDB automatically scales to accommodate growing workloads by distributing data across multiple servers and partitions. It provides single-digit millisecond latency for read and write operations, making it suitable for applications that require high-performance data access.
+
+    **Data Model:** DynamoDB uses primary keys for data retrieval and storage. Tables can have a partition key (and optionally a sort key), enabling efficient querying and indexing of data. Global and local secondary indexes can be defined to support different access patterns.
+
+    **Consistency and Durability:** DynamoDB offers configurable consistency models (strong consistency or eventual consistency) based on application requirements. It also provides built-in replication and backup capabilities for data durability and disaster recovery.
+
+1. **DynamoDB:** In this lab, a DynamoDB table was created with specific attributes like *license_plate* and *service_id* to store service request details.
+1. **DynamoDB Table Configuration:** The lab covered the configuration of a DynamoDB table, including defining a primary partition key (license_plate) and a sort key (service_id). Additionally, a global secondary index (StatusIndex) was created to facilitate efficient querying based on the *service_status* attribute.
+1. **Lambda Function Integration with DynamoDB:** The Lambda function (getServiceRequests) was updated to use the AWS SDK for DynamoDB to interact with the VehicleServices table. The function was modified to retrieve service requests based on certain filtering conditions (e.g., excluding completed or new requests) using a ScanCommand.
+1. **Data Manipulation in DynamoDB:** The lab demonstrated how to add and update items in the DynamoDB table directly from the AWS Management Console. By duplicating an existing item and updating its attributes (e.g., changing service_status to "Accepted" for a new service request).
+
+###Reflection Questions:
+
+* Explain the significance of partition keys and sort keys in DynamoDB. How does the choice of these keys impact the performance and querying capabilities of the database table?
+* Discuss the benefits of using a global secondary index (GSI) in DynamoDB. What scenarios would require the creation of GSIs, and how do they enhance query flexibility?
+* Reflect on the differences between scanning and querying data in DynamoDB. Why is it important to optimize data access patterns to minimize resource consumption and improve performance?
+* Describe the role of Lambda functions in serverless architectures. How does integrating Lambda with DynamoDB enable event-driven data processing and application logic execution?
+* Explore the challenges and best practices of managing NoSQL databases like DynamoDB for scalable and responsive applications. How can developers optimize data modeling and indexing strategies to ensure efficient data access and storage?
+* Consider the trade-offs between NoSQL and relational databases for cloud-based applications. What factors would influence the choice of database technology based on application requirements and scalability considerations?
