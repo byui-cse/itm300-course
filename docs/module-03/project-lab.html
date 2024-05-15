@@ -32,6 +32,11 @@
 <li><a href="#update-password-for-user">Update Password for User</a></li>
 <li><a href="#update-the-app-logic">Update the App logic</a></li>
 <li><a href="#log-in">Log in</a></li>
+<li><a href="#lab-summary">Lab Summary:</a><ul>
+<li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
+<li><a href="#reflection-questions">Reflection Questions:</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -192,6 +197,24 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 </ul>
 <p>If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.</p>
 <p>The error console should also give you further ideas if something isn't working correctly.</p>
+<h2 id="lab-summary">Lab Summary:</h2>
+<p>In this lab, the objective was to integrate with AWS Cognito to handle user authentication and authorization. The lab covered the creation of a Cognito user pool, manual user creation, exploration of the Cognito hosted UI, updating user passwords, and integrating the website with Cognito for user authentication using JWT tokens.</p>
+<h3 id="key-concepts-explained">Key Concepts Explained:</h3>
+<ol>
+<li><strong>AWS Cognito:</strong> AWS Cognito is a fully managed authentication service provided by Amazon Web Services. It allows developers to add user sign-up, sign-in, and access control to web and mobile apps quickly and securely. In this lab, a Cognito user pool named <em>VehicleAppUserPool</em> was created to store user credentials and manage user authentication.</li>
+<li><strong>Cognito User Pool:</strong> A Cognito user pool is a user directory used to manage user identities and authentication workflows for applications. In this lab, the user pool was configured to allow user registration and sign-in using usernames and passwords. Additional security features like MFA (Multi-Factor Authentication) and self-registration were disabled for simplicity.</li>
+<li><strong>Hosted UI:</strong> The Cognito hosted UI provides a customizable authentication interface for user login and registration. Users can interact with the hosted UI to sign in and perform password-related actions, such as changing passwords. In this lab, the hosted UI was used to update a user's password interactively.</li>
+<li><strong>JWT Token Authentication:</strong> After successful authentication with Cognito, users receive a JWT (JSON Web Token) that can be used to authenticate subsequent API requests to protected resources. This token-based authentication mechanism ensures secure access control to application features based on user identity.</li>
+</ol>
+<h3 id="reflection-questions">Reflection Questions:</h3>
+<ul>
+<li>Discuss the role of AWS Cognito in modern application development. How does Cognito simplify user authentication and authorization workflows for developers?</li>
+<li>Explain the purpose of a Cognito user pool. What types of user-related data can be stored in a user pool, and how does Cognito handle user authentication and identity management?</li>
+<li>Describe the benefits of using a hosted UI provided by Cognito for user authentication. How can developers customize the hosted UI to match the look and feel of their applications?</li>
+<li>Reflect on the importance of JWT tokens in securing web applications. How does token-based authentication work, and why is it preferred over traditional session-based authentication in distributed systems?</li>
+<li>Explore the security considerations when implementing user authentication with AWS Cognito. What additional security features can be enabled in a production environment to enhance user privacy and data protection?</li>
+<li>Discuss the challenges and best practices for integrating a website with AWS Cognito. What are some common troubleshooting steps when encountering authentication-related issues during development and deployment?</li>
+</ul>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>

@@ -196,6 +196,39 @@ Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. Yo
 
 Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.
 
+## Lab Summary:
+
+In this lab, you learned how to host a website on Amazon EC2 and secure it with SSL/TLS encryption. The lab involved setting up a virtual private cloud (VPC), launching an EC2 instance, configuring a LAMP (Linux, Apache, MySQL, PHP) stack, and enabling SSL using self-signed certificates.
+
+### Key Concepts Explained:
+
+1. **Virtual Private Cloud (VPC):** A VPC is a virtual network dedicated to your AWS account. It allows you to define your own network environment, including IP address ranges, subnets, route tables, and network gateways. In this lab, a custom VPC named vehicleapp was created with public and private subnets.
+
+2. **Amazon EC2 (Elastic Compute Cloud) Instance:** Amazon EC2 provides resizable compute capacity in the cloud. An EC2 instance named vehicleapp-1 was launched within the vehicleapp VPC, configured with a public IP and necessary security group rules to allow HTTP (port 80), HTTPS (port 443), and SSH (port 22) traffic.
+
+3. **Ports:** In computer networking, ports are logical constructs used to identify specific processes or services running on a networked device. Each port is associated with a unique number ranging from 0 to 65535, where lower-numbered ports (0-1023) are reserved for well-known services like HTTP (port 80) and HTTPS (port 443). Ports enable the operating system to direct incoming network packets to the appropriate applications based on their designated port numbers. This allows for efficient and organized communication between different software components and networked devices.
+
+4. **TCP or UDP:** Ports are categorized into two main types: TCP (Transmission Control Protocol) ports and UDP (User Datagram Protocol) ports. TCP ports are used for connection-oriented communication, ensuring reliable and ordered data delivery by establishing a connection between the sender and receiver before transmitting data. UDP ports, on the other hand, facilitate connectionless communication, allowing for faster transmission of data without the overhead of connection setup and error checking. Understanding ports is crucial for network administrators and developers to manage and secure network traffic effectively, ensuring optimal performance and security of networked applications.
+
+5. **TCP/IP:** TCP/IP (Transmission Control Protocol/Internet Protocol) is the fundamental networking protocol suite used to enable communication between devices on the internet. It provides a set of rules and conventions for data transmission and network communication. TCP/IP consists of multiple layers, including the application layer, transport layer, internet layer, and network access layer.
+
+6. **LAMP Stack (Linux, Apache, MySQL, PHP):** The LAMP stack is a popular web development environment. In this lab, Apache HTTP Server (httpd), PHP, and MariaDB (MySQL) were installed on the EC2 instance to support hosting and serving dynamic web content.
+
+7. **SSL/TLS Encryption:** SSL/TLS encryption secures data transmitted over the web by encrypting the communication between clients and servers. In this lab, a self-signed SSL certificate was generated using openssl, allowing HTTPS access to the hosted website.
+
+8. **Server Configuration and Setup:** Commands were executed on the EC2 instance to update packages (sudo dnf update -y), install necessary software packages (httpd, php, mariadb), configure Apache to start at boot (sudo systemctl enable httpd), and set appropriate permissions on web directories.
+
+9. **SSL Certificate Generation and Configuration:** Self-signed SSL certificates were created using openssl, with details such as organization name, common name (public DNS), and email address. The generated certificate and key were configured in Apache's SSL configuration file (/etc/httpd/conf.d/ssl.conf) to enable HTTPS.
+
+### Reflection Questions:
+
+* Explain the purpose of a Virtual Private Cloud (VPC) in AWS. Why is it important to configure subnets and security groups within a VPC when launching EC2 instances?
+* Describe the components of the LAMP stack (Linux, Apache, MySQL, PHP) and their roles in web hosting. How does each component contribute to serving dynamic web content? Many AWS services allow us to split apart these different compontents. What are the pros and cons of separating these services?
+* What is SSL/TLS encryption, and why is it important for securing websites? Compare and contrast self-signed certificates with certificates signed by a certificate authority (CA).
+* Discuss the steps involved in setting up and configuring Apache web server (httpd) on an EC2 instance. How does Apache handle HTTP and HTTPS requests?
+* Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?
+* Reflect on the process of generating and configuring SSL certificates using openssl. What information is required when creating a certificate, and how does the certificate ensure secure communication between clients and servers?
+
 ## Helpful other links:
 
 [nginx on Amazon Linux 2023](https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20)

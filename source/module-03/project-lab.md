@@ -156,3 +156,24 @@ Once you've connected everything, you can log in.
 If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.
 
 The error console should also give you further ideas if something isn't working correctly.
+
+
+## Lab Summary:
+
+In this lab, the objective was to integrate with AWS Cognito to handle user authentication and authorization. The lab covered the creation of a Cognito user pool, manual user creation, exploration of the Cognito hosted UI, updating user passwords, and integrating the website with Cognito for user authentication using JWT tokens.
+
+### Key Concepts Explained:
+
+1. **AWS Cognito:** AWS Cognito is a fully managed authentication service provided by Amazon Web Services. It allows developers to add user sign-up, sign-in, and access control to web and mobile apps quickly and securely. In this lab, a Cognito user pool named *VehicleAppUserPool* was created to store user credentials and manage user authentication.
+1. **Cognito User Pool:** A Cognito user pool is a user directory used to manage user identities and authentication workflows for applications. In this lab, the user pool was configured to allow user registration and sign-in using usernames and passwords. Additional security features like MFA (Multi-Factor Authentication) and self-registration were disabled for simplicity.
+1. **Hosted UI:** The Cognito hosted UI provides a customizable authentication interface for user login and registration. Users can interact with the hosted UI to sign in and perform password-related actions, such as changing passwords. In this lab, the hosted UI was used to update a user's password interactively.
+1. **JWT Token Authentication:** After successful authentication with Cognito, users receive a JWT (JSON Web Token) that can be used to authenticate subsequent API requests to protected resources. This token-based authentication mechanism ensures secure access control to application features based on user identity.
+
+### Reflection Questions:
+
+* Discuss the role of AWS Cognito in modern application development. How does Cognito simplify user authentication and authorization workflows for developers?
+* Explain the purpose of a Cognito user pool. What types of user-related data can be stored in a user pool, and how does Cognito handle user authentication and identity management?
+* Describe the benefits of using a hosted UI provided by Cognito for user authentication. How can developers customize the hosted UI to match the look and feel of their applications?
+* Reflect on the importance of JWT tokens in securing web applications. How does token-based authentication work, and why is it preferred over traditional session-based authentication in distributed systems?
+* Explore the security considerations when implementing user authentication with AWS Cognito. What additional security features can be enabled in a production environment to enhance user privacy and data protection?
+* Discuss the challenges and best practices for integrating a website with AWS Cognito. What are some common troubleshooting steps when encountering authentication-related issues during development and deployment?

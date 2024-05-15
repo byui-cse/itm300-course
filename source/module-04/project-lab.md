@@ -190,7 +190,7 @@ Once you've updated the files, verify the app is working. Go to the Request Serv
 
 ## Lab Summary:
 
-In this cloud fundamentals lab, the objective was to integrate a website with an API Gateway connected to an AWS Lambda function. The Lambda function generates JSON data containing service request information, which is then displayed on the website.
+In this lab, the objective was to integrate with an API Gateway connected to an AWS Lambda function. The Lambda function generates JSON data containing service request information, which is then displayed on the website.
 
 ### Key Concepts Explained:
 

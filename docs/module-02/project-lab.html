@@ -32,6 +32,11 @@
 <li><a href="#download-the-following-files">Download the following files:</a></li>
 <li><a href="#assign-an-elastic-ip">Assign an Elastic IP</a></li>
 <li><a href="#enable-ssl">Enable SSL</a></li>
+<li><a href="#lab-summary">Lab Summary:</a><ul>
+<li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
+<li><a href="#reflection-questions">Reflection Questions:</a></li>
+</ul>
+</li>
 <li><a href="#helpful-other-links">Helpful other links:</a></li>
 </ul>
 </div>
@@ -186,6 +191,47 @@ Ctrl-X -->
 
 <p>Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click on the lock icon to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.</p>
 <p>Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.</p>
+<h2 id="lab-summary">Lab Summary:</h2>
+<p>In this lab, you learned how to host a website on Amazon EC2 and secure it with SSL/TLS encryption. The lab involved setting up a virtual private cloud (VPC), launching an EC2 instance, configuring a LAMP (Linux, Apache, MySQL, PHP) stack, and enabling SSL using self-signed certificates.</p>
+<h3 id="key-concepts-explained">Key Concepts Explained:</h3>
+<ol>
+<li>
+<p><strong>Virtual Private Cloud (VPC):</strong> A VPC is a virtual network dedicated to your AWS account. It allows you to define your own network environment, including IP address ranges, subnets, route tables, and network gateways. In this lab, a custom VPC named vehicleapp was created with public and private subnets.</p>
+</li>
+<li>
+<p><strong>Amazon EC2 (Elastic Compute Cloud) Instance:</strong> Amazon EC2 provides resizable compute capacity in the cloud. An EC2 instance named vehicleapp-1 was launched within the vehicleapp VPC, configured with a public IP and necessary security group rules to allow HTTP (port 80), HTTPS (port 443), and SSH (port 22) traffic.</p>
+</li>
+<li>
+<p><strong>Ports:</strong> In computer networking, ports are logical constructs used to identify specific processes or services running on a networked device. Each port is associated with a unique number ranging from 0 to 65535, where lower-numbered ports (0-1023) are reserved for well-known services like HTTP (port 80) and HTTPS (port 443). Ports enable the operating system to direct incoming network packets to the appropriate applications based on their designated port numbers. This allows for efficient and organized communication between different software components and networked devices.</p>
+</li>
+<li>
+<p><strong>TCP or UDP:</strong> Ports are categorized into two main types: TCP (Transmission Control Protocol) ports and UDP (User Datagram Protocol) ports. TCP ports are used for connection-oriented communication, ensuring reliable and ordered data delivery by establishing a connection between the sender and receiver before transmitting data. UDP ports, on the other hand, facilitate connectionless communication, allowing for faster transmission of data without the overhead of connection setup and error checking. Understanding ports is crucial for network administrators and developers to manage and secure network traffic effectively, ensuring optimal performance and security of networked applications.</p>
+</li>
+<li>
+<p><strong>TCP/IP:</strong> TCP/IP (Transmission Control Protocol/Internet Protocol) is the fundamental networking protocol suite used to enable communication between devices on the internet. It provides a set of rules and conventions for data transmission and network communication. TCP/IP consists of multiple layers, including the application layer, transport layer, internet layer, and network access layer.</p>
+</li>
+<li>
+<p><strong>LAMP Stack (Linux, Apache, MySQL, PHP):</strong> The LAMP stack is a popular web development environment. In this lab, Apache HTTP Server (httpd), PHP, and MariaDB (MySQL) were installed on the EC2 instance to support hosting and serving dynamic web content.</p>
+</li>
+<li>
+<p><strong>SSL/TLS Encryption:</strong> SSL/TLS encryption secures data transmitted over the web by encrypting the communication between clients and servers. In this lab, a self-signed SSL certificate was generated using openssl, allowing HTTPS access to the hosted website.</p>
+</li>
+<li>
+<p><strong>Server Configuration and Setup:</strong> Commands were executed on the EC2 instance to update packages (sudo dnf update -y), install necessary software packages (httpd, php, mariadb), configure Apache to start at boot (sudo systemctl enable httpd), and set appropriate permissions on web directories.</p>
+</li>
+<li>
+<p><strong>SSL Certificate Generation and Configuration:</strong> Self-signed SSL certificates were created using openssl, with details such as organization name, common name (public DNS), and email address. The generated certificate and key were configured in Apache's SSL configuration file (/etc/httpd/conf.d/ssl.conf) to enable HTTPS.</p>
+</li>
+</ol>
+<h3 id="reflection-questions">Reflection Questions:</h3>
+<ul>
+<li>Explain the purpose of a Virtual Private Cloud (VPC) in AWS. Why is it important to configure subnets and security groups within a VPC when launching EC2 instances?</li>
+<li>Describe the components of the LAMP stack (Linux, Apache, MySQL, PHP) and their roles in web hosting. How does each component contribute to serving dynamic web content? Many AWS services allow us to split apart these different compontents. What are the pros and cons of separating these services?</li>
+<li>What is SSL/TLS encryption, and why is it important for securing websites? Compare and contrast self-signed certificates with certificates signed by a certificate authority (CA).</li>
+<li>Discuss the steps involved in setting up and configuring Apache web server (httpd) on an EC2 instance. How does Apache handle HTTP and HTTPS requests?</li>
+<li>Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?</li>
+<li>Reflect on the process of generating and configuring SSL certificates using openssl. What information is required when creating a certificate, and how does the certificate ensure secure communication between clients and servers?</li>
+</ul>
 <h2 id="helpful-other-links">Helpful other links:</h2>
 <p><a href="https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20">nginx on Amazon Linux 2023</a></p>
 <p><a href="https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b">nginx on Amazon Linux 2023 LAMP</a></p>
