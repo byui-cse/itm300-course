@@ -157,7 +157,7 @@ Response headers
 
 * Click Deploy API
 
-    * State: New Stage
+    * Stage: New Stage
     * Stage Name: prod
 
 ## Update the App logic
