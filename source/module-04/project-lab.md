@@ -72,7 +72,7 @@ export const handler = async (event) => {
 
     The preparation material for this week has videos that go into what each status code is. We'll use more in the future as well as using different HTTP verbs besides GET.
 
-Create a file named dataService.mjs
+Right click on getServiceRequests and choose New file. Create a file named dataService.mjs
 
 ```
 export const getServiceRequests = () => {
