@@ -1,12 +1,12 @@
 ---
-title: Module 06: Overview
+title: Module 07: Overview
 body-class: index-page
 ---
 
 <!-- ![Monolithic App]({{URLROOT}}/shared/img/aws-monolithic.png)
 *[Photo by Dall-E-3](https://openai.com/dall-e-3)* -->
 
-## Module 06 - Compute
+## Module 07 - Storage
 
 
 #### Preparation Material

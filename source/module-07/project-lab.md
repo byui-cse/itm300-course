@@ -8,7 +8,7 @@ body-class: index-page
 
 ## Product Objective
 
-For this lab we'll handle requests to show all data for the technicians.
+For this lab we'll build and integrate an API to handle data securely for the technicians.
 
 
 ## Instructions
@@ -17,14 +17,19 @@ For this lab we'll handle requests to show all data for the technicians.
 
 ## Create a new API Gateway resource
 
+We'll add a new endpoint which will provide a secure location for our logged in users to pull information. 
+
 Go to our vehicleapp API Gateway. Click on the /.
 
 Click Create resource
 Resource Name: admin-service-request
 Check CORS  
 
+![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
 
 ## Create an authorizer
+
+We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
 
 Left hand side of the API Gateway
 Name: AdminServiceRequestAuthorizer

@@ -172,17 +172,17 @@ wget https://github.com/byui-cse/itm300-course/raw/main/source/module-06/rebuild
 chmod +x ./rebuildapp.sh
 ```
 
-Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
-
-* Click Stages on the left bar
-* Under stage details find Invoke URL and copy that address
-* Paste that as the Invoke URL when prompted
-
+Next run the script which will download the newest files. 
 
 ```
 sudo bash ./rebuildapp.sh
 ```
 
+You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
+
+* Click Stages on the left bar
+* Under stage details find Invoke URL and copy that address
+* Paste that as the Invoke URL when prompted
 
 
 Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.

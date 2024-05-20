@@ -198,15 +198,16 @@
 <div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
 </code></pre></div>
 
-<p>Next run the script which will download the newest files. You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
+<p>Next run the script which will download the newest files. </p>
+<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
+</code></pre></div>
+
+<p>You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
 <ul>
 <li>Click Stages on the left bar</li>
 <li>Under stage details find Invoke URL and copy that address</li>
 <li>Paste that as the Invoke URL when prompted</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
-</code></pre></div>
-
 <p>Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.</p>
 <p>Customers may wonder why their service request didn't show up immediately after they pressed submit. Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.</p>
 <p>Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.</p>
