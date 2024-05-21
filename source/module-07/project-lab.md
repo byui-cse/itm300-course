@@ -21,8 +21,6 @@ Go to our vehicleapp API Gateway. Click on the /.
 * Resource Name: admin-service-request
 * Check CORS  
 
-![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
-
 ## Create an authorizer
 
 We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
@@ -51,6 +49,8 @@ Authorization: AdminServiceRequestAuthorizer
 * adminGetServiceRequest
 
 Authorization: AdminServiceRequestAuthorizer
+
+![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
 
 Deploy API
 
