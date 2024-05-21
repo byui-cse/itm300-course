@@ -11,10 +11,6 @@ body-class: index-page
 For this lab we'll build and integrate an API to handle data securely for the technicians.
 
 
-## Instructions
-
-
-
 ## Create a new API Gateway resource
 
 We'll add a new endpoint which will provide a secure location for our logged in users to pull information. 
@@ -297,3 +293,21 @@ Once you've completed, check the following:
 3. Can you update a status from the Admin Area?
 4. Do Completed items disappear from the Service Request page?
 5. Do items with a status that is not Completed or New Request show up on the Service Request page?
+
+
+## Lab Summary:
+
+In this lab, you extended your vehicle service application by building and integrating an API to handle data securely for technicians. The key tasks included creating a new API Gateway resource, adding a PUT method for updating service requests, implementing an authorizer for security, and updating the Lambda function to interact with DynamoDB. You also updated the web application enabling administrators to manage these requests securely.
+
+### Key Concepts Explained:
+
+* **API Gateway and Lambda Integration**: API Gateway acts as a front door for applications to access data, business logic, or functionality from your backend services. In this lab, you created new endpoints in API Gateway that integrate with AWS Lambda functions. This setup allows your application to handle HTTP requests and execute backend logic without managing any servers.
+* **Cognito Authorizer**: By using Amazon Cognito as an authorizer, you ensured that only authenticated users can access certain API endpoints. This enhances security by validating tokens included in requests, thereby controlling access based on user authentication status.
+* **DynamoDB Operations**: You updated your Lambda functions to perform CRUD (Create, Read, Update, Delete) operations on the DynamoDB table. DynamoDB is a managed NoSQL database service that provides fast and predictable performance with seamless scalability. By leveraging DynamoDB, your application can efficiently handle and store service request data.
+
+### Reflective Questions:
+
+* How does using an authorizer with API Gateway improve the security of your application?
+* What are the benefits of using a serverless architecture with AWS Lambda and DynamoDB for managing backend operations?
+* How do API Gateway, Lambda, and DynamoDB work together to create a scalable and secure backend for your application?
+* What considerations should you take into account when designing an API to handle sensitive data, such as service requests?
