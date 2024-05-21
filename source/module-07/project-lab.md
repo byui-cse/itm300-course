@@ -79,15 +79,18 @@ const tableName = "VehicleServices";
 
 export const getDynamoServiceRequests = async () => {
     const statusToExclude = "Completed";
+    const statusToExcludeRejected = "Service Rejected";
+
     try {
         const params = {
             TableName: tableName,
-            FilterExpression: "attribute_not_exists(service_status) OR #service_status <> :status",
+            FilterExpression: "attribute_not_exists(service_status) OR (#service_status <> :status AND #service_status <> :statusRejected)",
             ExpressionAttributeNames: {
                 "#service_status": "service_status"
             },
             ExpressionAttributeValues: {
                 ":status": statusToExclude,
+                ":statusRejected":statusToExcludeRejected
             }
         };      
         const body = await mydynamodb.send(new ScanCommand(params));

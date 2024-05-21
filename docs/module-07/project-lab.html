@@ -123,15 +123,18 @@
 
 <span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
+    <span class="n">const</span> <span class="n">statusToExcludeRejected</span> <span class="o">=</span> <span class="s2">&quot;Service Rejected&quot;</span><span class="p">;</span>
+
     <span class="k">try</span> <span class="p">{</span>
         <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR #service_status &lt;&gt; :status&quot;</span><span class="p">,</span>
+            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusRejected)&quot;</span><span class="p">,</span>
             <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span>
             <span class="p">},</span>
             <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span><span class="p">,</span>
+                <span class="s2">&quot;:statusRejected&quot;</span><span class="p">:</span><span class="n">statusToExcludeRejected</span>
             <span class="p">}</span>
         <span class="p">};</span>      
         <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
