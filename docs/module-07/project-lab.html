@@ -28,8 +28,8 @@
 <li><a href="#instructions">Instructions</a></li>
 <li><a href="#create-a-new-api-gateway-resource">Create a new API Gateway resource</a></li>
 <li><a href="#create-an-authorizer">Create an authorizer</a></li>
-<li><a href="#create-lambda">Create lambda</a></li>
 <li><a href="#create-a-get-method">Create a Get Method</a></li>
+<li><a href="#create-lambda">Create lambda</a></li>
 <li><a href="#update-code">Update code</a></li>
 </ul>
 </div>
@@ -70,12 +70,34 @@
 <li>Choose VehicleApp</li>
 <li>Token Source: Authorization</li>
 </ul>
+<h2 id="create-a-get-method">Create a Get Method</h2>
+<ul>
+<li>Create Method</li>
+<li>Get</li>
+<li>Lambda Proxy: turn on</li>
+<li>lambda: adminGetServiceRequest</li>
+</ul>
+<p>Authorization: AdminServiceRequestAuthorizer</p>
+<ul>
+<li>Create resource / {id}</li>
+<li>
+<p>check CORS </p>
+</li>
+<li>
+<p>Create Method: PUT</p>
+</li>
+<li>Lambda</li>
+<li>Lambda Proxy Integration</li>
+<li>adminGetServiceRequest</li>
+</ul>
+<p>Authorization: AdminServiceRequestAuthorizer</p>
+<p>Deploy API</p>
 <h2 id="create-lambda">Create lambda</h2>
 <ul>
 <li>Name: adminGetServiceRequest</li>
 <li>Role: LabRole</li>
 </ul>
-<p>create a file named adminDynamoService.mjs</p>
+<p>Create a file named adminDynamoService.mjs</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span>
   <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
@@ -273,28 +295,6 @@
 <span class="p">};</span>
 </code></pre></div>
 
-<h2 id="create-a-get-method">Create a Get Method</h2>
-<ul>
-<li>Create Method</li>
-<li>Get</li>
-<li>Lambda Proxy: turn on</li>
-<li>lambda: adminGetServiceRequest</li>
-</ul>
-<p>Authorization: AdminServiceRequestAuthorizer</p>
-<ul>
-<li>Create resource / {id}</li>
-<li>
-<p>check CORS </p>
-</li>
-<li>
-<p>Create Method: PUT</p>
-</li>
-<li>Lambda</li>
-<li>Lambda Proxy Integration</li>
-<li>adminGetServiceRequest</li>
-</ul>
-<p>Edit : Authorization: AdminServiceRequestAuthorizer</p>
-<p>Deploy API</p>
 <h2 id="update-code">Update code</h2>
 <p>Connect to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
@@ -309,6 +309,14 @@
 </code></pre></div>
 
 <p>You'll be prompted to enter multiple settings.</p>
+<p>Once you've completed, check the following:</p>
+<ol>
+<li>Can you submit a Service Request from the Request Page?</li>
+<li>Can you log in to the Admin area?</li>
+<li>Can you update a status from the Admin Area?</li>
+<li>Do Completed items disappear from the Service Request page?</li>
+<li>Do items with a status that is not Completed or New Request show up on the Service Request page?</li>
+</ol>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>

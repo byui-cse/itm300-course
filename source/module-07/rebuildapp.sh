@@ -28,7 +28,7 @@ echo "Invoke URL updated in $file_path"
 
 #########################################
 
-echo "Please enter your User Pool ID:"
+echo "Please enter your Cognito User Pool ID:"
 read user_pool_id
 
 # Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
@@ -38,7 +38,7 @@ echo "User Pool ID updated in $file_path"
 
 ######################################################33
 
-echo "Please enter your App Client ID:"
+echo "Please enter your Cognito App Client ID:"
 read user_client_id
 
 

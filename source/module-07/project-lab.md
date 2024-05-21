@@ -37,12 +37,33 @@ We can enhance our API Gateway endpoint by integrating an authorizer. By linking
 * Choose VehicleApp
 * Token Source: Authorization
 
+## Create a Get Method
+
+* Create Method
+* Get
+* Lambda Proxy: turn on
+* lambda: adminGetServiceRequest
+
+Authorization: AdminServiceRequestAuthorizer
+
+* Create resource / {id}
+* check CORS 
+
+* Create Method: PUT
+* Lambda
+* Lambda Proxy Integration
+* adminGetServiceRequest
+
+Authorization: AdminServiceRequestAuthorizer
+
+Deploy API
+
 ## Create lambda
 
 * Name: adminGetServiceRequest
 * Role: LabRole
 
-create a file named adminDynamoService.mjs
+Create a file named adminDynamoService.mjs
 
 ```
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -245,26 +266,7 @@ export const handler = async (event) => {
 };
 ```
 
-## Create a Get Method
 
-* Create Method
-* Get
-* Lambda Proxy: turn on
-* lambda: adminGetServiceRequest
-
-Authorization: AdminServiceRequestAuthorizer
-
-* Create resource / {id}
-* check CORS 
-
-* Create Method: PUT
-* Lambda
-* Lambda Proxy Integration
-* adminGetServiceRequest
-
-Edit : Authorization: AdminServiceRequestAuthorizer
-
-Deploy API
 
 ## Update code
 
@@ -287,3 +289,11 @@ sudo bash ./rebuildapp.sh
 ```
 
 You'll be prompted to enter multiple settings.
+
+Once you've completed, check the following:
+
+1. Can you submit a Service Request from the Request Page?
+2. Can you log in to the Admin area?
+3. Can you update a status from the Admin Area?
+4. Do Completed items disappear from the Service Request page?
+5. Do items with a status that is not Completed or New Request show up on the Service Request page?
