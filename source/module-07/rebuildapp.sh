@@ -32,7 +32,7 @@ echo "Please enter your User Pool ID:"
 read user_pool_id
 
 # Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
-sed -i "s|REPLACE-WITH-YOUR-USER-POOL-ID|${$user_pool_id}|g" "$file_path"
+sed -i "s|REPLACE-WITH-YOUR-USER-POOL-ID|${user_pool_id}|g" "$file_path"
 
 echo "User Pool ID updated in $file_path"
 
@@ -43,7 +43,7 @@ read user_client_id
 
 
 # Use sed to replace the line containing 'UserPoolId: REPLACE-WITH-YOUR-USER-POOL-ID'
-sed -i "s/REPLACE-WITH-YOUR-CLIENT-ID/${$user_client_id}/g" "$file_path"
+sed -i "s/REPLACE-WITH-YOUR-CLIENT-ID/${user_client_id}/g" "$file_path"
 
 echo "App Client ID updated in $file_path"
 
