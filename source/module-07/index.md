@@ -27,7 +27,7 @@ Please review the following:
 
 #### Project Lab
 
-* [Posting to DynamoDB](./project-lab.html)
+* [Updating DynamoDB and adding security](./project-lab.html)
 
 <!-- #### Additional Materials -->
 
