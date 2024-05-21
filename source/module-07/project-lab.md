@@ -21,9 +21,9 @@ We'll add a new endpoint which will provide a secure location for our logged in 
 
 Go to our vehicleapp API Gateway. Click on the /.
 
-Click Create resource
-Resource Name: admin-service-request
-Check CORS  
+* Click Create resource
+* Resource Name: admin-service-request
+* Check CORS  
 
 ![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
 
@@ -31,20 +31,18 @@ Check CORS
 
 We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
 
-Left hand side of the API Gateway
-Name: AdminServiceRequestAuthorizer
-Cognito
-Choose VehicleApp
-Token Source: Authorization
+* Left hand side of the API Gateway
+* Name: AdminServiceRequestAuthorizer
+* Cognito
+* Choose VehicleApp
+* Token Source: Authorization
 
 ## Create lambda
 
-Name: adminGetServiceRequest
-Role: LabRole
+* Name: adminGetServiceRequest
+* Role: LabRole
 
-COPY files from the first Lambda
-
-adminDynamoService.mjs
+create a file named adminDynamoService.mjs
 
 ```
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -54,6 +52,7 @@ import {
   PutCommand,
   GetCommand,
   DeleteCommand,
+  UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
@@ -106,6 +105,75 @@ export const addDynamoServiceRequest = async (requestBody) => {
   }
 };
 
+export const updateDynamoServiceRequest = async (requestBody, serviceId) => {
+  try {
+
+    const licensePlate = requestBody.license_plate ?? "Unknown";
+
+    // Check if the item exists
+    const getParams = {
+      TableName: tableName,
+      Key: {
+        service_id: serviceId,
+        license_plate: licensePlate,
+      },
+    };
+
+    const { Item } = await mydynamodb.send(new GetCommand(getParams));
+
+    if (!Item) {
+      throw new Error("No record found");
+    }    
+    
+    // Initialize the UpdateExpression components
+    let updateExpression = "set";
+    const expressionAttributeNames = {};
+    const expressionAttributeValues = {};
+
+    // Dynamically build the UpdateExpression, ExpressionAttributeNames, and ExpressionAttributeValues
+    if (requestBody.service_description) {
+      updateExpression += " #sd = :sd,";
+      expressionAttributeNames["#sd"] = "service_description";
+      expressionAttributeValues[":sd"] = requestBody.service_description;
+    }
+    if (requestBody.phone_number) {
+      updateExpression += " #pn = :pn,";
+      expressionAttributeNames["#pn"] = "phone_number";
+      expressionAttributeValues[":pn"] = requestBody.phone_number;
+    }
+    if (requestBody.service_status) {
+      updateExpression += " #ss = :ss,";
+      expressionAttributeNames["#ss"] = "service_status";
+      expressionAttributeValues[":ss"] = requestBody.service_status;
+    }
+
+    // Remove any trailing comma from the update expression
+    updateExpression = updateExpression.replace(/,$/, "");
+
+    const params = {
+      TableName: tableName,
+      Key: {
+        service_id: serviceId,
+        license_plate: requestBody.license_plate ?? "Unknown", // Assuming license_plate is part of the key
+      },
+      UpdateExpression: updateExpression,
+      ExpressionAttributeNames: expressionAttributeNames,
+      ExpressionAttributeValues: expressionAttributeValues,
+    };
+
+    await mydynamodb.send(new UpdateCommand(params));
+
+    return `Successfully updated service request`;
+  } catch (error) {
+    if (error.message === "No record found") {
+      return error.message;
+    } else {
+      console.error("Error updating DynamoDB service request:", error);
+      throw error; // Re-throw the error to handle it further up the call stack
+    }
+  }
+};
+
 
 
 // Helper function to generate a unique service_id based on current date and time
@@ -117,11 +185,11 @@ const generateServiceId = () => {
 };
 ```
 
-index.mjs 
+Update the index.mjs with the following code:
 
 ```
 
-import { getDynamoServiceRequests, addDynamoServiceRequest } from './adminDynamoService.mjs';
+import { getDynamoServiceRequests, addDynamoServiceRequest, updateDynamoServiceRequest } from './adminDynamoService.mjs';
 
 const commonHeaders = {
   'Content-Type': 'application/json',
@@ -145,9 +213,15 @@ export const handler = async (event) => {
       case "GET":    
         jsonArray = await getDynamoServiceRequests();
         break;
-      case "POST":
-        console.log("posting");
-        jsonArray = await addDynamoServiceRequest(requestBody);
+      case "PUT":
+        console.log("puting");
+        if (pathParameters && pathParameters.id) {
+          jsonArray = await updateDynamoServiceRequest(requestBody,pathParameters.id);
+          // jsonArray = `${pathParameters.id} ${requestBody}`;
+        }
+        else {
+          jsonArray = "Missing ID"
+        }
         // jsonArray = "Posted";
         break;
         
@@ -173,14 +247,43 @@ export const handler = async (event) => {
 
 ## Create a Get Method
 
-Create Method
-Get
-Lambda Proxy: turn on
-adminGetServiceRequest
+* Create Method
+* Get
+* Lambda Proxy: turn on
+* lambda: adminGetServiceRequest
 
 Authorization: AdminServiceRequestAuthorizer
+
+* Create resource / {id}
+* check CORS 
+
+* Create Method: PUT
+* Lambda
+* Lambda Proxy Integration
+* adminGetServiceRequest
+
+Edit : Authorization: AdminServiceRequestAuthorizer
 
 Deploy API
 
 ## Update code
 
+Connect to your Vehicle App EC2 Instance
+
+Download the newest website app:
+
+```
+wget https://github.com/byui-cse/itm300-course/raw/main/source/module-07/rebuildapp.sh
+```
+
+```
+chmod +x ./rebuildapp.sh
+```
+
+Next run the script which will download the newest files. 
+
+```
+sudo bash ./rebuildapp.sh
+```
+
+You'll be prompted to enter multiple settings.

@@ -55,22 +55,27 @@
 <h2 id="create-a-new-api-gateway-resource">Create a new API Gateway resource</h2>
 <p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
 <p>Go to our vehicleapp API Gateway. Click on the /.</p>
-<p>Click Create resource
-Resource Name: admin-service-request
-Check CORS  </p>
+<ul>
+<li>Click Create resource</li>
+<li>Resource Name: admin-service-request</li>
+<li>Check CORS  </li>
+</ul>
 <p><img alt="admin-service-request" src="https://byui-cse.github.io/itm300-course/shared/img/admin-service-request.jpg" /></p>
 <h2 id="create-an-authorizer">Create an authorizer</h2>
 <p>We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.</p>
-<p>Left hand side of the API Gateway
-Name: AdminServiceRequestAuthorizer
-Cognito
-Choose VehicleApp
-Token Source: Authorization</p>
+<ul>
+<li>Left hand side of the API Gateway</li>
+<li>Name: AdminServiceRequestAuthorizer</li>
+<li>Cognito</li>
+<li>Choose VehicleApp</li>
+<li>Token Source: Authorization</li>
+</ul>
 <h2 id="create-lambda">Create lambda</h2>
-<p>Name: adminGetServiceRequest
-Role: LabRole</p>
-<p>COPY files from the first Lambda</p>
-<p>adminDynamoService.mjs</p>
+<ul>
+<li>Name: adminGetServiceRequest</li>
+<li>Role: LabRole</li>
+</ul>
+<p>create a file named adminDynamoService.mjs</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span>
   <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
@@ -78,6 +83,7 @@ Role: LabRole</p>
   <span class="n">PutCommand</span><span class="p">,</span>
   <span class="n">GetCommand</span><span class="p">,</span>
   <span class="n">DeleteCommand</span><span class="p">,</span>
+  <span class="n">UpdateCommand</span><span class="p">,</span>
 <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
 
 <span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
@@ -130,6 +136,75 @@ Role: LabRole</p>
   <span class="p">}</span>
 <span class="p">};</span>
 
+<span class="n">export</span> <span class="n">const</span> <span class="n">updateDynamoServiceRequest</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">requestBody</span><span class="p">,</span> <span class="n">serviceId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+
+    <span class="n">const</span> <span class="n">licensePlate</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">;</span>
+
+    <span class="o">//</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">item</span> <span class="n">exists</span>
+    <span class="n">const</span> <span class="n">getParams</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
+      <span class="n">Key</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
+        <span class="n">license_plate</span><span class="p">:</span> <span class="n">licensePlate</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">};</span>
+
+    <span class="n">const</span> <span class="p">{</span> <span class="n">Item</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">GetCommand</span><span class="p">(</span><span class="n">getParams</span><span class="p">));</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="err">!</span><span class="n">Item</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">throw</span> <span class="n">new</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;No record found&quot;</span><span class="p">);</span>
+    <span class="p">}</span>    
+
+    <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">UpdateExpression</span> <span class="n">components</span>
+    <span class="n">let</span> <span class="n">updateExpression</span> <span class="o">=</span> <span class="s2">&quot;set&quot;</span><span class="p">;</span>
+    <span class="n">const</span> <span class="n">expressionAttributeNames</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="n">const</span> <span class="n">expressionAttributeValues</span> <span class="o">=</span> <span class="p">{};</span>
+
+    <span class="o">//</span> <span class="n">Dynamically</span> <span class="n">build</span> <span class="n">the</span> <span class="n">UpdateExpression</span><span class="p">,</span> <span class="n">ExpressionAttributeNames</span><span class="p">,</span> <span class="ow">and</span> <span class="n">ExpressionAttributeValues</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #sd = :sd,&quot;</span><span class="p">;</span>
+      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#sd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_description&quot;</span><span class="p">;</span>
+      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:sd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #pn = :pn,&quot;</span><span class="p">;</span>
+      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#pn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;phone_number&quot;</span><span class="p">;</span>
+      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:pn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #ss = :ss,&quot;</span><span class="p">;</span>
+      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_status&quot;</span><span class="p">;</span>
+      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="o">//</span> <span class="n">Remove</span> <span class="nb">any</span> <span class="n">trailing</span> <span class="n">comma</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">update</span> <span class="n">expression</span>
+    <span class="n">updateExpression</span> <span class="o">=</span> <span class="n">updateExpression</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">,</span><span class="err">$</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+
+    <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
+      <span class="n">Key</span><span class="p">:</span> <span class="p">{</span>
+        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
+        <span class="n">license_plate</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">Assuming</span> <span class="n">license_plate</span> <span class="ow">is</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span>
+      <span class="p">},</span>
+      <span class="n">UpdateExpression</span><span class="p">:</span> <span class="n">updateExpression</span><span class="p">,</span>
+      <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="n">expressionAttributeNames</span><span class="p">,</span>
+      <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="n">expressionAttributeValues</span><span class="p">,</span>
+    <span class="p">};</span>
+
+    <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">UpdateCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="err">`</span><span class="n">Successfully</span> <span class="n">updated</span> <span class="n">service</span> <span class="n">request</span><span class="err">`</span><span class="p">;</span>
+  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span> <span class="o">===</span> <span class="s2">&quot;No record found&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error updating DynamoDB service request:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+      <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
 
 
 <span class="o">//</span> <span class="n">Helper</span> <span class="n">function</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>
@@ -141,8 +216,8 @@ Role: LabRole</p>
 <span class="p">};</span>
 </code></pre></div>
 
-<p>index.mjs </p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getDynamoServiceRequests</span><span class="p">,</span> <span class="n">addDynamoServiceRequest</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./adminDynamoService.mjs&#39;</span><span class="p">;</span>
+<p>Update the index.mjs with the following code:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getDynamoServiceRequests</span><span class="p">,</span> <span class="n">addDynamoServiceRequest</span><span class="p">,</span> <span class="n">updateDynamoServiceRequest</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./adminDynamoService.mjs&#39;</span><span class="p">;</span>
 
 <span class="n">const</span> <span class="n">commonHeaders</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
@@ -166,9 +241,15 @@ Role: LabRole</p>
       <span class="k">case</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>    
         <span class="n">jsonArray</span> <span class="o">=</span> <span class="k">await</span> <span class="n">getDynamoServiceRequests</span><span class="p">();</span>
         <span class="k">break</span><span class="p">;</span>
-      <span class="k">case</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;posting&quot;</span><span class="p">);</span>
-        <span class="n">jsonArray</span> <span class="o">=</span> <span class="k">await</span> <span class="n">addDynamoServiceRequest</span><span class="p">(</span><span class="n">requestBody</span><span class="p">);</span>
+      <span class="k">case</span> <span class="s2">&quot;PUT&quot;</span><span class="p">:</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;puting&quot;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pathParameters</span> <span class="o">&amp;&amp;</span> <span class="n">pathParameters</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">jsonArray</span> <span class="o">=</span> <span class="k">await</span> <span class="n">updateDynamoServiceRequest</span><span class="p">(</span><span class="n">requestBody</span><span class="p">,</span><span class="n">pathParameters</span><span class="o">.</span><span class="n">id</span><span class="p">);</span>
+          <span class="o">//</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="err">`$</span><span class="p">{</span><span class="n">pathParameters</span><span class="o">.</span><span class="n">id</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">requestBody</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+          <span class="n">jsonArray</span> <span class="o">=</span> <span class="s2">&quot;Missing ID&quot;</span>
+        <span class="p">}</span>
         <span class="o">//</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="s2">&quot;Posted&quot;</span><span class="p">;</span>
         <span class="k">break</span><span class="p">;</span>
 
@@ -193,13 +274,41 @@ Role: LabRole</p>
 </code></pre></div>
 
 <h2 id="create-a-get-method">Create a Get Method</h2>
-<p>Create Method
-Get
-Lambda Proxy: turn on
-adminGetServiceRequest</p>
+<ul>
+<li>Create Method</li>
+<li>Get</li>
+<li>Lambda Proxy: turn on</li>
+<li>lambda: adminGetServiceRequest</li>
+</ul>
 <p>Authorization: AdminServiceRequestAuthorizer</p>
+<ul>
+<li>Create resource / {id}</li>
+<li>
+<p>check CORS </p>
+</li>
+<li>
+<p>Create Method: PUT</p>
+</li>
+<li>Lambda</li>
+<li>Lambda Proxy Integration</li>
+<li>adminGetServiceRequest</li>
+</ul>
+<p>Edit : Authorization: AdminServiceRequestAuthorizer</p>
 <p>Deploy API</p>
 <h2 id="update-code">Update code</h2>
+<p>Connect to your Vehicle App EC2 Instance</p>
+<p>Download the newest website app:</p>
+<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-07/rebuildapp.sh
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
+</code></pre></div>
+
+<p>Next run the script which will download the newest files. </p>
+<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
+</code></pre></div>
+
+<p>You'll be prompted to enter multiple settings.</p>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
