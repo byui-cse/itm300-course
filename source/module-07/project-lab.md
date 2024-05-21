@@ -8,7 +8,7 @@ body-class: index-page
 
 ## Product Objective
 
-For this lab we'll build and integrate an API to handle data securely for the technicians.
+For this lab we'll build and integrate an API to handle data securely for the technicians. We'll also increase security for the service requests by only sending data required for the display.
 
 
 ## Create a new API Gateway resource
@@ -25,20 +25,20 @@ Go to our vehicleapp API Gateway. Click on the /.
 
 We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
 
-* Left hand side of the API Gateway
+* On the left hand side of the API Gateway choose **Authorizers**
 * Name: AdminServiceRequestAuthorizer
+* Create Authorizer
 * Cognito
 * Choose VehicleApp
 * Token Source: Authorization
 
 ## Create a Get Method
 
-* Create Method
+* Create a Get Method under admin-service-requests
 * Get
 * Lambda Proxy: turn on
 * lambda: adminGetServiceRequest
-
-Authorization: AdminServiceRequestAuthorizer
+* Method request settings -> Authorization: AdminServiceRequestAuthorizer
 
 * Create resource / {id}
 * check CORS 
@@ -47,8 +47,7 @@ Authorization: AdminServiceRequestAuthorizer
 * Lambda
 * Lambda Proxy Integration
 * adminGetServiceRequest
-
-Authorization: AdminServiceRequestAuthorizer
+* Method request Settings -> Authorization: AdminServiceRequestAuthorizer
 
 ![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
 

@@ -55,7 +55,7 @@
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo-fancy-service-requests.jpg" />
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>For this lab we'll build and integrate an API to handle data securely for the technicians.</p>
+<p>For this lab we'll build and integrate an API to handle data securely for the technicians. We'll also increase security for the service requests by only sending data required for the display.</p>
 <h2 id="create-a-new-api-gateway-resource">Create a new API Gateway resource</h2>
 <p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
 <p>Go to our vehicleapp API Gateway. Click on the /.</p>
@@ -67,22 +67,25 @@
 <h2 id="create-an-authorizer">Create an authorizer</h2>
 <p>We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.</p>
 <ul>
-<li>Left hand side of the API Gateway</li>
+<li>On the left hand side of the API Gateway choose <strong>Authorizers</strong></li>
 <li>Name: AdminServiceRequestAuthorizer</li>
+<li>Create Authorizer</li>
 <li>Cognito</li>
 <li>Choose VehicleApp</li>
 <li>Token Source: Authorization</li>
 </ul>
 <h2 id="create-a-get-method">Create a Get Method</h2>
 <ul>
-<li>Create Method</li>
+<li>Create a Get Method under admin-service-requests</li>
 <li>Get</li>
 <li>Lambda Proxy: turn on</li>
 <li>lambda: adminGetServiceRequest</li>
-</ul>
-<p>Authorization: AdminServiceRequestAuthorizer</p>
-<ul>
-<li>Create resource / {id}</li>
+<li>
+<p>Method request settings -&gt; Authorization: AdminServiceRequestAuthorizer</p>
+</li>
+<li>
+<p>Create resource / {id}</p>
+</li>
 <li>
 <p>check CORS </p>
 </li>
@@ -92,8 +95,8 @@
 <li>Lambda</li>
 <li>Lambda Proxy Integration</li>
 <li>adminGetServiceRequest</li>
+<li>Method request Settings -&gt; Authorization: AdminServiceRequestAuthorizer</li>
 </ul>
-<p>Authorization: AdminServiceRequestAuthorizer</p>
 <p><img alt="admin-service-request" src="https://byui-cse.github.io/itm300-course/shared/img/admin-service-request.jpg" /></p>
 <p>Deploy API</p>
 <h2 id="create-lambda">Create lambda</h2>
