@@ -3,7 +3,7 @@ title: Module 07: Project 7 Lab - Admin Secure Pages
 body-class: index-page
 ---
 
-![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-service-requests.jpg)
+![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-fancy-service-requests.jpg)
 *[Photo by Dall-E-3](https://openai.com/dall-e-3)*
 
 ## Product Objective
