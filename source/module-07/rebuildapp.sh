@@ -5,9 +5,10 @@ wget https://github.com/byui-cse/itm300-course/raw/main/source/module-07/quick-o
 mkdir /tmp/lab-app
 unzip quick-oil-part6.zip -d /tmp/lab-app
 # Remove so that we don't overwrite variables they have stored
-
+mkdir -p /var/www/html
 mv /tmp/lab-app/quick-oil-part6/* /var/www/html
 mv /tmp/lab-app/quick-oil-part6/scripts/* /var/www/html/scripts
+mv /tmp/lab-app/quick-oil-part6/images/* /var/www/html/images
 rm -rf /tmp/lab-app/
 rm quick-oil-part6.zip
 
