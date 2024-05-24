@@ -315,11 +315,11 @@ Go to the SQS queue for the **AllStatusUpdatesQueue**
 
 Go look at the queue. You'll notice that the messages are now gone from that queue. Once a message is processed by a lambda with a 200 status, it will automatically be deleted from the queue. 
 
-You can also go to the CloudWatch service and look at the log groups for the VehicleAnalystics and you should see logs that have information about the two updates you did previously.
+You can also go to the CloudWatch service and look at the log groups for the VehicleAnalystics and you should see logs that have information about the two updates you did previously. These logs could then be used to create dashboards and visualizations of the services performed over time.
 
-Outside of the lab environment, you can also use SNS to send emails and text messages. These would be beneficial to notify customers of status of their vehicle or to let them know that their car is finished and to come pick it up.
+Outside of the lab environment, SNS can be utilized to send emails and text messages, which can be very useful for notifying customers about the status of their vehicles or informing them that their car is ready for pickup.
 
-Using SNS and SQS allows us to easily add different workflows to activities without the original service needing to know about any of the additional pipelines that have been created.
+By integrating SNS and SQS, we can effortlessly add new workflows to various activities without requiring the original service to be aware of the additional pipelines that have been established.
 
 
 ## Lab Summary
