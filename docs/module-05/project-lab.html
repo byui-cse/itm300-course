@@ -180,6 +180,7 @@
 <p>If your website isn't running, you'll need to check to see if the httpd services is running and enabled. You can check this by connecting to the EC2 and then running the following commands:</p>
 <p>sudo systemctl enable httpd</p>
 <p>sudo systemctl start httpd</p>
+<p>If the website is up, but not working, then you'll need to dig into the error console (Right click inspect and choose console) to troubleshoot the errors. This and CloudWatch are your best options for tracking down errors.</p>
 </div>
 <h2 id="add-information-to-the-database">Add information to the database</h2>
 <p>Go back to the dynamodb table and click "explore table items"

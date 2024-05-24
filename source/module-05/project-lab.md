@@ -132,6 +132,8 @@ Go to the website and verify that you are getting a single ticket back.
 
     sudo systemctl start httpd
 
+    If the website is up, but not working, then you'll need to dig into the error console (Right click inspect and choose console) to troubleshoot the errors. This and CloudWatch are your best options for tracking down errors.
+
 ## Add information to the database
 
 Go back to the dynamodb table and click "explore table items"
