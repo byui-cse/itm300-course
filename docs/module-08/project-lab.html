@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Module 08: Project 8 Lab - Messages</title>
+	<title>Module 08: Project 8 Lab - SNS & SQS Workflow</title>
     <style>
         @font-face {
             font-family: 'icomoon';
@@ -53,14 +53,13 @@
         <span class="icon-byui-logo"></span>
         <div id="titles">
             <h1>ITM 300 - Cloud Foundations</h1>
-            <h2>Module 08: Project 8 Lab - Messages</h2>
+            <h2>Module 08: Project 8 Lab - SNS & SQS Workflow</h2>
             <nav><a href="https://byui-cse.github.io/itm300-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm300-course/modules/">Modules</a><a href="https://byui-cse.github.io/itm300-course/test-prep/">Test Prep</a></nav>
         </div>
         <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
     </header>
 	<article>
-		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo-fancy-service-requests.jpg" />
-<em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
+		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/sns_sqs.jpg" /></p>
 <h2 id="product-objective">Product Objective</h2>
 <p>In this lab, we will leverage AWS Simple Notification Service (SNS) and Simple Queue Service (SQS) to set up a system capable of sending multiple push messages to various services, such as billing, customer notifications, and analytics. By sending a single SNS message upon a service status update, we can trigger multiple downstream services, streamlining communication and ensuring efficient, real-time updates across our application.</p>
 <h2 id="create-the-sns-topic">Create the SNS Topic</h2>
@@ -353,10 +352,10 @@
 <li>Choose the VehicleAnalysis function</li>
 <li>Click Save</li>
 </ul>
-<p>Go look at the queue. You'll notice that the messages are now gone from that queue. All messages recieved once processed with a 200 status will automatically be deleted from the queue. </p>
+<p>Go look at the queue. You'll notice that the messages are now gone from that queue. Once a message is processed by a lambda with a 200 status, it will automatically be deleted from the queue. </p>
 <p>You can also go to the CloudWatch service and look at the log groups for the VehicleAnalystics and you should see logs that have information about the two updates you did previously.</p>
 <p>Outside of the lab environment, you can also use SNS to send emails and text messages. These would be beneficial to notify customers of status of their vehicle or to let them know that their car is finished and to come pick it up.</p>
-<p>Using SNS and SQS allows us to easily add different workflows to activities without the original service to need about any of the additional pipelines that have been created.</p>
+<p>Using SNS and SQS allows us to easily add different workflows to activities without the original service needing to know about any of the additional pipelines that have been created.</p>
 <h2 id="lab-summary">Lab Summary</h2>
 <p>This lab focuses on utilizing AWS Simple Notification Service (SNS) and Simple Queue Service (SQS) to create a messaging system that can notify various services about changes in vehicle service statuses. The key objectives include setting up SNS topics and SQS queues, configuring subscriptions, filtering messages, sending and receiving messages, and integrating these functionalities into a Lambda function for further processing.</p>
 <h3 id="key-concepts-explained">Key Concepts Explained:</h3>

@@ -1,10 +1,9 @@
 ---
-title: Module 08: Project 8 Lab - Messages
+title: Module 08: Project 8 Lab - SNS & SQS Workflow
 body-class: index-page
 ---
 
-![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-fancy-service-requests.jpg)
-*[Photo by Dall-E-3](https://openai.com/dall-e-3)*
+![Quick Oil Change and Repair]({{URLROOT}}/shared/img/sns_sqs.jpg)
 
 ## Product Objective
 
@@ -314,13 +313,13 @@ Go to the SQS queue for the **AllStatusUpdatesQueue**
 * Choose the VehicleAnalysis function
 * Click Save
 
-Go look at the queue. You'll notice that the messages are now gone from that queue. All messages recieved once processed with a 200 status will automatically be deleted from the queue. 
+Go look at the queue. You'll notice that the messages are now gone from that queue. Once a message is processed by a lambda with a 200 status, it will automatically be deleted from the queue. 
 
 You can also go to the CloudWatch service and look at the log groups for the VehicleAnalystics and you should see logs that have information about the two updates you did previously.
 
 Outside of the lab environment, you can also use SNS to send emails and text messages. These would be beneficial to notify customers of status of their vehicle or to let them know that their car is finished and to come pick it up.
 
-Using SNS and SQS allows us to easily add different workflows to activities without the original service to need about any of the additional pipelines that have been created.
+Using SNS and SQS allows us to easily add different workflows to activities without the original service needing to know about any of the additional pipelines that have been created.
 
 
 ## Lab Summary
