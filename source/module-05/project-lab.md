@@ -19,6 +19,10 @@ Second, we'll update the lambda function to read from the dynamodb table to pull
 
 ## Create a DynamoDB table
 
+!!! key "Case Matters"
+
+    When you create the table and all of the fields, please be careful to follow the uppercase and lowercase names as provided in the instructions. The app expects specific names of fields and the database to work.
+
 Search for DynamoDB in AWS
 
 * Create table
@@ -108,7 +112,7 @@ We will replace the previous dataService with the new dynamoService.
 import { getDynamoServiceRequests } from './dynamoService.mjs';
 ```
 
-* Change the name of the function being called by repalacing *const jsonArray = await getServiceRequests();* with
+* In the index.mjs file change the name of the function being called by repalacing *const jsonArray = await getServiceRequests();* with
 
 ```
 const jsonArray = await getDynamoServiceRequests();
@@ -117,6 +121,16 @@ const jsonArray = await getDynamoServiceRequests();
 Click Deploy and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.
 
 Go to the website and verify that you are getting a single ticket back.
+
+!!! key "Website App Troubleshooting"
+
+    Your website should be running on your EC2 instance. You can find the link to the website by clicking on the checkmark next to the EC2 and at the bottom of the page finding the Public IPv4 DNS.
+
+    If your website isn't running, you'll need to check to see if the httpd services is running and enabled. You can check this by connecting to the EC2 and then running the following commands:
+
+    sudo systemctl enable httpd
+
+    sudo systemctl start httpd
 
 ## Add information to the database
 

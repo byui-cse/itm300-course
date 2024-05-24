@@ -59,6 +59,10 @@
 <p>We will do two main steps in this lab. First we will create a dynamodb table. This is where we will store future service requests and information about vehicles.</p>
 <p>Second, we'll update the lambda function to read from the dynamodb table to pull in the information.</p>
 <h2 id="create-a-dynamodb-table">Create a DynamoDB table</h2>
+<div class="admonition key">
+<p class="admonition-title">Case Matters</p>
+<p>When you create the table and all of the fields, please be careful to follow the uppercase and lowercase names as provided in the instructions. The app expects specific names of fields and the database to work.</p>
+</div>
 <p>Search for DynamoDB in AWS</p>
 <ul>
 <li>
@@ -163,13 +167,20 @@
 </code></pre></div>
 
 <ul>
-<li>Change the name of the function being called by repalacing <em>const jsonArray = await getServiceRequests();</em> with</li>
+<li>In the index.mjs file change the name of the function being called by repalacing <em>const jsonArray = await getServiceRequests();</em> with</li>
 </ul>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">jsonArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">getDynamoServiceRequests</span><span class="p">();</span>
 </code></pre></div>
 
 <p>Click Deploy and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.</p>
 <p>Go to the website and verify that you are getting a single ticket back.</p>
+<div class="admonition key">
+<p class="admonition-title">Website App Troubleshooting</p>
+<p>Your website should be running on your EC2 instance. You can find the link to the website by clicking on the checkmark next to the EC2 and at the bottom of the page finding the Public IPv4 DNS.</p>
+<p>If your website isn't running, you'll need to check to see if the httpd services is running and enabled. You can check this by connecting to the EC2 and then running the following commands:</p>
+<p>sudo systemctl enable httpd</p>
+<p>sudo systemctl start httpd</p>
+</div>
 <h2 id="add-information-to-the-database">Add information to the database</h2>
 <p>Go back to the dynamodb table and click "explore table items"
 Click run. Down below it should return the 8B1111 item</p>
