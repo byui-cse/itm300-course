@@ -49,11 +49,11 @@ Wait for the Status to be: Active
 * Click on VehicleServices
 
 * Actions -> Create Item
-  * license_plate: 8B1111
-  * service_id: 1
-  * Add new attribute (String): phone_number: 208-444-5555
-  * Add new attribute (String): service_description: Oil Change on a 2007 Saturn Outlook
-  * Add new attribute (String): service_status: Finishing up
+  * **license_plate** 8B1111
+  * **service_id** 1
+  * Add new attribute (String): **phone_number** 208-444-5555
+  * Add new attribute (String): **service_description** Oil Change on a 2007 Saturn Outlook
+  * Add new attribute (String): **service_status** Finishing up
   * Create item
 
 ## Update Lambda
