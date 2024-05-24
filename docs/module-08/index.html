@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Module 08: Overview</title>
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.eot');
+            src: url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.eot#iefix-8k8p81') format('embedded-opentype'), url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.ttf') format('truetype'), url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.woff') format('woff'), url('https://byui-cse.github.io/itm300-course/shared/fonts/byui/icomoon.svg#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/fonts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/highlight/styles/monokai-sublime.min.css">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/cse450.css?v1.5.2">
+    <meta charset="utf-8">
+
+</head>
+<body class="index-page">
+     <div id="modal-screen">
+        <div id="contents-wrapper">
+            <div class="toc">
+<ul>
+<li><a href="#module-08-databases">Module 08 - Databases</a></li>
+</ul>
+</div>
+
+            <a href="#" id="hide-contents" title="Close Table of Contents"><i class="far fa-window-close"></i></a>
+        </div>
+    </div>
+	<header>
+        <span class="icon-byui-logo"></span>
+        <div id="titles">
+            <h1>ITM 300 - Cloud Foundations</h1>
+            <h2>Module 08: Overview</h2>
+            <nav><a href="https://byui-cse.github.io/itm300-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm300-course/modules/">Modules</a><a href="https://byui-cse.github.io/itm300-course/test-prep/">Test Prep</a></nav>
+        </div>
+        <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
+    </header>
+	<article>
+		<!-- ![Monolithic App](https://byui-cse.github.io/itm300-course/shared/img/aws-monolithic.png)
+*[Photo by Dall-E-3](https://openai.com/dall-e-3)* -->
+
+<h2 id="module-08-databases">Module 08 - Databases</h2>
+<h4 id="preparation-material">Preparation Material</h4>
+<p>Please review the following:</p>
+<!-- * [DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"} -->
+
+<h4 id="aws-lab">AWS Lab</h4>
+<ul>
+<li><a href="https://awsacademy.instructure.com" target="_blank">AWS Academy Link</a> The AWS Lab for this module is <strong>AWS Lab :: Lab - 4 Working with EBS (Module 7)</strong></li>
+</ul>
+<!-- !!! note "Lab Updates"
+
+    IPv4 subnet CIDR block looks like it has a number already typed in, but you need to type into this box. The instructions mislabel it as IPv4 VPC CIDR block. -->
+
+<h4 id="project-lab">Project Lab</h4>
+<ul>
+<li><a href="./project-lab.html">SNS &amp; SQS - Sending push messages at scale</a></li>
+</ul>
+<!-- #### Additional Materials -->
+
+<!-- * [Individual Reflection Template](https://byui-cse.github.io/itm300-course/course/reflection.docx) -->
+
+<!-- #### Hints and Helps
+
+* [Hints](./hints.html) -->
+	</article>
+	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
+	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
+    <script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/contrib/auto-render.min.js"></script>
+	<script src="https://byui-cse.github.io/itm300-course/shared/lib/smartquotes/smartquotes.min.js"></script>
+    <script>
+
+        /* Startup scripts for katex rendering */
+    	renderMathInElement(document.body,
+		{
+			delimiters: [
+				{left: "$$", right: "$$", display: true},
+				{left: "$", right: "$", display: false},
+			]
+    	});
+
+        /* Highlighting code */
+    	hljs.initHighlightingOnLoad();
+    	var elements = document.querySelectorAll('.language-text')
+		for (var i = 0; i < elements.length; i++) {
+  			elements[i].classList.add('hljs');
+		}
+
+        /* TOC support */
+        var hideContents = function(e){
+            console.log(e.target);
+            if(e.target.id === 'modal-screen' || e.target.nodeName.toLowerCase() === 'i') {
+                e.preventDefault();
+                document.querySelector('#contents-wrapper').classList.remove('active');
+                document.querySelector('#modal-screen').classList.remove('active');
+            }
+        }
+
+        var showContents = function(e){
+            e.preventDefault();
+            document.querySelector('#contents-wrapper').classList.add('active');
+            document.querySelector('#modal-screen').classList.add('active');
+        }
+
+        document.querySelector("#hide-contents").addEventListener('click', hideContents);
+        document.querySelector("#modal-screen").addEventListener('click', hideContents);
+        document.querySelector("#show-contents").addEventListener('click', showContents);
+    	
+    </script>
+</body>
+</html>

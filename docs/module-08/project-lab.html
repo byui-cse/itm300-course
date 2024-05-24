@@ -25,6 +25,24 @@
             <div class="toc">
 <ul>
 <li><a href="#product-objective">Product Objective</a></li>
+<li><a href="#create-the-sns-topic">Create the SNS Topic</a></li>
+<li><a href="#create-a-sqs-queue">Create a SQS Queue</a></li>
+<li><a href="#create-a-second-queue">Create a second Queue</a></li>
+<li><a href="#subscribe-to-the-topic-for-both-queues">Subscribe to the topic for both Queues</a></li>
+<li><a href="#add-the-filter">Add the filter</a></li>
+<li><a href="#send-a-message">Send a message</a></li>
+<li><a href="#view-the-message">View the message</a></li>
+<li><a href="#send-another-message">Send another message</a></li>
+<li><a href="#update-our-lambda-to-send-a-sns-message-on-updates">Update our lambda to send a SNS message on updates.</a></li>
+<li><a href="#add-a-lambda-to-run-when-a-message-is-received">Add a lambda to run when a message is received</a></li>
+<li><a href="#lab-summary">Lab Summary</a><ul>
+<li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
+</ul>
+</li>
+<li><a href="#key-aws-services">Key AWS Services:</a><ul>
+<li><a href="#reflection-questions">Reflection Questions:</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -44,26 +62,85 @@
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo-fancy-service-requests.jpg" />
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>SNS to SQS for fanout messages.</p>
-<p>SNS
-Create topic: VehicleStatus.fifo
-FIFO</p>
-<p>SQS
-VehicleCompletedQueue.fifo</p>
-<p>subscribe to topic</p>
-<p>Update Filter
-Subscriptions -&gt; Edit
-Subscription filter policy
-{
-  "service_status": [
-    "Completed"
+<p>In this lab, we will leverage AWS Simple Notification Service (SNS) and Simple Queue Service (SQS) to set up a system capable of sending multiple push messages to various services, such as billing, customer notifications, and analytics. By sending a single SNS message upon a service status update, we can trigger multiple downstream services, streamlining communication and ensuring efficient, real-time updates across our application.</p>
+<h2 id="create-the-sns-topic">Create the SNS Topic</h2>
+<ul>
+<li>Search for SNS which will bring up the Simple Notification Service</li>
+<li>Create topic: <strong>VehicleStatus</strong></li>
+<li>Standard</li>
+<li>Click Create Topic</li>
+<li>Leave the rest of the defaults</li>
+</ul>
+<h2 id="create-a-sqs-queue">Create a SQS Queue</h2>
+<ul>
+<li>Search for SQS which will bring up the Simple Queue Service</li>
+<li>Create queue: <strong>VehicleCompletedQueue</strong></li>
+<li>Standard</li>
+<li>Leave the rest of the defaults</li>
+</ul>
+<h2 id="create-a-second-queue">Create a second Queue</h2>
+<ul>
+<li>Create queue: <strong>AllStatusUpdatesQueue</strong></li>
+<li>Standard</li>
+<li>Leave the rest of the defaults</li>
+</ul>
+<h2 id="subscribe-to-the-topic-for-both-queues">Subscribe to the topic for both Queues</h2>
+<ul>
+<li>Click on the <strong>VehicleCompletedQueue</strong></li>
+<li>Click on Subscribe to SNS Topic</li>
+<li>Choose <strong>VehicleStatus</strong></li>
+<li>Click Save</li>
+</ul>
+<p>Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllStatusUpdatesQueue as well.</p>
+<h2 id="add-the-filter">Add the filter</h2>
+<ul>
+<li>Go to the VehicleStatus SNS Dashboard and click on Subscriptions in the left hand panel.</li>
+<li>Click on the subscriptions and look for the AllVehicleUpdatesQueue under the endpoint. You may need to look at both to find the correct subscription.</li>
+<li>Click Edit</li>
+<li>Open the Subscription filter policy</li>
+<li>Paste the following into the filter policy</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>{
+  &quot;service_status&quot;: [
+    &quot;Completed&quot;
   ]
-}</p>
-<p>SQS
-AllStatusUdpatesQueue.fifo</p>
-<p>Back to SNS
-Publish Message:</p>
-<p>lambda adminGetServiceRequest</p>
+}
+</code></pre></div>
+
+<ul>
+<li>Click Save Changes</li>
+</ul>
+<h2 id="send-a-message">Send a message</h2>
+<ul>
+<li>Click Topics in the left hand panel of the SNS dashboard</li>
+<li>Click on VehicleStatus</li>
+<li>Click Publish Message</li>
+<li>Subject: TestMessage</li>
+<li>Message body: Testing a message</li>
+<li>Message attributes:<ul>
+<li>Type: String  </li>
+<li>Name: service_status</li>
+<li>Value: Completed</li>
+</ul>
+</li>
+<li>Click Publish Message</li>
+</ul>
+<h2 id="view-the-message">View the message</h2>
+<ul>
+<li>Go to the SQS dashboard</li>
+<li>Click on AllStatusUpdatesQueue</li>
+<li>Click Send and Receive Messages</li>
+<li>Scroll to the bottom and click Poll for messages</li>
+<li>The message should appear under messages.</li>
+</ul>
+<p>Do the same for the <strong>VehicleCompletedQueue</strong>. You should see the message in both places.</p>
+<h2 id="send-another-message">Send another message</h2>
+<p>Send another message, but this time put <em>Approved</em> for the service_status. Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.</p>
+<h2 id="update-our-lambda-to-send-a-sns-message-on-updates">Update our lambda to send a SNS message on updates.</h2>
+<ul>
+<li>Go to the adminGetServiceRequest Lambda</li>
+<li>update the lambda adminDynamoService.mjs file</li>
+</ul>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">SNSClient</span><span class="p">,</span> <span class="n">PublishCommand</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-sns&quot;</span><span class="p">;</span> <span class="o">//</span> <span class="n">ES</span> <span class="n">Modules</span> <span class="kn">import</span>
 <span class="nn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span>
@@ -212,7 +289,7 @@ Publish Message:</p>
 <span class="k">async</span> <span class="n">function</span> <span class="n">sendSNSMessage</span><span class="p">(</span><span class="n">requestBody</span><span class="p">,</span> <span class="n">serviceId</span><span class="p">){</span>
     <span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SNSClient</span><span class="p">();</span>
     <span class="n">const</span> <span class="nb">input</span> <span class="o">=</span> <span class="p">{</span> <span class="o">//</span> <span class="n">PublishInput</span>
-      <span class="n">TopicArn</span><span class="p">:</span> <span class="s2">&quot;arn:aws:sns:us-east-1:101783390245:VehicleStatusSNS&quot;</span><span class="p">,</span>
+      <span class="n">TopicArn</span><span class="p">:</span> <span class="s2">&quot;REPLACE-WITH-YOUR-TOPIC-ARN&quot;</span><span class="p">,</span>
       <span class="n">Message</span><span class="p">:</span> <span class="err">`</span><span class="p">{</span><span class="s2">&quot;service_status&quot;</span><span class="p">:</span><span class="s2">&quot;$</span><span class="si">{requestBody.service_status}</span><span class="s2">&quot;</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
       <span class="n">Subject</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
       <span class="n">MessageAttributes</span><span class="p">:</span> <span class="p">{</span> <span class="o">//</span> <span class="n">MessageAttributeMap</span>
@@ -228,6 +305,82 @@ Publish Message:</p>
     <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>  
 <span class="p">}</span>
 </code></pre></div>
+
+<p>You'll need to go get the Topic ARN from the SNS Topic <strong>VehicleStatus</strong>. You'll update the code where it says "REPLACE-WITH-YOUR-TOPIC-ARN" with the ARN of your Topic.</p>
+<p>Once you've made the update, go to your website and submit a service request. Type in a phone number, license plate number, and the message requesting an oil change for a 2020 Corvette.</p>
+<p>Then log into the admin area and then change the status for that service to Approved.</p>
+<p>Go look at the queues. You should see the message under one but not the other.</p>
+<p>Update the status to Completed from the admin area.</p>
+<p>Go look at the queues. You should see the new message under both.</p>
+<h2 id="add-a-lambda-to-run-when-a-message-is-received">Add a lambda to run when a message is received</h2>
+<p>Create a new lambda function named VehicleAnalytics. </p>
+<p>Add this code to the index.mjs file:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="n">TODO</span><span class="w"> </span><span class="n">implement</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">statusCode</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="n">body</span><span class="p">:</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="s1">&#39;Status Updated!&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">event</span><span class="p">),</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">      </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;status updated!&quot;</span><span class="o">+</span><span class="n">event</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">event</span><span class="o">.</span><span class="n">Records</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">details</span>
+<span class="w">        </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Message ID:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="o">.</span><span class="n">messageId</span><span class="p">);</span>
+<span class="w">        </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Receipt Handle:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="o">.</span><span class="n">receiptHandle</span><span class="p">);</span>
+<span class="w">        </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Body:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="o">.</span><span class="n">body</span><span class="p">);</span>
+
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">Process</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">parse</span><span class="w"> </span><span class="n">JSON</span><span class="p">,</span><span class="w"> </span><span class="n">interact</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">AWS</span><span class="w"> </span><span class="n">services</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+<span class="w">        </span><span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">messageBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">body</span><span class="p">);</span>
+<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="n">Example</span><span class="p">:</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">parsed</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">body</span>
+<span class="w">            </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Parsed Message Body:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">messageBody</span><span class="p">);</span>
+<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">processing</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="n">here</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">fullMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">messageBody</span><span class="o">.</span><span class="n">Message</span><span class="p">);</span>
+<span class="w">            </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Full Message:&quot;</span><span class="p">,</span><span class="n">fullMessage</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error processing message:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">}</span><span class="w">    </span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;Records&#39;</span><span class="p">]);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Go to the SQS queue for the <strong>AllStatusUpdatesQueue</strong></p>
+<ul>
+<li>Click the lambda trigger tab</li>
+<li>Click Configure Lambda function trigger</li>
+<li>Choose the VehicleAnalysis function</li>
+<li>Click Save</li>
+</ul>
+<p>Go look at the queue. You'll notice that the messages are now gone from that queue. All messages recieved once processed with a 200 status will automatically be deleted from the queue. </p>
+<p>You can also go to the CloudWatch service and look at the log groups for the VehicleAnalystics and you should see logs that have information about the two updates you did previously.</p>
+<p>Outside of the lab environment, you can also use SNS to send emails and text messages. These would be beneficial to notify customers of status of their vehicle or to let them know that their car is finished and to come pick it up.</p>
+<p>Using SNS and SQS allows us to easily add different workflows to activities without the original service to need about any of the additional pipelines that have been created.</p>
+<h2 id="lab-summary">Lab Summary</h2>
+<p>This lab focuses on utilizing AWS Simple Notification Service (SNS) and Simple Queue Service (SQS) to create a messaging system that can notify various services about changes in vehicle service statuses. The key objectives include setting up SNS topics and SQS queues, configuring subscriptions, filtering messages, sending and receiving messages, and integrating these functionalities into a Lambda function for further processing.</p>
+<h3 id="key-concepts-explained">Key Concepts Explained:</h3>
+<ul>
+<li><strong>Decoupled Architecture:</strong> By using SNS and SQS, the lab demonstrates how to decouple different parts of an application. This architecture allows independent scaling and development of various components without affecting others.</li>
+<li><strong>Asynchronous Messaging:</strong> SNS and SQS enable asynchronous communication between services. This is crucial for handling tasks that do not require immediate responses, improving the application's overall efficiency and responsiveness.</li>
+<li><strong>Message Filtering:</strong> SNS message filtering allows targeted messages to be sent to specific queues based on message attributes. This reduces unnecessary processing and ensures that only relevant messages are received by specific services.</li>
+<li><strong>Event-Driven Processing:</strong> The integration of Lambda functions with SNS and SQS illustrates event-driven processing, where actions are triggered in response to specific events (e.g., updates to vehicle service status).</li>
+<li><strong>Scalability and Flexibility:</strong> Using SNS and SQS provides a scalable and flexible solution for handling increasing volumes of messages and integrating new services or workflows without significant changes to the existing system.</li>
+</ul>
+<h2 id="key-aws-services">Key AWS Services:</h2>
+<ul>
+<li><strong>Simple Notification Service (SNS):</strong> SNS is a fully managed service that enables the delivery of messages to various endpoints such as email, SMS, and other AWS services. It acts as a publisher in the publish-subscribe (pub/sub) model.</li>
+<li><strong>Simple Queue Service (SQS):</strong> SQS is a fully managed message queuing service that allows you to decouple and scale microservices, distributed systems, and serverless applications. It acts as a subscriber in the pub/sub model, receiving and storing messages until they are processed.</li>
+<li><strong>CloudWatch:</strong> CloudWatch is a monitoring and observability service that provides data and actionable insights for AWS resources. It is used in this lab to monitor and log the processing of messages in Lambda functions.</li>
+</ul>
+<h3 id="reflection-questions">Reflection Questions:</h3>
+<ul>
+<li><strong>Understanding the Workflow:</strong> How does the integration of SNS and SQS enhance the scalability and flexibility of the notification system in this project? What are the advantages of using message filtering in SNS subscriptions?</li>
+<li><strong>Lambda Function Integration:</strong> How does updating the Lambda function to publish SNS messages streamline the process of service status updates? What other AWS services could you integrate with this system to enhance functionality?</li>
+<li><strong>Real-World Applications:</strong> How could this messaging system be adapted for use in different industries or applications outside of vehicle service notifications? What are the potential benefits and challenges of using SNS and SQS for customer notifications in a high-traffic environment?</li>
+<li><strong>Error Handling and Logging:</strong> Why is it important to handle errors and log messages in the Lambda function processing the SQS messages? How would you improve the error handling and logging mechanisms in this lab?</li>
+<li><strong>Further Improvements:</strong> What additional features or services could be integrated into this system to improve its functionality and reliability? How would you modify the system to handle larger volumes of messages or more complex workflows?</li>
+</ul>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
