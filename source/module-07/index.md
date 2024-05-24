@@ -13,6 +13,10 @@ body-class: index-page
 
 Please review the following:
 
+* [Elastic Block Store](https://aws.amazon.com/ebs/){:target="_blank"}
+* [Elastic File System](https://aws.amazon.com/efs/){:target="_blank"}
+
+
 <!-- * [DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"} -->
 
 

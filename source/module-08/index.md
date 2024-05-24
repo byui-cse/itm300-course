@@ -9,9 +9,15 @@ body-class: index-page
 ## Module 08 - Databases
 
 
+
 #### Preparation Material
 
 Please review the following:
+
+* [SNS and SQS for fanout notifications](https://aws.amazon.com/getting-started/hands-on/send-fanout-event-notifications/){:target="_blank"}
+* [Simple Notification Service](https://aws.amazon.com/sns/){:target="_blank"}
+* [Simple Queue Service](https://aws.amazon.com/sqs/){:target="_blank"}
+* [Relational Database Service](https://aws.amazon.com/rds/){:target="_blank"}
 
 <!-- * [DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"} -->
 

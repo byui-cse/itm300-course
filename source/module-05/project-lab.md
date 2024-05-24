@@ -102,7 +102,7 @@ export const getDynamoServiceRequests = async () => {
 
 We will replace the previous dataService with the new dynamoService.
 
-* Add this line to the top of the index.js file:
+* Add this line to the top of the index.mjs file:
 
 ```
 import { getDynamoServiceRequests } from './dynamoService.mjs';

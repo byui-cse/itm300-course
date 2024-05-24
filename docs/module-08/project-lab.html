@@ -353,7 +353,10 @@
 <li>Click Save</li>
 </ul>
 <p>Go look at the queue. You'll notice that the messages are now gone from that queue. Once a message is processed by a lambda with a 200 status, it will automatically be deleted from the queue. </p>
-<p>You can also go to the CloudWatch service and look at the log groups for the VehicleAnalystics and you should see logs that have information about the two updates you did previously. These logs could then be used to create dashboards and visualizations of the services performed over time.</p>
+<p>You can now go to the CloudWatch service and look at the <em>log groups</em> for the <em>VehicleAnalytics</em>.</p>
+<p><img alt="CloudWatch Log Groups" src="https://byui-cse.github.io/itm300-course/shared/img/cloudwatch-log-groups.jpg" /></p>
+<p>There you should see logs that have information about the two updates you did previously. These logs could then be used to create dashboards and visualizations of the services performed over time.</p>
+<p><img alt="CloudWatch SNS Log" src="https://byui-cse.github.io/itm300-course/shared/img/cloudwatch-sns-message-log.jpg" /></p>
 <p>Outside of the lab environment, SNS can be utilized to send emails and text messages, which can be very useful for notifying customers about the status of their vehicles or informing them that their car is ready for pickup.</p>
 <p>By integrating SNS and SQS, we can effortlessly add new workflows to various activities without requiring the original service to be aware of the additional pipelines that have been established.</p>
 <h2 id="lab-summary">Lab Summary</h2>
