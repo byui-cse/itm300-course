@@ -14,6 +14,7 @@ If you're a student, the content, assignments, and deadlines you'll be responsib
 
 * [Course Syllabus](./course/syllabus.html)
 * [Modules](./modules/)
+* [Midterm](./course/midterm.html)
 * [Test Prep](./test-prep/)
 * [AWS Academy](https://awsacademy.instructure.com/){target="_blank"}
 

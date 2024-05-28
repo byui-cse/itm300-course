@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Course Index</title>
+	<title>Midterm</title>
     <style>
         @font-face {
             font-family: 'icomoon';
@@ -24,7 +24,7 @@
         <div id="contents-wrapper">
             <div class="toc">
 <ul>
-<li><a href="#itm-300-course-index">ITM 300 - Course Index</a></li>
+<li><a href="#itm-300-midterm-instructions">ITM 300 MidTerm Instructions</a></li>
 </ul>
 </div>
 
@@ -35,28 +35,35 @@
         <span class="icon-byui-logo"></span>
         <div id="titles">
             <h1>ITM 300 - Cloud Foundations</h1>
-            <h2>Course Index</h2>
+            <h2>Midterm</h2>
             <nav><a href="https://byui-cse.github.io/itm300-course"><i class="fas fa-home"></i></a><a href="https://byui-cse.github.io/itm300-course/modules/">Modules</a><a href="https://byui-cse.github.io/itm300-course/test-prep/">Test Prep</a></nav>
         </div>
         <a href="#" id="show-contents" title="Show Table of Contents"><i class="far fa-list-alt"></i></a>
     </header>
 	<article>
-		<p><img alt="ITM 300 Cloud Foundations" src="https://byui-cse.github.io/itm300-course/shared/img/course-header.png" />
-<em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
-<h2 id="itm-300-course-index">ITM 300 - Course Index</h2>
-<p>This is a handy index page for the course content and readings in ITM 300. This content is subject to change without notice and is for informational purposes only. </p>
-<p>If you're a student, the content, assignments, and deadlines you'll be responsible for are those linked to from I-Learn.</p>
+		<h2 id="itm-300-midterm-instructions">ITM 300 MidTerm Instructions</h2>
+<p><strong>Do this midterm in your LEARNER LAB enviornment</strong></p>
+<p>Complete the following:</p>
 <ul>
-<li><a href="./course/syllabus.html">Course Syllabus</a></li>
-<li><a href="./modules/">Modules</a></li>
-<li><a href="./course/midterm.html">Midterm</a></li>
-<li><a href="./test-prep/">Test Prep</a></li>
-<li><a href="https://awsacademy.instructure.com/" target="_blank">AWS Academy</a></li>
+<li>Provision an EC2 Linux server in a public subnet with a public IP address.</li>
+<li>Attach a security group with permissions for all IPV4 traffic through on port 80 (HTTP). </li>
+<li>Enable stop protection in the server's configuration.  </li>
+<li>Assign an Elastic IP Address (static) to the EC2 instance. </li>
+<li>Install nginx or Apache httpd web server.  </li>
+<li>Configure the web service to start automatically when the EC2 instance starts.</li>
 </ul>
-<div class="admonition def">
-<p class="admonition-title">Notice</p>
-<p>Please remember that the assignments listed in your Canvas session by your instructor are the final word on what is actually due on a given day.</p>
-<p>There are many additional resourses listed here that are not assignments, but are here to help you prepare for the certification. </p>
+<p>This will be a new server from the server we did in class. It needs to be configured to start automatically. You can do it manually or it can be done through the user data configuration when provisioning.</p>
+<p>For the content, you will need to clone the public GitHub repo React <a href="https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git" target="_blank">github repo</a> into the default website directory being served for index.html.  Note, you may need to run the clone command as sudo, ie. sudo git clone https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git. </p>
+<p>Complete the following:</p>
+<ul>
+<li>Place the repository files into the home directory for the web server (/var/www/html for httpd). </li>
+<li>Edit the index.html file and change the title to include your name, change <title>React App</title> to <title>John Doe</title> (but use your name instead of John Doe). You may need to install the git package. </li>
+<li>Submit a video of your website running and with your name in the browser tab. In the video also show the resources you created (ec2, vpc, security groups, etc). </li>
+</ul>
+<div class="admonition key">
+<p class="admonition-title">Helpful hints</p>
+<p>You will need to ssh into your Linux server using the private key that you create while provisioning or just connect via the browser shell (connect option).</p>
+<p>You may look back at other <a href="https://byui-cse.github.io/itm300-course/modules/">module labs</a> to help you find the commands you need to complete the task, user online resources, or utilize gernative AI (chatGPT) to help you.</p>
 </div>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
