@@ -7,7 +7,7 @@ body-class: index-page
 
 **Do this midterm in your LEARNER LAB enviornment**
 
-!!! info "Important Instructions"
+!!! note "Important Instructions"
 
     The instructions for this midterm are not all inclusive. You will be required to figure out what you must install, what additional services you must create, and what other configurations are necessary to make the website work as intended.
 
