@@ -23,7 +23,7 @@ Please review the following:
 
 #### AWS Lab
 
-* No lab for AWS, work on the [Midterm](./course/midterm.html) instead.
+* No lab for AWS, work on the [Midterm](../course/midterm.html) instead.
 
 <!-- !!! note "Lab Updates"
 
