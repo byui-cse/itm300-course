@@ -3,13 +3,13 @@ title: Midterm
 body-class: index-page
 ---
 
-## ITM 300 MidTerm Instructions
+## ITM 300 Midterm Instructions
 
 **Do this midterm in your LEARNER LAB enviornment**
 
 !!! note "Important Instructions"
 
-    The instructions for this midterm are not all inclusive. You will be required to figure out what you must install, what additional services you must create, and what other configurations are necessary to make the website work as intended.
+    The instructions for this midterm are not all inclusive. You will be required to figure out what you must install, what additional services you must create, what other ports to enable, and what other configurations are necessary to make the website work as intended.
 
     Read *ALL* instructions prior to beginning the midterm.
 
