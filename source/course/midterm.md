@@ -37,4 +37,4 @@ Complete the following:
 
     You will need to ssh into your Linux server using the private key that you create while provisioning or just connect via the browser shell (connect option).
 
-    You may look back at other [module labs](https://byui-cse.github.io/itm300-course/modules/) to help you find the commands you need to complete the task, user online resources, or utilize gernative AI (chatGPT) to help you.
+    You may look back at other [module labs](https://byui-cse.github.io/itm300-course/modules/) to help you find the commands you need to complete the task, use online resources, or utilize gernative AI (chatGPT) to help you.
