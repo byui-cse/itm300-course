@@ -11,6 +11,8 @@ body-class: index-page
 
     The instructions for this midterm are not all inclusive. You will be required to figure out what you must install, what additional services you must create, and what other configurations are necessary to make the website work as intended.
 
+    Read *ALL* instructions prior to beginning the midterm.
+
 Complete the following:
 
 * Provision an EC2 Linux server in a public subnet with a public IP address.
@@ -20,9 +22,9 @@ Complete the following:
 * Install nginx or Apache httpd web server.  
 * Configure the web service to start automatically when the EC2 instance starts.
 
-This will be a new server from the server we did in class. It needs to be configured to start automatically. You can do it manually or it can be done through the user data configuration when provisioning.
+This will be a new server from the server we did in class. 
 
-For the content, you will need to clone the public GitHub repo React [github repo](https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git){:target="_blank"} into the default website directory being served for index.html.  Note, you may need to run the clone command as sudo, ie. sudo git clone https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git. 
+For the content of the website, you will need to clone the public GitHub repo React [github repo](https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git){:target="_blank"} into the default website directory being served for index.html.  Note, you may need to run the clone command as sudo, ie. sudo git clone https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git. 
 
 Complete the following:
 
