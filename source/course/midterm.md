@@ -24,11 +24,11 @@ Complete the following:
 
 This will be a new server from the server we did in class. 
 
-For the content of the website, you will need to clone the public GitHub repo React [github repo](https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git){:target="_blank"} into the default website directory being served for index.html.  Note, you may need to run the clone command as sudo, ie. sudo git clone https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git. 
+For the content of the website, you will need to clone the public GitHub repo React [github repo](https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git){:target="_blank"} into the default website directory being served for index.html. Note, you may need to run the clone command as sudo, ie. sudo git clone https://github.com/blaineh-byu/aws-byui-lab-sample-react-site.git. 
 
 Complete the following:
 
-* Place the repository files into the home directory for the web server (/var/www/html for httpd). You may need to install the git package to allow you to clone the repository.
+* Place the repository files found in the **build** folder into the home directory for the web server (/var/www/html for httpd). You may need to install the git package to allow you to clone the repository.
 * Edit the index.html file and change the title to include your name, change &lt;title&gt;React App&lt;/title&gt; to &lt;title&gt;John Doe&lt;/title&gt; (but use your name instead of John Doe).  
 * Submit a video of your website running and with your name in the browser tab. In the video also show the resources you created (ec2, vpc, security groups, etc). 
 
