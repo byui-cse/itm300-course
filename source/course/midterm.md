@@ -28,8 +28,8 @@ For the content of the website, you will need to clone the public GitHub repo Re
 
 Complete the following:
 
-* Place the repository files into the home directory for the web server (/var/www/html for httpd). 
-* Edit the index.html file and change the title to include your name, change &lt;title&gt;React App&lt;/title&gt; to &lt;title&gt;John Doe&lt;/title&gt; (but use your name instead of John Doe). You may need to install the git package. 
+* Place the repository files into the home directory for the web server (/var/www/html for httpd). You may need to install the git package to allow you to clone the repository.
+* Edit the index.html file and change the title to include your name, change &lt;title&gt;React App&lt;/title&gt; to &lt;title&gt;John Doe&lt;/title&gt; (but use your name instead of John Doe).  
 * Submit a video of your website running and with your name in the browser tab. In the video also show the resources you created (ec2, vpc, security groups, etc). 
 
 
