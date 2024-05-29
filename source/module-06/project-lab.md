@@ -3,7 +3,7 @@ title: Module 06: Project 6 Lab - Writing to DynamoDB
 body-class: index-page
 ---
 
-![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-service-requests.jpg)
+![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-request-sent.jpg)
 *[Photo by Dall-E-3](https://openai.com/dall-e-3)*
 
 ## Product Objective
