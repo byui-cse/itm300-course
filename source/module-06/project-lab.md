@@ -195,18 +195,18 @@ Send a screenshot of your successful addition. The service request won't show up
 
 !!! key "CRUD"
 
-  CRUD is an acronym in programming that stands for Create, Read, Update, and Delete. These are the four basic operations that can be performed on data in a database or a similar data storage system. 
+    CRUD is an acronym in programming that stands for Create, Read, Update, and Delete. These are the four basic operations that can be performed on data in a database or a similar data storage system. 
 
-  We have **Read** and now the **Create** component working for the service reqeusts.
-  
-  Here's a brief overview of each operation:
+    We have **Read** and now the **Create** component working for the service reqeusts.
+    
+    Here's a brief overview of each operation:
 
-  **Create:** Adding new records or data to the database.
-  **Read:** Retrieving or reading existing data from the database.
-  **Update:** Modifying or updating existing data in the database.
-  **Delete:** Removing or deleting data from the database.
+    * **Create:** Adding new records or data to the database.
+    * **Read:** Retrieving or reading existing data from the database.
+    * **Update:** Modifying or updating existing data in the database.
+    * **Delete:** Removing or deleting data from the database.
 
-  CRUD operations are fundamental to the functionality of many software applications, particularly those involving data management.
+    CRUD operations are fundamental to the functionality of many software applications, particularly those involving data management.
 
 ### Reflective Questions:
 
