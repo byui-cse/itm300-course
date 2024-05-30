@@ -1,9 +1,9 @@
 ---
-title: Module 09: Project 9 Lab - SNS & SQS Workflow
+title: Module 09: Project 9 Lab - Vehicle History Update
 body-class: index-page
 ---
 
-![Quick Oil Change and Repair]({{URLROOT}}/shared/img/sns_sqs.jpg)
+![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-vehicle-history.jpg)
 
 ## Product Objective
 

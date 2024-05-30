@@ -14,8 +14,10 @@ body-class: index-page
 
 Please review the following:
 
+* [Relational Database Service](https://aws.amazon.com/rds/){:target="_blank"}
+
 <!-- * [SNS and SQS for fanout notifications](https://aws.amazon.com/getting-started/hands-on/send-fanout-event-notifications/){:target="_blank"}
-* [Simple Notification Service](https://aws.amazon.com/sns/){:target="_blank"}
+
 * [Simple Queue Service](https://aws.amazon.com/sqs/){:target="_blank"}
 * [Relational Database Service](https://aws.amazon.com/rds/){:target="_blank"} -->
 
@@ -25,7 +27,7 @@ Please review the following:
 
 #### AWS Lab
 
-* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **AWS Lab :: Lab - 4 Working with EBS (Module 7)**
+* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **AWS Lab :: Lab - 5 Build a Database Server (Module 8)**
 
 <!-- !!! note "Lab Updates"
 
@@ -33,7 +35,7 @@ Please review the following:
 
 #### Project Lab
 
-* [TODO NAME THIS](./project-lab.html)
+* [Vehicle History Update](./project-lab.html)
 
 <!-- #### Additional Materials -->
 
