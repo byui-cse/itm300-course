@@ -170,4 +170,26 @@ sudo bash ./rebuildapp.sh
 
 Now when you log in to your app you should have an area that will allow you to search for vehicle histories based on license plate number. Also, the license plate numbers in the current service requests will also be linked to quickly go to the vehicle histories.
 
+## Summary
 
+In this lab, students added a new feature to an existing AWS-based application, enabling technicians to view the repair history of vehicles. This involved creating a new AWS Lambda function, setting up appropriate resources in the API Gateway, and updating the application code. The lab walked through creating and configuring the Lambda function, updating the API Gateway to handle new endpoints, and deploying the changes to the application.
+
+## Code Review
+
+Take a minute and review the lambda function code that you added. Identify what is happening with the code. If you don't understand a line of code, use an AI resource like chatGPT to dig into what the code is doing by asking questions until you understand the code.
+
+Review the code found in the /var/www/html folder. Specifically look at the following code:
+
+* vehicle-history.html
+* scripts/vehicle-requests.js
+* scripts/vehicleHistoryHelper.js
+
+How does this code interact with the lambda functions that were created in the lab? Identify any code that you do not understand and research it using generative AI.
+
+## Reflection Questions
+
+* **Technical Understanding:** What are the advantages of using AWS Lambda for serverless computing? How does the integration of API Gateway with Lambda functions enhance the capabilities of web applications?
+* **Application and Deployment:** What challenges might arise when deploying new features to an existing application in a production environment? How do the changes in the API Gateway configuration affect the application's functionality and security?
+* **Database Interactions:** Why is DynamoDB a suitable choice for storing vehicle service records? Why might you choose a NoSQL database over a relational database? What considerations should be made when querying a DynamoDB table for performance optimization?
+* **Security and Access Management:** Why is it important to specify an authorization method, like AdminServiceRequestAuthorizer, for API Gateway methods?
+* **Practical Experience:** What was the most challenging part of setting up and testing the new Lambda function and why? How would you improve the process of updating and deploying new features in a cloud-based application?
