@@ -244,7 +244,13 @@
       <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #ss = :ss,&quot;</span><span class="p">;</span>
       <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_status&quot;</span><span class="p">;</span>
       <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span> <span class="o">==</span> <span class="s2">&quot;Completed&quot;</span><span class="p">){</span>
+        <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #cd = :cd,&quot;</span><span class="p">;</span>
+        <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#cd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;completion_date&quot;</span><span class="p">;</span>
+        <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:cd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">();</span>     
+      <span class="p">}</span>       
     <span class="p">}</span>
+
 
     <span class="o">//</span> <span class="n">Remove</span> <span class="nb">any</span> <span class="n">trailing</span> <span class="n">comma</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">update</span> <span class="n">expression</span>
     <span class="n">updateExpression</span> <span class="o">=</span> <span class="n">updateExpression</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">,</span><span class="err">$</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>

@@ -195,7 +195,13 @@ export const updateDynamoServiceRequest = async (requestBody, serviceId) => {
       updateExpression += " #ss = :ss,";
       expressionAttributeNames["#ss"] = "service_status";
       expressionAttributeValues[":ss"] = requestBody.service_status;
+      if (requestBody.service_status == "Completed"){
+        updateExpression += " #cd = :cd,";
+        expressionAttributeNames["#cd"] = "completion_date";
+        expressionAttributeValues[":cd"] = new Date().toString();     
+      }       
     }
+   
 
     // Remove any trailing comma from the update expression
     updateExpression = updateExpression.replace(/,$/, "");
