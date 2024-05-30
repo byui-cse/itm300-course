@@ -187,9 +187,26 @@ You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gat
 
 Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.
 
-Customers may wonder why their service request didn't show up immediately after they pressed submit. Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.
+Go to the DynamoDB table in AWS and verify that the service request was added to the table.
+
+Customers may wonder why their service request didn't show up immediately after they pressed submit. **Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.**
 
 Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.
+
+!!! key "CRUD"
+
+  CRUD is an acronym in programming that stands for Create, Read, Update, and Delete. These are the four basic operations that can be performed on data in a database or a similar data storage system. 
+
+  We have **Read** and now the **Create** component working for the service reqeusts.
+  
+  Here's a brief overview of each operation:
+
+  **Create:** Adding new records or data to the database.
+  **Read:** Retrieving or reading existing data from the database.
+  **Update:** Modifying or updating existing data in the database.
+  **Delete:** Removing or deleting data from the database.
+
+  CRUD operations are fundamental to the functionality of many software applications, particularly those involving data management.
 
 ### Reflective Questions:
 

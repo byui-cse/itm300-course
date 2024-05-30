@@ -209,8 +209,20 @@
 <li>Paste that as the Invoke URL when prompted</li>
 </ul>
 <p>Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.</p>
-<p>Customers may wonder why their service request didn't show up immediately after they pressed submit. Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.</p>
+<p>Go to the DynamoDB table in AWS and verify that the service request was added to the table.</p>
+<p>Customers may wonder why their service request didn't show up immediately after they pressed submit. <strong>Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.</strong></p>
 <p>Send a screenshot of your successful addition. The service request won't show up automatically on the website. We will require administrators to approve the service request before it shows up. Your screenshot should just have the success message showing at the top of the request form.</p>
+<div class="admonition key">
+<p class="admonition-title">CRUD</p>
+</div>
+<p>CRUD is an acronym in programming that stands for Create, Read, Update, and Delete. These are the four basic operations that can be performed on data in a database or a similar data storage system. </p>
+<p>We have <strong>Read</strong> and now the <strong>Create</strong> component working for the service reqeusts.</p>
+<p>Here's a brief overview of each operation:</p>
+<p><strong>Create:</strong> Adding new records or data to the database.
+  <strong>Read:</strong> Retrieving or reading existing data from the database.
+  <strong>Update:</strong> Modifying or updating existing data in the database.
+  <strong>Delete:</strong> Removing or deleting data from the database.</p>
+<p>CRUD operations are fundamental to the functionality of many software applications, particularly those involving data management.</p>
 <h3 id="reflective-questions">Reflective Questions:</h3>
 <ul>
 <li>What security considerations should be taken into account when implementing a POST method that adds data to a DynamoDB table via API Gateway?</li>
