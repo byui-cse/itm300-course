@@ -418,6 +418,10 @@ article .dialogue blockquote em{
   font-size:14px;  
 }
 
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+
 
 /* Footnotes */
 
