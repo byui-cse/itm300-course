@@ -25,6 +25,11 @@ You will be adding a POST method to the API Gateway we created earlier. Then you
 
 Deploy the API using the prod stage.
 
+Your API Gateway should look like this at this point:
+
+![Service Request API Gateway]({{URLROOT}}/shared/img/service-request.jpg)
+
+
 ### Update lambda code
 
 Search for Lambda and open your getServiceRequests lambda function.
