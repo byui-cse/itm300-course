@@ -64,7 +64,8 @@
 </ul>
 <p>Deploy the API</p>
 <h3 id="update-lambda-code">Update lambda code</h3>
-<p>dynamoService.mjs</p>
+<p>Search for Lambda and open your getServiceRequests lambda function.</p>
+<p>Update the <em>dynamoService.mjs</em> code:</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span>
   <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
@@ -137,7 +138,7 @@
 <span class="p">};</span>
 </code></pre></div>
 
-<p>index.mjs code</p>
+<p>Update the <em>index.mjs</em> code</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getServiceRequests</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./dataService.mjs&#39;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span> <span class="n">getDynamoServiceRequests</span><span class="p">,</span> <span class="n">addDynamoServiceRequest</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./dynamoService.mjs&#39;</span><span class="p">;</span>
 

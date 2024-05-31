@@ -27,7 +27,9 @@ Deploy the API
 
 ### Update lambda code
 
-dynamoService.mjs
+Search for Lambda and open your getServiceRequests lambda function.
+
+Update the *dynamoService.mjs* code:
 
 ```
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -102,7 +104,7 @@ const generateServiceId = () => {
 };
 ```
 
-index.mjs code
+Update the *index.mjs* code
 
 ```
 
