@@ -71,7 +71,7 @@
 </div>
 <ul>
 <li>Search for Cognito in AWS.</li>
-<li>Click on Create User Pool</li>
+<li>Click on <span class="amz-orange-button">Create User Pool</span></li>
 <li>Don't click Federated identity providers</li>
 <li>
 <p>Choose User Name under Cognito user pool sign-in options</p>
@@ -80,7 +80,7 @@
 </ul>
 </li>
 <li>
-<p>User the cognito defaults</p>
+<p>Use the cognito defaults</p>
 </li>
 <li>No MFA<ul>
 <li>Using Multifactor Authentication is more secure and would normally be enabled in a production environment</li>
@@ -112,7 +112,7 @@
 <li>Advanced App client Settings: Make sure that Allow_User_SRP_Auth is Checked</li>
 </ul>
 <h2 id="create-a-user">Create a User</h2>
-<p>Once your user pool is created, scroll down to where you see users and click Create User</p>
+<p>Once your user pool is created, scroll down to where you see users and click <span class="amz-white-button">Create user</span></p>
 <ul>
 <li>Don't send an invite</li>
 <li>Create a user named janedoe</li>
@@ -121,12 +121,12 @@
 <p>You'll notice that the user has a confirmation status of Force change password. We will go update their status by logging in to the hosted UI.</p>
 <h2 id="explore-the-hosted-ui">Explore the Hosted UI</h2>
 <ul>
-<li>Click on the tab App Integration</li>
+<li>Click on the tab <span class="amz-tab">App Integration</span></li>
 <li>
 <p>Scroll to the bottom of the screen and click on VehicleApp</p>
 </li>
 <li>
-<p>Scroll down until you see View Hosted UI and click on it.</p>
+<p>Scroll down until you see <span class="amz-white-button">View Hosted UI</span> and click on it.</p>
 </li>
 </ul>
 <p>The Hosted UI will open in a new tab. We could use this interface for our user login page. However, we will be using an API call to authenticate with Cognito to give the user a more unified experience with the website.</p>
@@ -136,7 +136,7 @@
 <p>Update your password to Ilove2SeeTheTemple!!</p>
 <p>You'll notice that it will try to send you back to localhost:5500. This was the first allowed callback URL.</p>
 <h2 id="update-the-app-logic">Update the App logic</h2>
-<p>Connect to your Vehicle App EC2 Instance</p>
+<p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
 <div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/rebuildapp.sh
 </code></pre></div>

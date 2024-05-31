@@ -27,12 +27,12 @@ We'll first create a user pool which will store all of our users.
     It is recommended that you play around with different options after you get the tutorial completed to expand your knowledge and understanding of the options available.
 
 * Search for Cognito in AWS.
-* Click on Create User Pool
+* Click on <span class="amz-orange-button">Create User Pool</span>
 * Don't click Federated identity providers
 * Choose User Name under Cognito user pool sign-in options
     * You could store more user details, but for our example we'll simply be storing usernames and passwords.
 
-* User the cognito defaults
+* Use the cognito defaults
 * No MFA
     * Using Multifactor Authentication is more secure and would normally be enabled in a production environment
 * Uncheck Allow User Self-Recovery
@@ -53,7 +53,7 @@ We'll first create a user pool which will store all of our users.
 
 ## Create a User
 
-Once your user pool is created, scroll down to where you see users and click Create User
+Once your user pool is created, scroll down to where you see users and click <span class="amz-white-button">Create user</span>
 
 * Don't send an invite
 * Create a user named janedoe
@@ -63,10 +63,10 @@ You'll notice that the user has a confirmation status of Force change password. 
 
 ## Explore the Hosted UI
 
-* Click on the tab App Integration
+* Click on the tab <span class="amz-tab">App Integration</span>
 * Scroll to the bottom of the screen and click on VehicleApp
 
-* Scroll down until you see View Hosted UI and click on it.
+* Scroll down until you see <span class="amz-white-button">View Hosted UI</span> and click on it.
 
 The Hosted UI will open in a new tab. We could use this interface for our user login page. However, we will be using an API call to authenticate with Cognito to give the user a more unified experience with the website.
 
@@ -83,7 +83,7 @@ You'll notice that it will try to send you back to localhost:5500. This was the 
 
 ## Update the App logic
 
-Connect to your Vehicle App EC2 Instance
+<span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance
 
 Download the newest website app:
 

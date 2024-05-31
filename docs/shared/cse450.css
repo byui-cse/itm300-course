@@ -393,7 +393,8 @@ article .dialogue blockquote em{
   font-weight:bold; 
   font-family: "Open Sans", sans-serif; 
   font-size:14px;
-
+  display:inline-block;
+  background-color: white;
 }
 
 .amz-tab {
@@ -404,7 +405,8 @@ article .dialogue blockquote em{
   font-weight: bold;
   font-family: "Open Sans", sans-serif;
   font-size:14px;
-
+  display:inline-block;
+  margin:5px 10px;
 }
 
 
