@@ -23,7 +23,7 @@ You will be adding a POST method to the API Gateway we created earlier. Then you
 * Lambda function: getServiceRequests
 * Create Method
 
-Deploy the API
+Deploy the API using the prod stage.
 
 ### Update lambda code
 
