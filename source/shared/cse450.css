@@ -378,28 +378,33 @@ article .dialogue blockquote em{
 .amz-orange-button {
     display: inline-block;
     background-color: #ff9900;
-    padding: 5px 10px;
+    padding: 7px 12px;
     color:black;
     font-weight:bold;
     font-family: "Open Sans", sans-serif;
+    font-size:14px;
 }
 
 .amz-white-button {
   border: solid 1px #94989e;
   border-radius: 3px;
-  padding:5px 10px;
+  padding: 7px 12px;
   color:#545b64;
   font-weight:bold; 
   font-family: "Open Sans", sans-serif; 
+  font-size:14px;
+
 }
 
 .amz-tab {
   border-left: solid 1px #94989e;
   border-right: solid 1px #94989e;
-  padding:5px 20px;
+  padding: 7px 12px;
   color:#545b64;
   font-weight: bold;
   font-family: "Open Sans", sans-serif;
+  font-size:14px;
+
 }
 
 

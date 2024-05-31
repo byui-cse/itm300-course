@@ -17,13 +17,13 @@ You will be adding a POST method to the API Gateway we created earlier. Then you
 
 ### Add a Post method to the API Gateway
 
-* Create method under the /service-request resource
+* <span class="amz-white-button">Create method</span> under the /service-request resource
 * Method type: Post
 * Lambda proxy integration checked
 * Lambda function: getServiceRequests
-* Create Method
+* <span class="amz-orange-button">Create method</span>
 
-<span class="amz-orange-button">Deploy</span> the API using the prod stage.
+<span class="amz-orange-button">Deploy API</span> to the prod stage.
 
 Your API Gateway should look like this at this point:
 
