@@ -64,7 +64,7 @@ You'll notice that the user has a confirmation status of Force change password. 
 ## Explore the Hosted UI
 
 * Click on the tab <span class="amz-tab">App Integration</span>
-* Scroll to the bottom of the screen and click on VehicleApp
+* Scroll to the bottom of the screen and click on <span class="amz-link">VehicleApp</span>
 
 * Scroll down until you see <span class="amz-white-button">View Hosted UI</span> and click on it.
 

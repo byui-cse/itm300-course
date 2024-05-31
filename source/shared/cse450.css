@@ -407,6 +407,15 @@ article .dialogue blockquote em{
   font-size:14px;
   display:inline-block;
   margin:5px 10px;
+  background-color:white;
+}
+
+.amz-link {
+  color:#1f84c3;
+  text-decoration: underline;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  font-size:14px;  
 }
 
 

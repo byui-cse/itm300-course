@@ -41,8 +41,8 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
     From the EC2 view of all instances do the following:
     
     * Click the checkmark next to your instance name
-    * Click Connect at the top of the screen.
-    * Click Connect at the bottom of the next screen.
+    * Click <span class="amz-white-button">Connect</span> at the top of the screen.
+    * Click <span class="amz-oranage-button">Connect</span> at the bottom of the next screen.
     
 ## Server Setup:
 
