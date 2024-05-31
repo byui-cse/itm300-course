@@ -231,8 +231,10 @@ In this lab, you learned how to host a website on Amazon EC2 and secure it with 
 
 ## Helpful other links:
 
-[nginx on Amazon Linux 2023](https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20)
+[nginx on Amazon Linux 2023](https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20){:target="_blank"}
 
-[nginx on Amazon Linux 2023 LAMP](https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b)
+[nginx on Amazon Linux 2023 LAMP](https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b){:target="_blank"}
 
-[OpenSSL Quick Reference Guide](https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm)
+[OpenSSL Quick Reference Guide](https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm){:target="_blank"}
+
+[nginx SSL installation guide](https://www.digicert.com/kb/csr-ssl-installation/nginx-openssl.htm){:target="_blank"}

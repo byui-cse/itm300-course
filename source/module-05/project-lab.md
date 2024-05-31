@@ -148,7 +148,7 @@ Update the values on this page to this:
 * service_id: 2
 * phone_number: 208-867-5309
 * service_description: Brakes for a 08 Mazda 3
-* status: Accepted
+* service_status: Accepted
 
 Click create item
 
