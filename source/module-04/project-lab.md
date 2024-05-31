@@ -23,11 +23,13 @@ Third, we'll update our app code to display the current service requests.
 
 Search for Lambda in AWS
 
-* Create function
+* <span class="amz-orange-button">Create function</span>
 * Author from scratch
 * Function Name: getServiceRequest
 
-* Change default execution role: Use an existing Role: LabRole
+* <span class="material-symbols-outlined">
+arrow_right
+</span> Change default execution role: Use an existing Role: LabRole
 
 Update index.mjs with:
 
