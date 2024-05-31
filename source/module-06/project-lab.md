@@ -13,7 +13,7 @@ For this lab we'll handle requests from our app to put service requests into the
 
 ## Instructions
 
-You will be adding a POST method to the API Gateway we created earlier. Then you will add the necessary code to place the new information into the dynamodb table we created earlier. Finally, we'll update the logic of the app to interface with the new endpoint.
+You will be adding a POST method to the API Gateway we created earlier. Then you will add the necessary code to place the new information into the dynamodb table. Finally, we'll update the logic of the app to interface with the new endpoint.
 
 ### Add a Post method to the API Gateway
 
