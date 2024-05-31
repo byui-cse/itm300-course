@@ -195,9 +195,9 @@
 <span class="p">};</span>
 </code></pre></div>
 
-<p>Deploy the updated lambda code.</p>
+<p><span class="amz-white-button">Deploy</span> the updated lambda code.</p>
 <h3 id="update-app-code">Update App Code</h3>
-<p>Connect to your Vehicle App EC2 Instance</p>
+<p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
 <div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-06/rebuildapp.sh
 </code></pre></div>
@@ -212,7 +212,8 @@
 <p>You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
 <ul>
 <li>Click Stages on the left bar</li>
-<li>Under stage details find Invoke URL and copy that address</li>
+<li>Make sure you have prod selected and not one of the sub methods</li>
+<li>Under stage details find Invoke URL. It should end in /prod</li>
 <li>Paste that as the Invoke URL when prompted</li>
 </ul>
 <p>Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.</p>

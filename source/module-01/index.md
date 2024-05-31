@@ -24,7 +24,7 @@ Please review the following:
 
 #### Project Lab
 
-* [Host a Static Website with s3](./project-lab-1.html)
+* [Host a Static Website with s3](./project-lab.html)
 
 <!-- #### Additional Materials -->
 

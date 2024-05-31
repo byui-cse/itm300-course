@@ -164,11 +164,11 @@ export const handler = async (event) => {
 };
 ```
 
-Deploy the updated lambda code.
+<span class="amz-white-button">Deploy</span> the updated lambda code.
 
 ### Update App Code
 
-Connect to your Vehicle App EC2 Instance
+<span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance
 
 Download the newest website app:
 
@@ -189,7 +189,8 @@ sudo bash ./rebuildapp.sh
 You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
 
 * Click Stages on the left bar
-* Under stage details find Invoke URL and copy that address
+* Make sure you have prod selected and not one of the sub methods
+* Under stage details find Invoke URL. It should end in /prod
 * Paste that as the Invoke URL when prompted
 
 

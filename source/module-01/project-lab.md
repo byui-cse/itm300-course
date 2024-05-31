@@ -27,7 +27,7 @@ Follow the instructions found on this tutorial:
 
 !!! note "Updated instructions"
 
-    When you update the s3 bucket to allow static site hosting you must click the PROPERTIES tab to find Edit static web hosting.
+    When you update the s3 bucket to allow static site hosting you must click the <span class="amz-tab">Properties</span> tab to find <span class="amz-white-button">Edit</span> in the Static website hosting section.
 
 
 ## Helpful other links:
