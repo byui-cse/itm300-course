@@ -157,6 +157,7 @@ export const handler = async (event) => {
 };
 ```
 
+Deploy the updated lambda code.
 
 ### Update App Code
 
