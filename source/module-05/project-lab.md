@@ -42,15 +42,17 @@ Search for DynamoDB in AWS
       * Sort Key: license_plate (String)
   * <span class="amz-orange-button">Create index</span>
 
-* <span class="amz-oranage-button">Create table</span>
+* <span class="amz-orange-button">Create table</span>
 
-Wait for the Status to be: Active
+Wait for the Status to be: <span class="material-symbols-outlined">
+check_circle
+</span> Active
 
 * Click on <span class="amz-link">VehicleServices</span>
 
 * Actions <span class="material-symbols-outlined">
 arrow_drop_down
-</span> -> Create Item
+</span> -> <span class="amz-white-button">Create Item</span>
   * **license_plate** 8B1111
   * **service_id** 1
   * <span class="amz-white-button">Add new attribute</span> (String): **phone_number** 208-444-5555
@@ -138,7 +140,7 @@ Go to the website and verify that you are getting a single ticket back. You can 
 
 ## Add information to the database
 
-Go back to the dynamodb table and click <span class="amz-orange-button">explore table items</span>
+Go back to the dynamodb table and click <span class="amz-orange-button">Explore table items</span>
 Click <span class="amz-orange-button">run</span>. Down below it should return the 8B1111 item
 
 * Check the checkbox next to 8B1111. 
@@ -154,7 +156,7 @@ Update the values on this page to this:
 * service_description: Brakes for a 08 Mazda 3
 * service_status: Accepted
 
-Click <span class="amz-oranage-button">create item</span>
+Click <span class="amz-orange-button">create item</span>
 
 Go back to the website and you should see both items under service request.
 

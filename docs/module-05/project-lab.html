@@ -101,10 +101,12 @@
 <p><span class="amz-orange-button">Create index</span></p>
 </li>
 <li>
-<p><span class="amz-oranage-button">Create table</span></p>
+<p><span class="amz-orange-button">Create table</span></p>
 </li>
 </ul>
-<p>Wait for the Status to be: Active</p>
+<p>Wait for the Status to be: <span class="material-symbols-outlined">
+check_circle
+</span> Active</p>
 <ul>
 <li>
 <p>Click on <span class="amz-link">VehicleServices</span></p>
@@ -112,7 +114,7 @@
 <li>
 <p>Actions <span class="material-symbols-outlined">
 arrow_drop_down
-</span> -&gt; Create Item</p>
+</span> -&gt; <span class="amz-white-button">Create Item</span></p>
 </li>
 <li><strong>license_plate</strong> 8B1111</li>
 <li><strong>service_id</strong> 1</li>
@@ -190,7 +192,7 @@ arrow_drop_down
 <p>If the website is up, but not working, then you'll need to dig into the error console (Right click inspect and choose console) to troubleshoot the errors. This and CloudWatch are your best options for tracking down errors.</p>
 </div>
 <h2 id="add-information-to-the-database">Add information to the database</h2>
-<p>Go back to the dynamodb table and click <span class="amz-orange-button">explore table items</span>
+<p>Go back to the dynamodb table and click <span class="amz-orange-button">Explore table items</span>
 Click <span class="amz-orange-button">run</span>. Down below it should return the 8B1111 item</p>
 <ul>
 <li>Check the checkbox next to 8B1111. </li>
@@ -206,7 +208,7 @@ arrow_drop_down
 <li>service_description: Brakes for a 08 Mazda 3</li>
 <li>service_status: Accepted</li>
 </ul>
-<p>Click <span class="amz-oranage-button">create item</span></p>
+<p>Click <span class="amz-orange-button">create item</span></p>
 <p>Go back to the website and you should see both items under service request.</p>
 <h2 id="update-a-vehicle">Update a vehicle</h2>
 <p>Go update the value of the service_status of the 8B1111 vehicle to have a <em>service_status</em> of <strong>Completed</strong></p>
