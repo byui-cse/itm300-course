@@ -25,7 +25,7 @@ Second, we'll update the lambda function to read from the dynamodb table to pull
 
 Search for DynamoDB in AWS
 
-* Create table
+* <span class="amz-orange-button">Create table</span>
 
 * Table Name: **VehicleServices**
 
@@ -35,33 +35,35 @@ Search for DynamoDB in AWS
 * Customize Settings
 * Capacity mode: On-demand
 
-* Secondary Indexes: Create global index
+* Secondary Indexes: <span class="amz-white-button">Create global index</span>
   * Global Secondary Index:
     * Index Name: StatusIndex
       * Partition Key: service_status (String)
       * Sort Key: license_plate (String)
-  * Create Index
+  * <span class="amz-orange-button">Create index</span>
 
-* Create Table
+* <span class="amz-oranage-button">Create table</span>
 
 Wait for the Status to be: Active
 
-* Click on VehicleServices
+* Click on <span class="amz-link">VehicleServices</span>
 
-* Actions -> Create Item
+* Actions <span class="material-symbols-outlined">
+arrow_drop_down
+</span> -> Create Item
   * **license_plate** 8B1111
   * **service_id** 1
-  * Add new attribute (String): **phone_number** 208-444-5555
-  * Add new attribute (String): **service_description** Oil Change on a 2007 Saturn Outlook
-  * Add new attribute (String): **service_status** Finishing up
-  * Create item
+  * <span class="amz-white-button">Add new attribute</span> (String): **phone_number** 208-444-5555
+  * <span class="amz-white-button">Add new attribute</span> (String): **service_description** Oil Change on a 2007 Saturn Outlook
+  * <span class="amz-white-button">Add new attribute</span> (String): **service_status** Finishing up
+  * <span class="amz-orange-button">Create item</span>
 
 ## Update Lambda
 
-Search for Lambda and open your getServiceRequests lambda function
+Search for Lambda and open your <span class="amz-link">getServiceRequests</span> lambda function
 
 * Under Code -> Right click on getServiceRequests and choose New File
-* Name it dynamoService.mjs
+* Name it *dynamoService.mjs*
 * Paste the following code into that file:
 
 
@@ -106,21 +108,21 @@ export const getDynamoServiceRequests = async () => {
 
 We will replace the previous dataService with the new dynamoService.
 
-* Add this line to the top of the index.mjs file:
+* Add this line to the top of the *index.mjs* file:
 
 ```
 import { getDynamoServiceRequests } from './dynamoService.mjs';
 ```
 
-* In the index.mjs file change the name of the function being called by repalacing *const jsonArray = await getServiceRequests();* with
+* In the *index.mjs* file change the name of the function being called by repalacing *const jsonArray = await getServiceRequests();* with
 
 ```
 const jsonArray = await getDynamoServiceRequests();
 ```
 
-Click Deploy and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.
+Click <span class="amz-white-button">Deploy</span> and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.
 
-Go to the website and verify that you are getting a single ticket back.
+Go to the website and verify that you are getting a single ticket back. You can get the link from your EC2.
 
 !!! key "Website App Troubleshooting"
 
@@ -136,11 +138,13 @@ Go to the website and verify that you are getting a single ticket back.
 
 ## Add information to the database
 
-Go back to the dynamodb table and click "explore table items"
-Click run. Down below it should return the 8B1111 item
+Go back to the dynamodb table and click <span class="amz-orange-button">explore table items</span>
+Click <span class="amz-orange-button">run</span>. Down below it should return the 8B1111 item
 
 * Check the checkbox next to 8B1111. 
-* Click Actions->Duplicate Item
+* Click Actions <span class="material-symbols-outlined">
+arrow_drop_down
+</span> ->Duplicate Item
 
 Update the values on this page to this:
 
@@ -150,7 +154,7 @@ Update the values on this page to this:
 * service_description: Brakes for a 08 Mazda 3
 * service_status: Accepted
 
-Click create item
+Click <span class="amz-oranage-button">create item</span>
 
 Go back to the website and you should see both items under service request.
 
