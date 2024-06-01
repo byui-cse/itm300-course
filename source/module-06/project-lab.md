@@ -17,7 +17,7 @@ You will be adding a POST method to the API Gateway we created earlier. Then you
 
 ### Add a Post method to the API Gateway
 
-* <span class="amz-white-button">Create method</span> under the /service-request resource
+* Click on the /service-request resource and then <span class="amz-white-button">Create method</span>
 * Method type: Post
 * Lambda proxy integration checked
 * Lambda function: getServiceRequests

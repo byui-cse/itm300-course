@@ -65,7 +65,7 @@
 <p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
 <p>Go to our vehicleapp API Gateway. Click on the /.</p>
 <ul>
-<li>Click Create resource</li>
+<li>Click <span class="amz-white-button">Create resource</span></li>
 <li>Resource Name: admin-service-request</li>
 <li>Check CORS  </li>
 </ul>
@@ -103,13 +103,13 @@
 <li>Method request Settings -&gt; Authorization: AdminServiceRequestAuthorizer</li>
 </ul>
 <p><img alt="admin-service-request" src="https://byui-cse.github.io/itm300-course/shared/img/admin-service-request.jpg" /></p>
-<p>Deploy API</p>
+<p><span class="amz-orange-button">Deploy API</span></p>
 <h2 id="create-lambda">Create lambda</h2>
 <ul>
 <li>Name: adminGetServiceRequest</li>
 <li>Role: LabRole</li>
 </ul>
-<p>Create a file named adminDynamoService.mjs</p>
+<p>Create a file named <em>adminDynamoService.mjs</em></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span>
   <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
@@ -402,7 +402,7 @@
 </code></pre></div>
 
 <h2 id="update-code">Update code</h2>
-<p>Connect to your Vehicle App EC2 Instance</p>
+<p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
 <div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-07/rebuildapp.sh
 </code></pre></div>

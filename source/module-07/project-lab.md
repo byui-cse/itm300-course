@@ -17,7 +17,7 @@ We'll add a new endpoint which will provide a secure location for our logged in 
 
 Go to our vehicleapp API Gateway. Click on the /.
 
-* Click Create resource
+* Click <span class="amz-white-button">Create resource</span>
 * Resource Name: admin-service-request
 * Check CORS  
 
@@ -51,14 +51,14 @@ We can enhance our API Gateway endpoint by integrating an authorizer. By linking
 
 ![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
 
-Deploy API
+<span class="amz-orange-button">Deploy API</span>
 
 ## Create lambda
 
 * Name: adminGetServiceRequest
 * Role: LabRole
 
-Create a file named adminDynamoService.mjs
+Create a file named *adminDynamoService.mjs*
 
 ```
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -361,7 +361,7 @@ const generateServiceId = () => {
 
 ## Update code
 
-Connect to your Vehicle App EC2 Instance
+<span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance
 
 Download the newest website app:
 
