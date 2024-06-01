@@ -125,13 +125,15 @@ arrow_right
 <span class="p">};</span>
 </code></pre></div>
 
-<p>Deploy the Lambda function by clicking the Deploy button</p>
+<p>Deploy the Lambda function by clicking the <span class="amz-white-button">Deploy</span> button</p>
 <div class="admonition key">
 <p class="admonition-title">Don't forget to Deploy</p>
-<p>If you make any changes to your function, you must click Deploy to deploy the new changes.</p>
+<p>If you make any changes to your function, you must click <span class="amz-white-button">Deploy</span> to deploy the new changes.</p>
 </div>
-<p>Click the dropdown arrow next to the blue Test button and choose Configure test event. </p>
-<p>Give the Test a name and then click Invoke. You should receive a response similar to this:</p>
+<p>Click the dropdown arrow <span class="material-symbols-outlined">
+arrow_drop_down
+</span>next to the blue Test button and choose Configure test event. </p>
+<p>Give the Test a name and then click <span class="amz-white-button">Invoke</span>. You should receive a response similar to this:</p>
 <div class="codehilite"><pre><span></span><code>{
   &quot;statusCode&quot;: 200,
   &quot;body&quot;: &quot;[{\&quot;id\&quot;:1,\&quot;phone\&quot;:\&quot;208-555-5555\&quot;,\&quot;service\&quot;:\&quot;Oil Change on a 2007 Saturn Outlook\&quot;},{\&quot;id\&quot;:2,\&quot;phone\&quot;:\&quot;208-555-9999\&quot;,\&quot;service_status\&quot;:\&quot;I need the brakes fixed on my 2010 Buick LeSabre\&quot;},{\&quot;id\&quot;:3,\&quot;phone\&quot;:\&quot;208-555-9111\&quot;,\&quot;service\&quot;:\&quot;My radiator exploded. Help!\&quot;}]&quot;,
@@ -146,7 +148,7 @@ arrow_right
 
 <h2 id="create-the-api-gateway">Create the API Gateway</h2>
 <p>Search for API Gateway.</p>
-<p>Scroll down to REST API and Click <strong>Build</strong></p>
+<p>Scroll down to REST API and Click <span class="amz-orange-button">Build</span></p>
 <ul>
 <li>New API</li>
 <li>
@@ -156,21 +158,22 @@ arrow_right
 <p>API endpoint type: Regional</p>
 </li>
 <li>
-<p>Create API</p>
+<p><span class="amz-orange-button">Create API</span></p>
 </li>
 <li>
-<p>Create resource:</p>
+<p><span class="amz-white-button">Create resource</span>:</p>
 <ul>
 <li>Resource path: /</li>
 <li>Resource name: service-request</li>
 <li>CORS checked</li>
+<li><span class="amz-orange-button">Create resource</span></li>
 </ul>
 </li>
 <li>
 <p>Click /service-request</p>
 <ul>
 <li>
-<p>Create method</p>
+<p><span class="amz-white-button">Create method</span></p>
 </li>
 <li>
 <p>Method type: GET</p>
@@ -182,7 +185,7 @@ arrow_right
 </li>
 </ul>
 <p>Before we deploy the API you should test the API to make sure it is returning the correct data.</p>
-<p>Click the <strong>Test</strong> tab and then click the Test button. You should get a response like this:</p>
+<p>Click the <span class="amz-tab">Test</span> tab and then click the <span class="amz-orange-button">Test</span> button. You should get a response like this:</p>
 <div class="codehilite"><pre><span></span><code><span class="nv">Response</span><span class="w"> </span><span class="nv">body</span>
 
 [{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">1</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-5555&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;Oil Change on a 2007 Saturn Outlook&quot;</span>,<span class="s2">&quot;service_status&quot;</span>:<span class="s2">&quot;Finishing up&quot;</span>,<span class="s2">&quot;license_plate&quot;</span>:<span class="s2">&quot;8B1111&quot;</span>},{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">2</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-9999&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;I need the brakes fixed on my 2010 Buick LeSabre&quot;</span>,<span class="s2">&quot;service_status&quot;</span>:<span class="s2">&quot;Waiting For Pickup&quot;</span>,<span class="s2">&quot;license_plate&quot;</span>:<span class="s2">&quot;1J1957&quot;</span>},{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">3</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-9111&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;My radiator exploded. Help!&quot;</span>,<span class="s2">&quot;service_status&quot;</span>:<span class="s2">&quot;Parts Ordered&quot;</span>,<span class="s2">&quot;license_place&quot;</span>:<span class="s2">&quot;1M1337&quot;</span>}]
@@ -198,7 +201,7 @@ arrow_right
 
 <ul>
 <li>
-<p>Click Deploy API</p>
+<p>Click <span class="amz-oranage-button">Deploy API</span></p>
 <ul>
 <li>Stage: New Stage</li>
 <li>Stage Name: prod</li>
@@ -206,7 +209,7 @@ arrow_right
 </li>
 </ul>
 <h2 id="update-the-app-logic">Update the App logic</h2>
-<p>Connect to your Vehicle App EC2 Instance</p>
+<p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
 <div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
 </code></pre></div>
@@ -221,7 +224,9 @@ arrow_right
 <p>You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
 <ul>
 <li>Click Stages on the left bar</li>
-<li>Under stage details find Invoke URL and copy that address</li>
+<li>Under stage details find <span class="material-symbols-outlined">
+content_copy
+</span> Invoke URL and copy that address</li>
 <li>Paste that as the Invoke URL when prompted</li>
 </ul>
 <p>Once you've updated the files, verify the app is working. Go to the Request Service page. and make sure it displays the three current service requests at the bottom of the request service page.</p>

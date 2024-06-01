@@ -86,15 +86,17 @@ export const getServiceRequests = () => {
 };
 ```
 
-Deploy the Lambda function by clicking the Deploy button
+Deploy the Lambda function by clicking the <span class="amz-white-button">Deploy</span> button
 
 !!! key "Don't forget to Deploy"
 
-    If you make any changes to your function, you must click Deploy to deploy the new changes.
+    If you make any changes to your function, you must click <span class="amz-white-button">Deploy</span> to deploy the new changes.
 
-Click the dropdown arrow next to the blue Test button and choose Configure test event. 
+Click the dropdown arrow <span class="material-symbols-outlined">
+arrow_drop_down
+</span>next to the blue Test button and choose Configure test event. 
 
-Give the Test a name and then click Invoke. You should receive a response similar to this:
+Give the Test a name and then click <span class="amz-white-button">Invoke</span>. You should receive a response similar to this:
 
 ```
 {
@@ -114,24 +116,25 @@ Give the Test a name and then click Invoke. You should receive a response simila
 
 Search for API Gateway.
 
-Scroll down to REST API and Click **Build**
+Scroll down to REST API and Click <span class="amz-orange-button">Build</span>
 
 * New API
 * API Name : vehicleapp
 
 * API endpoint type: Regional
 
-* Create API
+* <span class="amz-orange-button">Create API</span>
 
-* Create resource:
+* <span class="amz-white-button">Create resource</span>:
 
     * Resource path: /
     * Resource name: service-request
     * CORS checked
+    * <span class="amz-orange-button">Create resource</span>
 
 * Click /service-request
 
-    * Create method
+    * <span class="amz-white-button">Create method</span>
 
     * Method type: GET
     * Integration type: Lambda Function
@@ -140,7 +143,7 @@ Scroll down to REST API and Click **Build**
 
 Before we deploy the API you should test the API to make sure it is returning the correct data.
 
-Click the **Test** tab and then click the Test button. You should get a response like this:
+Click the <span class="amz-tab">Test</span> tab and then click the <span class="amz-orange-button">Test</span> button. You should get a response like this:
 
 ```
 Response body
@@ -157,14 +160,14 @@ Response headers
 ```
 
 
-* Click Deploy API
+* Click <span class="amz-oranage-button">Deploy API</span>
 
     * Stage: New Stage
     * Stage Name: prod
 
 ## Update the App logic
 
-Connect to your Vehicle App EC2 Instance
+<span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance
 
 Download the newest website app:
 
@@ -185,7 +188,9 @@ sudo bash ./rebuildapp.sh
  You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
 
 * Click Stages on the left bar
-* Under stage details find Invoke URL and copy that address
+* Under stage details find <span class="material-symbols-outlined">
+content_copy
+</span> Invoke URL and copy that address
 * Paste that as the Invoke URL when prompted
 
 Once you've updated the files, verify the app is working. Go to the Request Service page. and make sure it displays the three current service requests at the bottom of the request service page.
