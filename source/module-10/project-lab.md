@@ -134,10 +134,13 @@ Search for ECR which will bring up Elastic Container Registry. Open this in a ne
 * <span class="amz-white-button">View push commands</span>
 * Copy the 4 commands and run them in your EC2 terminal. *You'll need to add **sudo** to the front of each of the commands.*
 
-    * sudo aws ecr get-login-passwo...
-    * docker build -t vehicle-app .
-    * docker tag vehi...
-    * docker push...
+The commands should look something like this (don't use the commands below, COPY from the PUSH COMMANDS for your specific repository)
+
+    * sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <your_account_id>.dkr.ecr.us-east-1.amazonaws.com
+    * sudo docker build -t vehicle-app .
+    * sudo docker tag vehicle-app:latest <your_account_id>.dkr.ecr.us-east-1.amazonaws.com/vehicle-app:latest
+    * sudo docker push <your_account_id>.dkr.ecr.us-east-1.amazonaws.com/vehicle-app:latest
+
 
 You should receive a response that shows the docker container was pushed to the ECR.
 

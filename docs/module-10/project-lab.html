@@ -160,16 +160,15 @@ arrow_right
 <li><span class="amz-orange-button">Create repository</span></li>
 <li>Click on <span class="amz-link">vehicle-app</span></li>
 <li><span class="amz-white-button">View push commands</span></li>
-<li>
-<p>Copy the 4 commands and run them in your EC2 terminal. <em>You'll need to add </em><em>sudo</em><em> to the front of each of the commands.</em></p>
-<ul>
-<li>sudo aws ecr get-login-passwo...</li>
-<li>docker build -t vehicle-app .</li>
-<li>docker tag vehi...</li>
-<li>docker push...</li>
+<li>Copy the 4 commands and run them in your EC2 terminal. <em>You'll need to add </em><em>sudo</em><em> to the front of each of the commands.</em></li>
 </ul>
-</li>
-</ul>
+<p>The commands should look something like this (don't use the commands below, COPY from the PUSH COMMANDS for your specific repository)</p>
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">aws</span><span class="w"> </span><span class="n">ecr</span><span class="w"> </span><span class="n">get</span><span class="o">-</span><span class="n">login</span><span class="o">-</span><span class="n">password</span><span class="w"> </span><span class="o">--</span><span class="n">region</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mh">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="o">--</span><span class="n">username</span><span class="w"> </span><span class="n">AWS</span><span class="w"> </span><span class="o">--</span><span class="n">password</span><span class="o">-</span><span class="n">stdin</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_account_id</span><span class="o">&gt;</span><span class="p">.</span><span class="n">dkr</span><span class="p">.</span><span class="n">ecr</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span>
+<span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-</span><span class="n">app</span><span class="w"> </span><span class="p">.</span>
+<span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-</span><span class="nl">app:</span><span class="n">latest</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_account_id</span><span class="o">&gt;</span><span class="p">.</span><span class="n">dkr</span><span class="p">.</span><span class="n">ecr</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vehicle</span><span class="o">-</span><span class="nl">app:</span><span class="n">latest</span>
+<span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_account_id</span><span class="o">&gt;</span><span class="p">.</span><span class="n">dkr</span><span class="p">.</span><span class="n">ecr</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vehicle</span><span class="o">-</span><span class="nl">app:</span><span class="n">latest</span>
+</code></pre></div>
+
 <p>You should receive a response that shows the docker container was pushed to the ECR.</p>
 <p>Go back to the ECR tab and click <span class="amz-white-button">Close</span></p>
 <ul>
