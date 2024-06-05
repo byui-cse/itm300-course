@@ -268,9 +268,16 @@ open_in_new
 <li>
 <p>Open your EC2 terminal</p>
 </li>
-<li>Copy the contents of the file found here: /etc/pki/tls/private/apache-selfsigned.key</li>
+<li>Copy the contents of the file found here: /etc/pki/tls/private/apache-selfsigned.key<ul>
+<li>NOTE: This file will require sudo to view or edit</li>
+<li>Copy everything from the first dash of -----BEGIN PRIVATE KEY----- to the ending dash of -----END PRIVATE KEY-----</li>
+</ul>
+</li>
 <li>Paste it into Certificate private key</li>
-<li>Copy the contents of the file found here: /etc/pki/tls/certs/apache-selfsigned.crt</li>
+<li>Copy the contents of the file found here: /etc/pki/tls/certs/apache-selfsigned.crt<ul>
+<li>Copy everything from the first dash of  -----BEGIN CERTIFICATE----- to the ending dash of -----END CERTIFICATE-----</li>
+</ul>
+</li>
 <li>Paste it into Certificate body</li>
 <li><span class="amz-orange-button">Add</span></li>
 </ul>

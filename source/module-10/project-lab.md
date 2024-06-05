@@ -239,8 +239,11 @@ Take a screenshot of your app running on the container with the load balancer an
 
 * Open your EC2 terminal
 * Copy the contents of the file found here: /etc/pki/tls/private/apache-selfsigned.key
+    * NOTE: This file will require sudo to view or edit
+    * Copy everything from the first dash of -----BEGIN PRIVATE KEY----- to the ending dash of -----END PRIVATE KEY-----
 * Paste it into Certificate private key
 * Copy the contents of the file found here: /etc/pki/tls/certs/apache-selfsigned.crt
+    * Copy everything from the first dash of  -----BEGIN CERTIFICATE----- to the ending dash of -----END CERTIFICATE-----
 * Paste it into Certificate body
 * <span class="amz-orange-button">Add</span>
 
