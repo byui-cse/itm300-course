@@ -14,7 +14,12 @@ body-class: index-page
 
 Please review the following:
 
-* [Relational Database Service](https://aws.amazon.com/rds/){:target="_blank"}
+* [Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/application-load-balancer/){:target="_blank"}
+* [Auto Scaling](https://aws.amazon.com/autoscaling/){:target="_blank"}
+* [Elastic Container Service](https://aws.amazon.com/ecs/){:target="_blank"}
+* [Elastic Container Registry](https://aws.amazon.com/ecr/){:target="_blank"}
+* [Fargate](https://aws.amazon.com/fargate/){:target="_blank"}
+
 
 <!-- * [SNS and SQS for fanout notifications](https://aws.amazon.com/getting-started/hands-on/send-fanout-event-notifications/){:target="_blank"}
 
@@ -35,7 +40,7 @@ Please review the following:
 
 #### Project Lab
 
-* [Vehicle History Update](./project-lab.html)
+* [Containers, Load Balancing, and Auto Scaling](./project-lab.html)
 
 <!-- #### Additional Materials -->
 
