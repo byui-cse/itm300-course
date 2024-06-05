@@ -163,12 +163,7 @@ arrow_right
 <li>Copy the 4 commands and run them in your EC2 terminal. <em>You'll need to add </em><em>sudo</em><em> to the front of each of the commands.</em></li>
 </ul>
 <p>The commands should look something like this (don't use the commands below, COPY from the PUSH COMMANDS for your specific repository)</p>
-<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">aws</span><span class="w"> </span><span class="n">ecr</span><span class="w"> </span><span class="n">get</span><span class="o">-</span><span class="n">login</span><span class="o">-</span><span class="n">password</span><span class="w"> </span><span class="o">--</span><span class="n">region</span><span class="w"> </span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mh">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="o">--</span><span class="n">username</span><span class="w"> </span><span class="n">AWS</span><span class="w"> </span><span class="o">--</span><span class="n">password</span><span class="o">-</span><span class="n">stdin</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_account_id</span><span class="o">&gt;</span><span class="p">.</span><span class="n">dkr</span><span class="p">.</span><span class="n">ecr</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span>
-<span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-</span><span class="n">app</span><span class="w"> </span><span class="p">.</span>
-<span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="n">vehicle</span><span class="o">-</span><span class="nl">app:</span><span class="n">latest</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_account_id</span><span class="o">&gt;</span><span class="p">.</span><span class="n">dkr</span><span class="p">.</span><span class="n">ecr</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vehicle</span><span class="o">-</span><span class="nl">app:</span><span class="n">latest</span>
-<span class="o">*</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="o">&lt;</span><span class="n">your_account_id</span><span class="o">&gt;</span><span class="p">.</span><span class="n">dkr</span><span class="p">.</span><span class="n">ecr</span><span class="p">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vehicle</span><span class="o">-</span><span class="nl">app:</span><span class="n">latest</span>
-</code></pre></div>
-
+<p><img alt="Docker Commands" src="https://byui-cse.github.io/itm300-course/shared/img/docker-commands.jpg" /></p>
 <p>You should receive a response that shows the docker container was pushed to the ECR.</p>
 <p>Go back to the ECR tab and click <span class="amz-white-button">Close</span></p>
 <ul>
@@ -177,6 +172,11 @@ refresh
 </span></span> button.</li>
 </ul>
 <p>You should see 1 image with a tag of latest in the list.</p>
+<p><img alt="Docker container uploaded to ecr" src="https://byui-cse.github.io/itm300-course/shared/img/ecr-uploaded.jpg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Image URI</p>
+<p>You'll need the Image URI for this image later in the lab.</p>
+</div>
 <h2 id="create-an-ecs">Create an ECS</h2>
 <ul>
 <li>Search for ECS and open the Elastic Container Service in a new tab</li>

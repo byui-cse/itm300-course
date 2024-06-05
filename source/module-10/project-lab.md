@@ -136,10 +136,7 @@ Search for ECR which will bring up Elastic Container Registry. Open this in a ne
 
 The commands should look something like this (don't use the commands below, COPY from the PUSH COMMANDS for your specific repository)
 
-    * sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <your_account_id>.dkr.ecr.us-east-1.amazonaws.com
-    * sudo docker build -t vehicle-app .
-    * sudo docker tag vehicle-app:latest <your_account_id>.dkr.ecr.us-east-1.amazonaws.com/vehicle-app:latest
-    * sudo docker push <your_account_id>.dkr.ecr.us-east-1.amazonaws.com/vehicle-app:latest
+![Docker Commands]({{URLROOT}}/shared/img/docker-commands.jpg)
 
 
 You should receive a response that shows the docker container was pushed to the ECR.
@@ -152,10 +149,15 @@ refresh
 
 You should see 1 image with a tag of latest in the list.
 
+![Docker container uploaded to ecr]({{URLROOT}}/shared/img/ecr-uploaded.jpg)
+
+!!! note "Image URI"
+
+    You'll need the Image URI for this image later in the lab.
+
 ## Create an ECS
 
 * Search for ECS and open the Elastic Container Service in a new tab
-
 
 ### Create a cluster
 
