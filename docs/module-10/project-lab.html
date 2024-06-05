@@ -40,6 +40,9 @@
 </li>
 <li><a href="#deploy-the-containers">Deploy the containers</a></li>
 <li><a href="#optional-add-ssl-to-your-load-balancer">(OPTIONAL) Add SSL to your load balancer</a></li>
+<li><a href="#summary">Summary:</a></li>
+<li><a href="#key-concepts">Key Concepts:</a></li>
+<li><a href="#reflective-questions">Reflective Questions:</a></li>
 </ul>
 </div>
 
@@ -58,7 +61,7 @@
 	<article>
 		<p><img alt="Quick Oil Change and Repair" src="https://byui-cse.github.io/itm300-course/shared/img/quick-logo-vehicle-history.jpg" /></p>
 <h2 id="product-objective">Product Objective</h2>
-<p>Instead of using a single EC2 instance, we are going to place our app in a container and allow it to auto-scale and use a load balancer.</p>
+<p>In this lab, we will containerize our vehicle service application, enabling it to auto-scale and utilize a load balancer. By following these steps, you will learn how to configure Docker, create a container registry, and deploy containers using ECS and Fargate. This process will enhance the reliability and scalability of your application.</p>
 <h2 id="add-verify-iam-role">Add / Verify IAM Role</h2>
 <ul>
 <li>Go to the EC2 dashboard</li>
@@ -275,13 +278,38 @@ open_in_new
 <p>You can now go to your load balancer and add https in the front. You'll need to accept the security warning because it is still self-signed.</p>
 <p>Once finished, you can destroy the following:</p>
 <ul>
-<li>LoadBalancer</li>
+<li>Load Balancer</li>
 <li>ECS Cluster</li>
 <li>ECS Tasks</li>
 <li>ECS Services</li>
 <li>ECR vehicle-app repository</li>
 </ul>
-<p>These will eat up money if you leave them running. </p>
+<p>If you leave these running, especially the load balancer, you will use up your allocated funds quickly. </p>
+<h2 id="summary">Summary:</h2>
+<ul>
+<li><strong>Configured IAM Role:</strong> Ensured that the EC2 instance running your application had the appropriate IAM role for accessing AWS services.</li>
+<li><strong>Installed and Configured Docker:</strong> Set up Docker on the EC2 instance, added necessary AWS credentials, and prepared the environment for containerization.</li>
+<li><strong>Created a Docker Image:</strong> Built a Docker image for the application, tagged it, and pushed it to AWS Elastic Container Registry (ECR).</li>
+<li><strong>Set Up ECS Cluster:</strong> Created an ECS cluster using Fargate, which allows for serverless container management.</li>
+<li><strong>Created and Deployed a Task Definition:</strong> Defined the task for running the container, specifying resource requirements and roles, then deployed it to the ECS cluster.</li>
+<li><strong>Configured Auto-Scaling and Load Balancing:</strong> Set up an application load balancer and configured auto-scaling policies to manage container instances based on traffic.</li>
+<li><strong>Verified Deployment:</strong> Ensured the application was running successfully in a container behind the load balancer.</li>
+</ul>
+<h2 id="key-concepts">Key Concepts:</h2>
+<ul>
+<li><strong>Docker:</strong> Docker is a platform that enables developers to package applications into containers. Containers are lightweight, standalone, and executable packages that include everything needed to run a piece of software, including the code, runtime, libraries, and dependencies.</li>
+<li><strong>Elastic Container Registry (ECR):</strong> ECR is a fully managed Docker container registry that makes it easy to store, manage, and deploy Docker container images.</li>
+<li><strong>Elastic Container Service (ECS) and Fargate:</strong> ECS is a fully managed container orchestration service that allows you to run and manage Docker containers on a cluster of EC2 instances or using Fargate, which is a serverless compute engine for containers.</li>
+<li><strong>Load Balancer:</strong> An application load balancer distributes incoming application traffic across multiple targets, such as EC2 instances or containers, to ensure scalability and reliability.</li>
+<li><strong>Auto-Scaling:</strong> Auto-scaling dynamically adjusts the number of running container instances based on traffic, ensuring that the application can handle varying loads efficiently.</li>
+</ul>
+<h2 id="reflective-questions">Reflective Questions:</h2>
+<ul>
+<li>How does containerizing your application with Docker improve its portability and consistency across different environments?</li>
+<li>What are the benefits of using ECS and Fargate for managing your containerized applications compared to running containers on self-managed EC2 instances?</li>
+<li>How does using a load balancer enhance the availability and reliability of your application?</li>
+<li>Why is it important to configure auto-scaling policies, and how do they contribute to the application's performance and cost management?</li>
+</ul>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>

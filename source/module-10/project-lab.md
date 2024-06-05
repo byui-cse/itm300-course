@@ -7,8 +7,7 @@ body-class: index-page
 
 ## Product Objective
 
-Instead of using a single EC2 instance, we are going to place our app in a container and allow it to auto-scale and use a load balancer.
-
+In this lab, we will containerize our vehicle service application, enabling it to auto-scale and utilize a load balancer. By following these steps, you will learn how to configure Docker, create a container registry, and deploy containers using ECS and Fargate. This process will enhance the reliability and scalability of your application.
 
 ## Add / Verify IAM Role
 
@@ -242,18 +241,38 @@ Take a screenshot of your app running on the container with the load balancer an
 
 You can now go to your load balancer and add https in the front. You'll need to accept the security warning because it is still self-signed.
 
-
-
 Once finished, you can destroy the following:
 
-* LoadBalancer
+* Load Balancer
 * ECS Cluster
 * ECS Tasks
 * ECS Services
 * ECR vehicle-app repository
 
-These will eat up money if you leave them running. 
+If you leave these running, especially the load balancer, you will use up your allocated funds quickly. 
 
 
+## Summary:
 
+* **Configured IAM Role:** Ensured that the EC2 instance running your application had the appropriate IAM role for accessing AWS services.
+* **Installed and Configured Docker:** Set up Docker on the EC2 instance, added necessary AWS credentials, and prepared the environment for containerization.
+* **Created a Docker Image:** Built a Docker image for the application, tagged it, and pushed it to AWS Elastic Container Registry (ECR).
+* **Set Up ECS Cluster:** Created an ECS cluster using Fargate, which allows for serverless container management.
+* **Created and Deployed a Task Definition:** Defined the task for running the container, specifying resource requirements and roles, then deployed it to the ECS cluster.
+* **Configured Auto-Scaling and Load Balancing:** Set up an application load balancer and configured auto-scaling policies to manage container instances based on traffic.
+* **Verified Deployment:** Ensured the application was running successfully in a container behind the load balancer.
 
+## Key Concepts:
+
+* **Docker:** Docker is a platform that enables developers to package applications into containers. Containers are lightweight, standalone, and executable packages that include everything needed to run a piece of software, including the code, runtime, libraries, and dependencies.
+* **Elastic Container Registry (ECR):** ECR is a fully managed Docker container registry that makes it easy to store, manage, and deploy Docker container images.
+* **Elastic Container Service (ECS) and Fargate:** ECS is a fully managed container orchestration service that allows you to run and manage Docker containers on a cluster of EC2 instances or using Fargate, which is a serverless compute engine for containers.
+* **Load Balancer:** An application load balancer distributes incoming application traffic across multiple targets, such as EC2 instances or containers, to ensure scalability and reliability.
+* **Auto-Scaling:** Auto-scaling dynamically adjusts the number of running container instances based on traffic, ensuring that the application can handle varying loads efficiently.
+
+## Reflective Questions:
+
+* How does containerizing your application with Docker improve its portability and consistency across different environments?
+* What are the benefits of using ECS and Fargate for managing your containerized applications compared to running containers on self-managed EC2 instances?
+* How does using a load balancer enhance the availability and reliability of your application?
+* Why is it important to configure auto-scaling policies, and how do they contribute to the application's performance and cost management?
