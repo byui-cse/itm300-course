@@ -14,7 +14,7 @@ body-class: index-page
 
 Please review the following:
 
-* [Relational Database Service](https://aws.amazon.com/rds/){:target="_blank"}
+<!-- * [Relational Database Service](https://aws.amazon.com/rds/){:target="_blank"} -->
 
 <!-- * [SNS and SQS for fanout notifications](https://aws.amazon.com/getting-started/hands-on/send-fanout-event-notifications/){:target="_blank"}
 
