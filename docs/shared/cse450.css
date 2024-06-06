@@ -358,6 +358,9 @@ article .dialogue blockquote em{
 .key > p:first-child:before {
   content: '\f084';
 }
+.key strong {
+  color:var(--text-color);
+}
 
 .note > p:first-child:before {
   content:'\f05a';
