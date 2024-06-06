@@ -233,12 +233,12 @@ article h3:before {
 
 article em {
   font-style: italic;
-  color: var(--emphasis-color);
+  color: var(--accent-color);
 }
 
 article strong {
   font-weight: bold;
-  color: var(--text-color);
+  color: var(--delivery-classroom-color);
 }
 
 article p code, article li code {
