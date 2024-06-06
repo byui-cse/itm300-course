@@ -29,9 +29,9 @@ Please review the following:
 
     IPv4 subnet CIDR block looks like it has a number already typed in, but you need to type into this box. The instructions mislabel it as IPv4 VPC CIDR block. -->
 
-#### Project Lab
+#### Product Lab
 
-* [Updating DynamoDB and adding security](./project-lab.html)
+![Product Logo]({{URLROOT}}/shared/img/quick-logo-mini.png){.mini-product} [Updating DynamoDB and adding security](./project-lab.html)
 
 <!-- #### Additional Materials -->
 

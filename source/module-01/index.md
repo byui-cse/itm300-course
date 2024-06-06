@@ -22,9 +22,9 @@ Please review the following:
 * [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **Lab - 1 Introduction to AWS IAM (Module 4)**
 
 
-#### Project Lab
+#### ProductLab
 
-* ![Product Logo]({{URLROOT}}/shared/img/quick-logo-mini2.png) [Host a Static Website with s3](./project-lab.html)
+![Product Logo]({{URLROOT}}/shared/img/quick-logo-mini.png){.mini-product} [Host a Static Website with s3](./project-lab.html)
 
 <!-- #### Additional Materials -->
 

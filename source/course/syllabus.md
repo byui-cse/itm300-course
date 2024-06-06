@@ -60,11 +60,11 @@ There are pop-quizzes that will be given throughout the semester. These quizzes 
 
 #### Labs
 
-There are assigned labs within AWS Academy as well as additional labs provided by your instructor. Labs within AWS Academy have step-by-step instructions. However, *services change often*, so some instructions may be out-of-date. You may need to use your own intuition and other resourses to find how to proceed if things have changed.
+There are assigned labs within AWS Academy as well as product labs provided by your instructor. Labs within AWS Academy have step-by-step instructions. However, *services change often*, so some instructions may be out-of-date. You may need to use your own intuition and other resourses to find how to proceed if things have changed.
 
-!!!note "Instructor Labs"
+!!!note "Instructor Product Labs"
 
-	Instructor labs are not always step-by-step. You will need to utilize knowledge gained from AWS Academy labs as well as other online resources to complete the labs. You may work in teams for the labs and review previous labs for assistance.
+	Instructor product labs are not always step-by-step. You will need to utilize knowledge gained from AWS Academy labs as well as other online resources to complete the labs. You may work in teams for the labs and review previous labs for assistance.
 
 
 #### Mid-term Project

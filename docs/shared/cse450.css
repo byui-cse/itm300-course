@@ -551,4 +551,9 @@ article .dialogue blockquote em{
   color: var(--text-color);
 }
 
+.mini-product {
+    display: inline-block;
+    width: 50px;
+    vertical-align: bottom;
+}
 
