@@ -38,7 +38,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 { 
-  font-family: "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif; 
+  font-family: "Roboto", sans-serif;
   line-height: 1.2;
   font-weight: bold;
   color: var(--accent-color);
@@ -126,7 +126,7 @@ article {
 article p {
   line-height: 1.5;
   font-size: 21px;
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif; 
+  font-family: "Roboto", sans-serif;
   margin: 0 0 20px 0;
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;

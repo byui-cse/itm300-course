@@ -24,7 +24,7 @@ If that password doesn't work, try **ILove2SeeTheTemple!**
 
 !!! key "Previous Labs"
 
-    If you are unable to login, please go back and complete [Lab 3]({{URLROOT}}/module-03/project-lab.html). Lab 7 requires you to be able to login to the app.
+    If you are unable to login, please go back and complete [Lab 3]({{URLROOT}}/module-03/project-lab.html). This lab requires you to be able to login to the app.
 
 ## Create a new API Gateway resource
 
