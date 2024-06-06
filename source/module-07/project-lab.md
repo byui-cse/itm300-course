@@ -11,6 +11,21 @@ body-class: index-page
 For this lab we'll build and integrate an API to handle data securely for the technicians. We'll also increase security for the service requests by only sending data required for the display.
 
 
+## Login
+
+Before you begin, make sure that you can login to the web app. Open up your Quick Oil Change app and click on "Login".
+
+You can use the credentials you created earlier for janedoe
+
+* Username: **janedoe**
+* Password: **Ilove2SeeTheTemple!!**
+
+If that password doesn't work, try **ILove2SeeTheTemple!**
+
+!!! key "Previous Labs"
+
+    If you are unable to login, please go back and complete [Lab 3]({{URLROOT}}/module-03/project-lab.html). Lab 7 requires you to be able to login to the app.
+
 ## Create a new API Gateway resource
 
 We'll add a new endpoint which will provide a secure location for our logged in users to pull information. 
@@ -21,7 +36,7 @@ Go to our vehicleapp API Gateway. Click on the /.
 * Resource Name: admin-service-request
 * Check CORS  
 
-## Create an authorizer
+## Create an Authorizer
 
 We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
 

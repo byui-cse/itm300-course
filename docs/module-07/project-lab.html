@@ -30,8 +30,9 @@
             <div class="toc">
 <ul>
 <li><a href="#product-objective">Product Objective</a></li>
+<li><a href="#login">Login</a></li>
 <li><a href="#create-a-new-api-gateway-resource">Create a new API Gateway resource</a></li>
-<li><a href="#create-an-authorizer">Create an authorizer</a></li>
+<li><a href="#create-an-authorizer">Create an Authorizer</a></li>
 <li><a href="#create-a-get-method">Create a Get Method</a></li>
 <li><a href="#create-lambda">Create lambda</a></li>
 <li><a href="#update-getservicerequest-not-admingetservicerequest">Update getServiceRequest (NOT adminGetServiceRequest)</a></li>
@@ -61,6 +62,18 @@
 <em><a href="https://openai.com/dall-e-3">Photo by Dall-E-3</a></em></p>
 <h2 id="product-objective">Product Objective</h2>
 <p>For this lab we'll build and integrate an API to handle data securely for the technicians. We'll also increase security for the service requests by only sending data required for the display.</p>
+<h2 id="login">Login</h2>
+<p>Before you begin, make sure that you can login to the web app. Open up your Quick Oil Change app and click on "Login".</p>
+<p>You can use the credentials you created earlier for janedoe</p>
+<ul>
+<li>Username: <strong>janedoe</strong></li>
+<li>Password: <strong>Ilove2SeeTheTemple!!</strong></li>
+</ul>
+<p>If that password doesn't work, try <strong>ILove2SeeTheTemple!</strong></p>
+<div class="admonition key">
+<p class="admonition-title">Previous Labs</p>
+<p>If you are unable to login, please go back and complete <a href="https://byui-cse.github.io/itm300-course/module-03/project-lab.html">Lab 3</a>. Lab 7 requires you to be able to login to the app.</p>
+</div>
 <h2 id="create-a-new-api-gateway-resource">Create a new API Gateway resource</h2>
 <p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
 <p>Go to our vehicleapp API Gateway. Click on the /.</p>
@@ -69,7 +82,7 @@
 <li>Resource Name: admin-service-request</li>
 <li>Check CORS  </li>
 </ul>
-<h2 id="create-an-authorizer">Create an authorizer</h2>
+<h2 id="create-an-authorizer">Create an Authorizer</h2>
 <p>We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.</p>
 <ul>
 <li>On the left hand side of the API Gateway choose <strong>Authorizers</strong></li>
