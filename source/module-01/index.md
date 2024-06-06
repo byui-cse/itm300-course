@@ -24,7 +24,7 @@ Please review the following:
 
 #### Project Lab
 
-* [Host a Static Website with s3](./project-lab.html)
+* ![Product Logo]({{URLROOT}}/shared/img/quick-logo-mini2.png) [Host a Static Website with s3](./project-lab.html)
 
 <!-- #### Additional Materials -->
 
