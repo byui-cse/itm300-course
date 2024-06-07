@@ -179,7 +179,7 @@ const generateServiceId = () => {
 };
 ```
 
-Update the index.mjs with the following code:
+Update the *index.mjs* with the following code:
 
 ```
 
@@ -243,7 +243,7 @@ export const handler = async (event) => {
 
 We are going to update the original getServiceRequest to only send information that is needed for the regular users.
 
-Update dynamoService.mjs (Make sure you are NOT updating adminDynamoService)
+Update *dynamoService.mjs* (Make sure you are NOT updating adminDynamoService)
 
 ```
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
