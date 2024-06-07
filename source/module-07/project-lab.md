@@ -26,47 +26,7 @@ If that password doesn't work, try **ILove2SeeTheTemple!**
 
     If you are unable to login, please go back and complete [Lab 3]({{URLROOT}}/module-03/project-lab.html). This lab requires you to be able to login to the app.
 
-## Create a new API Gateway resource
 
-We'll add a new endpoint which will provide a secure location for our logged in users to pull information. 
-
-Go to our vehicleapp API Gateway. Click on the /.
-
-* Click <span class="amz-white-button">Create resource</span>
-* Resource Name: admin-service-request
-* Check CORS  
-
-## Create an Authorizer
-
-We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
-
-* On the left hand side of the API Gateway choose **Authorizers**
-* Name: AdminServiceRequestAuthorizer
-* Create Authorizer
-* Cognito
-* Choose VehicleApp
-* Token Source: Authorization
-
-## Create a Get Method
-
-* Create a Get Method under admin-service-requests
-* Get
-* Lambda Proxy: turn on
-* lambda: adminGetServiceRequest
-* Method request settings -> Authorization: AdminServiceRequestAuthorizer
-
-* Create resource / {id}
-* check CORS 
-
-* Create Method: PUT
-* Lambda
-* Lambda Proxy Integration
-* adminGetServiceRequest
-* Method request Settings -> Authorization: AdminServiceRequestAuthorizer
-
-![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
-
-<span class="amz-orange-button">Deploy API</span>
 
 ## Create lambda
 
@@ -373,6 +333,48 @@ const generateServiceId = () => {
   return `${formattedDate}${milliseconds}`; // Concatenate date and milliseconds
 };
 ```
+
+## Create a new API Gateway resource
+
+We'll add a new endpoint which will provide a secure location for our logged in users to pull information. 
+
+Go to our vehicleapp API Gateway. Click on the /.
+
+* Click <span class="amz-white-button">Create resource</span>
+* Resource Name: admin-service-request
+* Check CORS  
+
+## Create an Authorizer
+
+We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
+
+* On the left hand side of the API Gateway choose **Authorizers**
+* Name: AdminServiceRequestAuthorizer
+* Create Authorizer
+* Cognito
+* Choose VehicleApp
+* Token Source: Authorization
+
+## Create a Get Method
+
+* Create a Get Method under admin-service-requests
+* Get
+* Lambda Proxy: turn on
+* lambda: adminGetServiceRequest
+* Method request settings -> Authorization: AdminServiceRequestAuthorizer
+
+* Create resource / {id}
+* check CORS 
+
+* Create Method: PUT
+* Lambda
+* Lambda Proxy Integration
+* adminGetServiceRequest
+* Method request Settings -> Authorization: AdminServiceRequestAuthorizer
+
+![admin-service-request]({{URLROOT}}/shared/img/admin-service-request.jpg)
+
+<span class="amz-orange-button">Deploy API</span>
 
 ## Update code
 

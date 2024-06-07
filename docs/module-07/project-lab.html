@@ -32,11 +32,11 @@
 <ul>
 <li><a href="#product-objective">Product Objective</a></li>
 <li><a href="#login">Login</a></li>
+<li><a href="#create-lambda">Create lambda</a></li>
+<li><a href="#update-getservicerequest-not-admingetservicerequest">Update getServiceRequest (NOT adminGetServiceRequest)</a></li>
 <li><a href="#create-a-new-api-gateway-resource">Create a new API Gateway resource</a></li>
 <li><a href="#create-an-authorizer">Create an Authorizer</a></li>
 <li><a href="#create-a-get-method">Create a Get Method</a></li>
-<li><a href="#create-lambda">Create lambda</a></li>
-<li><a href="#update-getservicerequest-not-admingetservicerequest">Update getServiceRequest (NOT adminGetServiceRequest)</a></li>
 <li><a href="#update-code">Update code</a></li>
 <li><a href="#lab-summary">Lab Summary:</a><ul>
 <li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
@@ -75,49 +75,6 @@
 <p class="admonition-title">Previous Labs</p>
 <p>If you are unable to login, please go back and complete <a href="https://byui-cse.github.io/itm300-course/module-03/project-lab.html">Lab 3</a>. This lab requires you to be able to login to the app.</p>
 </div>
-<h2 id="create-a-new-api-gateway-resource">Create a new API Gateway resource</h2>
-<p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
-<p>Go to our vehicleapp API Gateway. Click on the /.</p>
-<ul>
-<li>Click <span class="amz-white-button">Create resource</span></li>
-<li>Resource Name: admin-service-request</li>
-<li>Check CORS  </li>
-</ul>
-<h2 id="create-an-authorizer">Create an Authorizer</h2>
-<p>We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.</p>
-<ul>
-<li>On the left hand side of the API Gateway choose <strong>Authorizers</strong></li>
-<li>Name: AdminServiceRequestAuthorizer</li>
-<li>Create Authorizer</li>
-<li>Cognito</li>
-<li>Choose VehicleApp</li>
-<li>Token Source: Authorization</li>
-</ul>
-<h2 id="create-a-get-method">Create a Get Method</h2>
-<ul>
-<li>Create a Get Method under admin-service-requests</li>
-<li>Get</li>
-<li>Lambda Proxy: turn on</li>
-<li>lambda: adminGetServiceRequest</li>
-<li>
-<p>Method request settings -&gt; Authorization: AdminServiceRequestAuthorizer</p>
-</li>
-<li>
-<p>Create resource / {id}</p>
-</li>
-<li>
-<p>check CORS </p>
-</li>
-<li>
-<p>Create Method: PUT</p>
-</li>
-<li>Lambda</li>
-<li>Lambda Proxy Integration</li>
-<li>adminGetServiceRequest</li>
-<li>Method request Settings -&gt; Authorization: AdminServiceRequestAuthorizer</li>
-</ul>
-<p><img alt="admin-service-request" src="https://byui-cse.github.io/itm300-course/shared/img/admin-service-request.jpg" /></p>
-<p><span class="amz-orange-button">Deploy API</span></p>
 <h2 id="create-lambda">Create lambda</h2>
 <ul>
 <li>Name: adminGetServiceRequest</li>
@@ -415,6 +372,49 @@
 <span class="p">};</span>
 </code></pre></div>
 
+<h2 id="create-a-new-api-gateway-resource">Create a new API Gateway resource</h2>
+<p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
+<p>Go to our vehicleapp API Gateway. Click on the /.</p>
+<ul>
+<li>Click <span class="amz-white-button">Create resource</span></li>
+<li>Resource Name: admin-service-request</li>
+<li>Check CORS  </li>
+</ul>
+<h2 id="create-an-authorizer">Create an Authorizer</h2>
+<p>We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.</p>
+<ul>
+<li>On the left hand side of the API Gateway choose <strong>Authorizers</strong></li>
+<li>Name: AdminServiceRequestAuthorizer</li>
+<li>Create Authorizer</li>
+<li>Cognito</li>
+<li>Choose VehicleApp</li>
+<li>Token Source: Authorization</li>
+</ul>
+<h2 id="create-a-get-method">Create a Get Method</h2>
+<ul>
+<li>Create a Get Method under admin-service-requests</li>
+<li>Get</li>
+<li>Lambda Proxy: turn on</li>
+<li>lambda: adminGetServiceRequest</li>
+<li>
+<p>Method request settings -&gt; Authorization: AdminServiceRequestAuthorizer</p>
+</li>
+<li>
+<p>Create resource / {id}</p>
+</li>
+<li>
+<p>check CORS </p>
+</li>
+<li>
+<p>Create Method: PUT</p>
+</li>
+<li>Lambda</li>
+<li>Lambda Proxy Integration</li>
+<li>adminGetServiceRequest</li>
+<li>Method request Settings -&gt; Authorization: AdminServiceRequestAuthorizer</li>
+</ul>
+<p><img alt="admin-service-request" src="https://byui-cse.github.io/itm300-course/shared/img/admin-service-request.jpg" /></p>
+<p><span class="amz-orange-button">Deploy API</span></p>
 <h2 id="update-code">Update code</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
