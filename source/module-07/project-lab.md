@@ -399,6 +399,15 @@ sudo bash ./rebuildapp.sh
 
 You'll be prompted to enter multiple settings.
 
+!!! key "Caching"
+
+    The code that you have updated may not show up because it is cached in the browser. Forcing the browser to refresh the cache will allow the new code to show up.
+
+    Holding Ctrl and pressing the <span class="amz-white-button"><span class="material-symbols-outlined">refresh</span></span> button on your browser will normally force a cache refresh.
+
+    You can also try Ctrl-Shift-R or CMD-Shift-R or Ctrl-F5
+
+
 Once you've completed, check the following:
 
 1. Can you submit a Service Request from the Request Page?
