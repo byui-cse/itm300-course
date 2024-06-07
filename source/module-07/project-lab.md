@@ -363,7 +363,11 @@ We can enhance our API Gateway endpoint by integrating an authorizer. By linking
 * Lambda Proxy: turn on
 * lambda: **adminGetServiceRequest**
 * Method request settings -> Authorization: AdminServiceRequestAuthorizer
+* <span class="aws-orange-button">Create method</span>
 
+Create a new resource under /admin-service-requests
+
+* Don't turn on Proxy
 * Create resource / {id}
 * check CORS 
 
