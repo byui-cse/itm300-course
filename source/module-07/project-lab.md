@@ -349,18 +349,19 @@ Go to our vehicleapp API Gateway. Click on the /.
 We can enhance our API Gateway endpoint by integrating an authorizer. By linking our Cognito service to the endpoint, we can verify that each request includes a valid token. The gateway will verify this token before executing the code, providing an added layer of security.
 
 * On the left hand side of the API Gateway choose **Authorizers**
-* Name: AdminServiceRequestAuthorizer
-* Create Authorizer
-* Cognito
-* Choose VehicleApp
-* Token Source: Authorization
+* <span class="amz-orange-button">Create Authorizer</span>
+* Authorizer Name: **AdminServiceRequestAuthorizer**
+* Authorizer Type: **Cognito**
+* Cognito User Pool: **VehicleApp**
+* Token Source: **Authorization**
+* <span class="amz-oranage-button">Create Authorizer</span>
 
 ## Create a Get Method
 
 * Create a Get Method under admin-service-requests
 * Get
 * Lambda Proxy: turn on
-* lambda: adminGetServiceRequest
+* lambda: **adminGetServiceRequest**
 * Method request settings -> Authorization: AdminServiceRequestAuthorizer
 
 * Create resource / {id}
