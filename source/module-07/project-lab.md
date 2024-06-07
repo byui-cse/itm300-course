@@ -403,6 +403,8 @@ You'll be prompted to enter multiple settings.
 
     The code that you have updated may not show up because it is cached in the browser. Forcing the browser to refresh the cache will allow the new code to show up.
 
+    When you go to the "Request Service" page and when you go to the "Admin" page, you'll need to refresh the cache.
+
     Holding Ctrl and pressing the <span class="amz-white-button"><span class="material-symbols-outlined">refresh</span></span> button on your browser will normally force a cache refresh.
 
     You can also try Ctrl-Shift-R or CMD-Shift-R or Ctrl-F5
