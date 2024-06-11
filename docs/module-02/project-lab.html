@@ -44,7 +44,7 @@
 <li><a href="#reflection-questions">Reflection Questions:</a></li>
 </ul>
 </li>
-<li><a href="#faster-deployment">Faster Deployment</a></li>
+<li><a href="#optional-reading-faster-deployment">(Optional Reading) Faster Deployment</a></li>
 <li><a href="#helpful-other-links">Helpful other links:</a></li>
 </ul>
 </div>
@@ -71,12 +71,16 @@
 <h2 id="create-a-vpc">Create a VPC</h2>
 <p>Please create a VPC with 2 public subnets and 2 private subnets. Make sure these are in the us-east-1 area (N. Virginia). </p>
 <ul>
+<li>Search for VPC</li>
+<li>Click <span class='amz-orange-button'>Create VPC</span></li>
 <li>Under name tag use: vehicleapp</li>
 <li>Number of Availability Zones: 2</li>
 <li>VPC Endpoints: None</li>
 </ul>
 <h2 id="create-an-ec2-instance">Create an EC2 instance</h2>
 <ul>
+<li>Search for EC2</li>
+<li>Click <span class='amz-orange-button'>Launch Instance</span></li>
 <li>Name the server vehicleapp-1</li>
 <li>Use the vockey for your keypair</li>
 <li>Use the vehicleapp-vpc VPC</li>
@@ -138,10 +142,6 @@ To add group write permissions, recursively change the file permissions of /var/
 <span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">2775</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="n">exec</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">2775</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span>\<span class="p">;</span>
 <span class="n">find</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">exec</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">0664</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span>\<span class="p">;</span>
 </code></pre></div>
-
-<!-- Full instructions are found here if you want more details on the code above:
-
- -->
 
 <h2 id="download-the-following-files">Download the following files:</h2>
 <p>Use the following commands to download the zip containing the website you are going to host on EC2.</p>
@@ -233,7 +233,7 @@ Ctrl-X -->
 <li>Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?</li>
 <li>Reflect on the process of generating and configuring SSL certificates using openssl. What information is required when creating a certificate, and how does the certificate ensure secure communication between clients and servers?</li>
 </ul>
-<h2 id="faster-deployment">Faster Deployment</h2>
+<h2 id="optional-reading-faster-deployment">(Optional Reading) Faster Deployment</h2>
 <p>You can also add "user data" to an EC2 when you create it. This will allow you to run commands automatically after the server starts up. For example, we could add the following user data to automatically install apache and install the web files for us by pasting this code into the user data:</p>
 <div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 sudo<span class="w"> </span>su
@@ -253,6 +253,19 @@ unzip<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> 
 cp<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/quick-oil-part2/*<span class="w"> </span>/var/www/html
 rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/
 rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/downloads
+
+<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;http://169.254.169.254/latest/api/token&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token-ttl-seconds: 21600&quot;</span><span class="k">)</span>
+
+<span class="c1"># Get the Public IPv4 DNS using the session token</span>
+<span class="nv">public_dns</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://169.254.169.254/latest/meta-data/public-hostname&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token: </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="k">)</span>
+
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssl<span class="w"> </span>mod_ssl
+sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-keyout<span class="w"> </span>/etc/pki/tls/private/apache-selfsigned.key<span class="w"> </span>-out<span class="w"> </span>/etc/pki/tls/certs/apache-selfsigned.crt<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=US/ST=Idaho/L=Rexburg/O=BYUIStudent/OU=ITM300Class/CN=</span><span class="nv">$public_dns</span><span class="s2">/emailAddress=youremail@byui.edu&quot;</span>
+
+sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#&#39;</span><span class="w"> </span>/etc/httpd/conf.d/ssl.conf
+
+sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#&#39;</span><span class="w"> </span>/etc/httpd/conf.d/ssl.conf
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>httpd
 </code></pre></div>
 
 <h2 id="helpful-other-links">Helpful other links:</h2>

@@ -20,12 +20,16 @@ Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner La
 
 Please create a VPC with 2 public subnets and 2 private subnets. Make sure these are in the us-east-1 area (N. Virginia). 
 
+* Search for VPC
+* Click <span class='amz-orange-button'>Create VPC</span>
 * Under name tag use: vehicleapp
 * Number of Availability Zones: 2
 * VPC Endpoints: None
 
 ## Create an EC2 instance
 
+* Search for EC2
+* Click <span class='amz-orange-button'>Launch Instance</span>
 * Name the server vehicleapp-1
 * Use the vockey for your keypair
 * Use the vehicleapp-vpc VPC
@@ -102,12 +106,6 @@ sudo chown -R ec2-user:apache /var/www
 sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 ```
-
-<!-- Full instructions are found here if you want more details on the code above:
-
- -->
-
-
 
 ## Download the following files:
 
@@ -217,7 +215,7 @@ In this lab, you learned how to host a website on Amazon EC2 and secure it with 
 * Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?
 * Reflect on the process of generating and configuring SSL certificates using openssl. What information is required when creating a certificate, and how does the certificate ensure secure communication between clients and servers?
 
-## Faster Deployment
+## (Optional Reading) Faster Deployment
 
 You can also add "user data" to an EC2 when you create it. This will allow you to run commands automatically after the server starts up. For example, we could add the following user data to automatically install apache and install the web files for us by pasting this code into the user data:
 
@@ -240,6 +238,19 @@ unzip /tmp/downloads/quick-oil-part2.zip -d /tmp/lab-app
 cp -rf /tmp/lab-app/quick-oil-part2/* /var/www/html
 rm -rf /tmp/lab-app/
 rm -rf /tmp/downloads
+
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
+# Get the Public IPv4 DNS using the session token
+public_dns=$(curl -s "http://169.254.169.254/latest/meta-data/public-hostname" -H "X-aws-ec2-metadata-token: $TOKEN")
+
+sudo dnf install -y openssl mod_ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt -subj "/C=US/ST=Idaho/L=Rexburg/O=BYUIStudent/OU=ITM300Class/CN=$public_dns/emailAddress=youremail@byui.edu"
+
+sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#' /etc/httpd/conf.d/ssl.conf
+
+sudo sed -i 's#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#' /etc/httpd/conf.d/ssl.conf
+sudo systemctl restart httpd
 ```
 
 ## Helpful other links:
