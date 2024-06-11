@@ -103,6 +103,10 @@ chmod +x ./rebuildapp.sh
 
 Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.
 
+User pool ID is found in your cognito user pool overview.
+Client ID is found in cognito under <span class="amz-tab">App integration</span> and then at the bottom of that screen under App clients and analytics.
+Cognito domain is found in cognito under <span class="amz-tab">App integration</span> in the Domain section. 
+
 
 ```
 sudo bash ./rebuildapp.sh

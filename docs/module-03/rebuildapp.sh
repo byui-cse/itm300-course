@@ -9,7 +9,7 @@ cp -rf /tmp/lab-app/quick-oil-part3/* /var/www/html
 rm -rf /tmp/lab-app/
 rm quick-oil-part3.zip
 
-echo "Please enter your User Pool ID:"
+echo "Please enter your Cognito User Pool ID:"
 read user_pool_id
 
 file_path="/var/www/html/scripts/settings.js"
