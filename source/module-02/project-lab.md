@@ -107,27 +107,7 @@ find /var/www -type f -exec sudo chmod 0664 {} \;
 
  -->
 
-<!-- 
-```
-#!/bin/bash
-sudo su
-dnf update -y
-dnf install -y httpd wget
-systemctl start httpd
-systemctl enable httpd
-usermod -a -G apache ec2-user
-chown -R ec2-user:apache /var/www
-chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
-find /var/www -type f -exec chmod 0664 {} \;
 
-mkdir -p /tmp/downloads
-wget -O /tmp/downloads/quick-oil-part2.zip https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
-mkdir -p /tmp/lab-app
-unzip /tmp/downloads/quick-oil-part2.zip -d /tmp/lab-app
-cp -r /tmp/lab-app/quick-oil-part2/* /var/www/html
-rm -rf /tmp/lab-app/
-rm -rf /tmp/downloads
-``` -->
 
 ## Download the following files:
 
