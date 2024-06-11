@@ -75,22 +75,20 @@
 <ul>
 <li>Search for Cognito in AWS.</li>
 <li>Click on <span class="amz-orange-button">Create User Pool</span></li>
-<li>Don't click Federated identity providers</li>
-<li>
-<p>Choose User Name under Cognito user pool sign-in options</p>
-<ul>
+<li>Don't check Federated identity providers</li>
+<li>Choose User Name under Cognito user pool sign-in options<ul>
 <li>You could store more user details, but for our example we'll simply be storing usernames and passwords.</li>
 </ul>
 </li>
-<li>
-<p>Use the cognito defaults</p>
-</li>
-<li>No MFA<ul>
+<li>Click <span class='amz-orange-button'>Next</span></li>
+<li>Use the cognito password defaults</li>
+<li>Select No MFA<ul>
 <li>Using Multifactor Authentication is more secure and would normally be enabled in a production environment</li>
 </ul>
 </li>
+<li>Uncheck Allow User Self-Recovery</li>
 <li>
-<p>Uncheck Allow User Self-Recovery</p>
+<p>Click <span class='amz-orange-button'>Next</span></p>
 </li>
 <li>
 <p>Uncheck Enable self-registration</p>
@@ -98,21 +96,28 @@
 <li>We are going to manually add users, which are just the administrators of the application.</li>
 </ul>
 </li>
+<li>Leave all other defaults</li>
 <li>
-<p>Leave all other defaults</p>
+<p>Click <span class='amz-orange-button'>Next</span></p>
 </li>
 <li>
 <p>Choose Send email with Cognito</p>
 </li>
 <li>
+<p>Click <span class='amz-orange-button'>Next</span></p>
+</li>
+<li>
 <p>Give the User Pool a name of VehicleAppUserPool</p>
 </li>
 <li>Check Use the Cognito Hosted UI</li>
-<li>Choose a unique hosted URL name ()</li>
+<li>Choose a unique hosted URL name under <strong>Cognito domain</strong></li>
 <li>Choose Other for App type</li>
 <li>Choose a unique name for your app (e.g. Vehicle App - Quick)</li>
-<li>Add the following to the allowed callback urls: your website's Public IPv4 DNS address.</li>
-<li>Advanced App client Settings: Make sure that Allow_User_SRP_Auth is Checked</li>
+<li>Add the following to the allowed callback urls: your website's Public IPv4 DNS address. (Get this from your EC2 instance details page)</li>
+<li><span class='amz-white-button'>Advanced App client Settings<span class="material-symbols-outlined">arrow_drop_down</span></span>: Make sure that Allow_User_SRP_Auth is Checked</li>
+<li>From OAuth 2.0 grant types Remove Authorization Code Grant and add Implicit Grant</li>
+<li>Click <span class='amz-orange-button'>Next</span></li>
+<li>Click <span class='amz-orange-button'>Create user pool</span></li>
 </ul>
 <h2 id="create-a-user">Create a User</h2>
 <p>Once your user pool is created, scroll down to where you see users and click <span class="amz-white-button">Create user</span></p>
@@ -137,7 +142,7 @@
 <p>Log in as janedoe.</p>
 <p>You'll see that you are promped with a Change Password prompt.</p>
 <p>Update your password to Ilove2SeeTheTemple!!</p>
-<p>You'll notice that it will try to send you back to localhost:5500. This was the first allowed callback URL.</p>
+<p>You'll notice that it will open up your app since this was the first allowed callback URL.</p>
 <h2 id="update-the-app-logic">Update the App logic</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>

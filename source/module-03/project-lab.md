@@ -28,28 +28,34 @@ We'll first create a user pool which will store all of our users.
 
 * Search for Cognito in AWS.
 * Click on <span class="amz-orange-button">Create User Pool</span>
-* Don't click Federated identity providers
+* Don't check Federated identity providers
 * Choose User Name under Cognito user pool sign-in options
     * You could store more user details, but for our example we'll simply be storing usernames and passwords.
-
-* Use the cognito defaults
-* No MFA
+* Click <span class='amz-orange-button'>Next</span>
+* Use the cognito password defaults
+* Select No MFA
     * Using Multifactor Authentication is more secure and would normally be enabled in a production environment
 * Uncheck Allow User Self-Recovery
+* Click <span class='amz-orange-button'>Next</span>
 
 * Uncheck Enable self-registration
     * We are going to manually add users, which are just the administrators of the application.
 * Leave all other defaults
+* Click <span class='amz-orange-button'>Next</span>
 
 * Choose Send email with Cognito
+* Click <span class='amz-orange-button'>Next</span>
 
 * Give the User Pool a name of VehicleAppUserPool
 * Check Use the Cognito Hosted UI
-* Choose a unique hosted URL name ()
+* Choose a unique hosted URL name under **Cognito domain**
 * Choose Other for App type
 * Choose a unique name for your app (e.g. Vehicle App - Quick)
-* Add the following to the allowed callback urls: your website's Public IPv4 DNS address.
-* Advanced App client Settings: Make sure that Allow_User_SRP_Auth is Checked
+* Add the following to the allowed callback urls: your website's Public IPv4 DNS address. (Get this from your EC2 instance details page)
+* <span class='amz-white-button'>Advanced App client Settings<span class="material-symbols-outlined">arrow_drop_down</span></span>: Make sure that Allow_User_SRP_Auth is Checked
+* From OAuth 2.0 grant types Remove Authorization Code Grant and add Implicit Grant
+* Click <span class='amz-orange-button'>Next</span>
+* Click <span class='amz-orange-button'>Create user pool</span>
 
 ## Create a User
 
@@ -78,7 +84,7 @@ You'll see that you are promped with a Change Password prompt.
 
 Update your password to Ilove2SeeTheTemple!!
 
-You'll notice that it will try to send you back to localhost:5500. This was the first allowed callback URL.
+You'll notice that it will open up your app since this was the first allowed callback URL.
 
 
 ## Update the App logic
