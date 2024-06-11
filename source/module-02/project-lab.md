@@ -111,7 +111,7 @@ find /var/www -type f -exec sudo chmod 0664 {} \;
 
 ## Download the following files:
 
-Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh. 
+Use the following commands to download the zip containing the website you are going to host on EC2.
 
 ```
 wget https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
@@ -216,6 +216,31 @@ In this lab, you learned how to host a website on Amazon EC2 and secure it with 
 * Discuss the steps involved in setting up and configuring Apache web server (httpd) on an EC2 instance. How does Apache handle HTTP and HTTPS requests?
 * Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?
 * Reflect on the process of generating and configuring SSL certificates using openssl. What information is required when creating a certificate, and how does the certificate ensure secure communication between clients and servers?
+
+## Faster Deployment
+
+You can also add "user data" to an EC2 when you create it. This will allow you to run commands automatically after the server starts up. For example, we could add the following user data to automatically install apache and install the web files for us by pasting this code into the user data:
+
+```
+#!/bin/bash
+sudo su
+dnf update -y
+dnf install -y httpd wget
+systemctl start httpd
+systemctl enable httpd
+usermod -a -G apache ec2-user
+chown -R ec2-user:apache /var/www
+chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec chmod 0664 {} \;
+
+mkdir -p /tmp/downloads
+wget -O /tmp/downloads/quick-oil-part2.zip https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir -p /tmp/lab-app
+unzip /tmp/downloads/quick-oil-part2.zip -d /tmp/lab-app
+cp -rf /tmp/lab-app/quick-oil-part2/* /var/www/html
+rm -rf /tmp/lab-app/
+rm -rf /tmp/downloads
+```
 
 ## Helpful other links:
 

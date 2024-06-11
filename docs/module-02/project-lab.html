@@ -44,6 +44,7 @@
 <li><a href="#reflection-questions">Reflection Questions:</a></li>
 </ul>
 </li>
+<li><a href="#faster-deployment">Faster Deployment</a></li>
 <li><a href="#helpful-other-links">Helpful other links:</a></li>
 </ul>
 </div>
@@ -143,7 +144,7 @@ To add group write permissions, recursively change the file permissions of /var/
  -->
 
 <h2 id="download-the-following-files">Download the following files:</h2>
-<p>Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh. </p>
+<p>Use the following commands to download the zip containing the website you are going to host on EC2.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">byui</span><span class="o">-</span><span class="n">cse</span><span class="o">/</span><span class="n">itm300</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">module</span><span class="o">-</span><span class="mi">02</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span>
 <span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
 <span class="n">unzip</span><span class="w"> </span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
@@ -232,6 +233,28 @@ Ctrl-X -->
 <li>Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?</li>
 <li>Reflect on the process of generating and configuring SSL certificates using openssl. What information is required when creating a certificate, and how does the certificate ensure secure communication between clients and servers?</li>
 </ul>
+<h2 id="faster-deployment">Faster Deployment</h2>
+<p>You can also add "user data" to an EC2 when you create it. This will allow you to run commands automatically after the server starts up. For example, we could add the following user data to automatically install apache and install the web files for us by pasting this code into the user data:</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+sudo<span class="w"> </span>su
+dnf<span class="w"> </span>update<span class="w"> </span>-y
+dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>httpd<span class="w"> </span>wget
+systemctl<span class="w"> </span>start<span class="w"> </span>httpd
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd
+usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>apache<span class="w"> </span>ec2-user
+chown<span class="w"> </span>-R<span class="w"> </span>ec2-user:apache<span class="w"> </span>/var/www
+chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span>/var/www<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>find<span class="w"> </span>/var/www<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-exec<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+find<span class="w"> </span>/var/www<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">0664</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/downloads
+wget<span class="w"> </span>-O<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> </span>https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/lab-app
+unzip<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> </span>-d<span class="w"> </span>/tmp/lab-app
+cp<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/quick-oil-part2/*<span class="w"> </span>/var/www/html
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/downloads
+</code></pre></div>
+
 <h2 id="helpful-other-links">Helpful other links:</h2>
 <p><a href="https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20" target="_blank">nginx on Amazon Linux 2023</a></p>
 <p><a href="https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b" target="_blank">nginx on Amazon Linux 2023 LAMP</a></p>
