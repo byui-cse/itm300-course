@@ -34,10 +34,9 @@
 <li><a href="#open-up-the-lab-evironment">Open up the lab evironment</a></li>
 <li><a href="#create-a-vpc">Create a VPC</a></li>
 <li><a href="#create-an-ec2-instance">Create an EC2 instance</a></li>
-<li><a href="#server-setup">Server Setup:</a></li>
-<li><a href="#download-the-following-files">Download the following files:</a></li>
 <li><a href="#assign-an-elastic-ip">Assign an Elastic IP</a></li>
-<li><a href="#enable-ssl">Enable SSL</a></li>
+<li><a href="#connect-to-your-instance">Connect to your instance</a></li>
+<li><a href="#server-setup">Server Setup:</a></li>
 <li><a href="#lab-summary">Lab Summary:</a><ul>
 <li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
 <li><a href="#reflection-questions">Reflection Questions:</a></li>
@@ -79,12 +78,24 @@
 <li>Use the vockey for your keypair</li>
 <li>Use the vehicleapp-vpc VPC</li>
 <li>place the EC2 instance in the vehicleapp-subnet-public1 subnet. </li>
-<li>Enable auto assign an IP address</li>
+<li>Disable auto assign an IP address</li>
 <li>Create a security Group and name it vehicle-sg<ul>
 <li>Add security rules to enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere</li>
 </ul>
 </li>
 </ul>
+<h2 id="assign-an-elastic-ip">Assign an Elastic IP</h2>
+<p>Allocate an Elastic IP address and then associate that elastic IP address with your instance by doing the following:</p>
+<ul>
+<li>Go to the <span class="amz-white-button">Elastic IPs</span> under <span class="amz-white-button">Network &amp; Security</span> on the left sidebar of the EC2 dashboard.</li>
+<li>Click <span class="amz-orange-button">Allocate Elastic IP address</span> and then click <span class="amz-orange-button">Allocate</span>.</li>
+<li>Click on the ip address (for example <span class="amz-link">44.223.155.86</span>) under Allocated IPv4 address</li>
+<li>Click <span class="amz-orange-button">Associate Elastic IP address</span></li>
+<li>Choose your Instance from the drop down.</li>
+<li>Click <span class="amz-orange-button">Associate</span></li>
+</ul>
+<h2 id="connect-to-your-instance">Connect to your instance</h2>
+<p>Click on Instances on the left hand sidebar.</p>
 <div class="admonition note">
 <p class="admonition-title">Quickly Connecting to your Instance</p>
 <p>If you use the vockey when you set up the server, you can do the following to easily connect without needing to use a ssh client.</p>
@@ -92,20 +103,16 @@
 <ul>
 <li>Click the checkmark next to your instance name</li>
 <li>Click <span class="amz-white-button">Connect</span> at the top of the screen.</li>
-<li>Click <span class="amz-oranage-button">Connect</span> at the bottom of the next screen.</li>
+<li>Click <span class="amz-orange-button">Connect</span> at the bottom of the next screen.</li>
 </ul>
 </div>
 <h2 id="server-setup">Server Setup:</h2>
-<p>Once you are connected to the EC2, run the following commands. Full instructions and explainations are found in the link below.</p>
+<p>Once you are connected to the EC2, run the following commands.</p>
 <div class="codehilite"><pre><span></span><code>sudo dnf update -y
 </code></pre></div>
 
-<p>Install the latest versions of Apache web server and PHP packages.</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
-</code></pre></div>
-
-<p>Install the MariaDB software packages. Use the dnf install command to install multiple software packages and all related dependencies at the same time.</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf install mariadb105-server
+<p>Install the latest versions of Apache web server.</p>
+<div class="codehilite"><pre><span></span><code>sudo dnf install -y httpd wget
 </code></pre></div>
 
 <p>Start the Apache web server.</p>
@@ -117,11 +124,10 @@
 </code></pre></div>
 
 <p>Add your user (in this case, ec2-user) to the apache group.</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">sudo</span><span class="w"> </span><span class="nv">usermod</span><span class="w"> </span><span class="o">-</span><span class="nv">a</span><span class="w"> </span><span class="o">-</span><span class="nv">G</span><span class="w"> </span><span class="nv">apache</span><span class="w"> </span><span class="nv">ec2</span><span class="o">-</span><span class="nv">user</span>
-<span class="k">exit</span>
+<div class="codehilite"><pre><span></span><code>sudo usermod -a -G apache ec2-user
+sudo su - ec2-user
 </code></pre></div>
 
-<p>You'll need to disconnect and reconnect to the EC2 terminal</p>
 <p>Change the group ownership of /var/www and its contents to the apache group.
 To add group write permissions and to set the group ID on future subdirectories, change the directory permissions of /var/www and its subdirectories.
 To add group write permissions, recursively change the file permissions of /var/www and its subdirectories:</p>
@@ -130,71 +136,96 @@ To add group write permissions, recursively change the file permissions of /var/
 <span class="n">find</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">exec</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">0664</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span>\<span class="p">;</span>
 </code></pre></div>
 
-<p>Create a PHP file in the Apache document root.</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="cp">&lt;?php</span> <span class="nb">phpinfo</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">/var/www/html/phpinfo.php</span>
+<!-- Full instructions are found here if you want more details on the code above:
+
+ -->
+
+<p>&lt;!-- </p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+sudo<span class="w"> </span>su
+dnf<span class="w"> </span>update<span class="w"> </span>-y
+dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>httpd<span class="w"> </span>wget
+systemctl<span class="w"> </span>start<span class="w"> </span>httpd
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd
+usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>apache<span class="w"> </span>ec2-user
+chown<span class="w"> </span>-R<span class="w"> </span>ec2-user:apache<span class="w"> </span>/var/www
+chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span>/var/www<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>find<span class="w"> </span>/var/www<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-exec<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+find<span class="w"> </span>/var/www<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">0664</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/downloads
+wget<span class="w"> </span>-O<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> </span>https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/lab-app
+unzip<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> </span>-d<span class="w"> </span>/tmp/lab-app
+cp<span class="w"> </span>-r<span class="w"> </span>/tmp/lab-app/quick-oil-part2/*<span class="w"> </span>/var/www/html
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/downloads
+<span class="sb">```</span><span class="w"> </span>--&gt;
+
+<span class="c1">## Download the following files:</span>
+
+Use<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>commands<span class="w"> </span>to<span class="w"> </span>download<span class="w"> </span>the<span class="w"> </span>zip<span class="w"> </span>containing<span class="w"> </span>the<span class="w"> </span>website<span class="w"> </span>you<span class="w"> </span>are<span class="w"> </span>going<span class="w"> </span>to<span class="w"> </span>host<span class="w"> </span>on<span class="w"> </span>EC2.<span class="w"> </span>This<span class="w"> </span>will<span class="w"> </span>happen<span class="w"> </span>after<span class="w"> </span>you<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>EC2<span class="w"> </span>instance<span class="w"> </span>via<span class="w"> </span>ssh.<span class="w"> </span>
 </code></pre></div>
 
-<p>Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (<strong>note that it is on http and not https</strong>)</p>
-<p>Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">rm</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">phpinfo</span><span class="o">.</span><span class="n">php</span>
+<p>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir /tmp/lab-app
+unzip quick-oil-part2.zip -d /tmp/lab-app
+sudo cp -rf /tmp/lab-app/quick-oil-part2/* /var/www/html
+rm -rf /tmp/lab-app/</p>
+<div class="codehilite"><pre><span></span><code><span class="p">##</span><span class="w"> </span><span class="n">Enable</span><span class="w"> </span><span class="n">SSL</span>
+
+<span class="n">We</span><span class="p">&#39;</span><span class="n">ll</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">openssl</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="k">generate</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">private</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">certificate</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">self</span><span class="w"> </span><span class="k">signed</span><span class="p">.</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">live</span><span class="w"> </span><span class="n">website</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="p">&#39;</span><span class="n">d</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">certificate</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">certificate</span><span class="w"> </span><span class="n">authority</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">require</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">registered</span><span class="w"> </span><span class="n">domain</span><span class="w"> </span><span class="n">name</span><span class="p">.</span><span class="w"> </span><span class="n">We</span><span class="p">&#39;</span><span class="n">ll</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">amazon</span><span class="p">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">Public</span><span class="w"> </span><span class="n">IPv4</span><span class="w"> </span><span class="n">DNS</span><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">creating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ssl</span><span class="w"> </span><span class="n">certificate</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">won</span><span class="p">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">CA</span><span class="p">.</span><span class="w"> </span><span class="n">So</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">still</span><span class="w"> </span><span class="n">give</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="s">&quot;not secure&quot;</span><span class="w"> </span><span class="n">warning</span><span class="w"> </span><span class="n">even</span><span class="w"> </span><span class="n">though</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">serving</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">across</span><span class="w"> </span><span class="n">SSL</span><span class="o">/</span><span class="n">HTTPS</span><span class="p">.</span>
 </code></pre></div>
 
-<p>Full instructions are found here if you want more details on the code above:</p>
-<p><a href="https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html">Hosting Website on EC2 using a LAMP stack</a></p>
-<h2 id="download-the-following-files">Download the following files:</h2>
-<p>Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh. You'll need to run each of these commands one line at a time.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">dnf</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">wget</span>
-<span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">byui</span><span class="o">-</span><span class="n">cse</span><span class="o">/</span><span class="n">itm300</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">module</span><span class="o">-</span><span class="mi">02</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span>
-<span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
-<span class="n">unzip</span><span class="w"> </span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
-<span class="n">mv</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">/*</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
-<span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
+<p>sudo dnf install -y openssl mod_ssl</p>
+<div class="codehilite"><pre><span></span><code>
 </code></pre></div>
 
-<h2 id="assign-an-elastic-ip">Assign an Elastic IP</h2>
-<p>Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic IP address and then associate that elastic IP address with your instance.</p>
-<h2 id="enable-ssl">Enable SSL</h2>
-<p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. We'll use amazon's Public IPv4 DNS  for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
+<p>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Country</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="n">letter</span><span class="w"> </span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">XX</span><span class="p">]</span><span class="o">:**</span><span class="n">US</span><span class="o">**</span>
+
+<span class="n">State</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">Province</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="o">:**</span><span class="n">Idaho</span><span class="o">**</span>
+
+<span class="n">Locality</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">(</span><span class="n">eg</span><span class="p">,</span><span class="w"> </span><span class="n">city</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">Default</span><span class="w"> </span><span class="n">City</span><span class="p">]</span><span class="o">:**</span><span class="n">Rexburg</span><span class="o">**</span>
+
+<span class="n">Organization</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">(</span><span class="n">eg</span><span class="p">,</span><span class="w"> </span><span class="n">company</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="n">Default</span><span class="w"> </span><span class="n">Company</span><span class="w"> </span><span class="n">Ltd</span><span class="p">]</span><span class="o">:**</span><span class="n">MyCo</span><span class="o">**</span>
+
+<span class="n">Organizational</span><span class="w"> </span><span class="n">Unit</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">(</span><span class="n">eg</span><span class="p">,</span><span class="w"> </span><span class="n">section</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="o">:**</span><span class="n">Development</span><span class="o">**</span>
+
+<span class="o">&lt;!--</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">we</span><span class="err">&#39;</span><span class="n">ll</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">called</span><span class="w"> </span><span class="n">nip</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">EC2</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">replace</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">periods</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">dashes</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">this</span><span class="o">:</span>
+<span class="mf">52.91.237.254</span><span class="w"> </span><span class="n">becomes</span><span class="w"> </span><span class="mi">52-91-237</span><span class="mf">-254.</span><span class="w"> </span><span class="n">Then</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="p">.</span><span class="n">nip</span><span class="p">.</span><span class="n">io</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="n">name</span><span class="p">.</span><span class="w"> </span><span class="o">--&gt;</span>
+
+<span class="n">For</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">we</span><span class="err">&#39;</span><span class="n">ll</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">dns</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">amazon</span><span class="w"> </span><span class="n">provides</span><span class="p">.</span><span class="w"> </span><span class="n">We</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">normally</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">domain</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">business</span><span class="p">.</span><span class="w"> </span><span class="n">Get</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">EC2</span><span class="w"> </span><span class="n">instance</span>
+
+<span class="n">Common</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">(</span><span class="n">eg</span><span class="p">,</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">server</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">hostname</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="o">:**</span><span class="n">ec2</span><span class="mi">-44-221-155</span><span class="mf">-86.</span><span class="n">compute</span><span class="mf">-1.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="o">**</span>
+
+<span class="n">Email</span><span class="w"> </span><span class="n">Address</span><span class="w"> </span><span class="p">[]</span><span class="o">:**</span><span class="n">youremail</span><span class="p">@</span><span class="n">byui</span><span class="p">.</span><span class="n">edu</span><span class="o">**</span>
+
+<span class="n">Once</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">cert</span><span class="w"> </span><span class="n">created</span><span class="p">,</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">go</span><span class="w"> </span><span class="n">replace</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">built</span><span class="o">-</span><span class="k">in</span><span class="w"> </span><span class="n">localhost</span><span class="w"> </span><span class="n">cert</span><span class="p">.</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt
+<p>sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#' /etc/httpd/conf.d/ssl.conf</p>
+<div class="codehilite"><pre><span></span><code>
 </code></pre></div>
 
-<p>Country Name (2 letter code) [XX]:<strong>US</strong></p>
-<p>State or Province Name (full name) []:<strong>Idaho</strong></p>
-<p>Locality Name (eg, city) [Default City]:<strong>Rexburg</strong></p>
-<p>Organization Name (eg, company) [Default Company Ltd]:<strong>MyCo</strong></p>
-<p>Organizational Unit Name (eg, section) []:<strong>Development</strong></p>
-<!-- For the common name we'll use a service called nip.io. You need to take your static ip address that you have for the EC2 and replace the periods with dashes like this:
-52.91.237.254 becomes 52-91-237-254. Then add .nip.io to the end to get the common name. -->
+<p>sudo sed -i 's#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#' /etc/httpd/conf.d/ssl.conf</p>
+<div class="codehilite"><pre><span></span><code><span class="o">!!!</span><span class="w"> </span><span class="n">note</span><span class="w"> </span><span class="s">&quot;Using SED&quot;</span>
 
-<p>For the common name we'll use the public dns that amazon provides. We would normally use the domain name for the business. Get this from your EC2 instance</p>
-<p>Common Name (eg, your name or your server's hostname) []:<strong>ec2-44-221-155-86.compute-1.amazonaws.com</strong></p>
-<p>Email Address []:<strong>youremail@byui.edu</strong></p>
-<p>Once we have our cert created, we need to go replace the build-in localhost cert.</p>
-<div class="codehilite"><pre><span></span><code>sudo sed -i &#39;s#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#&#39; /etc/httpd/conf.d/ssl.conf
+<span class="w">    </span><span class="n">Explanation</span><span class="o">:</span>
+
+<span class="w">    </span><span class="n">sudo</span><span class="w"> </span><span class="n">sed</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="s">&#39;s#old_text#new_text#&#39;</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">:</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">replaces</span><span class="w"> </span><span class="n">old_text</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">new_text</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">specified</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="p">(</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="p">).</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">symbol</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">delimiter</span><span class="w"> </span><span class="n">instead</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">usual</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">paths</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">contain</span><span class="w"> </span><span class="o">/</span><span class="p">.</span>
+
+<span class="w">    </span><span class="n">So</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">replacing</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">localhost</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">certificate</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">just</span><span class="w"> </span><span class="n">created</span><span class="p">.</span>
+
+<span class="o">&lt;!--</span><span class="w"> </span><span class="n">Replace</span><span class="w"> </span><span class="n">SSLCertificateFile</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">tls</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">localhost</span><span class="p">.</span><span class="n">crt</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">SSLCertificateFile</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">tls</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">selfsigned</span><span class="p">.</span><span class="n">crt</span>
+
+<span class="n">Replace</span><span class="w"> </span><span class="n">SSLCertificateKeyFile</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">tls</span><span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">localhost</span><span class="p">.</span><span class="n">key</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">SSLCertificateKeyFile</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">tls</span><span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">selfsigned</span><span class="p">.</span><span class="n">key</span>
+
+<span class="n">Ctrl</span><span class="o">-</span><span class="n">O</span>
+<span class="n">Ctrl</span><span class="o">-</span><span class="n">X</span><span class="w"> </span><span class="o">--&gt;</span>
 </code></pre></div>
 
-<div class="codehilite"><pre><span></span><code>sudo sed -i &#39;s#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#&#39; /etc/httpd/conf.d/ssl.conf
-</code></pre></div>
-
-<div class="admonition note">
-<p class="admonition-title">Using SED</p>
-<p>Explanation:</p>
-<p>sudo sed -i 's#old_text#new_text#' /path/to/file: This command replaces old_text with new_text in the specified file (/path/to/file). The # symbol is used as a delimiter instead of the usual / to avoid conflict with the file paths that contain /.</p>
-<p>So we are replacing the localhost key and certificate with the new key we just created.</p>
-</div>
-<!-- Replace SSLCertificateFile /etc/pki/tls/certs/localhost.crt with SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
-
-Replace SSLCertificateKeyFile /etc/pki/tls/private/localhost.key with SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
-
-Ctrl-O
-Ctrl-X -->
-
-<div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
-</code></pre></div>
-
+<p>sudo systemctl restart httpd
+```</p>
 <p>Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click on the lock icon to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.</p>
 <p>Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.</p>
 <h2 id="lab-summary">Lab Summary:</h2>
@@ -217,9 +248,6 @@ Ctrl-X -->
 <p><strong>TCP/IP:</strong> TCP/IP (Transmission Control Protocol/Internet Protocol) is the fundamental networking protocol suite used to enable communication between devices on the internet. It provides a set of rules and conventions for data transmission and network communication. TCP/IP consists of multiple layers, including the application layer, transport layer, internet layer, and network access layer.</p>
 </li>
 <li>
-<p><strong>LAMP Stack (Linux, Apache, MySQL, PHP):</strong> The LAMP stack is a popular web development environment. In this lab, Apache HTTP Server (httpd), PHP, and MariaDB (MySQL) were installed on the EC2 instance to support hosting and serving dynamic web content.</p>
-</li>
-<li>
 <p><strong>SSL/TLS Encryption:</strong> SSL/TLS encryption secures data transmitted over the web by encrypting the communication between clients and servers. In this lab, a self-signed SSL certificate was generated using openssl, allowing HTTPS access to the hosted website.</p>
 </li>
 <li>
@@ -232,7 +260,6 @@ Ctrl-X -->
 <h3 id="reflection-questions">Reflection Questions:</h3>
 <ul>
 <li>Explain the purpose of a Virtual Private Cloud (VPC) in AWS. Why is it important to configure subnets and security groups within a VPC when launching EC2 instances?</li>
-<li>Describe the components of the LAMP stack (Linux, Apache, MySQL, PHP) and their roles in web hosting. How does each component contribute to serving dynamic web content? Many AWS services allow us to split apart these different compontents. What are the pros and cons of separating these services?</li>
 <li>What is SSL/TLS encryption, and why is it important for securing websites? Compare and contrast self-signed certificates with certificates signed by a certificate authority (CA).</li>
 <li>Discuss the steps involved in setting up and configuring Apache web server (httpd) on an EC2 instance. How does Apache handle HTTP and HTTPS requests?</li>
 <li>Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?</li>
@@ -243,6 +270,7 @@ Ctrl-X -->
 <p><a href="https://gist.github.com/atikju/1fb8d3e856e32f3b0a678d393914351b" target="_blank">nginx on Amazon Linux 2023 LAMP</a></p>
 <p><a href="https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm" target="_blank">OpenSSL Quick Reference Guide</a></p>
 <p><a href="https://www.digicert.com/kb/csr-ssl-installation/nginx-openssl.htm" target="_blank">nginx SSL installation guide</a></p>
+<p><a href="https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html">Hosting Website on EC2 using a LAMP stack</a></p>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>

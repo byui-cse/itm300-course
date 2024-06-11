@@ -30,9 +30,25 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
 * Use the vockey for your keypair
 * Use the vehicleapp-vpc VPC
 * place the EC2 instance in the vehicleapp-subnet-public1 subnet. 
-* Enable auto assign an IP address
+* Disable auto assign an IP address
 * Create a security Group and name it vehicle-sg
     * Add security rules to enable ports 80 (HTTP), 443 (HTTPS), and 22 (SSH) all from anywhere
+
+## Assign an Elastic IP
+
+Allocate an Elastic IP address and then associate that elastic IP address with your instance by doing the following:
+
+
+* Go to the <span class="amz-white-button">Elastic IPs</span> under <span class="amz-white-button">Network &amp; Security</span> on the left sidebar of the EC2 dashboard.
+* Click <span class="amz-orange-button">Allocate Elastic IP address</span> and then click <span class="amz-orange-button">Allocate</span>.
+* Click on the ip address (for example <span class="amz-link">44.223.155.86</span>) under Allocated IPv4 address
+* Click <span class="amz-orange-button">Associate Elastic IP address</span>
+* Choose your Instance from the drop down.
+* Click <span class="amz-orange-button">Associate</span>
+
+## Connect to your instance
+
+Click on Instances on the left hand sidebar.
 
 !!! note "Quickly Connecting to your Instance"
 
@@ -42,26 +58,20 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
     
     * Click the checkmark next to your instance name
     * Click <span class="amz-white-button">Connect</span> at the top of the screen.
-    * Click <span class="amz-oranage-button">Connect</span> at the bottom of the next screen.
+    * Click <span class="amz-orange-button">Connect</span> at the bottom of the next screen.
     
 ## Server Setup:
 
-Once you are connected to the EC2, run the following commands. Full instructions and explainations are found in the link below.
+Once you are connected to the EC2, run the following commands.
 
 ```
 sudo dnf update -y
 ```
 
-Install the latest versions of Apache web server and PHP packages.
+Install the latest versions of Apache web server.
 
 ```
-sudo dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
-```
-
-Install the MariaDB software packages. Use the dnf install command to install multiple software packages and all related dependencies at the same time.
-
-```
-sudo dnf install mariadb105-server
+sudo dnf install -y httpd wget
 ```
 
 Start the Apache web server.
@@ -80,10 +90,8 @@ Add your user (in this case, ec2-user) to the apache group.
 
 ```
 sudo usermod -a -G apache ec2-user
-exit
+sudo su - ec2-user
 ```
-
-You'll need to disconnect and reconnect to the EC2 terminal
 
 Change the group ownership of /var/www and its contents to the apache group.
 To add group write permissions and to set the group ID on future subdirectories, change the directory permissions of /var/www and its subdirectories.
@@ -95,42 +103,45 @@ sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 ```
 
-Create a PHP file in the Apache document root.
+<!-- Full instructions are found here if you want more details on the code above:
 
+ -->
+
+<!-- 
 ```
-echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
-```
+#!/bin/bash
+sudo su
+dnf update -y
+dnf install -y httpd wget
+systemctl start httpd
+systemctl enable httpd
+usermod -a -G apache ec2-user
+chown -R ec2-user:apache /var/www
+chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec chmod 0664 {} \;
 
-Go to http://{REPLACEWITHYOURINSTANCEIPADDRESS}/phpinfo.php and make sure you get a page that works (**note that it is on http and not https**)
-
-Delete the phpinfo.php file. Although this can be useful information, it should not be broadcast to the internet for security reasons.
-
-```
-rm /var/www/html/phpinfo.php
-```
-
-
-Full instructions are found here if you want more details on the code above:
-
-[Hosting Website on EC2 using a LAMP stack](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
+mkdir -p /tmp/downloads
+wget -O /tmp/downloads/quick-oil-part2.zip https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir -p /tmp/lab-app
+unzip /tmp/downloads/quick-oil-part2.zip -d /tmp/lab-app
+cp -r /tmp/lab-app/quick-oil-part2/* /var/www/html
+rm -rf /tmp/lab-app/
+rm -rf /tmp/downloads
+``` -->
 
 ## Download the following files:
 
-Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh. You'll need to run each of these commands one line at a time.
-
+Use the following commands to download the zip containing the website you are going to host on EC2. This will happen after you connect to the EC2 instance via ssh. 
 
 ```
-sudo dnf install -y wget
 wget https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
 mkdir /tmp/lab-app
 unzip quick-oil-part2.zip -d /tmp/lab-app
-mv /tmp/lab-app/quick-oil-part2/* /var/www/html
+sudo cp -rf /tmp/lab-app/quick-oil-part2/* /var/www/html
 rm -rf /tmp/lab-app/
 ```
 
-## Assign an Elastic IP
 
-Go to the Elastic IPs on the sidebar of the EC2 dashboard. Allocate an Elastic IP address and then associate that elastic IP address with your instance.
 
 ## Enable SSL
 
@@ -162,7 +173,7 @@ Common Name (eg, your name or your server's hostname) []:**ec2-44-221-155-86.com
 
 Email Address []:**youremail@byui.edu**
 
-Once we have our cert created, we need to go replace the build-in localhost cert.
+Once we have our cert created, we need to go replace the built-in localhost cert.
 
 ```
 sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#' /etc/httpd/conf.d/ssl.conf
@@ -212,8 +223,6 @@ In this lab, you learned how to host a website on Amazon EC2 and secure it with 
 
 5. **TCP/IP:** TCP/IP (Transmission Control Protocol/Internet Protocol) is the fundamental networking protocol suite used to enable communication between devices on the internet. It provides a set of rules and conventions for data transmission and network communication. TCP/IP consists of multiple layers, including the application layer, transport layer, internet layer, and network access layer.
 
-6. **LAMP Stack (Linux, Apache, MySQL, PHP):** The LAMP stack is a popular web development environment. In this lab, Apache HTTP Server (httpd), PHP, and MariaDB (MySQL) were installed on the EC2 instance to support hosting and serving dynamic web content.
-
 7. **SSL/TLS Encryption:** SSL/TLS encryption secures data transmitted over the web by encrypting the communication between clients and servers. In this lab, a self-signed SSL certificate was generated using openssl, allowing HTTPS access to the hosted website.
 
 8. **Server Configuration and Setup:** Commands were executed on the EC2 instance to update packages (sudo dnf update -y), install necessary software packages (httpd, php, mariadb), configure Apache to start at boot (sudo systemctl enable httpd), and set appropriate permissions on web directories.
@@ -223,7 +232,6 @@ In this lab, you learned how to host a website on Amazon EC2 and secure it with 
 ### Reflection Questions:
 
 * Explain the purpose of a Virtual Private Cloud (VPC) in AWS. Why is it important to configure subnets and security groups within a VPC when launching EC2 instances?
-* Describe the components of the LAMP stack (Linux, Apache, MySQL, PHP) and their roles in web hosting. How does each component contribute to serving dynamic web content? Many AWS services allow us to split apart these different compontents. What are the pros and cons of separating these services?
 * What is SSL/TLS encryption, and why is it important for securing websites? Compare and contrast self-signed certificates with certificates signed by a certificate authority (CA).
 * Discuss the steps involved in setting up and configuring Apache web server (httpd) on an EC2 instance. How does Apache handle HTTP and HTTPS requests?
 * Explain the significance of server permissions (chmod, chown) in securing web directories. Why is it important to restrict access to certain directories and files on a web server?
@@ -238,3 +246,5 @@ In this lab, you learned how to host a website on Amazon EC2 and secure it with 
 [OpenSSL Quick Reference Guide](https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm){:target="_blank"}
 
 [nginx SSL installation guide](https://www.digicert.com/kb/csr-ssl-installation/nginx-openssl.htm){:target="_blank"}
+
+[Hosting Website on EC2 using a LAMP stack](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
