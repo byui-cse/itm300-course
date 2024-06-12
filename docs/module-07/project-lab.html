@@ -76,9 +76,14 @@
 <p>If you are unable to login, please go back and complete <a href="https://byui-cse.github.io/itm300-course/module-03/project-lab.html">Lab 3</a>. This lab requires you to be able to login to the app.</p>
 </div>
 <h2 id="create-lambda">Create lambda</h2>
+<p>Create a new lambda function:</p>
 <ul>
+<li><span class="amz-orange-button">Create function</span></li>
 <li>Name: adminGetServiceRequest</li>
-<li>Role: LabRole</li>
+<li>Runtime: Node.js 20.x (or the latest version)</li>
+<li><span class="amz-white-button">Change default execution role</span></li>
+<li>Use exisiting role</li>
+<li>Existing Role: LabRole</li>
 </ul>
 <p>Create a file named <em>adminDynamoService.mjs</em></p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
@@ -282,7 +287,7 @@
 </code></pre></div>
 
 <h2 id="update-getservicerequest-not-admingetservicerequest">Update getServiceRequest (NOT adminGetServiceRequest)</h2>
-<p>We are going to update the original getServiceRequest to only send information that is needed for the regular users.</p>
+<p>We are going to update the original getServiceRequest to only send information that is needed for the regular users. Go to the lambda function you have created and click on <span class="amz-link">getServiceRequest</span></p>
 <p>Update <em>dynamoService.mjs</em> (Make sure you are NOT updating adminDynamoService)</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
 <span class="kn">import</span> <span class="p">{</span>

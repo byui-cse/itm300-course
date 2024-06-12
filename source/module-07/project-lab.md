@@ -30,8 +30,14 @@ If that password doesn't work, try **ILove2SeeTheTemple!**
 
 ## Create lambda
 
+Create a new lambda function:
+
+* <span class="amz-orange-button">Create function</span>
 * Name: adminGetServiceRequest
-* Role: LabRole
+* Runtime: Node.js 20.x (or the latest version)
+* <span class="amz-white-button">Change default execution role</span>
+* Use exisiting role
+* Existing Role: LabRole
 
 Create a file named *adminDynamoService.mjs*
 
@@ -241,7 +247,7 @@ export const handler = async (event) => {
 
 ## Update getServiceRequest (NOT adminGetServiceRequest)
 
-We are going to update the original getServiceRequest to only send information that is needed for the regular users.
+We are going to update the original getServiceRequest to only send information that is needed for the regular users. Go to the lambda function you have created and click on <span class="amz-link">getServiceRequest</span>
 
 Update *dynamoService.mjs* (Make sure you are NOT updating adminDynamoService)
 

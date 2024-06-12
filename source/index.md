@@ -24,3 +24,9 @@ If you're a student, the content, assignments, and deadlines you'll be responsib
     Please remember that the assignments listed in your Canvas session by your instructor are the final word on what is actually due on a given day.
 
     There are many additional resourses listed here that are not assignments, but are here to help you prepare for the certification. 
+
+## Additional Tutorials
+
+If you want to explore more AWS services, Amazon provides additional tutorials. Not all labs are available to do within the Learner Lab because of restrictions, but these tutorials are good to expand your knowledge of different AWS services that we may not cover in class.
+
+[AWS Tutorials](https://aws.amazon.com/getting-started/hands-on/){target="_blank"}
