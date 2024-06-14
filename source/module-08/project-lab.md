@@ -46,7 +46,8 @@ Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllSta
 * Click on the subscriptions and look for the AllVehicleUpdatesQueue under the endpoint. You may need to look at both to find the correct subscription.
 * Click Edit
 * Open the Subscription filter policy
-* Paste the following into the filter policy
+* Choose the option for message attributes
+* Paste the following into the filter policy to replace what is there
 
 ```
 {
