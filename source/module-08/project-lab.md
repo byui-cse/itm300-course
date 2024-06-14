@@ -14,8 +14,8 @@ In this lab, we will leverage AWS Simple Notification Service (SNS) and Simple Q
 * Search for SNS which will bring up the Simple Notification Service
 * Create topic: **VehicleStatus**
 * Standard
-* Click Create Topic
 * Leave the rest of the defaults
+* Click <span class='amz-orange-button'>Create Topic</span>
 
 ## Create a SQS Queue
 
@@ -34,7 +34,7 @@ In this lab, we will leverage AWS Simple Notification Service (SNS) and Simple Q
 ## Subscribe to the topic for both Queues
 
 * Click on the **VehicleCompletedQueue**
-* Click on Subscribe to SNS Topic
+* Click on <span class='amz-orange-button'>Subscribe to SNS Topic</span>
 * Choose **VehicleStatus**
 * Click Save
 
@@ -42,10 +42,13 @@ Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllSta
 
 ## Add the filter
 
-* Go to the VehicleStatus SNS Dashboard and click on Subscriptions in the left hand panel.
+* Go to the VehicleStatus SNS Dashboard and click on <span class="amz-white-button">Subscriptions</span> in the left hand panel.
 * Click on the subscriptions and look for the VehicleCompletedQueue under the endpoint. You may need to look at both to find the correct subscription.
-* Click Edit
-* Open the Subscription filter policy
+* Click <span class='amz-white-button'>Edit</span>
+* Open the <span class='amz-white-button'>Subscription filter policy <span class="material-symbols-outlined">
+arrow_drop_down
+</span></span>
+* Turn on the Subscription filter policy
 * Choose the option for message attributes
 * Paste the following into the filter policy to replace what is there
 
@@ -57,13 +60,13 @@ Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllSta
 }
 ```
 
-* Click Save Changes
+* Click <span class='amz-oranage-button'>Save Changes</span>
 
 ## Send a message
 
 * Click Topics in the left hand panel of the SNS dashboard
 * Click on VehicleStatus
-* Click Publish Message
+* Click <span class='amz-white-button'>Publish Message</span>
 * Subject: TestMessage
 * Message body: 
 
@@ -83,9 +86,9 @@ Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllSta
 ## View the message
 
 * Go to the SQS dashboard
-* Click on AllStatusUpdatesQueue
-* Click Send and Receive Messages
-* Scroll to the bottom and click Poll for messages
+* Click on <span class='amz-link'>AllStatusUpdatesQueue</span>
+* Click <span class='amz-white-button'>Send and Receive Messages</span>
+* Scroll to the bottom and click <span class='amz-white-button'>Poll for messages</span>
 * The message should appear under messages.
 
 Do the same for the **VehicleCompletedQueue**. You should see the message in both places.
@@ -95,12 +98,20 @@ Do the same for the **VehicleCompletedQueue**. You should see the message in bot
 Send another message, but this time put *Approved* for the service_status. 
 
 * Subject: TestMessage2
-* Message body: Testing a message to only the AllStatus
+* Message body: 
+
+```
+{
+    "Type": "Notification",
+    "Message": "Testing a message that should only be in all status"
+}
+```
+
 * Message attributes:
     * Type: String  
     * Name: service_status
     * Value: Approved
-* Click Publish Message
+* Click <span class='amz-orange-button'>Publish Message</span>
 
 Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.
 
@@ -297,7 +308,10 @@ Go look at the queues. You should see the new message under both.
 
 Create a new lambda function named VehicleAnalytics. 
 
-Add this code to the index.mjs file:
+* From Scratch
+* Make sure you assign the LabRole as the role.
+
+Add this code to the *index.mjs* file:
 
 ```
 export const handler = async (event) => {

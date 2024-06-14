@@ -73,8 +73,8 @@
 <li>Search for SNS which will bring up the Simple Notification Service</li>
 <li>Create topic: <strong>VehicleStatus</strong></li>
 <li>Standard</li>
-<li>Click Create Topic</li>
 <li>Leave the rest of the defaults</li>
+<li>Click <span class='amz-orange-button'>Create Topic</span></li>
 </ul>
 <h2 id="create-a-sqs-queue">Create a SQS Queue</h2>
 <ul>
@@ -92,17 +92,20 @@
 <h2 id="subscribe-to-the-topic-for-both-queues">Subscribe to the topic for both Queues</h2>
 <ul>
 <li>Click on the <strong>VehicleCompletedQueue</strong></li>
-<li>Click on Subscribe to SNS Topic</li>
+<li>Click on <span class='amz-orange-button'>Subscribe to SNS Topic</span></li>
 <li>Choose <strong>VehicleStatus</strong></li>
 <li>Click Save</li>
 </ul>
 <p>Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllStatusUpdatesQueue as well.</p>
 <h2 id="add-the-filter">Add the filter</h2>
 <ul>
-<li>Go to the VehicleStatus SNS Dashboard and click on Subscriptions in the left hand panel.</li>
+<li>Go to the VehicleStatus SNS Dashboard and click on <span class="amz-white-button">Subscriptions</span> in the left hand panel.</li>
 <li>Click on the subscriptions and look for the VehicleCompletedQueue under the endpoint. You may need to look at both to find the correct subscription.</li>
-<li>Click Edit</li>
-<li>Open the Subscription filter policy</li>
+<li>Click <span class='amz-white-button'>Edit</span></li>
+<li>Open the <span class='amz-white-button'>Subscription filter policy <span class="material-symbols-outlined">
+arrow_drop_down
+</span></span></li>
+<li>Turn on the Subscription filter policy</li>
 <li>Choose the option for message attributes</li>
 <li>Paste the following into the filter policy to replace what is there</li>
 </ul>
@@ -114,13 +117,13 @@
 </code></pre></div>
 
 <ul>
-<li>Click Save Changes</li>
+<li>Click <span class='amz-oranage-button'>Save Changes</span></li>
 </ul>
 <h2 id="send-a-message">Send a message</h2>
 <ul>
 <li>Click Topics in the left hand panel of the SNS dashboard</li>
 <li>Click on VehicleStatus</li>
-<li>Click Publish Message</li>
+<li>Click <span class='amz-white-button'>Publish Message</span></li>
 <li>Subject: TestMessage</li>
 <li>Message body: </li>
 </ul>
@@ -142,9 +145,9 @@
 <h2 id="view-the-message">View the message</h2>
 <ul>
 <li>Go to the SQS dashboard</li>
-<li>Click on AllStatusUpdatesQueue</li>
-<li>Click Send and Receive Messages</li>
-<li>Scroll to the bottom and click Poll for messages</li>
+<li>Click on <span class='amz-link'>AllStatusUpdatesQueue</span></li>
+<li>Click <span class='amz-white-button'>Send and Receive Messages</span></li>
+<li>Scroll to the bottom and click <span class='amz-white-button'>Poll for messages</span></li>
 <li>The message should appear under messages.</li>
 </ul>
 <p>Do the same for the <strong>VehicleCompletedQueue</strong>. You should see the message in both places.</p>
@@ -152,14 +155,22 @@
 <p>Send another message, but this time put <em>Approved</em> for the service_status. </p>
 <ul>
 <li>Subject: TestMessage2</li>
-<li>Message body: Testing a message to only the AllStatus</li>
+<li>Message body: </li>
+</ul>
+<div class="codehilite"><pre><span></span><code>{
+    &quot;Type&quot;: &quot;Notification&quot;,
+    &quot;Message&quot;: &quot;Testing a message that should only be in all status&quot;
+}
+</code></pre></div>
+
+<ul>
 <li>Message attributes:<ul>
 <li>Type: String  </li>
 <li>Name: service_status</li>
 <li>Value: Approved</li>
 </ul>
 </li>
-<li>Click Publish Message</li>
+<li>Click <span class='amz-orange-button'>Publish Message</span></li>
 </ul>
 <p>Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.</p>
 <h2 id="update-our-lambda-to-send-a-sns-message-on-updates">Update our lambda to send a SNS message on updates.</h2>
@@ -346,7 +357,11 @@
 <p>Go look at the queues. You should see the new message under both.</p>
 <h2 id="add-a-lambda-to-run-when-a-message-is-received">Add a lambda to run when a message is received</h2>
 <p>Create a new lambda function named VehicleAnalytics. </p>
-<p>Add this code to the index.mjs file:</p>
+<ul>
+<li>From Scratch</li>
+<li>Make sure you assign the LabRole as the role.</li>
+</ul>
+<p>Add this code to the <em>index.mjs</em> file:</p>
 <div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="n">TODO</span><span class="w"> </span><span class="n">implement</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
