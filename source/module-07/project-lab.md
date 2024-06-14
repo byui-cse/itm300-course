@@ -376,11 +376,11 @@ Create a new resource under /admin-service-requests
 * Click on <span class="amz-white-button">/admin-service-requests</span>
 * Click <span class="amz-white-button">Create resource</span>
 * Don't turn on Proxy
-* Resource Path: 
+* Resource Path: /admin-service-request/
 * Resource Name: {id}
 * check CORS 
 
-We will create a PUT method for the new resource /admoin-service-requests/{id} that we just created.
+We will create a PUT method for the new resource /admin-service-requests/{id} that we just created.
 
 * Create Method: PUT
 * Lambda
