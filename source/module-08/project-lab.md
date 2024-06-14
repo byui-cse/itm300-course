@@ -65,7 +65,15 @@ Follow the same steps to subscribe to the VehicleStatus SNS Topic for the AllSta
 * Click on VehicleStatus
 * Click Publish Message
 * Subject: TestMessage
-* Message body: Testing a message
+* Message body: 
+
+```
+{
+    "Type": "Notification",
+    "Message": "Testing a message"
+}
+```
+
 * Message attributes:
     * Type: String  
     * Name: service_status
