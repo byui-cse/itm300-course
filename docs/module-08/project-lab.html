@@ -141,7 +141,19 @@
 </ul>
 <p>Do the same for the <strong>VehicleCompletedQueue</strong>. You should see the message in both places.</p>
 <h2 id="send-another-message">Send another message</h2>
-<p>Send another message, but this time put <em>Approved</em> for the service_status. Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.</p>
+<p>Send another message, but this time put <em>Approved</em> for the service_status. </p>
+<ul>
+<li>Subject: TestMessage2</li>
+<li>Message body: Testing a message to only the AllStatus</li>
+<li>Message attributes:<ul>
+<li>Type: String  </li>
+<li>Name: service_status</li>
+<li>Value: Approved</li>
+</ul>
+</li>
+<li>Click Publish Message</li>
+</ul>
+<p>Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.</p>
 <h2 id="update-our-lambda-to-send-a-sns-message-on-updates">Update our lambda to send a SNS message on updates.</h2>
 <ul>
 <li>Go to the adminGetServiceRequest Lambda</li>

@@ -84,7 +84,17 @@ Do the same for the **VehicleCompletedQueue**. You should see the message in bot
 
 ## Send another message
 
-Send another message, but this time put *Approved* for the service_status. Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.
+Send another message, but this time put *Approved* for the service_status. 
+
+* Subject: TestMessage2
+* Message body: Testing a message to only the AllStatus
+* Message attributes:
+    * Type: String  
+    * Name: service_status
+    * Value: Approved
+* Click Publish Message
+
+Go back and check the queues. You should see the message in the AllStatusUpdatesQueue, but not the VehicleCompletedQueue because of the filter we added to the subscription.
 
 ## Update our lambda to send a SNS message on updates.
 
