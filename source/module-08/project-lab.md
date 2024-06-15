@@ -349,7 +349,7 @@ Go to the SQS queue for the **AllStatusUpdatesQueue**
 
 * Click the lambda trigger tab
 * Click Configure Lambda function trigger
-* Choose the VehicleAnalysis function
+* Choose the VehicleAnalytics function
 * Click Save
 
 Go look at the queue. You'll notice that the messages are now gone from that queue. Once a message is processed by a lambda with a 200 status, it will automatically be deleted from the queue. 
