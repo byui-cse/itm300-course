@@ -20,7 +20,7 @@ Go to AWS Academy and get into the "Learner Lab" course. Start up the Learner La
 
 Please create a VPC with 2 public subnets and 2 private subnets. Make sure these are in the us-east-1 area (N. Virginia). 
 
-* Search for VPC
+* <span class="material-symbols-outlined">search</span> Search for VPC
 * Click <span class='amz-orange-button'>Create VPC</span>
 * Under name tag use: vehicleapp
 * Number of Availability Zones: 2
@@ -28,7 +28,7 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
 
 ## Create an EC2 instance
 
-* Search for EC2
+* <span class="material-symbols-outlined">search</span> Search for EC2
 * Click <span class='amz-orange-button'>Launch Instance</span>
 * Name the server vehicleapp-1
 * Use the vockey for your keypair

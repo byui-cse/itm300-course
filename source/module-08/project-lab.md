@@ -11,7 +11,7 @@ In this lab, we will leverage AWS Simple Notification Service (SNS) and Simple Q
 
 ## Create the SNS Topic
 
-* Search for SNS which will bring up the Simple Notification Service
+* <span class="material-symbols-outlined">search</span> Search for SNS which will bring up the Simple Notification Service
 * Create topic: **VehicleStatus**
 * Standard
 * Leave the rest of the defaults
@@ -19,7 +19,7 @@ In this lab, we will leverage AWS Simple Notification Service (SNS) and Simple Q
 
 ## Create a SQS Queue
 
-* Search for SQS which will bring up the Simple Queue Service
+* <span class="material-symbols-outlined">search</span> Search for SQS which will bring up the Simple Queue Service
 * Create queue: **VehicleCompletedQueue**
 * Standard
 * Leave the rest of the defaults

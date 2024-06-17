@@ -32,7 +32,7 @@ Your API Gateway should look like this at this point:
 
 ### Update lambda code
 
-Search for Lambda and open your getServiceRequests lambda function.
+<span class="material-symbols-outlined">search</span> Search for Lambda and open your getServiceRequests lambda function.
 
 Update the *dynamoService.mjs* code:
 

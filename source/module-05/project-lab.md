@@ -23,7 +23,7 @@ Second, we'll update the lambda function to read from the dynamodb table to pull
 
     When you create the table and all of the fields, please be careful to follow the uppercase and lowercase names as provided in the instructions. The app expects specific names of fields and the database to work.
 
-Search for DynamoDB in AWS
+<span class="material-symbols-outlined">search</span> Search for DynamoDB in AWS
 
 * <span class="amz-orange-button">Create table</span>
 
@@ -62,7 +62,7 @@ arrow_drop_down
 
 ## Update Lambda
 
-Search for Lambda and open your <span class="amz-link">getServiceRequests</span> lambda function
+<span class="material-symbols-outlined">search</span> Search for Lambda and open your <span class="amz-link">getServiceRequests</span> lambda function
 
 * Under Code -> Right click on getServiceRequests and choose New File
 * Name it *dynamoService.mjs*

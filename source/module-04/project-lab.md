@@ -21,7 +21,7 @@ Third, we'll update our app code to display the current service requests.
 
 ## Create a Lambda Function
 
-Search for Lambda in AWS
+<span class="material-symbols-outlined">search</span> Search for Lambda in AWS
 
 * <span class="amz-orange-button">Create function</span>
 * Author from scratch
@@ -115,7 +115,7 @@ Give the Test a name and then click <span class="amz-white-button">Invoke</span>
 
 ## Create the API Gateway
 
-Search for API Gateway.
+<span class="material-symbols-outlined">search</span> Search for API Gateway.
 
 Scroll down to REST API and Click <span class="amz-orange-button">Build</span>
 

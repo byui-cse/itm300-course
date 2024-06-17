@@ -26,7 +26,7 @@ We'll first create a user pool which will store all of our users.
 
     It is recommended that you play around with different options after you get the tutorial completed to expand your knowledge and understanding of the options available.
 
-* Search for Cognito in AWS.
+* <span class="material-symbols-outlined">search</span> Search for Cognito in AWS.
 * Click on <span class="amz-orange-button">Create User Pool</span>
 * Don't check Federated identity providers
 * Choose User Name under Cognito user pool sign-in options
