@@ -423,10 +423,31 @@ article .dialogue blockquote em{
   font-size:14px;  
 }
 
+.amz-text {
+  color:#545b64;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  font-size:14px;  
+}
+
 .material-symbols-outlined {
   vertical-align: middle;
 }
 
+.code-container {
+  position: relative;
+}
+.copy-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
 
 /* Footnotes */
 
