@@ -14,12 +14,13 @@ Technicians have quested to be able to see past repair history for the vehicles.
 Create a new lambda function
 
 * **Function Name:** adminVehicleHistory
-* Open Change Default Execution Role
+* Runtime: Node.js
+* Open <span class='amz-white-button'><span class="material-symbols-outlined">arrow_right</span> Change default execution role</span>
 * Use an existing role
 * **Existing Role:** LabRole
-* Create Function
+* <span class='amz-orange-button'>Create Function</span>
 
-Update the index.mjs code
+Update the *index.mjs* code
 
 ```
 import { getVehicleHistory } from './adminVehicleHistory.mjs';
@@ -114,7 +115,7 @@ export const getVehicleHistory = async (license_plate) => {
 }
 ```
 
-Click Deploy
+Click <span class='amz-white-button'>Deploy</span>
 
 ## Update the API Gateway
 
@@ -123,34 +124,35 @@ Search for API Gateway
 We'll create two resources. The first is the main area for vehicle-history
 
 * Click on /admin-service-request
-* Click Create resource
+* Click <span class='amz-white-button'>Create resource</span>
 * **Resource Name**: vehicle-history
 * Turn on CORS
-* Create resource
+* <span class='amz-orange-button'>Create resource</span>
 
 Now we'll create the second that will respond for specific histories based on license plate number.
 
 * Click on /vehicle-history
-* Click Create resource
+* Click <span class='amz-white-button'>Create resource</span>
 * **Resource Name**: {id}
 * Turn on CORS
-* Create Resource
+* <span class='amz-orange-button'>Create resource</span>
 
 You should have /vehicle-history/{id} selected. We'll now create the GET method.
 
-* Click Create method
+* Click <span class='amz-white-button'>Create method</span>
 * **Method type:** GET
 * Lambda Function
-* Lambda proxy integration
+* Activate Lambda proxy integration
 * **lambda function:** adminVehicleHistory
-* Open Method Request Settings
+* Open <span class='amz-white-button'><span class="material-symbols-outlined">arrow_right</span> Method Request Settings</span>
 * **Authorization:** AdminServiceRequestAuthorizer
+* <span class='amz-orange-button'>Create method</span>
 
-DEPLOY (this may take a couple of minutes)
+<span class='amz-orange-button'>Deploy API</span> (this may take a couple of minutes)
 
 ## Update code
 
-Connect to your Vehicle App EC2 Instance
+<span class='amz-white-button'>Connect</span> to your Vehicle App EC2 Instance
 
 Download the newest website app:
 

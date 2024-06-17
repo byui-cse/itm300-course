@@ -60,12 +60,13 @@
 <p>Create a new lambda function</p>
 <ul>
 <li><strong>Function Name:</strong> adminVehicleHistory</li>
-<li>Open Change Default Execution Role</li>
+<li>Runtime: Node.js</li>
+<li>Open <span class='amz-white-button'><span class="material-symbols-outlined">arrow_right</span> Change default execution role</span></li>
 <li>Use an existing role</li>
 <li><strong>Existing Role:</strong> LabRole</li>
-<li>Create Function</li>
+<li><span class='amz-orange-button'>Create Function</span></li>
 </ul>
-<p>Update the index.mjs code</p>
+<p>Update the <em>index.mjs</em> code</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getVehicleHistory</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./adminVehicleHistory.mjs&#39;</span><span class="p">;</span>
 
 <span class="n">const</span> <span class="n">commonHeaders</span> <span class="o">=</span> <span class="p">{</span>
@@ -156,38 +157,39 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Click Deploy</p>
+<p>Click <span class='amz-white-button'>Deploy</span></p>
 <h2 id="update-the-api-gateway">Update the API Gateway</h2>
 <p>Search for API Gateway</p>
 <p>We'll create two resources. The first is the main area for vehicle-history</p>
 <ul>
 <li>Click on /admin-service-request</li>
-<li>Click Create resource</li>
+<li>Click <span class='amz-white-button'>Create resource</span></li>
 <li><strong>Resource Name</strong>: vehicle-history</li>
 <li>Turn on CORS</li>
-<li>Create resource</li>
+<li><span class='amz-orange-button'>Create resource</span></li>
 </ul>
 <p>Now we'll create the second that will respond for specific histories based on license plate number.</p>
 <ul>
 <li>Click on /vehicle-history</li>
-<li>Click Create resource</li>
+<li>Click <span class='amz-white-button'>Create resource</span></li>
 <li><strong>Resource Name</strong>: {id}</li>
 <li>Turn on CORS</li>
-<li>Create Resource</li>
+<li><span class='amz-orange-button'>Create resource</span></li>
 </ul>
 <p>You should have /vehicle-history/{id} selected. We'll now create the GET method.</p>
 <ul>
-<li>Click Create method</li>
+<li>Click <span class='amz-white-button'>Create method</span></li>
 <li><strong>Method type:</strong> GET</li>
 <li>Lambda Function</li>
-<li>Lambda proxy integration</li>
+<li>Activate Lambda proxy integration</li>
 <li><strong>lambda function:</strong> adminVehicleHistory</li>
-<li>Open Method Request Settings</li>
+<li>Open <span class='amz-white-button'><span class="material-symbols-outlined">arrow_right</span> Method Request Settings</span></li>
 <li><strong>Authorization:</strong> AdminServiceRequestAuthorizer</li>
+<li><span class='amz-orange-button'>Create method</span></li>
 </ul>
-<p>DEPLOY (this may take a couple of minutes)</p>
+<p><span class='amz-orange-button'>Deploy API</span> (this may take a couple of minutes)</p>
 <h2 id="update-code">Update code</h2>
-<p>Connect to your Vehicle App EC2 Instance</p>
+<p><span class='amz-white-button'>Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
 <div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-09/rebuildapp.sh
 </code></pre></div>
