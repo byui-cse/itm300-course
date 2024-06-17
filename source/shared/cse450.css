@@ -454,6 +454,15 @@ article .dialogue blockquote em{
 .copy-button span {
   font-size:14px;
 }
+.results {
+	background: black;
+	color: white;
+	font-family: Menlo, Monoco, Consolas, monospace;
+	font-size: 14px;
+	padding: 20px;
+	box-sizing: border-box;
+	line-height: 1.6em;
+}
 
 /* Footnotes */
 

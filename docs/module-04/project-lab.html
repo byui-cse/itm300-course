@@ -135,17 +135,18 @@ arrow_right
 arrow_drop_down
 </span>next to the blue Test button and choose Configure test event. </p>
 <p>Give the Test a name and then click <span class="amz-white-button">Invoke</span>. You should receive a response similar to this:</p>
-<div class="codehilite"><pre><span></span><code>{
-  &quot;statusCode&quot;: 200,
-  &quot;body&quot;: &quot;[{\&quot;id\&quot;:1,\&quot;phone\&quot;:\&quot;208-555-5555\&quot;,\&quot;service\&quot;:\&quot;Oil Change on a 2007 Saturn Outlook\&quot;},{\&quot;id\&quot;:2,\&quot;phone\&quot;:\&quot;208-555-9999\&quot;,\&quot;service_status\&quot;:\&quot;I need the brakes fixed on my 2010 Buick LeSabre\&quot;},{\&quot;id\&quot;:3,\&quot;phone\&quot;:\&quot;208-555-9111\&quot;,\&quot;service\&quot;:\&quot;My radiator exploded. Help!\&quot;}]&quot;,
-  &quot;headers&quot;: {
-    &quot;Content-Type&quot;: &quot;application/json&quot;,
-    &quot;Access-Control-Allow-Headers&quot;: &quot;Content-Type&quot;,
-    &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
-    &quot;Access-Control-Allow-Methods&quot;: &quot;OPTIONS,POST,GET,PUT&quot;
+<div class="results">
+{
+  "statusCode": 200,
+  "body": "[{\"id\":1,\"phone\":\"208-555-5555\",\"service\":\"Oil Change on a 2007 Saturn Outlook\"},{\"id\":2,\"phone\":\"208-555-9999\",\"service_status\":\"I need the brakes fixed on my 2010 Buick LeSabre\"},{\"id\":3,\"phone\":\"208-555-9111\",\"service\":\"My radiator exploded. Help!\"}]",
+  "headers": {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
   }
 }
-</code></pre></div>
+</div>
 
 <h2 id="create-the-api-gateway">Create the API Gateway</h2>
 <p>Search for API Gateway.</p>
@@ -187,18 +188,20 @@ arrow_drop_down
 </ul>
 <p>Before we deploy the API you should test the API to make sure it is returning the correct data.</p>
 <p>Click the <span class="amz-tab">Test</span> tab and then click the <span class="amz-orange-button">Test</span> button. You should get a response like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">Response</span><span class="w"> </span><span class="nv">body</span>
+<div class="results">
 
-[{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">1</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-5555&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;Oil Change on a 2007 Saturn Outlook&quot;</span>,<span class="s2">&quot;service_status&quot;</span>:<span class="s2">&quot;Finishing up&quot;</span>,<span class="s2">&quot;license_plate&quot;</span>:<span class="s2">&quot;8B1111&quot;</span>},{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">2</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-9999&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;I need the brakes fixed on my 2010 Buick LeSabre&quot;</span>,<span class="s2">&quot;service_status&quot;</span>:<span class="s2">&quot;Waiting For Pickup&quot;</span>,<span class="s2">&quot;license_plate&quot;</span>:<span class="s2">&quot;1J1957&quot;</span>},{<span class="s2">&quot;service_id&quot;</span>:<span class="mi">3</span>,<span class="s2">&quot;phone_number&quot;</span>:<span class="s2">&quot;208-555-9111&quot;</span>,<span class="s2">&quot;service_description&quot;</span>:<span class="s2">&quot;My radiator exploded. Help!&quot;</span>,<span class="s2">&quot;service_status&quot;</span>:<span class="s2">&quot;Parts Ordered&quot;</span>,<span class="s2">&quot;license_place&quot;</span>:<span class="s2">&quot;1M1337&quot;</span>}]
+Response body
 
-<span class="nv">Response</span><span class="w"> </span><span class="nv">headers</span>
+[{"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","service_status":"Finishing up","license_plate":"8B1111"},{"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","service_status":"Waiting For Pickup","license_plate":"1J1957"},{"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","service_status":"Parts Ordered","license_place":"1M1337"}]
+
+Response headers
 
 {
-<span class="w">  </span><span class="s2">&quot;Access-Control-Allow-Headers&quot;</span>:<span class="w"> </span><span class="s2">&quot;Content-Type&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;Access-Control-Allow-Methods&quot;</span>:<span class="w"> </span><span class="s2">&quot;OPTIONS,POST,GET,PUT&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span>:<span class="w"> </span><span class="s2">&quot;*&quot;</span>,
-<span class="w">  </span><span class="s2">&quot;Content-Type&quot;</span>:<span class="w"> </span><span class="s2">&quot;application/json&quot;</span>,...
-</code></pre></div>
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT",
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",...
+</div>
 
 <ul>
 <li>
