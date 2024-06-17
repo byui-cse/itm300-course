@@ -148,11 +148,13 @@ arrow_right
 </code></pre></div>
 
 <p>You should get something like this in return:</p>
-<p>{
-    "UserId": "AROAIEXAMPLEID",
-    "Account": "123456789012",
-    "Arn": "arn:aws:sts::123456789012:assumed-role/RoleName/RoleSessionName"
-}</p>
+<div class="codehilite"><pre><span></span><code>{
+    &quot;UserId&quot;: &quot;AROAIEXAMPLEID&quot;,
+    &quot;Account&quot;: &quot;123456789012&quot;,
+    &quot;Arn&quot;: &quot;arn:aws:sts::123456789012:assumed-role/RoleName/RoleSessionName&quot;
+}
+</code></pre></div>
+
 <h2 id="create-the-container-registry">Create the container registry</h2>
 <p>Search for ECR which will bring up Elastic Container Registry. Open this in a new tab.</p>
 <ul>
@@ -260,7 +262,7 @@ open_in_new
 <h2 id="optional-add-ssl-to-your-load-balancer">(OPTIONAL) Add SSL to your load balancer</h2>
 <ul>
 <li>Click <span class="amz-tab">Listeners and rules</span></li>
-<li>Click <span class="amz-white-button">Add listner</span></li>
+<li>Click <span class="amz-white-button">Add listener</span></li>
 <li>Choose HTTPS for protocol</li>
 <li>Target Group: ecs-Vehicle-VehicleAppService</li>
 <li>

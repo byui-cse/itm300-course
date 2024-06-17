@@ -117,11 +117,13 @@ aws sts get-caller-identity
 
 You should get something like this in return:
 
+```
 {
     "UserId": "AROAIEXAMPLEID",
     "Account": "123456789012",
     "Arn": "arn:aws:sts::123456789012:assumed-role/RoleName/RoleSessionName"
 }
+```
 
 ## Create the container registry
 
@@ -232,7 +234,7 @@ Take a screenshot of your app running on the container with the load balancer an
 ## (OPTIONAL) Add SSL to your load balancer
 
 * Click <span class="amz-tab">Listeners and rules</span>
-* Click <span class="amz-white-button">Add listner</span>
+* Click <span class="amz-white-button">Add listener</span>
 * Choose HTTPS for protocol
 * Target Group: ecs-Vehicle-VehicleAppService
 * Import certificate
