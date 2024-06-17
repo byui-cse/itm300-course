@@ -436,17 +436,18 @@ article .dialogue blockquote em{
 
 .code-container {
   position: relative;
+  margin:40px 0;
 }
 .copy-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 5px;
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 3px;
+	position: absolute;
+	top: -36px;
+	right: 0;
+	padding: 10px 15px;
+	background: #2f2f2f;
+	color: #bcbcbc;
+	border: none;
+	cursor: pointer;
+	border-radius: 3px;
 }
 
 /* Footnotes */
