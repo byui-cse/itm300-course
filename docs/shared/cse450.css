@@ -63,6 +63,7 @@ header {
   position: sticky;
   top: 0;
   border-bottom: 1px solid var(--light-border-color);
+  z-index: 15;
 }
 
 header #titles {
