@@ -462,6 +462,7 @@ article .dialogue blockquote em{
 	padding: 20px;
 	box-sizing: border-box;
 	line-height: 1.6em;
+  white-space: pre-wrap;
 }
 
 /* Footnotes */

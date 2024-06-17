@@ -147,7 +147,6 @@ Before we deploy the API you should test the API to make sure it is returning th
 Click the <span class="amz-tab">Test</span> tab and then click the <span class="amz-orange-button">Test</span> button. You should get a response like this:
 
 <div class="results">
-
 Response body
 
 [{"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","service_status":"Finishing up","license_plate":"8B1111"},{"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","service_status":"Waiting For Pickup","license_plate":"1J1957"},{"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","service_status":"Parts Ordered","license_place":"1M1337"}]

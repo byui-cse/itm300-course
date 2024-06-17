@@ -117,13 +117,13 @@ aws sts get-caller-identity
 
 You should get something like this in return:
 
-```
+<div class='results'>
 {
     "UserId": "AROAIEXAMPLEID",
     "Account": "123456789012",
     "Arn": "arn:aws:sts::123456789012:assumed-role/RoleName/RoleSessionName"
 }
-```
+</div>
 
 ## Create the container registry
 
