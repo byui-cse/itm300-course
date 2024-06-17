@@ -146,7 +146,7 @@ You should have /vehicle-history/{id} selected. We'll now create the GET method.
 * Open Method Request Settings
 * **Authorization:** AdminServiceRequestAuthorizer
 
-DEPLOY (this make take a couple of minutes)
+DEPLOY (this may take a couple of minutes)
 
 ## Update code
 
