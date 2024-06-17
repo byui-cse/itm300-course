@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     codeBlocks.forEach(codeBlock => {
         const button = document.createElement('button');
-        button.innerText = '<span class="material-symbols-outlined">content_copy</span>Copy';
+        button.innerHTML = '<span class="material-symbols-outlined">content_copy</span>Copy';
         button.classList.add('copy-button');
         button.addEventListener('click', () => {
             const code = codeBlock.innerText;
             navigator.clipboard.writeText(code).then(() => {
-                button.innerText = '<span class="material-symbols-outlined">check</span>Code Copied!';
+                button.innerHTML = '<span class="material-symbols-outlined">check</span>Code Copied!';
                 setTimeout(() => {
-                    button.innerText = '<span class="material-symbols-outlined">content_copy</span>Copy';
+                    button.innerHTML = '<span class="material-symbols-outlined">content_copy</span>Copy';
                 }, 5000);
             }).catch(err => {
                 console.error('Could not copy text: ', err);
