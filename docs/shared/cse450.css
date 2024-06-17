@@ -448,6 +448,10 @@ article .dialogue blockquote em{
 	border: none;
 	cursor: pointer;
 	border-radius: 3px;
+  font-size: 14px;
+}
+.copy-button span {
+  font-size:14px;
 }
 
 /* Footnotes */
