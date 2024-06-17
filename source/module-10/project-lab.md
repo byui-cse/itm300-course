@@ -127,7 +127,7 @@ You should get something like this in return:
 
 ## Create the container registry
 
-Search for ECR which will bring up Elastic Container Registry. Open this in a new tab.
+<span class="material-symbols-outlined">search</span> Search for ECR which will bring up Elastic Container Registry. Open this in a new tab.
 
 * <span class="amz-orange-button">Create repository</span>
 * Repository name: vehicle-app
@@ -159,7 +159,7 @@ You should see 1 image with a tag of latest in the list.
 
 ## Create an ECS
 
-* Search for ECS and open the Elastic Container Service in a new tab
+* <span class="material-symbols-outlined">search</span> Search for ECS and open the Elastic Container Service in a new tab
 
 ### Create a cluster
 

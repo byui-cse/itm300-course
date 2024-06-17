@@ -119,7 +119,7 @@ Click <span class='amz-white-button'>Deploy</span>
 
 ## Update the API Gateway
 
-Search for API Gateway
+<span class="material-symbols-outlined">search</span> Search for API Gateway
 
 We'll create two resources. The first is the main area for vehicle-history
 
