@@ -455,13 +455,13 @@ article .dialogue blockquote em{
   font-size:14px;
 }
 .copy-button:hover {
-  background-color: black;
+  background-color: #162b35;
 }
-.copy-button:hover span {
+.copy-button span:hover {
   color:#66d9ef;
 }
 .results {
-	background: #162b35;
+	background: black;
 	color: white;
 	font-family: Menlo, Monoco, Consolas, monospace;
 	font-size: 14px;
