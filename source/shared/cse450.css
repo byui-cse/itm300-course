@@ -457,7 +457,7 @@ article .dialogue blockquote em{
 .copy-button:hover {
   background-color: #162b35;
 }
-.copy-button span:hover {
+.copy-button:hover span {
   color:#66d9ef;
 }
 .results {
