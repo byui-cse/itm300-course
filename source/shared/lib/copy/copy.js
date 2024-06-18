@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         button.addEventListener('click', () => {
             const code = codeBlock.innerText;
             navigator.clipboard.writeText(code).then(() => {
-                button.innerHTML = '<span class="material-symbols-outlined">check</span> Code Copied!';
+                button.innerHTML = '<span class="material-symbols-outlined green">check</span> Code Copied!';
                 setTimeout(() => {
                     button.innerHTML = '<span class="material-symbols-outlined">content_copy</span> Copy';
                 }, 5000);

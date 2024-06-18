@@ -454,8 +454,14 @@ article .dialogue blockquote em{
 .copy-button span {
   font-size:14px;
 }
+.copy-button:hover {
+  background-color: black;
+}
+.copy-button span:hover {
+  color:#66d9ef;
+}
 .results {
-	background: black;
+	background: #162b35;
 	color: white;
 	font-family: Menlo, Monoco, Consolas, monospace;
 	font-size: 14px;
@@ -463,6 +469,10 @@ article .dialogue blockquote em{
 	box-sizing: border-box;
 	line-height: 1.6em;
   white-space: pre-wrap;
+}
+
+.green {
+  color:#61a000;
 }
 
 /* Footnotes */
