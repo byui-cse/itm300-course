@@ -257,6 +257,7 @@ article pre code.hljs {
   border-radius: 5px;
   margin: 20px 0 25px 0;
   background: var(--code-background-color);
+  border-top-right-radius: 0;
 }
 
 article pre code .hljs-comment {
@@ -450,6 +451,8 @@ article .dialogue blockquote em{
 	cursor: pointer;
 	border-radius: 3px;
   font-size: 14px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 .copy-button span {
   font-size:14px;
@@ -459,6 +462,9 @@ article .dialogue blockquote em{
 }
 .copy-button:hover span {
   color:#66d9ef;
+}
+.copy-button:hover span.green {
+  color:#61a000; 
 }
 .results {
 	background: black;
