@@ -63,7 +63,7 @@ Once your user pool is created, scroll down to where you see users and click <sp
 
 * Don't send an invite
 * Create a user named janedoe
-* Password: ILove2SeeTheTemple!
+* Password: **ILove2SeeTheTemple!**
 
 You'll notice that the user has a confirmation status of Force change password. We will go update their status by logging in to the hosted UI.
 
@@ -82,7 +82,7 @@ Log in as janedoe.
 
 You'll see that you are promped with a Change Password prompt.
 
-Update your password to Ilove2SeeTheTemple!!
+Update your password to **Ilove2SeeTheTemple!!**
 
 You'll notice that it will open up your app since this was the first allowed callback URL.
 
