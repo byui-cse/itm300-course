@@ -220,6 +220,10 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 <p>The <a href="https://documentation.concretecms.org/tutorials/how-open-browser-console-view-errors" target="_blank">website error console</a> should also give you further ideas if something isn't working correctly.</p>
 <h2 id="cloud-trail">Cloud Trail</h2>
 <p>We'll now go activate cloud trail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.</p>
+<div class="admonition def">
+<p class="admonition-title">Cloud Trail and Auditing</p>
+<p>Using AWS CloudTrail to audit login attempts is essential for maintaining the security and compliance of your cloud environment. By tracking and analyzing both successful and failed login attempts through Amazon Cognito, organizations can detect unauthorized access, identify potential security threats, and ensure that only authorized users are accessing sensitive resources. This continuous monitoring helps in complying with regulatory requirements, enables forensic investigations in case of security incidents, and provides valuable insights into user behavior, thereby enhancing the overall security posture and operational integrity of the cloud infrastructure.</p>
+</div>
 <ul>
 <li><span class="material-symbols-outlined">search</span>Search for Cloudtrail</li>
 <li><span class='amz-orange-button'>Create a trail</span></li>
@@ -232,12 +236,14 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 <li>In the <em>Enter an event source</em> type in <strong>cognito-idp.amazonaws.com</strong></li>
 <li>You should see a <span class='amz-link'>Initiate Auth</span> and a <span class='amz-link'>ResponseToAuthChallenge</span> in the list. You can click on the response to see if a login was successful or not.</li>
 </ul>
+<p>Failed Login Attempt includes an errorCode and errorMessage</p>
 <div class="results">
 "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
 "errorCode": "NotAuthorizedException",
 "errorMessage": "Incorrect username or password.",
 </div>
 
+<p>Successful Login Attempt includes a accessToken</p>
 <div class="results">
 "responseElements": {
     "challengeParameters": "HIDDEN_DUE_TO_SECURITY_REASONS",

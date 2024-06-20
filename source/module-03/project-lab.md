@@ -174,6 +174,10 @@ The [website error console](https://documentation.concretecms.org/tutorials/how-
 
 We'll now go activate cloud trail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.
 
+!!! def "Cloud Trail and Auditing"
+
+    Using AWS CloudTrail to audit login attempts is essential for maintaining the security and compliance of your cloud environment. By tracking and analyzing both successful and failed login attempts through Amazon Cognito, organizations can detect unauthorized access, identify potential security threats, and ensure that only authorized users are accessing sensitive resources. This continuous monitoring helps in complying with regulatory requirements, enables forensic investigations in case of security incidents, and provides valuable insights into user behavior, thereby enhancing the overall security posture and operational integrity of the cloud infrastructure.
+
 * <span class="material-symbols-outlined">search</span>Search for Cloudtrail
 * <span class='amz-orange-button'>Create a trail</span>
 * Trail name: **VehicleApp-Trail**
@@ -185,11 +189,15 @@ Once you've created your cloud trail, click on <span class='amz-white-button'>Ev
 * In the *Enter an event source* type in **cognito-idp.amazonaws.com**
 * You should see a <span class='amz-link'>Initiate Auth</span> and a <span class='amz-link'>ResponseToAuthChallenge</span> in the list. You can click on the response to see if a login was successful or not.
 
+Failed Login Attempt includes an errorCode and errorMessage
+
 <div class="results">
 "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
 "errorCode": "NotAuthorizedException",
 "errorMessage": "Incorrect username or password.",
 </div>
+
+Successful Login Attempt includes a accessToken
 
 <div class="results">
 "responseElements": {
