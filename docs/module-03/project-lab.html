@@ -38,6 +38,7 @@
 <li><a href="#update-password-for-user">Update Password for User</a></li>
 <li><a href="#update-the-app-logic">Update the App logic</a></li>
 <li><a href="#log-in">Log in</a></li>
+<li><a href="#cloud-trail">Cloud Trail</a></li>
 <li><a href="#lab-summary">Lab Summary:</a><ul>
 <li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
 <li><a href="#reflection-questions">Reflection Questions:</a></li>
@@ -159,9 +160,9 @@
 </code></pre></div>
 
 <p>Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.</p>
-<p>User pool ID is found in your cognito user pool overview.
-Client ID is found in cognito under <span class="amz-tab">App integration</span> and then at the bottom of that screen under App clients and analytics.
-Cognito domain is found in cognito under <span class="amz-tab">App integration</span> in the Domain section. </p>
+<p>User pool ID is found in your cognito user pool overview.</p>
+<p>Client ID is found in cognito under <span class="amz-tab">App integration</span> and then at the bottom of that screen under App clients and analytics.</p>
+<p>Cognito domain is found in cognito under <span class="amz-tab">App integration</span> in the Domain section. </p>
 <div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
 </code></pre></div>
 
@@ -216,7 +217,41 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 <li>Enter the username and password.</li>
 </ul>
 <p>If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.</p>
-<p>The error console should also give you further ideas if something isn't working correctly.</p>
+<p>The <a href="https://documentation.concretecms.org/tutorials/how-open-browser-console-view-errors" target="_blank">website error console</a> should also give you further ideas if something isn't working correctly.</p>
+<h2 id="cloud-trail">Cloud Trail</h2>
+<p>We'll now go activate cloud trail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.</p>
+<ul>
+<li><span class="material-symbols-outlined">search</span>Search for Cloudtrail</li>
+<li><span class='amz-orange-button'>Create a trail</span></li>
+<li>Trail name: <strong>VehicleApp-Trail</strong></li>
+<li>Create a new S3 bucket</li>
+</ul>
+<p>Once you've created your cloud trail, click on <span class='amz-white-button'>Event history</span> on the left hand panel.</p>
+<ul>
+<li>Change Lookup attributes to <strong>Event source</strong></li>
+<li>In the <em>Enter an event source</em> type in <strong>cognito-idp.amazonaws.com</strong></li>
+<li>You should see a <span class='amz-link'>Initiate Auth</span> and a <span class='amz-link'>ResponseToAuthChallenge</span> in the list. You can click on the response to see if a login was successful or not.</li>
+</ul>
+<div class="results">
+"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
+"errorCode": "NotAuthorizedException",
+"errorMessage": "Incorrect username or password.",
+</div>
+
+<div class="results">
+"responseElements": {
+    "challengeParameters": "HIDDEN_DUE_TO_SECURITY_REASONS",
+    "authenticationResult": {
+        "accessToken": "HIDDEN_DUE_TO_SECURITY_REASONS",
+        "expiresIn": 3600,
+        "tokenType": "Bearer",
+        "refreshToken": "HIDDEN_DUE_TO_SECURITY_REASONS",
+        "idToken": "HIDDEN_DUE_TO_SECURITY_REASONS"
+    }
+},
+</div>
+
+<p>When you are completed, submit a screenshot of you logged in to your app.</p>
 <h2 id="lab-summary">Lab Summary:</h2>
 <p>In this lab, the objective was to integrate with AWS Cognito to handle user authentication and authorization. The lab covered the creation of a Cognito user pool, manual user creation, exploration of the Cognito hosted UI, updating user passwords, and integrating the website with Cognito for user authentication using JWT tokens.</p>
 <h3 id="key-concepts-explained">Key Concepts Explained:</h3>

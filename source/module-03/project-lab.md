@@ -104,7 +104,9 @@ chmod +x ./rebuildapp.sh
 Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.
 
 User pool ID is found in your cognito user pool overview.
+
 Client ID is found in cognito under <span class="amz-tab">App integration</span> and then at the bottom of that screen under App clients and analytics.
+
 Cognito domain is found in cognito under <span class="amz-tab">App integration</span> in the Domain section. 
 
 
@@ -165,7 +167,44 @@ Once you've connected everything, you can log in.
 
 If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.
 
-The error console should also give you further ideas if something isn't working correctly.
+The [website error console](https://documentation.concretecms.org/tutorials/how-open-browser-console-view-errors){:target="_blank"} should also give you further ideas if something isn't working correctly.
+
+
+## Cloud Trail
+
+We'll now go activate cloud trail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.
+
+* <span class="material-symbols-outlined">search</span>Search for Cloudtrail
+* <span class='amz-orange-button'>Create a trail</span>
+* Trail name: **VehicleApp-Trail**
+* Create a new S3 bucket
+
+Once you've created your cloud trail, click on <span class='amz-white-button'>Event history</span> on the left hand panel.
+
+* Change Lookup attributes to **Event source**
+* In the *Enter an event source* type in **cognito-idp.amazonaws.com**
+* You should see a <span class='amz-link'>Initiate Auth</span> and a <span class='amz-link'>ResponseToAuthChallenge</span> in the list. You can click on the response to see if a login was successful or not.
+
+<div class="results">
+"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
+"errorCode": "NotAuthorizedException",
+"errorMessage": "Incorrect username or password.",
+</div>
+
+<div class="results">
+"responseElements": {
+    "challengeParameters": "HIDDEN_DUE_TO_SECURITY_REASONS",
+    "authenticationResult": {
+        "accessToken": "HIDDEN_DUE_TO_SECURITY_REASONS",
+        "expiresIn": 3600,
+        "tokenType": "Bearer",
+        "refreshToken": "HIDDEN_DUE_TO_SECURITY_REASONS",
+        "idToken": "HIDDEN_DUE_TO_SECURITY_REASONS"
+    }
+},
+</div>
+
+When you are completed, submit a screenshot of you logged in to your app.
 
 
 ## Lab Summary:
