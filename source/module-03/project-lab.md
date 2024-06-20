@@ -170,11 +170,11 @@ If you are successful, it will bring you to the private.html page and say "thank
 The [website error console](https://documentation.concretecms.org/tutorials/how-open-browser-console-view-errors){:target="_blank"} should also give you further ideas if something isn't working correctly.
 
 
-## Cloud Trail
+## CloudTrail
 
-We'll now go activate cloud trail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.
+We'll now go activate CloudTrail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.
 
-!!! def "Cloud Trail and Auditing"
+!!! def "CloudTrail and Auditing"
 
     Using AWS CloudTrail to audit login attempts is essential for maintaining the security and compliance of your cloud environment. By tracking and analyzing both successful and failed login attempts through Amazon Cognito, organizations can detect unauthorized access, identify potential security threats, and ensure that only authorized users are accessing sensitive resources. This continuous monitoring helps in complying with regulatory requirements, enables forensic investigations in case of security incidents, and provides valuable insights into user behavior, thereby enhancing the overall security posture and operational integrity of the cloud infrastructure.
 
@@ -183,7 +183,7 @@ We'll now go activate cloud trail that will keep track of all API calls that hap
 * Trail name: **VehicleApp-Trail**
 * Create a new S3 bucket
 
-Once you've created your cloud trail, click on <span class='amz-white-button'>Event history</span> on the left hand panel.
+Once you've created your CloudTrail, click on <span class='amz-white-button'>Event history</span> on the left hand panel.
 
 * Change Lookup attributes to **Event source**
 * In the *Enter an event source* type in **cognito-idp.amazonaws.com**
@@ -225,6 +225,7 @@ In this lab, the objective was to integrate with AWS Cognito to handle user auth
 1. **Cognito User Pool:** A Cognito user pool is a user directory used to manage user identities and authentication workflows for applications. In this lab, the user pool was configured to allow user registration and sign-in using usernames and passwords. Additional security features like MFA (Multi-Factor Authentication) and self-registration were disabled for simplicity.
 1. **Hosted UI:** The Cognito hosted UI provides a customizable authentication interface for user login and registration. Users can interact with the hosted UI to sign in and perform password-related actions, such as changing passwords. In this lab, the hosted UI was used to update a user's password interactively.
 1. **JWT Token Authentication:** After successful authentication with Cognito, users receive a JWT (JSON Web Token) that can be used to authenticate subsequent API requests to protected resources. This token-based authentication mechanism ensures secure access control to application features based on user identity.
+1. **AWS CloudTrail** is a service that enables governance, compliance, and operational and risk auditing of your AWS account. It records AWS API calls and related events made by or on behalf of your AWS account and delivers the log files to an Amazon S3 bucket. These logs provide a detailed history of AWS API calls, including the identity of the caller, the time of the call, the source IP address, the request parameters, and the response elements. This detailed event history is crucial for tracking changes, conducting security analysis, troubleshooting operational issues, and ensuring regulatory compliance.
 
 ### Reflection Questions:
 

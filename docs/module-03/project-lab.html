@@ -38,7 +38,7 @@
 <li><a href="#update-password-for-user">Update Password for User</a></li>
 <li><a href="#update-the-app-logic">Update the App logic</a></li>
 <li><a href="#log-in">Log in</a></li>
-<li><a href="#cloud-trail">Cloud Trail</a></li>
+<li><a href="#cloudtrail">CloudTrail</a></li>
 <li><a href="#lab-summary">Lab Summary:</a><ul>
 <li><a href="#key-concepts-explained">Key Concepts Explained:</a></li>
 <li><a href="#reflection-questions">Reflection Questions:</a></li>
@@ -218,10 +218,10 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 </ul>
 <p>If you are successful, it will bring you to the private.html page and say "thank you for Logging in". If you have a username or password error, it will take you back to the login page and ask you to login. If you haven't updated your password, it will give you a message that says you need to go to the hosted ui and update your password.</p>
 <p>The <a href="https://documentation.concretecms.org/tutorials/how-open-browser-console-view-errors" target="_blank">website error console</a> should also give you further ideas if something isn't working correctly.</p>
-<h2 id="cloud-trail">Cloud Trail</h2>
-<p>We'll now go activate cloud trail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.</p>
+<h2 id="cloudtrail">CloudTrail</h2>
+<p>We'll now go activate CloudTrail that will keep track of all API calls that happen on our account. We can use this to see successful and failed login attempts.</p>
 <div class="admonition def">
-<p class="admonition-title">Cloud Trail and Auditing</p>
+<p class="admonition-title">CloudTrail and Auditing</p>
 <p>Using AWS CloudTrail to audit login attempts is essential for maintaining the security and compliance of your cloud environment. By tracking and analyzing both successful and failed login attempts through Amazon Cognito, organizations can detect unauthorized access, identify potential security threats, and ensure that only authorized users are accessing sensitive resources. This continuous monitoring helps in complying with regulatory requirements, enables forensic investigations in case of security incidents, and provides valuable insights into user behavior, thereby enhancing the overall security posture and operational integrity of the cloud infrastructure.</p>
 </div>
 <ul>
@@ -230,7 +230,7 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 <li>Trail name: <strong>VehicleApp-Trail</strong></li>
 <li>Create a new S3 bucket</li>
 </ul>
-<p>Once you've created your cloud trail, click on <span class='amz-white-button'>Event history</span> on the left hand panel.</p>
+<p>Once you've created your CloudTrail, click on <span class='amz-white-button'>Event history</span> on the left hand panel.</p>
 <ul>
 <li>Change Lookup attributes to <strong>Event source</strong></li>
 <li>In the <em>Enter an event source</em> type in <strong>cognito-idp.amazonaws.com</strong></li>
@@ -266,6 +266,7 @@ https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_
 <li><strong>Cognito User Pool:</strong> A Cognito user pool is a user directory used to manage user identities and authentication workflows for applications. In this lab, the user pool was configured to allow user registration and sign-in using usernames and passwords. Additional security features like MFA (Multi-Factor Authentication) and self-registration were disabled for simplicity.</li>
 <li><strong>Hosted UI:</strong> The Cognito hosted UI provides a customizable authentication interface for user login and registration. Users can interact with the hosted UI to sign in and perform password-related actions, such as changing passwords. In this lab, the hosted UI was used to update a user's password interactively.</li>
 <li><strong>JWT Token Authentication:</strong> After successful authentication with Cognito, users receive a JWT (JSON Web Token) that can be used to authenticate subsequent API requests to protected resources. This token-based authentication mechanism ensures secure access control to application features based on user identity.</li>
+<li><strong>AWS CloudTrail</strong> is a service that enables governance, compliance, and operational and risk auditing of your AWS account. It records AWS API calls and related events made by or on behalf of your AWS account and delivers the log files to an Amazon S3 bucket. These logs provide a detailed history of AWS API calls, including the identity of the caller, the time of the call, the source IP address, the request parameters, and the response elements. This detailed event history is crucial for tracking changes, conducting security analysis, troubleshooting operational issues, and ensuring regulatory compliance.</li>
 </ol>
 <h3 id="reflection-questions">Reflection Questions:</h3>
 <ul>
