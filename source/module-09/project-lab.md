@@ -14,7 +14,7 @@ Technicians have quested to be able to see past repair history for the vehicles.
 Create a new lambda function
 
 * **Function Name:** adminVehicleHistory
-* Runtime: Node.js
+* Runtime: Node.js (latest version)
 * Open <span class='amz-white-button'><span class="material-symbols-outlined">arrow_right</span> Change default execution role</span>
 * Use an existing role
 * **Existing Role:** LabRole
@@ -169,6 +169,16 @@ Next run the script which will download the newest files.
 ```
 sudo bash ./rebuildapp.sh
 ```
+
+!!! note "Password"
+
+    You can use the credentials you created earlier for janedoe
+
+    Username: **janedoe**
+    
+    Password: **Ilove2SeeTheTemple!!**
+
+    If you changed your username or password then use those instead.
 
 Now when you log in to your app you should have an area that will allow you to search for vehicle histories based on license plate number. Also, the license plate numbers in the current service requests will also be linked to quickly go to the vehicle histories.
 

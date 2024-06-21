@@ -66,7 +66,7 @@
 <p>Create a new lambda function</p>
 <ul>
 <li><strong>Function Name:</strong> adminVehicleHistory</li>
-<li>Runtime: Node.js</li>
+<li>Runtime: Node.js (latest version)</li>
 <li>Open <span class='amz-white-button'><span class="material-symbols-outlined">arrow_right</span> Change default execution role</span></li>
 <li>Use an existing role</li>
 <li><strong>Existing Role:</strong> LabRole</li>
@@ -207,6 +207,13 @@
 <div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
 </code></pre></div>
 
+<div class="admonition note">
+<p class="admonition-title">Password</p>
+<p>You can use the credentials you created earlier for janedoe</p>
+<p>Username: <strong>janedoe</strong></p>
+<p>Password: <strong>Ilove2SeeTheTemple!!</strong></p>
+<p>If you changed your username or password then use those instead.</p>
+</div>
 <p>Now when you log in to your app you should have an area that will allow you to search for vehicle histories based on license plate number. Also, the license plate numbers in the current service requests will also be linked to quickly go to the vehicle histories.</p>
 <h2 id="summary">Summary</h2>
 <p>In this lab, students added a new feature to an existing AWS-based application, enabling technicians to view the repair history of vehicles. This involved creating a new AWS Lambda function, setting up appropriate resources in the API Gateway, and updating the application code. The lab walked through creating and configuring the Lambda function, updating the API Gateway to handle new endpoints, and deploying the changes to the application.</p>
