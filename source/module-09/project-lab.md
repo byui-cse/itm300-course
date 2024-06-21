@@ -1,5 +1,5 @@
 ---
-title: Module 09: Project 9 Lab - Vehicle History Update
+title: Module 09: Product 9 Lab - Vehicle History Update
 body-class: index-page
 ---
 

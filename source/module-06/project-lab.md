@@ -1,5 +1,5 @@
 ---
-title: Module 06: Project 6 Lab - Writing to DynamoDB
+title: Module 06: Product 6 Lab - Writing to DynamoDB
 body-class: index-page
 ---
 

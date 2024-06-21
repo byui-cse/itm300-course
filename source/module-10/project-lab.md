@@ -1,5 +1,5 @@
 ---
-title: Module 10: Project 10 Lab - Containers
+title: Module 10: Product 10 Lab - Containers
 body-class: index-page
 ---
 

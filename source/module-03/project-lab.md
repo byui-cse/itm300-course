@@ -1,5 +1,5 @@
 ---
-title: Module 03: Project 3 Lab - Connect with Cognito
+title: Module 03: Product 3 Lab - Connect with Cognito
 body-class: index-page
 ---
 

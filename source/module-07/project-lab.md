@@ -1,5 +1,5 @@
 ---
-title: Module 07: Project 7 Lab - Admin Secure Pages
+title: Module 07: Product 7 Lab - Admin Secure Pages
 body-class: index-page
 ---
 

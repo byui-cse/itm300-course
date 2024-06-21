@@ -1,5 +1,5 @@
 ---
-title: Module 08: Project 8 Lab - SNS & SQS Workflow
+title: Module 08: Product 8 Lab - SNS & SQS Workflow
 body-class: index-page
 ---
 

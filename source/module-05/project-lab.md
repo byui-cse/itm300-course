@@ -1,5 +1,5 @@
 ---
-title: Module 05: Project 5 Lab - DynamoDB
+title: Module 05: Product 5 Lab - DynamoDB
 body-class: index-page
 ---
 

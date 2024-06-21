@@ -1,5 +1,5 @@
 ---
-title: Module 01: Project 1 Lab - Static Site on S3
+title: Module 01: Product 1 Lab - Static Site on S3
 body-class: index-page
 ---
 

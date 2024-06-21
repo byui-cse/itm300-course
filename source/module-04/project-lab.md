@@ -1,5 +1,5 @@
 ---
-title: Module 04: Project 4 Lab - REST API Gateway
+title: Module 04: Product 4 Lab - REST API Gateway
 body-class: index-page
 ---
 
