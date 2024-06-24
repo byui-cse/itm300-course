@@ -3,7 +3,7 @@ title: Module 10: Product 10 Lab - Containers
 body-class: index-page
 ---
 
-![Quick Oil Change and Repair]({{URLROOT}}/shared/img/quick-logo-vehicle-history.jpg)
+![Quick Oil Change and Repair]({{URLROOT}}/shared/img/docker-logo.png)
 
 ## Product Objective
 
