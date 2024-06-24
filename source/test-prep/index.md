@@ -74,11 +74,11 @@ Take the [Digital Cloud Free Practice Test](https://digitalcloud.training/free-a
 
 ## Module 13
 
-Review the [AWS Certified Cloud Practitioner Exam Guide]({{URLROOT}}/test-prep/aws-exam-guide.pdf)
+Review the [AWS Certified Cloud Practitioner Exam Guide]({{URLROOT}}/test-prep/aws-exam-guide.pdf){:target="_blank"}
 
-Review the [GPT Generated Study Guide]({{URLROOT}}/test-prep/cloud-foundations-study-guide-gpt-generated.pdf)
+Review the [GPT Generated Study Guide]({{URLROOT}}/test-prep/cloud-foundations-study-guide-gpt-generated.pdf){:target="_blank"}
 
-
+Review the [Additional Services Study Guide]({{URLROOT}}/test-prep/new-services.pdf){:target="_blank"}
 
 ## Certification
 
