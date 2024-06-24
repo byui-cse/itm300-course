@@ -36,63 +36,55 @@ Complete the [AWS Certification Official Practice Exam](https://explore.skillbui
 
 Step 1: Login to AWS Skill Buiilder
 
-    * Go to https://explore.skillbuilder.aws/ 
-    * Choose "Sign in" at the upper right 
-    * Select "SIGN IN TO AWS SKILL BUILDER"
-    * Choose "AWS Builder ID" option.  
-    * Complete the Create AWS Builder ID setup
-    * <span class='amz-orange-button'>Accept terms</span>
+* Go to https://explore.skillbuilder.aws/ 
+* Choose "Sign in" at the upper right 
+* Select "SIGN IN TO AWS SKILL BUILDER"
+* Choose "AWS Builder ID" option.  
+* Complete the Create AWS Builder ID setup
+* <span class='amz-orange-button'>Accept terms</span>
 
 Step 2: Enroll in the AWS Certification Official Practice Question Set course (Practice Exam)
 
-    * Click on Learner dashboard and scroll down to the search bar
-    * Filter by language (English)
-    * Search for **aws certified cloud** select Exam Prep Official Question Set: AWS Certified Cloud Practitioner (CLF-C02 - English)
-    ID: E-19W3MD
-    * ![Official Practice Question Set]({{URLROOT}}/shared/img/exam-prep-offiical-question-set.jpg)
-    * Choose "Enroll"
-    * Choose "Start Learning Now"
+* Click on Learner dashboard and scroll down to the search bar
+* Filter by language (English)
+* Search for **aws certified cloud** select Exam Prep Official Question Set: AWS Certified Cloud Practitioner (CLF-C02 - English)
+ID: E-19W3MD
+* ![Official Practice Question Set]({{URLROOT}}/shared/img/exam-prep-offiical-question-set.jpg)
+* Choose "Enroll"
+* Choose "Start Learning Now"
 
 Step 3: Take the exam
 
-    * Click Next
-    * Click <span class='amz-orange-button'>Start Here</span>
-    * See more
-    * Click Start
+* Click Next
+* Click <span class='amz-orange-button'>Start Here</span>
+* See more
+* Click Start
 
 Step 4: Submit the screen capture of your score
 
-    * Submit the screen capture of your score to Canvas.
+* Submit the screen capture of your score to Canvas.
 
 
 ## Module 12
 
+Review the 19 [Digital Cloud AWS Cloud Practitioner Cheat Sheets](https://digitalcloud.training/category/aws-cheat-sheets/aws-cloud-practitioner/){:target="_blank"}
+
+Take the [Digital Cloud Free Practice Test](https://digitalcloud.training/free-aws-practice-questions-cloud-practitioner/){:target="_blank"} (Click on "Click here to access your FREE AWS Sample Example" to get started)
+
+
+## Module 13
+
+Review the [AWS Certified Cloud Practitioner Exam Guide]({{URLROOT}}/test-prep/aws-exam-guide.pdf)
+
+Review the [GPT Generated Study Guide]({{URLROOT}}/test-prep/cloud-foundations-study-guide-gpt-generated.pdf)
 
 
 
+## Certification
 
+Schedule your exam. 
 
+[AWS Cloud Practitioner Official Exam](https://aws.amazon.com/certification/certified-cloud-practitioner/){:target="_blank"}
 
+If you take the Certification Exam, enter your score when you receive it.  You should get your score within 24 hours. Please also upload a  link to your official badge or certification document in Canvas.
 
-
-
-
-#### AWS Lab
-
-* [AWS Academy Link](https://awsacademy.instructure.com){:target="_blank"} The AWS Lab for this module is **AWS Lab :: Lab - 5 Build a Database Server (Module 8)**
-
-<!-- !!! note "Lab Updates"
-
-    IPv4 subnet CIDR block looks like it has a number already typed in, but you need to type into this box. The instructions mislabel it as IPv4 VPC CIDR block. -->
-
-#### Product Lab
-
-![Product Logo]({{URLROOT}}/shared/img/quick-logo-mini.png){.mini-product} [Vehicle History Update](./project-lab.html)
-
-<!-- #### Additional Materials -->
-
-<!-- * [Individual Reflection Template]({{URLROOT}}/course/reflection.docx) -->
-
-<!-- #### Hints and Helps
-
-* [Hints](./hints.html) -->
