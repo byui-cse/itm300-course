@@ -10,6 +10,14 @@ body-class: index-page
 
 Below are the recommended study items. They are broken into three modules.
 
+## Certification
+
+Schedule your exam. 
+
+[AWS Cloud Practitioner Official Exam](https://aws.amazon.com/certification/certified-cloud-practitioner/){:target="_blank"}
+
+If you take the Certification Exam, enter your score when you receive it.  You should get your score within 24 hours. Please also upload a  link to your official badge or certification document in Canvas.
+
 ## Module 11
 
 Watch the following videos:
@@ -28,7 +36,7 @@ Take the AWS Course Assessment in [AWS Academy](https://awsacademy.instructure.c
 
 Complete the [AWS Certification Official Practice Exam](https://explore.skillbuilder.aws/){:target="_blank"} (Instructions below)
 
-!!! info "Final Exam"
+!!! note "Final Exam"
 
     If you do not not take the AWS certification, you will receive the grade from the AWS Certification Official Practice Exam.
 
@@ -80,11 +88,4 @@ Review the [GPT Generated Study Guide]({{URLROOT}}/test-prep/cloud-foundations-s
 
 Review the [Additional Services Study Guide]({{URLROOT}}/test-prep/new-services.pdf){:target="_blank"}
 
-## Certification
-
-Schedule your exam. 
-
-[AWS Cloud Practitioner Official Exam](https://aws.amazon.com/certification/certified-cloud-practitioner/){:target="_blank"}
-
-If you take the Certification Exam, enter your score when you receive it.  You should get your score within 24 hours. Please also upload a  link to your official badge or certification document in Canvas.
 
