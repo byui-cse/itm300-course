@@ -7,8 +7,9 @@ unzip quick-oil-part4.zip -d /tmp/lab-app
 # Remove so that we don't overwrite variables they have stored
 rm /tmp/lab-app/quick-oil-part4/scripts/settings.js
 
-mv /tmp/lab-app/quick-oil-part4/* /var/www/html
-mv /tmp/lab-app/quick-oil-part4/scripts/* /var/www/html/scripts
+cp -ru /tmp/lab-app/quick-oil-part4/* /var/www/html/
+cp -ru /tmp/lab-app/quick-oil-part4/scripts/* /var/www/html/scripts/
+
 rm -rf /tmp/lab-app/
 rm quick-oil-part4.zip
 
