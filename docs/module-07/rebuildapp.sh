@@ -6,9 +6,9 @@ mkdir /tmp/lab-app
 unzip quick-oil-part6.zip -d /tmp/lab-app
 # Remove so that we don't overwrite variables they have stored
 mkdir -p /var/www/html
-cp -ru /tmp/lab-app/quick-oil-part6/* /var/www/html/
-cp -ru /tmp/lab-app/quick-oil-part6/scripts/* /var/www/html/scripts/
-cp -ru /tmp/lab-app/quick-oil-part6/images/* /var/www/html/images/
+cp -rf /tmp/lab-app/quick-oil-part6/* /var/www/html/
+cp -rf /tmp/lab-app/quick-oil-part6/scripts/* /var/www/html/scripts/
+cp -rf /tmp/lab-app/quick-oil-part6/images/* /var/www/html/images/
 rm -rf /tmp/lab-app/
 rm quick-oil-part6.zip
 
