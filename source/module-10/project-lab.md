@@ -261,6 +261,8 @@ Take a screenshot of your app running on the container with the load balancer an
 
 ## (OPTIONAL) Add SSL to your load balancer
 
+From the Load Balancer page:
+
 * Click <span class="amz-tab">Listeners and rules</span>
 * Click <span class="amz-white-button">Add listener</span>
 * Choose HTTPS for protocol
