@@ -64,7 +64,7 @@ touch credentials
 aws configure
 ```
 
-When you run this command it should read from the credentials file you just created. You can accept the access key id and the secret access key by clicking enter twice. You'll need to enter **us-east-1** for the default region name and **json** for the Default output format.
+When you run this command it should read from the credentials file you just created. If the access key shows [None], you'll need to paste in the correct information from the ASW Details, otherwise you can accept the access key id and the secret access key by clicking enter twice. You'll need to enter **us-east-1** for the default region name and **json** for the Default output format.
 
 
 ```
@@ -97,11 +97,14 @@ Add your user to the docker group
 sudo usermod -aG docker $USER
 ```
 
-Apply the group membership
+Log out
 
 ```
-newgrp docker
+exit
 ```
+
+Log back in by refreshing the page.
+
 
 Make sure docker is listed in the groups the user is assigned
 
@@ -168,6 +171,10 @@ You should see 1 image with a tag of latest in the list.
 * <span class="amz-orange-button">Create</span>
 * Use fargate
 * Wait for the cluster to create
+
+!!! warning "Cluster"
+
+    Occassionally the learner lab will fail to build the cluster. You may need to create a second cluster and call it VehicleCluster2 if the first one fails.
 
 ### Create a task definition
 
