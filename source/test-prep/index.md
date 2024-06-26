@@ -1,5 +1,5 @@
 ---
-title: Module 11: TEST PREP
+title: Module TEST PREP
 body-class: index-page
 ---
 
@@ -16,7 +16,7 @@ Schedule your exam.
 
 [AWS Cloud Practitioner Official Exam](https://aws.amazon.com/certification/certified-cloud-practitioner/){:target="_blank"}
 
-If you take the Certification Exam, enter your score when you receive it.  You should get your score within 24 hours. Please also upload a  link to your official badge or certification document in Canvas.
+If you take the Certification Exam, enter your score when you receive it.  You should get your score within 24 hours. Please also upload a link to your official badge or certification document in Canvas in "Final Exam".
 
 ## Module 11
 
@@ -44,7 +44,7 @@ Complete the [AWS Certification Official Practice Exam](https://explore.skillbui
 
 Step 1: Login to AWS Skill Buiilder
 
-* Go to https://explore.skillbuilder.aws/ 
+* Go to [https://explore.skillbuilder.aws/](https://explore.skillbuilder.aws/){:target="_blank"}
 * Choose "Sign in" at the upper right 
 * Select "SIGN IN TO AWS SKILL BUILDER"
 * Choose "AWS Builder ID" option.  
