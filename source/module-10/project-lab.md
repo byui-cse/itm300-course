@@ -77,7 +77,7 @@ We've created a basic Dockerfile for you. This file is called Dockerfile with no
 cat Dockerfile
 ```
 
-This will show you that we are using the latest version of nginx and that we'll copy all of the files from this folder into the /usr/shar/nginx/html folder in the container. This will all happen when we create the container.
+This will show you that we are using the latest version of nginx and that we'll copy all of the files from this folder into the /usr/share/nginx/html folder in the container. This will all happen when we create the container.
 
 Start up docker:
 
