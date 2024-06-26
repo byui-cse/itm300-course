@@ -257,7 +257,9 @@ Copy the DNS name for the load balancer and paste it into a new tab.
 
 You will see your app running in a container on your load balancer. If we received enough traffic, the app would auto scale up to 3 containers for us.
 
-Take a screenshot of your app running on the container with the load balancer and submit your screenshot.
+Test the web app to make sure you can log in and see service requests.
+
+Take a screenshot of your app running on the container with the load balancer address in the URL and submit your screenshot. 
 
 ## (OPTIONAL) Add SSL to your load balancer
 
