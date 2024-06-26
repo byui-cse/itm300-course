@@ -49,7 +49,7 @@ touch credentials
 * Click on the tab where you opened the AWS Lab
 * Click on **i** AWS Details
 * Click on Show next to **AWS CLI:**
-* Copy the contents of that box. It should have the access key id, the secret access key and the token
+* Copy the contents of that box starting at the beginning of [default]. It should have the access key id, the secret access key and the token
 
 ![Example of AWS Token Box]({{URLROOT}}/shared/img/aws-cli-example.jpg)
 
@@ -185,13 +185,17 @@ You should see 1 image with a tag of latest in the list.
 
 * <span class="amz-orange-button">Create cluster</span>
 * Cluster name: **VehicleCluster**
-* <span class="amz-orange-button">Create</span>
 * Use fargate
+* <span class="amz-orange-button">Create</span>
 * Wait for the cluster to create
 
 !!! warning "Cluster"
 
-    Occassionally the learner lab will fail to build the cluster. You may need to create a second cluster and call it VehicleCluster2 if the first one fails.
+    Occassionally the learner lab will fail to build the cluster. 
+    
+    You can go to cloudformation and rerun the build.
+    
+    If that fails, create a second cluster and call it VehicleCluster2 and use it instead.
 
 ### Create a task definition
 

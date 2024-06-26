@@ -106,7 +106,7 @@ arrow_right
 <li>Click on the tab where you opened the AWS Lab</li>
 <li>Click on <strong>i</strong> AWS Details</li>
 <li>Click on Show next to <strong>AWS CLI:</strong></li>
-<li>Copy the contents of that box. It should have the access key id, the secret access key and the token</li>
+<li>Copy the contents of that box starting at the beginning of [default]. It should have the access key id, the secret access key and the token</li>
 </ul>
 <p><img alt="Example of AWS Token Box" src="https://byui-cse.github.io/itm300-course/shared/img/aws-cli-example.jpg" /></p>
 <ul>
@@ -208,13 +208,15 @@ refresh
 <ul>
 <li><span class="amz-orange-button">Create cluster</span></li>
 <li>Cluster name: <strong>VehicleCluster</strong></li>
-<li><span class="amz-orange-button">Create</span></li>
 <li>Use fargate</li>
+<li><span class="amz-orange-button">Create</span></li>
 <li>Wait for the cluster to create</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Cluster</p>
-<p>Occassionally the learner lab will fail to build the cluster. You may need to create a second cluster and call it VehicleCluster2 if the first one fails.</p>
+<p>Occassionally the learner lab will fail to build the cluster. </p>
+<p>You can go to cloudformation and rerun the build.</p>
+<p>If that fails, create a second cluster and call it VehicleCluster2 and use it instead.</p>
 </div>
 <h3 id="create-a-task-definition">Create a task definition</h3>
 <ul>
