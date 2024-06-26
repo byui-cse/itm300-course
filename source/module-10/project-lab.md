@@ -128,6 +128,18 @@ You should get something like this in return:
 }
 </div>
 
+We are going to switch to the root user to run the following commands
+
+```
+sudo su
+```
+
+Make sure we are in the correct folder
+
+```
+cd /var/www/html
+```
+
 ## Create the container registry
 
 <span class="material-symbols-outlined">search</span> Search for ECR which will bring up Elastic Container Registry. Open this in a new tab.
@@ -137,14 +149,19 @@ You should get something like this in return:
 * <span class="amz-orange-button">Create repository</span>
 * Click on <span class="amz-link">vehicle-app</span>
 * <span class="amz-white-button">View push commands</span>
-* Copy the 4 commands and run them in your EC2 terminal. *You'll need to add **sudo** to the front of each of the commands.*
+* Copy the 4 commands and run them in your EC2 terminal. 
 
 The commands should look something like this (don't use the commands below, COPY from the PUSH COMMANDS for your specific repository)
 
 ![Docker Commands]({{URLROOT}}/shared/img/docker-commands.jpg)
 
-
 You should receive a response that shows the docker container was pushed to the ECR.
+
+Exit out of the root user
+
+```
+exit
+```
 
 Go back to the ECR tab and click <span class="amz-white-button">Close</span>
 

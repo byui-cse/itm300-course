@@ -163,6 +163,14 @@ arrow_right
 }
 </div>
 
+<p>We are going to switch to the root user to run the following commands</p>
+<div class="codehilite"><pre><span></span><code>sudo su
+</code></pre></div>
+
+<p>Make sure we are in the correct folder</p>
+<div class="codehilite"><pre><span></span><code><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
+</code></pre></div>
+
 <h2 id="create-the-container-registry">Create the container registry</h2>
 <p><span class="material-symbols-outlined">search</span> Search for ECR which will bring up Elastic Container Registry. Open this in a new tab.</p>
 <ul>
@@ -171,11 +179,15 @@ arrow_right
 <li><span class="amz-orange-button">Create repository</span></li>
 <li>Click on <span class="amz-link">vehicle-app</span></li>
 <li><span class="amz-white-button">View push commands</span></li>
-<li>Copy the 4 commands and run them in your EC2 terminal. <em>You'll need to add </em><em>sudo</em><em> to the front of each of the commands.</em></li>
+<li>Copy the 4 commands and run them in your EC2 terminal. </li>
 </ul>
 <p>The commands should look something like this (don't use the commands below, COPY from the PUSH COMMANDS for your specific repository)</p>
 <p><img alt="Docker Commands" src="https://byui-cse.github.io/itm300-course/shared/img/docker-commands.jpg" /></p>
 <p>You should receive a response that shows the docker container was pushed to the ECR.</p>
+<p>Exit out of the root user</p>
+<div class="codehilite"><pre><span></span><code><span class="k">exit</span>
+</code></pre></div>
+
 <p>Go back to the ECR tab and click <span class="amz-white-button">Close</span></p>
 <ul>
 <li>Click the <span class="amz-white-button"><span class="material-symbols-outlined">
