@@ -88,4 +88,6 @@ Review the [GPT Generated Study Guide]({{URLROOT}}/test-prep/cloud-foundations-s
 
 Review the [Additional Services Study Guide]({{URLROOT}}/test-prep/new-services.pdf){:target="_blank"}
 
+Review the [AWS Complete Review]({{URLROOT}}/test-prep/aws-guide.pdf){:target="_blank"}
+
 
