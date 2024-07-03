@@ -55,7 +55,7 @@ Step 2: Enroll in the AWS Certification Official Practice Question Set course (P
 
 * Click on Learner dashboard and scroll down to the search bar
 * Filter by language (English)
-* Search for **aws certified cloud** select Exam Prep Official Question Set: AWS Certified Cloud Practitioner (CLF-C02 - English)
+* Search for **Exam Prep Official Question Set** select Exam Prep Official Question Set: AWS Certified Cloud Practitioner (CLF-C02 - English)
 ID: E-19W3MD
 * ![Official Practice Question Set]({{URLROOT}}/shared/img/exam-prep-offiical-question-set.jpg)
 * Choose "Enroll"
