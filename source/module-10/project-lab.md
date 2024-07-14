@@ -208,7 +208,7 @@ arrow_drop_down
 * CPU: .25 vCPU
 * Memory: 1 GB
 * Task role: LabRole
-* Task execution rold: LabRole
+* Task execution role: LabRole
 
 Under Container-1
 
