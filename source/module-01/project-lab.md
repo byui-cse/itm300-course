@@ -30,6 +30,11 @@ Follow the instructions found on this tutorial:
     When you update the s3 bucket to allow static site hosting you must click the <span class="amz-tab">Properties</span> tab to find <span class="amz-white-button">Edit</span> in the Static website hosting section.
 
 
+!!! note "Deleting Resources"
+
+    For this product lab, you can go ahead and delete the S3 bucket as the instructions recommend. For *future* product labs, you will not be deleting those resources because we'll build on the product week by week.
+
+
 ## Helpful other links:
 
 [Website Hosting on Amazon AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
