@@ -29,6 +29,10 @@ Follow the instructions found on this tutorial:
 
     When you update the s3 bucket to allow static site hosting you must click the <span class="amz-tab">Properties</span> tab to find <span class="amz-white-button">Edit</span> in the Static website hosting section.
 
+!!! warning "404 Page"
+
+    If you get a 404 page error, one common problem is that the folder was uploaded to the S3 bucket instead of the files from the folder. Inside the S3 bucket you should have and index.html file, a css file, and a folder with images in it.
+
 
 !!! note "Deleting Resources"
 
