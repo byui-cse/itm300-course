@@ -33,6 +33,8 @@ Follow the instructions found on this tutorial:
 
     If you get a 404 page error, one common problem is that the folder was uploaded to the S3 bucket instead of the files from the folder. Inside the S3 bucket you should have and index.html file, a css file, and a folder with images in it.
 
+    ![Directory Structure]({{URLROOT}}/shared/img/directory-structure.jpg)
+
 
 !!! note "Deleting Resources"
 
