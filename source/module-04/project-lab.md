@@ -78,11 +78,7 @@ Right click on getServiceRequests and choose New file. Create a file named dataS
 
 ```
 export const getServiceRequests = () => {
-  return [
-    {"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","service_status":"Finishing up","license_plate":"8B1111"},
-    {"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","service_status":"Waiting For Pickup","license_plate":"1J1957"},
-    {"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","service_status":"Parts Ordered","license_place":"1M1337"}
-  ];
+  return [{"service_status":"Waiting for Parts","service_id":"20240627190936516516","phone_number":"2020"},{"service_status":"Complete. Pick up Vehicle","service_id":"20240625211634028028","phone_number":"3839"},{"service_status":"Approved - Bring Vehicle In","service_id":"20240625210133994994","phone_number":"3030"}];
 };
 ```
 
@@ -149,7 +145,7 @@ Click the <span class="amz-tab">Test</span> tab and then click the <span class="
 <div class="results">
 Response body
 
-[{"service_id":1,"phone_number":"208-555-5555","service_description":"Oil Change on a 2007 Saturn Outlook","service_status":"Finishing up","license_plate":"8B1111"},{"service_id":2,"phone_number":"208-555-9999","service_description":"I need the brakes fixed on my 2010 Buick LeSabre","service_status":"Waiting For Pickup","license_plate":"1J1957"},{"service_id":3,"phone_number":"208-555-9111","service_description":"My radiator exploded. Help!","service_status":"Parts Ordered","license_place":"1M1337"}]
+[{"service_status":"Waiting for Parts","service_id":"20240627190936516516","phone_number":"2020"},{"service_status":"Complete. Pick up Vehicle","service_id":"20240625211634028028","phone_number":"3839"},{"service_status":"Approved - Bring Vehicle In","service_id":"20240625210133994994","phone_number":"3030"}]
 
 Response headers
 
@@ -194,7 +190,7 @@ content_copy
 </span> Invoke URL and copy that address
 * Paste that as the Invoke URL when prompted
 
-Once you've updated the files, verify the app is working. Go to the Request Service page. and make sure it displays the three current service requests at the bottom of the request service page.
+Once you've updated the files, verify the app is working. Click the Request Service link at the top of the oil website and make sure it displays the three current service requests at the bottom of the request service page.
 
 ## Lab Summary:
 
