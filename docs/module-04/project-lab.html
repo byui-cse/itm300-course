@@ -138,16 +138,7 @@ arrow_drop_down
 </span>next to the blue Test button and choose Configure test event. </p>
 <p>Give the Test a name and then click <span class="amz-white-button">Invoke</span>. You should receive a response similar to this:</p>
 <div class="results">
-{
-  "statusCode": 200,
-  "body": "[{\"id\":1,\"phone\":\"208-555-5555\",\"service\":\"Oil Change on a 2007 Saturn Outlook\"},{\"id\":2,\"phone\":\"208-555-9999\",\"service_status\":\"I need the brakes fixed on my 2010 Buick LeSabre\"},{\"id\":3,\"phone\":\"208-555-9111\",\"service\":\"My radiator exploded. Help!\"}]",
-  "headers": {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
-  }
-}
+{"statusCode":200,"body":"[{\"service_status\":\"Waiting for Parts\",\"service_id\":\"20240627190936516516\",\"phone_number\":\"2020\"},{\"service_status\":\"Complete. Pick up Vehicle\",\"service_id\":\"20240625211634028028\",\"phone_number\":\"3839\"},{\"service_status\":\"Approved - Bring Vehicle In\",\"service_id\":\"20240625210133994994\",\"phone_number\":\"3030\"}]","headers":{"Content-Type":"application/json","Access-Control-Allow-Headers":"Content-Type","Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"OPTIONS,POST,GET,PUT"}}
 </div>
 
 <h2 id="create-the-api-gateway">Create the API Gateway</h2>
