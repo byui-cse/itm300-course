@@ -23,6 +23,8 @@ Second, we'll update the lambda function to read from the dynamodb table to pull
 
     When you create the table and all of the fields, please be careful to follow the uppercase and lowercase names as provided in the instructions. The app expects specific names of fields and the database to work.
 
+    ALSO, make sure there are no spaces before or after in your field names or values
+
 <span class="material-symbols-outlined">search</span> Search for DynamoDB in AWS
 
 * <span class="amz-orange-button">Create table</span>
