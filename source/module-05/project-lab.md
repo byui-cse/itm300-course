@@ -57,7 +57,7 @@ arrow_drop_down
   * **service_id** 1
   * <span class="amz-white-button">Add new attribute</span> (String): **phone_number** 208-444-5555
   * <span class="amz-white-button">Add new attribute</span> (String): **service_description** Oil Change on a 2007 Saturn Outlook
-  * <span class="amz-white-button">Add new attribute</span> (String): **service_status** Finishing up
+  * <span class="amz-white-button">Add new attribute</span> (String): **service_status** Being Serviced
   * <span class="amz-orange-button">Create item</span>
 
 ## Update Lambda
