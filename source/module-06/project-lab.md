@@ -186,12 +186,9 @@ Next run the script which will download the newest files.
 sudo bash ./rebuildapp.sh
 ```
 
-You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:
+!!! note "Troubleshooting"
 
-* Click Stages on the left bar
-* Make sure you have prod selected and not one of the sub methods
-* Under stage details find Invoke URL. It should end in /prod
-* Paste that as the Invoke URL when prompted
+    **Cloudwatch** can be a great asset when trying to debug your code. If you are getting a 500 error when you try to submit your service request, go to cloudwatch and look at the logs for the lambda function. Search through the logs to see if there are any warnings or errors.
 
 
 Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.

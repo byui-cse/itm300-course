@@ -218,13 +218,10 @@
 <div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
 </code></pre></div>
 
-<p>You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
-<ul>
-<li>Click Stages on the left bar</li>
-<li>Make sure you have prod selected and not one of the sub methods</li>
-<li>Under stage details find Invoke URL. It should end in /prod</li>
-<li>Paste that as the Invoke URL when prompted</li>
-</ul>
+<div class="admonition note">
+<p class="admonition-title">Troubleshooting</p>
+<p><strong>Cloudwatch</strong> can be a great asset when trying to debug your code. If you are getting a 500 error when you try to submit your service request, go to cloudwatch and look at the logs for the lambda function. Search through the logs to see if there are any warnings or errors.</p>
+</div>
 <p>Once you've updated the files, visit your app and use the form to submit a service request. Debug any problems.</p>
 <p>Go to the DynamoDB table in AWS and verify that the service request was added to the table.</p>
 <p>Customers may wonder why their service request didn't show up immediately after they pressed submit. <strong>Go out to the lambda code and update the message to let them know that once their service request is approved, we'll give them a call to get their vehicle in.</strong></p>
