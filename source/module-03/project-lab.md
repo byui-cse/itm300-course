@@ -100,6 +100,7 @@ You'll notice that it will open up your app since this was the first allowed cal
 * <span class='amz-orange-button'>Save changes</span>
 
 Click <span class='amz-tab'>Sign-up</span> on the left hand side
+
 Click <span class='amz-blue-outline-button'>edit</span> under Self-service sign-up
 
 * Disable self-registration
