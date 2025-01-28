@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/fonts/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.css">
     <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/highlight/styles/monokai-sublime.min.css">
-	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/cse450.css?v1.5.10">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/cse450.css?v1.5.11">
     <meta charset="utf-8">
 
 </head>
@@ -80,76 +80,92 @@
 <p>It is recommended that you play around with different options after you get the tutorial completed to expand your knowledge and understanding of the options available.</p>
 </div>
 <ul>
-<li><span class="material-symbols-outlined">search</span> Search for Cognito in AWS.</li>
-<li>Click on <span class="amz-orange-button">Create User Pool</span></li>
-<li>Don't check Federated identity providers</li>
-<li>Choose User Name under Cognito user pool sign-in options<ul>
+<li>
+<p><span class="material-symbols-outlined">search</span> Search for Cognito in AWS.</p>
+</li>
+<li>
+<p><span class='amz-orange-button'>Get started for free in less than five minutes</span></p>
+</li>
+<li>Choose <strong>Single-page application (SPA)</strong></li>
+<li>Name your application: VechicleApp</li>
+<li>Choose Username under Cognito user pool sign-in options<ul>
 <li>You could store more user details, but for our example we'll simply be storing usernames and passwords.</li>
 </ul>
 </li>
-<li>Click <span class='amz-orange-button'>Next</span></li>
-<li>Use the cognito password defaults</li>
-<li>Select No MFA<ul>
-<li>Using Multifactor Authentication is more secure and would normally be enabled in a production environment</li>
+<li>Required attributes for sign-up<ul>
+<li>email</li>
 </ul>
 </li>
-<li>Uncheck Allow User Self-Recovery</li>
-<li>
-<p>Click <span class='amz-orange-button'>Next</span></p>
+<li>Add a return URL: <ul>
+<li>Open a new tab with your EC2 instance. </li>
+<li>Click the checkmark next to your vehicleapp-1 instance</li>
+<li>Copy the Public IPv4 DNS found under Details</li>
+<li>Return back to the URL paste your <strong>Public IPv4 DNS</strong> after the https://</li>
+<li>example: https://ec2-44-195-176-112.compute-1.amazonaws.com</li>
+</ul>
 </li>
 <li>
-<p>Uncheck Enable self-registration</p>
+<p><span class='amz-orange-button'>Create</span></p>
+</li>
+<li>
+<p>Go to overview</p>
+</li>
+<li>
+<p>Click VehicleApp in <strong>Set up your app</strong> : VehicleApp</p>
+</li>
+<li>
+<p>Click edit</p>
+</li>
+<li>Check "Sign in with username and password: ALLOW_USER_PASSWORD_AUTH
+(make sure that ALLOW_USER_AUTH and ALLOW_USER_SRP_AUTH are checked as well)</li>
+<li>
+<p><span class='amz-orange-button'>Save changes</span></p>
+</li>
+<li>
+<p>Click on <span class='amz-tab'>Login pages</span></p>
+</li>
+<li>
+<p><span class='amz-blue-outline-button'>Edit</span></p>
+</li>
+<li>
+<p>OAuth 2.0 grant Types: </p>
 <ul>
-<li>We are going to manually add users, which are just the administrators of the application.</li>
+<li>Remove Authorization Code Grant</li>
+<li>Add Implicit Grant
+<span class='amz-orange-button'>Save Changes</span></li>
 </ul>
 </li>
-<li>Leave all other defaults</li>
-<li>
-<p>Click <span class='amz-orange-button'>Next</span></p>
-</li>
-<li>
-<p>Choose Send email with Cognito</p>
-</li>
-<li>
-<p>Click <span class='amz-orange-button'>Next</span></p>
-</li>
-<li>
-<p>Give the User Pool a name of VehicleAppUserPool</p>
-</li>
-<li>Check Use the Cognito Hosted UI</li>
-<li>Choose a unique hosted URL name under <strong>Cognito domain</strong></li>
-<li>Choose Other for App type</li>
-<li>Choose a unique name for your app (e.g. Vehicle App - Quick)</li>
-<li>Add the following to the allowed callback urls: your website's Public IPv4 DNS address. (Get this from your EC2 instance details page)</li>
-<li><span class='amz-white-button'>Advanced App client Settings<span class="material-symbols-outlined">arrow_drop_down</span></span>: Make sure that Allow_User_SRP_Auth is Checked</li>
-<li>From OAuth 2.0 grant types Remove Authorization Code Grant and add Implicit Grant</li>
-<li>Click <span class='amz-orange-button'>Next</span></li>
-<li>Click <span class='amz-orange-button'>Create user pool</span></li>
 </ul>
 <h2 id="create-a-user">Create a User</h2>
-<p>Once your user pool is created, scroll down to where you see users and click <span class="amz-white-button">Create user</span></p>
+<p><span class='amz-tab'>Users</span> on left hand side</p>
+<p>Once your user pool is created, scroll down to where you see users and click <span class="amz-blue-outline-button">Create user</span></p>
 <ul>
 <li>Don't send an invite</li>
 <li>Create a user named janedoe</li>
 <li>Password: <strong>ILove2SeeTheTemple!</strong></li>
 </ul>
 <p>You'll notice that the user has a confirmation status of Force change password. We will go update their status by logging in to the hosted UI.</p>
+<p>Click on <span class='amz-white-button'>App Clients</span> on the left hand menu</p>
+<p>Click on <span class='amz-link'>VehicleApp</span></p>
+<p><span class='amz-white-button'>View login page</span></p>
 <h2 id="explore-the-hosted-ui">Explore the Hosted UI</h2>
-<ul>
-<li>Click on the tab <span class="amz-tab">App Integration</span></li>
-<li>
-<p>Scroll to the bottom of the screen and click on <span class="amz-link">VehicleApp</span></p>
-</li>
-<li>
-<p>Scroll down until you see <span class="amz-white-button">View Hosted UI</span> and click on it.</p>
-</li>
-</ul>
 <p>The Hosted UI will open in a new tab. We could use this interface for our user login page. However, we will be using an API call to authenticate with Cognito to give the user a more unified experience with the website.</p>
 <h2 id="update-password-for-user">Update Password for User</h2>
 <p>Log in as janedoe.</p>
 <p>You'll see that you are promped with a Change Password prompt.</p>
+<p>youremail@byui.edu</p>
 <p>Update your password to <strong>Ilove2SeeTheTemple!!</strong></p>
 <p>You'll notice that it will open up your app since this was the first allowed callback URL.</p>
+<p><span class='amz-tab'>Sign-in</span> on the left hand side </p>
+<ul>
+<li>Click <span class='amz-blue-outline-button'>edit</span> under User account recovery</li>
+<li>Disable self-service account recovery</li>
+<li><span class='amz-orange-button'>Save changes</span></li>
+</ul>
+<p>Click <span class='amz-tab'>Sign-up</span> on the left hand side
+Click <span class='amz-blue-outline-button'>edit</span> under Self-service sign-up
+* Disable self-registration
+<span class='amz-orange-button'>Save changes</span></p>
 <h2 id="update-the-app-logic">Update the App logic</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
@@ -160,9 +176,9 @@
 </code></pre></div>
 
 <p>Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.</p>
-<p>User pool ID is found in your cognito user pool overview.</p>
-<p>Client ID is found in cognito under <span class="amz-tab">App integration</span> and then at the bottom of that screen under App clients and analytics.</p>
-<p>Cognito domain is found in cognito under <span class="amz-tab">App integration</span> in the Domain section. </p>
+<p>User pool ID is found in your cognito user pool <span class='amz-tab'>overview</span>.</p>
+<p>Client ID is found in cognito under <span class="amz-tab">App clients</span> in the App client information.</p>
+<p>Cognito domain is found in cognito under <span class="amz-tab">Authentication methods</span> in the passkey section in Cognito prefix domain. </p>
 <div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
 </code></pre></div>
 

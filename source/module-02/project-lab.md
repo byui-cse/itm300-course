@@ -22,6 +22,7 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
 
 * <span class="material-symbols-outlined">search</span> Search for VPC
 * Click <span class='amz-orange-button'>Create VPC</span>
+* Use VPC and more
 * Under name tag use: vehicleapp
 * Number of Availability Zones: 2
 * VPC Endpoints: None
@@ -31,6 +32,7 @@ Please create a VPC with 2 public subnets and 2 private subnets. Make sure these
 * <span class="material-symbols-outlined">search</span> Search for EC2
 * Click <span class='amz-orange-button'>Launch Instance</span>
 * Name the server vehicleapp-1
+* Amazon Linux
 * Use the vockey for your keypair
 * Use the vehicleapp-vpc VPC
 * place the EC2 instance in the vehicleapp-subnet-public1 subnet. 
