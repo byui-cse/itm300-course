@@ -171,18 +171,18 @@
 <h2 id="update-the-app-logic">Update the App logic</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
-<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-03/rebuildapp.sh
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>chmod +x ./rebuildapp.sh
+</code></pre>
 
 <p>Next run the script which will download the newest files. It will also ask you to enter the user pool id as well as the client id for the app. You'll need to paste these into the terminal when prompted.</p>
 <p>User pool ID is found in your cognito user pool <span class='amz-tab'>overview</span>.</p>
 <p>Client ID is found in cognito under <span class="amz-tab">App clients</span> in the App client information.</p>
 <p>Cognito domain is found in cognito under <span class="amz-tab">Authentication methods</span> in the passkey section in Cognito prefix domain. </p>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>sudo bash ./rebuildapp.sh
+</code></pre>
 
 <!-- ```
 sudo dnf install -y wget
@@ -208,8 +208,8 @@ In /var/www/html/scripts/getMessage.js update line 10 **hostedUI**. For this val
 Here is an example link: 
 
 
-<div class="codehilite"><pre><span></span><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&amp;response_type=code&amp;scope=email+openid+phone&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
-</code></pre></div>
+<pre class="codehilite"><code>https://vehicleappname.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3dhpqb95cm2nmutoh3vmpbqsva&amp;response_type=code&amp;scope=email+openid+phone&amp;redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F
+</code></pre>
 
 
 

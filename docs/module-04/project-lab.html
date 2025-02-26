@@ -85,35 +85,35 @@ arrow_right
 </li>
 </ul>
 <p>Update index.mjs with:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getServiceRequests</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./dataService.mjs&#39;</span><span class="p">;</span>
+<pre class="codehilite"><code>import { getServiceRequests } from './dataService.mjs';
 
-<span class="n">const</span> <span class="n">commonHeaders</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Headers&#39;</span><span class="p">:</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Methods&#39;</span><span class="p">:</span> <span class="s1">&#39;OPTIONS,POST,GET,PUT&#39;</span>
-<span class="p">};</span>
+const commonHeaders = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT'
+};
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="n">getServiceRequests</span><span class="p">();</span>
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">statusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-      <span class="n">body</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">jsonArray</span><span class="p">),</span>
-      <span class="n">headers</span><span class="p">:</span> <span class="n">commonHeaders</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">statusCode</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
-      <span class="n">body</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">({</span> <span class="n">message</span><span class="p">:</span> <span class="s1">&#39;Internal Server Error&#39;</span> <span class="p">}),</span>
-      <span class="n">headers</span><span class="p">:</span> <span class="n">commonHeaders</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
+export const handler = async (event) =&gt; {
+  try {
+    const jsonArray = getServiceRequests();
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(jsonArray),
+      headers: commonHeaders
+    };
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    const response = {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal Server Error' }),
+      headers: commonHeaders
+    };
+    return response;
+  }
+};
+</code></pre>
 
 <div class="admonition note">
 <p class="admonition-title">HTTP Status Codes</p>
@@ -123,10 +123,10 @@ arrow_right
 <p>The preparation material for this week has videos that go into what each status code is. We'll use more in the future as well as using different HTTP verbs besides GET.</p>
 </div>
 <p>Right click on getServiceRequests and choose New file. Create a file named dataService.mjs</p>
-<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">getServiceRequests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">[{</span><span class="s2">&quot;service_status&quot;</span><span class="p">:</span><span class="s2">&quot;Waiting for Parts&quot;</span><span class="p">,</span><span class="s2">&quot;service_id&quot;</span><span class="p">:</span><span class="s2">&quot;20240627190936516516&quot;</span><span class="p">,</span><span class="s2">&quot;phone_number&quot;</span><span class="p">:</span><span class="s2">&quot;2020&quot;</span><span class="p">},{</span><span class="s2">&quot;service_status&quot;</span><span class="p">:</span><span class="s2">&quot;Complete. Pick up Vehicle&quot;</span><span class="p">,</span><span class="s2">&quot;service_id&quot;</span><span class="p">:</span><span class="s2">&quot;20240625211634028028&quot;</span><span class="p">,</span><span class="s2">&quot;phone_number&quot;</span><span class="p">:</span><span class="s2">&quot;3839&quot;</span><span class="p">},{</span><span class="s2">&quot;service_status&quot;</span><span class="p">:</span><span class="s2">&quot;Approved - Bring Vehicle In&quot;</span><span class="p">,</span><span class="s2">&quot;service_id&quot;</span><span class="p">:</span><span class="s2">&quot;20240625210133994994&quot;</span><span class="p">,</span><span class="s2">&quot;phone_number&quot;</span><span class="p">:</span><span class="s2">&quot;3030&quot;</span><span class="p">}];</span>
-<span class="p">};</span>
-</code></pre></div>
+<pre class="codehilite"><code>export const getServiceRequests = () =&gt; {
+  return [{&quot;service_status&quot;:&quot;Waiting for Parts&quot;,&quot;service_id&quot;:&quot;20240627190936516516&quot;,&quot;phone_number&quot;:&quot;2020&quot;},{&quot;service_status&quot;:&quot;Complete. Pick up Vehicle&quot;,&quot;service_id&quot;:&quot;20240625211634028028&quot;,&quot;phone_number&quot;:&quot;3839&quot;},{&quot;service_status&quot;:&quot;Approved - Bring Vehicle In&quot;,&quot;service_id&quot;:&quot;20240625210133994994&quot;,&quot;phone_number&quot;:&quot;3030&quot;}];
+};
+</code></pre>
 
 <p>Deploy the Lambda function by clicking the <span class="amz-white-button">Deploy</span> button</p>
 <div class="admonition key">
@@ -207,15 +207,15 @@ Response headers
 <h2 id="update-the-app-logic">Update the App logic</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
-<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-04/rebuildapp.sh
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>chmod +x ./rebuildapp.sh
+</code></pre>
 
 <p>Next run the script which will install the newest files.</p>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>sudo bash ./rebuildapp.sh
+</code></pre>
 
 <p>You'll be prompted to enter the invoke URL. Get the invoke URL from your API Gateway:</p>
 <ul>

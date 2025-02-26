@@ -94,296 +94,296 @@
 <li>Existing Role: LabRole</li>
 </ul>
 <p>Create a file named <em>adminDynamoService.mjs</em></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span>
-  <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
-  <span class="n">ScanCommand</span><span class="p">,</span>
-  <span class="n">PutCommand</span><span class="p">,</span>
-  <span class="n">GetCommand</span><span class="p">,</span>
-  <span class="n">DeleteCommand</span><span class="p">,</span>
-  <span class="n">UpdateCommand</span><span class="p">,</span>
-<span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
+<pre class="codehilite"><code>import { DynamoDBClient } from &quot;@aws-sdk/client-dynamodb&quot;;
+import {
+  DynamoDBDocumentClient,
+  ScanCommand,
+  PutCommand,
+  GetCommand,
+  DeleteCommand,
+  UpdateCommand,
+} from &quot;@aws-sdk/lib-dynamodb&quot;;
 
-<span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
+const client = new DynamoDBClient({});
 
-<span class="n">const</span> <span class="n">mydynamodb</span> <span class="o">=</span> <span class="n">DynamoDBDocumentClient</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+const mydynamodb = DynamoDBDocumentClient.from(client);
 
-<span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
+const tableName = &quot;VehicleServices&quot;;    
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">statusToExcludeRejected</span> <span class="o">=</span> <span class="s2">&quot;Service Rejected&quot;</span><span class="p">;</span>
+export const getDynamoServiceRequests = async () =&gt; {
+    const statusToExclude = &quot;Completed&quot;;
+    const statusToExcludeRejected = &quot;Service Rejected&quot;;
 
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusRejected)&quot;</span><span class="p">,</span>
-            <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span>
-            <span class="p">},</span>
-            <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span><span class="p">,</span>
-                <span class="s2">&quot;:statusRejected&quot;</span><span class="p">:</span><span class="n">statusToExcludeRejected</span>
-            <span class="p">}</span>
-        <span class="p">};</span>      
-        <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
-        <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">Items</span><span class="p">;</span> <span class="o">//</span> <span class="n">Return</span> <span class="n">JSON</span> <span class="n">string</span> <span class="n">of</span> <span class="n">items</span>
-    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error fetching DynamoDB service requests:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-        <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    try {
+        const params = {
+            TableName: tableName,
+            FilterExpression: &quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusRejected)&quot;,
+            ExpressionAttributeNames: {
+                &quot;#service_status&quot;: &quot;service_status&quot;
+            },
+            ExpressionAttributeValues: {
+                &quot;:status&quot;: statusToExclude,
+                &quot;:statusRejected&quot;:statusToExcludeRejected
+            }
+        };      
+        const body = await mydynamodb.send(new ScanCommand(params));
+        return body.Items; // Return JSON string of items
+    } catch (error) {
+        console.error(&quot;Error fetching DynamoDB service requests:&quot;, error);
+        throw error; // Re-throw the error to handle it further up the call stack
+    }
+}
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">addDynamoServiceRequest</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">requestBody</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">serviceId</span> <span class="o">=</span> <span class="n">generateServiceId</span><span class="p">();</span> <span class="o">//</span> <span class="n">Generate</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>      
-    <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Item</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span> <span class="o">//</span> <span class="n">Assuming</span> <span class="n">service_id</span> <span class="ow">is</span> <span class="n">provided</span> <span class="ow">in</span> <span class="n">requestBody</span>
-        <span class="n">service_status</span><span class="p">:</span> <span class="s2">&quot;New Request&quot;</span><span class="p">,</span>
-        <span class="n">service_description</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">,</span>
-        <span class="n">phone_number</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">Use</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_number</span> <span class="ow">or</span> <span class="n">default</span> <span class="n">to</span> <span class="s2">&quot;Unknown&quot;</span>
-      <span class="p">},</span>
-    <span class="p">};</span>
+export const addDynamoServiceRequest = async (requestBody) =&gt; {
+  try {
+    const serviceId = generateServiceId(); // Generate unique service_id based on current date and time      
+    const params = {
+      TableName: tableName,
+      Item: {
+        service_id: serviceId, // Assuming service_id is provided in requestBody
+        service_status: &quot;New Request&quot;,
+        service_description: requestBody.service_description,
+        phone_number: requestBody.phone_number,
+        license_plate: requestBody.license_plate ?? &quot;Unknown&quot;, // Use requestBody.license_number or default to &quot;Unknown&quot;
+      },
+    };
 
-    <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">PutCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
+    await mydynamodb.send(new PutCommand(params));
 
-    <span class="k">return</span> <span class="err">`</span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">new</span> <span class="n">service</span> <span class="n">request</span><span class="err">`</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error adding DynamoDB service request:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+    return `Successfully added new service request`;
+  } catch (error) {
+    console.error(&quot;Error adding DynamoDB service request:&quot;, error);
+    throw error; // Re-throw the error to handle it further up the call stack
+  }
+};
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">updateDynamoServiceRequest</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">requestBody</span><span class="p">,</span> <span class="n">serviceId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
+export const updateDynamoServiceRequest = async (requestBody, serviceId) =&gt; {
+  try {
 
-    <span class="n">const</span> <span class="n">licensePlate</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">;</span>
+    const licensePlate = requestBody.license_plate ?? &quot;Unknown&quot;;
 
-    <span class="o">//</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">item</span> <span class="n">exists</span>
-    <span class="n">const</span> <span class="n">getParams</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Key</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">licensePlate</span><span class="p">,</span>
-      <span class="p">},</span>
-    <span class="p">};</span>
+    // Check if the item exists
+    const getParams = {
+      TableName: tableName,
+      Key: {
+        service_id: serviceId,
+        license_plate: licensePlate,
+      },
+    };
 
-    <span class="n">const</span> <span class="p">{</span> <span class="n">Item</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">GetCommand</span><span class="p">(</span><span class="n">getParams</span><span class="p">));</span>
+    const { Item } = await mydynamodb.send(new GetCommand(getParams));
 
-    <span class="k">if</span> <span class="p">(</span><span class="err">!</span><span class="n">Item</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">throw</span> <span class="n">new</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;No record found&quot;</span><span class="p">);</span>
-    <span class="p">}</span>    
+    if (!Item) {
+      throw new Error(&quot;No record found&quot;);
+    }    
 
-    <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">UpdateExpression</span> <span class="n">components</span>
-    <span class="n">let</span> <span class="n">updateExpression</span> <span class="o">=</span> <span class="s2">&quot;set&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">expressionAttributeNames</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="n">const</span> <span class="n">expressionAttributeValues</span> <span class="o">=</span> <span class="p">{};</span>
+    // Initialize the UpdateExpression components
+    let updateExpression = &quot;set&quot;;
+    const expressionAttributeNames = {};
+    const expressionAttributeValues = {};
 
-    <span class="o">//</span> <span class="n">Dynamically</span> <span class="n">build</span> <span class="n">the</span> <span class="n">UpdateExpression</span><span class="p">,</span> <span class="n">ExpressionAttributeNames</span><span class="p">,</span> <span class="ow">and</span> <span class="n">ExpressionAttributeValues</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #sd = :sd,&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#sd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_description&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:sd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #pn = :pn,&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#pn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;phone_number&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:pn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #ss = :ss,&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_status&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">;</span>
-    <span class="p">}</span>
+    // Dynamically build the UpdateExpression, ExpressionAttributeNames, and ExpressionAttributeValues
+    if (requestBody.service_description) {
+      updateExpression += &quot; #sd = :sd,&quot;;
+      expressionAttributeNames[&quot;#sd&quot;] = &quot;service_description&quot;;
+      expressionAttributeValues[&quot;:sd&quot;] = requestBody.service_description;
+    }
+    if (requestBody.phone_number) {
+      updateExpression += &quot; #pn = :pn,&quot;;
+      expressionAttributeNames[&quot;#pn&quot;] = &quot;phone_number&quot;;
+      expressionAttributeValues[&quot;:pn&quot;] = requestBody.phone_number;
+    }
+    if (requestBody.service_status) {
+      updateExpression += &quot; #ss = :ss,&quot;;
+      expressionAttributeNames[&quot;#ss&quot;] = &quot;service_status&quot;;
+      expressionAttributeValues[&quot;:ss&quot;] = requestBody.service_status;
+    }
 
-    <span class="o">//</span> <span class="n">Remove</span> <span class="nb">any</span> <span class="n">trailing</span> <span class="n">comma</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">update</span> <span class="n">expression</span>
-    <span class="n">updateExpression</span> <span class="o">=</span> <span class="n">updateExpression</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">,</span><span class="err">$</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+    // Remove any trailing comma from the update expression
+    updateExpression = updateExpression.replace(/,$/, &quot;&quot;);
 
-    <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Key</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">Assuming</span> <span class="n">license_plate</span> <span class="ow">is</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span>
-      <span class="p">},</span>
-      <span class="n">UpdateExpression</span><span class="p">:</span> <span class="n">updateExpression</span><span class="p">,</span>
-      <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="n">expressionAttributeNames</span><span class="p">,</span>
-      <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="n">expressionAttributeValues</span><span class="p">,</span>
-    <span class="p">};</span>
+    const params = {
+      TableName: tableName,
+      Key: {
+        service_id: serviceId,
+        license_plate: requestBody.license_plate ?? &quot;Unknown&quot;, // Assuming license_plate is part of the key
+      },
+      UpdateExpression: updateExpression,
+      ExpressionAttributeNames: expressionAttributeNames,
+      ExpressionAttributeValues: expressionAttributeValues,
+    };
 
-    <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">UpdateCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
+    await mydynamodb.send(new UpdateCommand(params));
 
-    <span class="k">return</span> <span class="err">`</span><span class="n">Successfully</span> <span class="n">updated</span> <span class="n">service</span> <span class="n">request</span><span class="err">`</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span> <span class="o">===</span> <span class="s2">&quot;No record found&quot;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error updating DynamoDB service request:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-      <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+    return `Successfully updated service request`;
+  } catch (error) {
+    if (error.message === &quot;No record found&quot;) {
+      return error.message;
+    } else {
+      console.error(&quot;Error updating DynamoDB service request:&quot;, error);
+      throw error; // Re-throw the error to handle it further up the call stack
+    }
+  }
+};
 
 
 
-<span class="o">//</span> <span class="n">Helper</span> <span class="n">function</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>
-<span class="n">const</span> <span class="n">generateServiceId</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="n">const</span> <span class="n">now</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">();</span>
-  <span class="n">const</span> <span class="n">formattedDate</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">toISOString</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">[</span><span class="o">-</span><span class="n">T</span><span class="p">:</span><span class="o">.</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span> <span class="o">//</span> <span class="n">Format</span> <span class="n">date</span> <span class="n">string</span>
-  <span class="n">const</span> <span class="n">milliseconds</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">getMilliseconds</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span><span class="o">.</span><span class="n">padStart</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">);</span> <span class="o">//</span> <span class="n">Get</span> <span class="n">milliseconds</span> <span class="ow">and</span> <span class="n">pad</span> <span class="k">with</span> <span class="n">leading</span> <span class="n">zeros</span> <span class="k">if</span> <span class="n">necessary</span>
-  <span class="k">return</span> <span class="err">`$</span><span class="p">{</span><span class="n">formattedDate</span><span class="p">}</span><span class="err">$</span><span class="p">{</span><span class="n">milliseconds</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="o">//</span> <span class="n">Concatenate</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">milliseconds</span>
-<span class="p">};</span>
-</code></pre></div>
+// Helper function to generate a unique service_id based on current date and time
+const generateServiceId = () =&gt; {
+  const now = new Date();
+  const formattedDate = now.toISOString().replace(/[-T:.Z]/g, &quot;&quot;); // Format date string
+  const milliseconds = now.getMilliseconds().toString().padStart(3, &quot;0&quot;); // Get milliseconds and pad with leading zeros if necessary
+  return `${formattedDate}${milliseconds}`; // Concatenate date and milliseconds
+};
+</code></pre>
 
 <p>Update the <em>index.mjs</em> with the following code:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getDynamoServiceRequests</span><span class="p">,</span> <span class="n">addDynamoServiceRequest</span><span class="p">,</span> <span class="n">updateDynamoServiceRequest</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./adminDynamoService.mjs&#39;</span><span class="p">;</span>
+<pre class="codehilite"><code>import { getDynamoServiceRequests, addDynamoServiceRequest, updateDynamoServiceRequest } from './adminDynamoService.mjs';
 
-<span class="n">const</span> <span class="n">commonHeaders</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Headers&#39;</span><span class="p">:</span> <span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
-  <span class="s1">&#39;Access-Control-Allow-Methods&#39;</span><span class="p">:</span> <span class="s1">&#39;OPTIONS,POST,GET,PUT&#39;</span>
-<span class="p">};</span>
+const commonHeaders = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT'
+};
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
+export const handler = async (event) =&gt; {
+  try {
 
-    <span class="n">const</span> <span class="n">httpMethod</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">httpMethod</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">path</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">path</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">resource</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">resource</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">pathParameters</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">pathParameters</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">queryParameters</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">queryStringParameters</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">body</span> <span class="err">?</span> <span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">body</span><span class="p">)</span> <span class="p">:</span> <span class="n">null</span><span class="p">;</span>    
-    <span class="n">let</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="p">[];</span>
+    const httpMethod = event.httpMethod;
+    const path = event.path;
+    const resource = event.resource;
+    const pathParameters = event.pathParameters;
+    const queryParameters = event.queryStringParameters;
+    const requestBody = event.body ? JSON.parse(event.body) : null;    
+    let jsonArray = [];
 
-    <span class="n">switch</span> <span class="p">(</span><span class="n">httpMethod</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">case</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>    
-        <span class="n">jsonArray</span> <span class="o">=</span> <span class="k">await</span> <span class="n">getDynamoServiceRequests</span><span class="p">();</span>
-        <span class="k">break</span><span class="p">;</span>
-      <span class="k">case</span> <span class="s2">&quot;PUT&quot;</span><span class="p">:</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;puting&quot;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">pathParameters</span> <span class="o">&amp;&amp;</span> <span class="n">pathParameters</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="p">{</span>
-          <span class="n">jsonArray</span> <span class="o">=</span> <span class="k">await</span> <span class="n">updateDynamoServiceRequest</span><span class="p">(</span><span class="n">requestBody</span><span class="p">,</span><span class="n">pathParameters</span><span class="o">.</span><span class="n">id</span><span class="p">);</span>
-          <span class="o">//</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="err">`$</span><span class="p">{</span><span class="n">pathParameters</span><span class="o">.</span><span class="n">id</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">requestBody</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="p">{</span>
-          <span class="n">jsonArray</span> <span class="o">=</span> <span class="s2">&quot;Missing ID&quot;</span>
-        <span class="p">}</span>
-        <span class="o">//</span> <span class="n">jsonArray</span> <span class="o">=</span> <span class="s2">&quot;Posted&quot;</span><span class="p">;</span>
-        <span class="k">break</span><span class="p">;</span>
+    switch (httpMethod) {
+      case &quot;GET&quot;:    
+        jsonArray = await getDynamoServiceRequests();
+        break;
+      case &quot;PUT&quot;:
+        console.log(&quot;puting&quot;);
+        if (pathParameters &amp;&amp; pathParameters.id) {
+          jsonArray = await updateDynamoServiceRequest(requestBody,pathParameters.id);
+          // jsonArray = `${pathParameters.id} ${requestBody}`;
+        }
+        else {
+          jsonArray = &quot;Missing ID&quot;
+        }
+        // jsonArray = &quot;Posted&quot;;
+        break;
 
-    <span class="p">}</span>
+    }
 
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">statusCode</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-      <span class="n">body</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">jsonArray</span><span class="p">),</span>
-      <span class="n">headers</span><span class="p">:</span> <span class="n">commonHeaders</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">statusCode</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
-      <span class="n">body</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">({</span> <span class="n">message</span><span class="p">:</span> <span class="s1">&#39;Internal Server Error&#39;</span> <span class="p">}),</span>
-      <span class="n">headers</span><span class="p">:</span> <span class="n">commonHeaders</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="n">response</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(jsonArray),
+      headers: commonHeaders
+    };
+    return response;
+  } catch (error) {
+    console.error('Error:', error);
+    const response = {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal Server Error' }),
+      headers: commonHeaders
+    };
+    return response;
+  }
+};
+</code></pre>
 
 <h2 id="update-getservicerequest-not-admingetservicerequest">Update getServiceRequest (NOT adminGetServiceRequest)</h2>
 <p>We are going to update the original getServiceRequest to only send information that is needed for the regular users. Go to the lambda function you have created and click on <span class="amz-link">getServiceRequest</span></p>
 <p>Update <em>dynamoService.mjs</em> (Make sure you are NOT updating adminDynamoService)</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span>
-  <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
-  <span class="n">ScanCommand</span><span class="p">,</span>
-  <span class="n">PutCommand</span><span class="p">,</span>
-  <span class="n">GetCommand</span><span class="p">,</span>
-  <span class="n">DeleteCommand</span><span class="p">,</span>
-<span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
+<pre class="codehilite"><code>import { DynamoDBClient } from &quot;@aws-sdk/client-dynamodb&quot;;
+import {
+  DynamoDBDocumentClient,
+  ScanCommand,
+  PutCommand,
+  GetCommand,
+  DeleteCommand,
+} from &quot;@aws-sdk/lib-dynamodb&quot;;
 
-<span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
+const client = new DynamoDBClient({});
 
-<span class="n">const</span> <span class="n">mydynamodb</span> <span class="o">=</span> <span class="n">DynamoDBDocumentClient</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+const mydynamodb = DynamoDBDocumentClient.from(client);
 
-<span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
+const tableName = &quot;VehicleServices&quot;;    
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">statusToExcludeNew</span> <span class="o">=</span> <span class="s2">&quot;New Request&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">statusToExcludeRejected</span> <span class="o">=</span> <span class="s2">&quot;Service Rejected&quot;</span><span class="p">;</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusNew AND #service_status &lt;&gt; :statusRejected)&quot;</span><span class="p">,</span>
-            <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;#service_id&quot;</span><span class="p">:</span><span class="s2">&quot;service_id&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;#phone_number&quot;</span><span class="p">:</span> <span class="s2">&quot;phone_number&quot;</span> <span class="o">//</span> <span class="n">Add</span> <span class="n">license_plate</span> <span class="n">to</span> <span class="n">ExpressionAttributeNames0</span>
-            <span class="p">},</span>
-            <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span><span class="p">,</span>
-                <span class="s2">&quot;:statusNew&quot;</span><span class="p">:</span> <span class="n">statusToExcludeNew</span><span class="p">,</span>
-                <span class="s2">&quot;:statusRejected&quot;</span><span class="p">:</span> <span class="n">statusToExcludeRejected</span>
-            <span class="p">},</span>
-            <span class="n">ProjectionExpression</span><span class="p">:</span> <span class="s2">&quot;#service_status, #service_id, #phone_number&quot;</span> <span class="o">//</span> <span class="n">Specify</span> <span class="n">the</span> <span class="n">attributes</span> <span class="n">to</span> <span class="n">retrieve</span>
-        <span class="p">};</span>      
-        <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
-        <span class="o">//</span> <span class="n">Process</span> <span class="n">the</span> <span class="n">items</span> <span class="n">to</span> <span class="n">include</span> <span class="n">only</span> <span class="n">the</span> <span class="n">last</span> <span class="n">four</span> <span class="n">digits</span> <span class="n">of</span> <span class="n">the</span> <span class="n">phone</span> <span class="n">number</span>
-        <span class="n">const</span> <span class="n">processedItems</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="n">Items</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
-            <span class="n">const</span> <span class="n">processedItem</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">service_status</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">service_status</span><span class="p">,</span>
-                <span class="n">service_id</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">service_id</span><span class="p">,</span>
-                <span class="n">phone_number</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">phone_number</span> <span class="err">?</span> <span class="n">item</span><span class="o">.</span><span class="n">phone_number</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span> <span class="p">:</span> <span class="n">null</span> <span class="o">//</span> <span class="n">Extract</span> <span class="n">the</span> <span class="n">last</span> <span class="n">four</span> <span class="n">digits</span>
-            <span class="p">};</span>
-            <span class="k">return</span> <span class="n">processedItem</span><span class="p">;</span>
-        <span class="p">});</span>
+export const getDynamoServiceRequests = async () =&gt; {
+    const statusToExclude = &quot;Completed&quot;;
+    const statusToExcludeNew = &quot;New Request&quot;;
+    const statusToExcludeRejected = &quot;Service Rejected&quot;;
+    try {
+        const params = {
+            TableName: tableName,
+            FilterExpression: &quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusNew AND #service_status &lt;&gt; :statusRejected)&quot;,
+            ExpressionAttributeNames: {
+                &quot;#service_status&quot;: &quot;service_status&quot;,
+                &quot;#service_id&quot;:&quot;service_id&quot;,
+                &quot;#phone_number&quot;: &quot;phone_number&quot; // Add license_plate to ExpressionAttributeNames0
+            },
+            ExpressionAttributeValues: {
+                &quot;:status&quot;: statusToExclude,
+                &quot;:statusNew&quot;: statusToExcludeNew,
+                &quot;:statusRejected&quot;: statusToExcludeRejected
+            },
+            ProjectionExpression: &quot;#service_status, #service_id, #phone_number&quot; // Specify the attributes to retrieve
+        };      
+        const body = await mydynamodb.send(new ScanCommand(params));
+        // Process the items to include only the last four digits of the phone number
+        const processedItems = body.Items.map(item =&gt; {
+            const processedItem = {
+                service_status: item.service_status,
+                service_id: item.service_id,
+                phone_number: item.phone_number ? item.phone_number.slice(-4) : null // Extract the last four digits
+            };
+            return processedItem;
+        });
 
-        <span class="k">return</span> <span class="n">processedItems</span><span class="p">;</span>        
-        <span class="o">//</span> <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">Items</span><span class="p">;</span> <span class="o">//</span> <span class="n">Return</span> <span class="n">JSON</span> <span class="n">string</span> <span class="n">of</span> <span class="n">items</span>
-    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error fetching DynamoDB service requests:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-        <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+        return processedItems;        
+        // return body.Items; // Return JSON string of items
+    } catch (error) {
+        console.error(&quot;Error fetching DynamoDB service requests:&quot;, error);
+        throw error; // Re-throw the error to handle it further up the call stack
+    }
+}
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">addDynamoServiceRequest</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">requestBody</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">serviceId</span> <span class="o">=</span> <span class="n">generateServiceId</span><span class="p">();</span> <span class="o">//</span> <span class="n">Generate</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>      
-    <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Item</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span> <span class="o">//</span> <span class="n">Assuming</span> <span class="n">service_id</span> <span class="ow">is</span> <span class="n">provided</span> <span class="ow">in</span> <span class="n">requestBody</span>
-        <span class="n">service_status</span><span class="p">:</span> <span class="s2">&quot;New Request&quot;</span><span class="p">,</span>
-        <span class="n">service_description</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">,</span>
-        <span class="n">phone_number</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">Use</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_number</span> <span class="ow">or</span> <span class="n">default</span> <span class="n">to</span> <span class="s2">&quot;Unknown&quot;</span>
-      <span class="p">},</span>
-    <span class="p">};</span>
+export const addDynamoServiceRequest = async (requestBody) =&gt; {
+  try {
+    const serviceId = generateServiceId(); // Generate unique service_id based on current date and time      
+    const params = {
+      TableName: tableName,
+      Item: {
+        service_id: serviceId, // Assuming service_id is provided in requestBody
+        service_status: &quot;New Request&quot;,
+        service_description: requestBody.service_description,
+        phone_number: requestBody.phone_number,
+        license_plate: requestBody.license_plate ?? &quot;Unknown&quot;, // Use requestBody.license_number or default to &quot;Unknown&quot;
+      },
+    };
 
-    <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">PutCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
+    await mydynamodb.send(new PutCommand(params));
 
-    <span class="k">return</span> <span class="err">`</span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">new</span> <span class="n">service</span> <span class="n">request</span><span class="err">`</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error adding DynamoDB service request:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+    return `Successfully added new service request`;
+  } catch (error) {
+    console.error(&quot;Error adding DynamoDB service request:&quot;, error);
+    throw error; // Re-throw the error to handle it further up the call stack
+  }
+};
 
 
 
-<span class="o">//</span> <span class="n">Helper</span> <span class="n">function</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>
-<span class="n">const</span> <span class="n">generateServiceId</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="n">const</span> <span class="n">now</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">();</span>
-  <span class="n">const</span> <span class="n">formattedDate</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">toISOString</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">[</span><span class="o">-</span><span class="n">T</span><span class="p">:</span><span class="o">.</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span> <span class="o">//</span> <span class="n">Format</span> <span class="n">date</span> <span class="n">string</span>
-  <span class="n">const</span> <span class="n">milliseconds</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">getMilliseconds</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span><span class="o">.</span><span class="n">padStart</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">);</span> <span class="o">//</span> <span class="n">Get</span> <span class="n">milliseconds</span> <span class="ow">and</span> <span class="n">pad</span> <span class="k">with</span> <span class="n">leading</span> <span class="n">zeros</span> <span class="k">if</span> <span class="n">necessary</span>
-  <span class="k">return</span> <span class="err">`$</span><span class="p">{</span><span class="n">formattedDate</span><span class="p">}</span><span class="err">$</span><span class="p">{</span><span class="n">milliseconds</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="o">//</span> <span class="n">Concatenate</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">milliseconds</span>
-<span class="p">};</span>
-</code></pre></div>
+// Helper function to generate a unique service_id based on current date and time
+const generateServiceId = () =&gt; {
+  const now = new Date();
+  const formattedDate = now.toISOString().replace(/[-T:.Z]/g, &quot;&quot;); // Format date string
+  const milliseconds = now.getMilliseconds().toString().padStart(3, &quot;0&quot;); // Get milliseconds and pad with leading zeros if necessary
+  return `${formattedDate}${milliseconds}`; // Concatenate date and milliseconds
+};
+</code></pre>
 
 <h2 id="create-a-new-api-gateway-resource">Create a new API Gateway resource</h2>
 <p>We'll add a new endpoint which will provide a secure location for our logged in users to pull information. </p>
@@ -435,15 +435,15 @@
 <h2 id="update-code">Update code</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
-<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-07/rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-07/rebuildapp.sh
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>chmod +x ./rebuildapp.sh
+</code></pre>
 
 <p>Next run the script which will download the newest files. </p>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildapp.sh
-</code></pre></div>
+<pre class="codehilite"><code>sudo bash ./rebuildapp.sh
+</code></pre>
 
 <p>You'll be prompted to enter multiple settings.</p>
 <div class="admonition key">
@@ -459,7 +459,7 @@
 <li>Can you log in to the Admin area?</li>
 <li>Can you update a status from the Admin Area?</li>
 <li>Do Completed items disappear from the Service Request page?</li>
-<li>Do items with a status that is not Completed or New Request show up on the Service Request page?</li>
+<li>Verify that items with a status of "Completed", "New Request", or "Service Rejected" do not show up on the Service Request page that the public can see.</li>
 </ol>
 <h2 id="lab-summary">Lab Summary:</h2>
 <p>In this lab, you extended your vehicle service application by building and integrating an API to handle data securely for technicians. The key tasks included creating a new API Gateway resource, adding a PUT method for updating service requests, implementing an authorizer for security, and updating the Lambda function to interact with DynamoDB. You also updated the web application enabling administrators to manage these requests securely.</p>
@@ -488,15 +488,15 @@
 <h2 id="update-settings-code">Update settings code</h2>
 <p><span class="amz-white-button">Connect</span> to your Vehicle App EC2 Instance</p>
 <p>Download the newest website app:</p>
-<div class="codehilite"><pre><span></span><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-10/rebuildsettings.sh
-</code></pre></div>
+<pre class="codehilite"><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-10/rebuildsettings.sh
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>chmod +x ./rebuildsettings.sh
-</code></pre></div>
+<pre class="codehilite"><code>chmod +x ./rebuildsettings.sh
+</code></pre>
 
 <p>Next run the script which will download the newest files. </p>
-<div class="codehilite"><pre><span></span><code>sudo bash ./rebuildsettings.sh
-</code></pre></div>
+<pre class="codehilite"><code>sudo bash ./rebuildsettings.sh
+</code></pre>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>

@@ -61,81 +61,81 @@
 	<article>
 		<h1 id="cognito-example">Cognito Example</h1>
 <h2 id="create-a-new-react-app">Create a new react app</h2>
-<div class="codehilite"><pre><span></span><code>npx create-react-app my-app
+<pre class="codehilite"><code>npx create-react-app my-app
 cd my-app
-</code></pre></div>
+</code></pre>
 
 <p>First, install the required dependencies:</p>
-<div class="codehilite"><pre><span></span><code>npm install amazon-cognito-identity-js
-</code></pre></div>
+<pre class="codehilite"><code>npm install amazon-cognito-identity-js
+</code></pre>
 
 <p>Next, update the file called App.js with the following code:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">React</span><span class="o">,</span> <span class="p">{</span> <span class="n">useState</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span> <span class="n">CognitoUserPool</span><span class="p">,</span> <span class="n">AuthenticationDetails</span><span class="p">,</span> <span class="n">CognitoUser</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;amazon-cognito-identity-js&#39;</span><span class="p">;</span>
+<pre class="codehilite"><code>import React, { useState } from 'react';
+import { CognitoUserPool, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
-<span class="n">const</span> <span class="n">poolData</span> <span class="o">=</span> <span class="p">{</span>
-<span class="n">UserPoolId</span><span class="p">:</span> <span class="s1">&#39;YOUR_USER_POOL_ID&#39;</span><span class="p">,</span>
-<span class="n">ClientId</span><span class="p">:</span> <span class="s1">&#39;YOUR_CLIENT_ID&#39;</span><span class="p">,</span>
-<span class="p">};</span>
+const poolData = {
+UserPoolId: 'YOUR_USER_POOL_ID',
+ClientId: 'YOUR_CLIENT_ID',
+};
 
-<span class="n">const</span> <span class="n">userPool</span> <span class="o">=</span> <span class="n">new</span> <span class="n">CognitoUserPool</span><span class="p">(</span><span class="n">poolData</span><span class="p">);</span>
+const userPool = new CognitoUserPool(poolData);
 
-<span class="n">function</span> <span class="n">App</span><span class="p">()</span> <span class="p">{</span>
-<span class="n">const</span> <span class="p">[</span><span class="n">username</span><span class="p">,</span> <span class="n">setUsername</span><span class="p">]</span> <span class="o">=</span> <span class="n">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="n">const</span> <span class="p">[</span><span class="n">password</span><span class="p">,</span> <span class="n">setPassword</span><span class="p">]</span> <span class="o">=</span> <span class="n">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="n">const</span> <span class="p">[</span><span class="n">loggedIn</span><span class="p">,</span> <span class="n">setLoggedIn</span><span class="p">]</span> <span class="o">=</span> <span class="n">useState</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>
+function App() {
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
+const [loggedIn, setLoggedIn] = useState(false);
 
-<span class="n">const</span> <span class="n">handleLogin</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">authDetails</span> <span class="o">=</span> <span class="n">new</span> <span class="n">AuthenticationDetails</span><span class="p">({</span>
-    <span class="n">Username</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
-    <span class="n">Password</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
-    <span class="p">});</span>
+const handleLogin = async () =&gt; {
+    const authDetails = new AuthenticationDetails({
+    Username: username,
+    Password: password,
+    });
 
-    <span class="n">const</span> <span class="n">userData</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">Username</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
-    <span class="n">Pool</span><span class="p">:</span> <span class="n">userPool</span><span class="p">,</span>
-    <span class="p">};</span>
+    const userData = {
+    Username: username,
+    Pool: userPool,
+    };
 
-    <span class="n">const</span> <span class="n">cognitoUser</span> <span class="o">=</span> <span class="n">new</span> <span class="n">CognitoUser</span><span class="p">(</span><span class="n">userData</span><span class="p">);</span>
+    const cognitoUser = new CognitoUser(userData);
 
-    <span class="n">cognitoUser</span><span class="o">.</span><span class="n">authenticateUser</span><span class="p">(</span><span class="n">authDetails</span><span class="p">,</span> <span class="p">{</span>
-    <span class="n">onSuccess</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="n">setLoggedIn</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="n">onFailure</span><span class="p">:</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Login failed:&#39;</span><span class="p">,</span> <span class="n">err</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="p">});</span>
-<span class="p">};</span>
+    cognitoUser.authenticateUser(authDetails, {
+    onSuccess: () =&gt; {
+        setLoggedIn(true);
+    },
+    onFailure: (err) =&gt; {
+        console.error('Login failed:', err);
+    },
+    });
+};
 
-<span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">AWS</span> <span class="n">Cognito</span> <span class="n">Login</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
-    <span class="p">{</span><span class="n">loggedIn</span> <span class="err">?</span> <span class="p">(</span>
-        <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span><span class="n">You</span> <span class="n">are</span> <span class="n">logged</span> <span class="ow">in</span><span class="err">!</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-    <span class="p">)</span> <span class="p">:</span> <span class="p">(</span>
-        <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nb">input</span>
-            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span>
-            <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Username&quot;</span>
-            <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">username</span><span class="p">}</span>
-            <span class="n">onChange</span><span class="o">=</span><span class="p">{(</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">setUsername</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span><span class="p">)}</span>
-        <span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="nb">input</span>
-            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;password&quot;</span>
-            <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Password&quot;</span>
-            <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">password</span><span class="p">}</span>
-            <span class="n">onChange</span><span class="o">=</span><span class="p">{(</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">setPassword</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">value</span><span class="p">)}</span>
-        <span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">button</span> <span class="n">onClick</span><span class="o">=</span><span class="p">{</span><span class="n">handleLogin</span><span class="p">}</span><span class="o">&gt;</span><span class="n">Login</span><span class="o">&lt;/</span><span class="n">button</span><span class="o">&gt;</span>
-        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-    <span class="p">)}</span>
-    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-<span class="p">);</span>
-<span class="p">}</span>
+return (
+    &lt;div&gt;
+    &lt;h1&gt;AWS Cognito Login&lt;/h1&gt;
+    {loggedIn ? (
+        &lt;div&gt;You are logged in!&lt;/div&gt;
+    ) : (
+        &lt;div&gt;
+        &lt;input
+            type=&quot;text&quot;
+            placeholder=&quot;Username&quot;
+            value={username}
+            onChange={(e) =&gt; setUsername(e.target.value)}
+        /&gt;
+        &lt;input
+            type=&quot;password&quot;
+            placeholder=&quot;Password&quot;
+            value={password}
+            onChange={(e) =&gt; setPassword(e.target.value)}
+        /&gt;
+        &lt;button onClick={handleLogin}&gt;Login&lt;/button&gt;
+        &lt;/div&gt;
+    )}
+    &lt;/div&gt;
+);
+}
 
-<span class="n">export</span> <span class="n">default</span> <span class="n">App</span><span class="p">;</span>
-</code></pre></div>
+export default App;
+</code></pre>
 
 <p>In this example, we import the required components from amazon-cognito-identity-js. We then set up the poolData object with our Cognito User Pool ID and Client ID.</p>
 <p>Inside the App component, we have state variables for username, password, and loggedIn. The handleLogin function is responsible for authenticating the user with Cognito. It creates an AuthenticationDetails object with the provided username and password, and then creates a CognitoUser object with the user data and the user pool.</p>
@@ -143,8 +143,8 @@ cd my-app
 <p>In the JSX, we conditionally render the login form or a success message based on the loggedIn state.</p>
 <p>Make sure to replace 'YOUR_USER_POOL_ID' and 'YOUR_CLIENT_ID' with your actual Cognito User Pool ID and Client ID.</p>
 <p>Please note that this is a basic example, and you may need to handle additional scenarios like user signup, password reset, and refresh tokens depending on your requirements.</p>
-<div class="codehilite"><pre><span></span><code>npm start
-</code></pre></div>
+<pre class="codehilite"><code>npm start
+</code></pre>
 
 <h3 id="go-to-aws-cognito">Go to AWS Cognito</h3>
 <p>1) Create User Pool</p>

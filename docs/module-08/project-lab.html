@@ -115,12 +115,12 @@ arrow_drop_down
 <li>Choose the option for message attributes</li>
 <li>Paste the following into the filter policy to replace what is there</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>{
+<pre class="codehilite"><code>{
   &quot;service_status&quot;: [
     &quot;Completed&quot;
   ]
 }
-</code></pre></div>
+</code></pre>
 
 <ul>
 <li>Click <span class='amz-oranage-button'>Save Changes</span></li>
@@ -133,11 +133,11 @@ arrow_drop_down
 <li>Subject: TestMessage</li>
 <li>Message body: </li>
 </ul>
-<div class="codehilite"><pre><span></span><code>{
+<pre class="codehilite"><code>{
     &quot;Type&quot;: &quot;Notification&quot;,
     &quot;Message&quot;: &quot;Testing a message&quot;
 }
-</code></pre></div>
+</code></pre>
 
 <ul>
 <li>Message attributes:<ul>
@@ -163,11 +163,11 @@ arrow_drop_down
 <li>Subject: TestMessage2</li>
 <li>Message body: </li>
 </ul>
-<div class="codehilite"><pre><span></span><code>{
+<pre class="codehilite"><code>{
     &quot;Type&quot;: &quot;Notification&quot;,
     &quot;Message&quot;: &quot;Testing a message that should only be in all status&quot;
 }
-</code></pre></div>
+</code></pre>
 
 <ul>
 <li>Message attributes:<ul>
@@ -184,176 +184,176 @@ arrow_drop_down
 <li>Go to the adminGetServiceRequest Lambda</li>
 <li>update the lambda adminDynamoService.mjs file</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">SNSClient</span><span class="p">,</span> <span class="n">PublishCommand</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-sns&quot;</span><span class="p">;</span> <span class="o">//</span> <span class="n">ES</span> <span class="n">Modules</span> <span class="kn">import</span>
-<span class="nn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span>
-  <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
-  <span class="n">ScanCommand</span><span class="p">,</span>
-  <span class="n">PutCommand</span><span class="p">,</span>
-  <span class="n">GetCommand</span><span class="p">,</span>
-  <span class="n">DeleteCommand</span><span class="p">,</span>
-  <span class="n">UpdateCommand</span><span class="p">,</span>
-<span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
+<pre class="codehilite"><code>import { SNSClient, PublishCommand } from &quot;@aws-sdk/client-sns&quot;; // ES Modules import
+import { DynamoDBClient } from &quot;@aws-sdk/client-dynamodb&quot;;
+import {
+  DynamoDBDocumentClient,
+  ScanCommand,
+  PutCommand,
+  GetCommand,
+  DeleteCommand,
+  UpdateCommand,
+} from &quot;@aws-sdk/lib-dynamodb&quot;;
 
-<span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
+const client = new DynamoDBClient({});
 
-<span class="n">const</span> <span class="n">mydynamodb</span> <span class="o">=</span> <span class="n">DynamoDBDocumentClient</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+const mydynamodb = DynamoDBDocumentClient.from(client);
 
-<span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
+const tableName = &quot;VehicleServices&quot;;    
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">statusToExcludeRejected</span> <span class="o">=</span> <span class="s2">&quot;Service Rejected&quot;</span><span class="p">;</span>
+export const getDynamoServiceRequests = async () =&gt; {
+    const statusToExclude = &quot;Completed&quot;;
+    const statusToExcludeRejected = &quot;Service Rejected&quot;;
 
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusRejected)&quot;</span><span class="p">,</span>
-            <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span>
-            <span class="p">},</span>
-            <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span><span class="p">,</span>
-                <span class="s2">&quot;:statusRejected&quot;</span><span class="p">:</span><span class="n">statusToExcludeRejected</span>
-            <span class="p">}</span>
-        <span class="p">};</span>      
-        <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
-        <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">Items</span><span class="p">;</span> <span class="o">//</span> <span class="n">Return</span> <span class="n">JSON</span> <span class="n">string</span> <span class="n">of</span> <span class="n">items</span>
-    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error fetching DynamoDB service requests:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-        <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    try {
+        const params = {
+            TableName: tableName,
+            FilterExpression: &quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusRejected)&quot;,
+            ExpressionAttributeNames: {
+                &quot;#service_status&quot;: &quot;service_status&quot;
+            },
+            ExpressionAttributeValues: {
+                &quot;:status&quot;: statusToExclude,
+                &quot;:statusRejected&quot;:statusToExcludeRejected
+            }
+        };      
+        const body = await mydynamodb.send(new ScanCommand(params));
+        return body.Items; // Return JSON string of items
+    } catch (error) {
+        console.error(&quot;Error fetching DynamoDB service requests:&quot;, error);
+        throw error; // Re-throw the error to handle it further up the call stack
+    }
+}
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">addDynamoServiceRequest</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">requestBody</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">serviceId</span> <span class="o">=</span> <span class="n">generateServiceId</span><span class="p">();</span> <span class="o">//</span> <span class="n">Generate</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>      
-    <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Item</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span> <span class="o">//</span> <span class="n">Assuming</span> <span class="n">service_id</span> <span class="ow">is</span> <span class="n">provided</span> <span class="ow">in</span> <span class="n">requestBody</span>
-        <span class="n">service_status</span><span class="p">:</span> <span class="s2">&quot;New Request&quot;</span><span class="p">,</span>
-        <span class="n">service_description</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">,</span>
-        <span class="n">phone_number</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">Use</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_number</span> <span class="ow">or</span> <span class="n">default</span> <span class="n">to</span> <span class="s2">&quot;Unknown&quot;</span>
-      <span class="p">},</span>
-    <span class="p">};</span>
+export const addDynamoServiceRequest = async (requestBody) =&gt; {
+  try {
+    const serviceId = generateServiceId(); // Generate unique service_id based on current date and time      
+    const params = {
+      TableName: tableName,
+      Item: {
+        service_id: serviceId, // Assuming service_id is provided in requestBody
+        service_status: &quot;New Request&quot;,
+        service_description: requestBody.service_description,
+        phone_number: requestBody.phone_number,
+        license_plate: requestBody.license_plate ?? &quot;Unknown&quot;, // Use requestBody.license_number or default to &quot;Unknown&quot;
+      },
+    };
 
-    <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">PutCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
+    await mydynamodb.send(new PutCommand(params));
 
-    <span class="k">return</span> <span class="err">`</span><span class="n">Successfully</span> <span class="n">added</span> <span class="n">new</span> <span class="n">service</span> <span class="n">request</span><span class="err">`</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error adding DynamoDB service request:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-    <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+    return `Successfully added new service request`;
+  } catch (error) {
+    console.error(&quot;Error adding DynamoDB service request:&quot;, error);
+    throw error; // Re-throw the error to handle it further up the call stack
+  }
+};
 
-<span class="n">export</span> <span class="n">const</span> <span class="n">updateDynamoServiceRequest</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="n">requestBody</span><span class="p">,</span> <span class="n">serviceId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">try</span> <span class="p">{</span>
+export const updateDynamoServiceRequest = async (requestBody, serviceId) =&gt; {
+  try {
 
-    <span class="n">const</span> <span class="n">licensePlate</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">;</span>
+    const licensePlate = requestBody.license_plate ?? &quot;Unknown&quot;;
 
-    <span class="o">//</span> <span class="n">Check</span> <span class="k">if</span> <span class="n">the</span> <span class="n">item</span> <span class="n">exists</span>
-    <span class="n">const</span> <span class="n">getParams</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Key</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">licensePlate</span><span class="p">,</span>
-      <span class="p">},</span>
-    <span class="p">};</span>
+    // Check if the item exists
+    const getParams = {
+      TableName: tableName,
+      Key: {
+        service_id: serviceId,
+        license_plate: licensePlate,
+      },
+    };
 
-    <span class="n">const</span> <span class="p">{</span> <span class="n">Item</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">GetCommand</span><span class="p">(</span><span class="n">getParams</span><span class="p">));</span>
+    const { Item } = await mydynamodb.send(new GetCommand(getParams));
 
-    <span class="k">if</span> <span class="p">(</span><span class="err">!</span><span class="n">Item</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">throw</span> <span class="n">new</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;No record found&quot;</span><span class="p">);</span>
-    <span class="p">}</span>    
+    if (!Item) {
+      throw new Error(&quot;No record found&quot;);
+    }    
 
-    <span class="o">//</span> <span class="n">Initialize</span> <span class="n">the</span> <span class="n">UpdateExpression</span> <span class="n">components</span>
-    <span class="n">let</span> <span class="n">updateExpression</span> <span class="o">=</span> <span class="s2">&quot;set&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">expressionAttributeNames</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="n">const</span> <span class="n">expressionAttributeValues</span> <span class="o">=</span> <span class="p">{};</span>
+    // Initialize the UpdateExpression components
+    let updateExpression = &quot;set&quot;;
+    const expressionAttributeNames = {};
+    const expressionAttributeValues = {};
 
-    <span class="o">//</span> <span class="n">Dynamically</span> <span class="n">build</span> <span class="n">the</span> <span class="n">UpdateExpression</span><span class="p">,</span> <span class="n">ExpressionAttributeNames</span><span class="p">,</span> <span class="ow">and</span> <span class="n">ExpressionAttributeValues</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #sd = :sd,&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#sd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_description&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:sd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_description</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #pn = :pn,&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#pn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;phone_number&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:pn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">phone_number</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #ss = :ss,&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;service_status&quot;</span><span class="p">;</span>
-      <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:ss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span> <span class="o">==</span> <span class="s2">&quot;Completed&quot;</span><span class="p">){</span>
-        <span class="n">updateExpression</span> <span class="o">+=</span> <span class="s2">&quot; #cd = :cd,&quot;</span><span class="p">;</span>
-        <span class="n">expressionAttributeNames</span><span class="p">[</span><span class="s2">&quot;#cd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;completion_date&quot;</span><span class="p">;</span>
-        <span class="n">expressionAttributeValues</span><span class="p">[</span><span class="s2">&quot;:cd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">();</span>     
-      <span class="p">}</span>       
-    <span class="p">}</span>
-
-
-    <span class="o">//</span> <span class="n">Remove</span> <span class="nb">any</span> <span class="n">trailing</span> <span class="n">comma</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">update</span> <span class="n">expression</span>
-    <span class="n">updateExpression</span> <span class="o">=</span> <span class="n">updateExpression</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">,</span><span class="err">$</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
-
-    <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-      <span class="n">Key</span><span class="p">:</span> <span class="p">{</span>
-        <span class="n">service_id</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
-        <span class="n">license_plate</span><span class="p">:</span> <span class="n">requestBody</span><span class="o">.</span><span class="n">license_plate</span> <span class="err">??</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">Assuming</span> <span class="n">license_plate</span> <span class="ow">is</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span>
-      <span class="p">},</span>
-      <span class="n">UpdateExpression</span><span class="p">:</span> <span class="n">updateExpression</span><span class="p">,</span>
-      <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="n">expressionAttributeNames</span><span class="p">,</span>
-      <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="n">expressionAttributeValues</span><span class="p">,</span>
-    <span class="p">};</span>
-
-    <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">UpdateCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
-
-    <span class="k">await</span> <span class="n">sendSNSMessage</span><span class="p">(</span><span class="n">requestBody</span><span class="p">,</span><span class="n">serviceId</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="err">`</span><span class="n">Successfully</span> <span class="n">updated</span> <span class="n">service</span> <span class="n">request</span><span class="err">`</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span> <span class="o">===</span> <span class="s2">&quot;No record found&quot;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error updating DynamoDB service request:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-      <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+    // Dynamically build the UpdateExpression, ExpressionAttributeNames, and ExpressionAttributeValues
+    if (requestBody.service_description) {
+      updateExpression += &quot; #sd = :sd,&quot;;
+      expressionAttributeNames[&quot;#sd&quot;] = &quot;service_description&quot;;
+      expressionAttributeValues[&quot;:sd&quot;] = requestBody.service_description;
+    }
+    if (requestBody.phone_number) {
+      updateExpression += &quot; #pn = :pn,&quot;;
+      expressionAttributeNames[&quot;#pn&quot;] = &quot;phone_number&quot;;
+      expressionAttributeValues[&quot;:pn&quot;] = requestBody.phone_number;
+    }
+    if (requestBody.service_status) {
+      updateExpression += &quot; #ss = :ss,&quot;;
+      expressionAttributeNames[&quot;#ss&quot;] = &quot;service_status&quot;;
+      expressionAttributeValues[&quot;:ss&quot;] = requestBody.service_status;
+      if (requestBody.service_status == &quot;Completed&quot;){
+        updateExpression += &quot; #cd = :cd,&quot;;
+        expressionAttributeNames[&quot;#cd&quot;] = &quot;completion_date&quot;;
+        expressionAttributeValues[&quot;:cd&quot;] = new Date().toString();     
+      }       
+    }
 
 
+    // Remove any trailing comma from the update expression
+    updateExpression = updateExpression.replace(/,$/, &quot;&quot;);
 
-<span class="o">//</span> <span class="n">Helper</span> <span class="n">function</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">unique</span> <span class="n">service_id</span> <span class="n">based</span> <span class="n">on</span> <span class="n">current</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">time</span>
-<span class="n">const</span> <span class="n">generateServiceId</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="n">const</span> <span class="n">now</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">();</span>
-  <span class="n">const</span> <span class="n">formattedDate</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">toISOString</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">[</span><span class="o">-</span><span class="n">T</span><span class="p">:</span><span class="o">.</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span> <span class="o">//</span> <span class="n">Format</span> <span class="n">date</span> <span class="n">string</span>
-  <span class="n">const</span> <span class="n">milliseconds</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">getMilliseconds</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span><span class="o">.</span><span class="n">padStart</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">);</span> <span class="o">//</span> <span class="n">Get</span> <span class="n">milliseconds</span> <span class="ow">and</span> <span class="n">pad</span> <span class="k">with</span> <span class="n">leading</span> <span class="n">zeros</span> <span class="k">if</span> <span class="n">necessary</span>
-  <span class="k">return</span> <span class="err">`$</span><span class="p">{</span><span class="n">formattedDate</span><span class="p">}</span><span class="err">$</span><span class="p">{</span><span class="n">milliseconds</span><span class="p">}</span><span class="err">`</span><span class="p">;</span> <span class="o">//</span> <span class="n">Concatenate</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">milliseconds</span>
-<span class="p">};</span>
+    const params = {
+      TableName: tableName,
+      Key: {
+        service_id: serviceId,
+        license_plate: requestBody.license_plate ?? &quot;Unknown&quot;, // Assuming license_plate is part of the key
+      },
+      UpdateExpression: updateExpression,
+      ExpressionAttributeNames: expressionAttributeNames,
+      ExpressionAttributeValues: expressionAttributeValues,
+    };
 
-<span class="k">async</span> <span class="n">function</span> <span class="n">sendSNSMessage</span><span class="p">(</span><span class="n">requestBody</span><span class="p">,</span> <span class="n">serviceId</span><span class="p">){</span>
-    <span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SNSClient</span><span class="p">();</span>
-    <span class="n">const</span> <span class="nb">input</span> <span class="o">=</span> <span class="p">{</span> <span class="o">//</span> <span class="n">PublishInput</span>
-      <span class="n">TopicArn</span><span class="p">:</span> <span class="s2">&quot;REPLACE-WITH-YOUR-TOPIC-ARN&quot;</span><span class="p">,</span>
-      <span class="n">Message</span><span class="p">:</span> <span class="err">`</span><span class="p">{</span><span class="s2">&quot;service_status&quot;</span><span class="p">:</span><span class="s2">&quot;$</span><span class="si">{requestBody.service_status}</span><span class="s2">&quot;</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
-      <span class="n">Subject</span><span class="p">:</span> <span class="n">serviceId</span><span class="p">,</span>
-      <span class="n">MessageAttributes</span><span class="p">:</span> <span class="p">{</span> <span class="o">//</span> <span class="n">MessageAttributeMap</span>
-        <span class="s2">&quot;service_status&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">//</span> <span class="n">MessageAttributeValue</span>
-          <span class="n">DataType</span><span class="p">:</span> <span class="s2">&quot;String&quot;</span><span class="p">,</span> <span class="o">//</span> <span class="n">required</span>
-          <span class="n">StringValue</span><span class="p">:</span> <span class="err">`$</span><span class="p">{</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_status</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
-        <span class="p">},</span>
-      <span class="p">},</span>
-      <span class="o">//</span> <span class="n">MessageDeduplicationId</span><span class="p">:</span> <span class="err">`$</span><span class="p">{</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_id</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
-      <span class="o">//</span> <span class="n">MessageGroupId</span><span class="p">:</span> <span class="err">`$</span><span class="p">{</span><span class="n">requestBody</span><span class="o">.</span><span class="n">service_id</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
-    <span class="p">};</span>
-    <span class="n">const</span> <span class="n">command</span> <span class="o">=</span> <span class="n">new</span> <span class="n">PublishCommand</span><span class="p">(</span><span class="nb">input</span><span class="p">);</span>
-    <span class="n">const</span> <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>  
-<span class="p">}</span>
-</code></pre></div>
+    await mydynamodb.send(new UpdateCommand(params));
+
+    await sendSNSMessage(requestBody,serviceId);
+
+    return `Successfully updated service request`;
+  } catch (error) {
+    if (error.message === &quot;No record found&quot;) {
+      return error.message;
+    } else {
+      console.error(&quot;Error updating DynamoDB service request:&quot;, error);
+      throw error; // Re-throw the error to handle it further up the call stack
+    }
+  }
+};
+
+
+
+// Helper function to generate a unique service_id based on current date and time
+const generateServiceId = () =&gt; {
+  const now = new Date();
+  const formattedDate = now.toISOString().replace(/[-T:.Z]/g, &quot;&quot;); // Format date string
+  const milliseconds = now.getMilliseconds().toString().padStart(3, &quot;0&quot;); // Get milliseconds and pad with leading zeros if necessary
+  return `${formattedDate}${milliseconds}`; // Concatenate date and milliseconds
+};
+
+async function sendSNSMessage(requestBody, serviceId){
+    const client = new SNSClient();
+    const input = { // PublishInput
+      TopicArn: &quot;REPLACE-WITH-YOUR-TOPIC-ARN&quot;,
+      Message: `{&quot;service_status&quot;:&quot;${requestBody.service_status}&quot;}`,
+      Subject: serviceId,
+      MessageAttributes: { // MessageAttributeMap
+        &quot;service_status&quot;: { // MessageAttributeValue
+          DataType: &quot;String&quot;, // required
+          StringValue: `${requestBody.service_status}`,
+        },
+      },
+      // MessageDeduplicationId: `${requestBody.service_id}`,
+      // MessageGroupId: `${requestBody.service_id}`,
+    };
+    const command = new PublishCommand(input);
+    const response = await client.send(command);  
+}
+</code></pre>
 
 <p>You'll need to go get the Topic ARN from the SNS Topic <strong>VehicleStatus</strong>. You'll update the code where it says "REPLACE-WITH-YOUR-TOPIC-ARN" with the ARN of your Topic.</p>
 <p>Once you've made the update, go to your website and submit a service request. Type in a phone number, license plate number, and the message requesting an oil change for a 2020 Corvette.</p>
@@ -368,36 +368,36 @@ arrow_drop_down
 <li>Make sure you assign the LabRole as the role.</li>
 </ul>
 <p>Add this code to the <em>index.mjs</em> file:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="p">(</span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="n">TODO</span><span class="w"> </span><span class="n">implement</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">statusCode</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">    </span><span class="n">body</span><span class="p">:</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="s1">&#39;Status Updated!&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">event</span><span class="p">),</span>
-<span class="w">  </span><span class="p">};</span>
-<span class="w">      </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;status updated!&quot;</span><span class="o">+</span><span class="n">event</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">event</span><span class="o">.</span><span class="n">Records</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">details</span>
-<span class="w">        </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Message ID:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="o">.</span><span class="n">messageId</span><span class="p">);</span>
-<span class="w">        </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Receipt Handle:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="o">.</span><span class="n">receiptHandle</span><span class="p">);</span>
-<span class="w">        </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Body:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">record</span><span class="o">.</span><span class="n">body</span><span class="p">);</span>
+<pre class="codehilite"><code>export const handler = async (event) =&gt; {
+  // TODO implement
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Status Updated!' + event),
+  };
+      console.log(&quot;status updated!&quot;+event);
+    for (const record of event.Records) {
+        // Log the message details
+        console.log('Message ID:', record.messageId);
+        console.log('Receipt Handle:', record.receiptHandle);
+        console.log('Body:', record.body);
 
-<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">Process</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span><span class="w"> </span><span class="n">parse</span><span class="w"> </span><span class="n">JSON</span><span class="p">,</span><span class="w"> </span><span class="n">interact</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">AWS</span><span class="w"> </span><span class="n">services</span><span class="p">,</span><span class="w"> </span><span class="n">etc</span><span class="o">.</span><span class="p">)</span>
-<span class="w">        </span><span class="n">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">messageBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">body</span><span class="p">);</span>
-<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="n">Example</span><span class="p">:</span><span class="w"> </span><span class="n">Log</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">parsed</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">body</span>
-<span class="w">            </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Parsed Message Body:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">messageBody</span><span class="p">);</span>
-<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">processing</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="n">here</span>
-<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">fullMessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">messageBody</span><span class="o">.</span><span class="n">Message</span><span class="p">);</span>
-<span class="w">            </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Full Message:&quot;</span><span class="p">,</span><span class="n">fullMessage</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error processing message:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
+        // Process the message (e.g., parse JSON, interact with other AWS services, etc.)
+        try {
+            const messageBody = JSON.parse(record.body);
+            // Example: Log the parsed message body
+            console.log('Parsed Message Body:', messageBody);
+            // You can add your custom processing logic here
+            const fullMessage = JSON.parse(messageBody.Message);
+            console.log(&quot;Full Message:&quot;,fullMessage);
+        } catch (error) {
+            console.error('Error processing message:', error);
+        }
 
-<span class="w">    </span><span class="p">}</span><span class="w">    </span>
-<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;Records&#39;</span><span class="p">]);</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+    }    
+  console.log(event['Records']);
+  return response;
+};
+</code></pre>
 
 <p>Go to the SQS queue for the <strong>AllStatusUpdatesQueue</strong></p>
 <ul>

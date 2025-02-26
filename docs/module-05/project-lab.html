@@ -138,56 +138,56 @@ arrow_drop_down
 <li>Name it <em>dynamoService.mjs</em></li>
 <li>Paste the following code into that file:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">DynamoDBClient</span> <span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/client-dynamodb&quot;</span><span class="p">;</span>
-<span class="kn">import</span> <span class="p">{</span>
-  <span class="n">DynamoDBDocumentClient</span><span class="p">,</span>
-  <span class="n">ScanCommand</span><span class="p">,</span>
-  <span class="n">PutCommand</span><span class="p">,</span>
-  <span class="n">GetCommand</span><span class="p">,</span>
-  <span class="n">DeleteCommand</span><span class="p">,</span>
-<span class="p">}</span> <span class="kn">from</span> <span class="s2">&quot;@aws-sdk/lib-dynamodb&quot;</span><span class="p">;</span>
+<pre class="codehilite"><code>import { DynamoDBClient } from &quot;@aws-sdk/client-dynamodb&quot;;
+import {
+  DynamoDBDocumentClient,
+  ScanCommand,
+  PutCommand,
+  GetCommand,
+  DeleteCommand,
+} from &quot;@aws-sdk/lib-dynamodb&quot;;
 
-    <span class="n">const</span> <span class="n">client</span> <span class="o">=</span> <span class="n">new</span> <span class="n">DynamoDBClient</span><span class="p">({});</span>
+    const client = new DynamoDBClient({});
 
-    <span class="n">const</span> <span class="n">mydynamodb</span> <span class="o">=</span> <span class="n">DynamoDBDocumentClient</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+    const mydynamodb = DynamoDBDocumentClient.from(client);
 
-    <span class="n">const</span> <span class="n">tableName</span> <span class="o">=</span> <span class="s2">&quot;VehicleServices&quot;</span><span class="p">;</span>    
-<span class="n">export</span> <span class="n">const</span> <span class="n">getDynamoServiceRequests</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="n">const</span> <span class="n">statusToExclude</span> <span class="o">=</span> <span class="s2">&quot;Completed&quot;</span><span class="p">;</span>
-    <span class="n">const</span> <span class="n">statusToExcludeNew</span> <span class="o">=</span> <span class="s2">&quot;New Request&quot;</span><span class="p">;</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="n">const</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">TableName</span><span class="p">:</span> <span class="n">tableName</span><span class="p">,</span>
-            <span class="n">FilterExpression</span><span class="p">:</span> <span class="s2">&quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusNew)&quot;</span><span class="p">,</span>
-            <span class="n">ExpressionAttributeNames</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;#service_status&quot;</span><span class="p">:</span> <span class="s2">&quot;service_status&quot;</span>
-            <span class="p">},</span>
-            <span class="n">ExpressionAttributeValues</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;:status&quot;</span><span class="p">:</span> <span class="n">statusToExclude</span><span class="p">,</span>
-                <span class="s2">&quot;:statusNew&quot;</span><span class="p">:</span> <span class="n">statusToExcludeNew</span>
-            <span class="p">}</span>
-        <span class="p">};</span>      
-        <span class="n">const</span> <span class="n">body</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mydynamodb</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">new</span> <span class="n">ScanCommand</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
-        <span class="k">return</span> <span class="n">body</span><span class="o">.</span><span class="n">Items</span><span class="p">;</span> <span class="o">//</span> <span class="n">Return</span> <span class="n">JSON</span> <span class="n">string</span> <span class="n">of</span> <span class="n">items</span>
-    <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error fetching DynamoDB service requests:&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
-        <span class="n">throw</span> <span class="n">error</span><span class="p">;</span> <span class="o">//</span> <span class="n">Re</span><span class="o">-</span><span class="n">throw</span> <span class="n">the</span> <span class="n">error</span> <span class="n">to</span> <span class="n">handle</span> <span class="n">it</span> <span class="n">further</span> <span class="n">up</span> <span class="n">the</span> <span class="n">call</span> <span class="n">stack</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+    const tableName = &quot;VehicleServices&quot;;    
+export const getDynamoServiceRequests = async () =&gt; {
+    const statusToExclude = &quot;Completed&quot;;
+    const statusToExcludeNew = &quot;New Request&quot;;
+    try {
+        const params = {
+            TableName: tableName,
+            FilterExpression: &quot;attribute_not_exists(service_status) OR (#service_status &lt;&gt; :status AND #service_status &lt;&gt; :statusNew)&quot;,
+            ExpressionAttributeNames: {
+                &quot;#service_status&quot;: &quot;service_status&quot;
+            },
+            ExpressionAttributeValues: {
+                &quot;:status&quot;: statusToExclude,
+                &quot;:statusNew&quot;: statusToExcludeNew
+            }
+        };      
+        const body = await mydynamodb.send(new ScanCommand(params));
+        return body.Items; // Return JSON string of items
+    } catch (error) {
+        console.error(&quot;Error fetching DynamoDB service requests:&quot;, error);
+        throw error; // Re-throw the error to handle it further up the call stack
+    }
+}
+</code></pre>
 
 <p>We will replace the previous dataService with the new dynamoService.</p>
 <ul>
 <li>Add this line to the top of the <em>index.mjs</em> file:</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="p">{</span> <span class="n">getDynamoServiceRequests</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./dynamoService.mjs&#39;</span><span class="p">;</span>
-</code></pre></div>
+<pre class="codehilite"><code>import { getDynamoServiceRequests } from './dynamoService.mjs';
+</code></pre>
 
 <ul>
 <li>In the <em>index.mjs</em> file change the name of the function being called by repalacing <em>const jsonArray = await getServiceRequests();</em> with</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">jsonArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">getDynamoServiceRequests</span><span class="p">();</span>
-</code></pre></div>
+<pre class="codehilite"><code>const jsonArray = await getDynamoServiceRequests();
+</code></pre>
 
 <p>Click <span class="amz-white-button">Deploy</span> and then Test the deployment. You should only see the single response in the body instead of the three hardcoded items we had before.</p>
 <p>Go to the website and verify that you are getting a single ticket back. You can get the link from your EC2.</p>

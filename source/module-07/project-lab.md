@@ -431,7 +431,7 @@ Once you've completed, check the following:
 2. Can you log in to the Admin area?
 3. Can you update a status from the Admin Area?
 4. Do Completed items disappear from the Service Request page?
-5. Do items with a status that is not Completed or New Request show up on the Service Request page?
+5. Verify that items with a status of "Completed", "New Request", or "Service Rejected" do not show up on the Service Request page that the public can see.
 
 
 ## Lab Summary:

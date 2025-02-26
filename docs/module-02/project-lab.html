@@ -123,50 +123,50 @@
 </div>
 <h2 id="server-setup">Server Setup:</h2>
 <p>Once you are connected to the EC2, run the following commands.</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf update -y
-</code></pre></div>
+<pre class="codehilite"><code>sudo dnf update -y
+</code></pre>
 
 <p>Install the latest versions of Apache web server.</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf install -y httpd wget
-</code></pre></div>
+<pre class="codehilite"><code>sudo dnf install -y httpd wget
+</code></pre>
 
 <p>Start the Apache web server.</p>
-<div class="codehilite"><pre><span></span><code>sudo systemctl start httpd
-</code></pre></div>
+<pre class="codehilite"><code>sudo systemctl start httpd
+</code></pre>
 
 <p>Use the systemctl command to configure the Apache web server to start at each system boot. </p>
-<div class="codehilite"><pre><span></span><code>sudo systemctl enable httpd
-</code></pre></div>
+<pre class="codehilite"><code>sudo systemctl enable httpd
+</code></pre>
 
 <p>Add your user (in this case, ec2-user) to the apache group.</p>
-<div class="codehilite"><pre><span></span><code>sudo usermod -a -G apache ec2-user
+<pre class="codehilite"><code>sudo usermod -a -G apache ec2-user
 sudo su - ec2-user
-</code></pre></div>
+</code></pre>
 
 <p>Change the group ownership of /var/www and its contents to the apache group.
 To add group write permissions and to set the group ID on future subdirectories, change the directory permissions of /var/www and its subdirectories.
 To add group write permissions, recursively change the file permissions of /var/www and its subdirectories:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">chown</span><span class="w"> </span><span class="o">-</span><span class="n">R</span><span class="w"> </span><span class="n">ec2</span><span class="o">-</span><span class="n">user</span><span class="p">:</span><span class="n">apache</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span>
-<span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">2775</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">-</span><span class="n">exec</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">2775</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span>\<span class="p">;</span>
-<span class="n">find</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="w"> </span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">-</span><span class="n">exec</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">chmod</span><span class="w"> </span><span class="mi">0664</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span>\<span class="p">;</span>
-</code></pre></div>
+<pre class="codehilite"><code>sudo chown -R ec2-user:apache /var/www
+sudo chmod 2775 /var/www &amp;&amp; find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec sudo chmod 0664 {} \;
+</code></pre>
 
 <h2 id="download-the-following-files">Download the following files:</h2>
 <p>Use the following commands to download the zip containing the website you are going to host on EC2.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">wget</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">byui</span><span class="o">-</span><span class="n">cse</span><span class="o">/</span><span class="n">itm300</span><span class="o">-</span><span class="n">course</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">module</span><span class="o">-</span><span class="mi">02</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span>
-<span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
-<span class="n">unzip</span><span class="w"> </span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">.</span><span class="n">zip</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span>
-<span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">quick</span><span class="o">-</span><span class="n">oil</span><span class="o">-</span><span class="n">part2</span><span class="o">/*</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
-<span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">rf</span><span class="w"> </span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lab</span><span class="o">-</span><span class="n">app</span><span class="o">/</span>
-</code></pre></div>
+<pre class="codehilite"><code>wget https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir /tmp/lab-app
+unzip quick-oil-part2.zip -d /tmp/lab-app
+sudo cp -rf /tmp/lab-app/quick-oil-part2/* /var/www/html
+rm -rf /tmp/lab-app/
+</code></pre>
 
 <h2 id="enable-ssl">Enable SSL</h2>
 <p>We'll use openssl to generate a private key and a certificate that is self signed. For a live website, you'd need to get the certificate signed by a certificate authority and that would require a registered domain name. We'll use amazon's Public IPv4 DNS  for creating the ssl certificate, but we won't get it signed with a CA. So it will still give you a "not secure" warning even though it is serving up files across SSL/HTTPS.</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf install -y openssl mod_ssl
-</code></pre></div>
+<pre class="codehilite"><code>sudo dnf install -y openssl mod_ssl
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt
-</code></pre></div>
+<pre class="codehilite"><code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt
+</code></pre>
 
 <p>Country Name (2 letter code) [XX]:<strong>US</strong></p>
 <p>State or Province Name (full name) []:<strong>Idaho</strong></p>
@@ -180,11 +180,11 @@ To add group write permissions, recursively change the file permissions of /var/
 <p>Common Name (eg, your name or your server's hostname) []:<strong>ec2-44-221-155-86.compute-1.amazonaws.com</strong></p>
 <p>Email Address []:<strong>youremail@byui.edu</strong></p>
 <p>Once we have our cert created, we need to go replace the built-in localhost cert.</p>
-<div class="codehilite"><pre><span></span><code>sudo sed -i &#39;s#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#&#39; /etc/httpd/conf.d/ssl.conf
-</code></pre></div>
+<pre class="codehilite"><code>sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#' /etc/httpd/conf.d/ssl.conf
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>sudo sed -i &#39;s#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#&#39; /etc/httpd/conf.d/ssl.conf
-</code></pre></div>
+<pre class="codehilite"><code>sudo sed -i 's#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#' /etc/httpd/conf.d/ssl.conf
+</code></pre>
 
 <div class="admonition note">
 <p class="admonition-title">Using SED</p>
@@ -199,8 +199,8 @@ Replace SSLCertificateKeyFile /etc/pki/tls/private/localhost.key with SSLCertifi
 Ctrl-O
 Ctrl-X -->
 
-<div class="codehilite"><pre><span></span><code>sudo systemctl restart httpd
-</code></pre></div>
+<pre class="codehilite"><code>sudo systemctl restart httpd
+</code></pre>
 
 <p>Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click on the lock icon to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.</p>
 <p>Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.</p>
@@ -243,38 +243,38 @@ Ctrl-X -->
 </ul>
 <h2 id="optional-reading-faster-deployment">(Optional Reading) Faster Deployment</h2>
 <p>You can also add "user data" to an EC2 when you create it. This will allow you to run commands automatically after the server starts up. For example, we could add the following user data to automatically install apache and install the web files for us by pasting this code into the user data:</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
-sudo<span class="w"> </span>su
-dnf<span class="w"> </span>update<span class="w"> </span>-y
-dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>httpd<span class="w"> </span>wget
-systemctl<span class="w"> </span>start<span class="w"> </span>httpd
-systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd
-usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>apache<span class="w"> </span>ec2-user
-chown<span class="w"> </span>-R<span class="w"> </span>ec2-user:apache<span class="w"> </span>/var/www
-chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span>/var/www<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>find<span class="w"> </span>/var/www<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-exec<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
-find<span class="w"> </span>/var/www<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">0664</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+<pre class="codehilite"><code>#!/bin/bash
+sudo su
+dnf update -y
+dnf install -y httpd wget
+systemctl start httpd
+systemctl enable httpd
+usermod -a -G apache ec2-user
+chown -R ec2-user:apache /var/www
+chmod 2775 /var/www &amp;&amp; find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec chmod 0664 {} \;
 
-mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/downloads
-wget<span class="w"> </span>-O<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> </span>https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
-mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/lab-app
-unzip<span class="w"> </span>/tmp/downloads/quick-oil-part2.zip<span class="w"> </span>-d<span class="w"> </span>/tmp/lab-app
-cp<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/quick-oil-part2/*<span class="w"> </span>/var/www/html
-rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/lab-app/
-rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/downloads
+mkdir -p /tmp/downloads
+wget -O /tmp/downloads/quick-oil-part2.zip https://github.com/byui-cse/itm300-course/raw/main/source/module-02/quick-oil-part2.zip
+mkdir -p /tmp/lab-app
+unzip /tmp/downloads/quick-oil-part2.zip -d /tmp/lab-app
+cp -rf /tmp/lab-app/quick-oil-part2/* /var/www/html
+rm -rf /tmp/lab-app/
+rm -rf /tmp/downloads
 
-<span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">&quot;http://169.254.169.254/latest/api/token&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token-ttl-seconds: 21600&quot;</span><span class="k">)</span>
+TOKEN=$(curl -s -X PUT &quot;http://169.254.169.254/latest/api/token&quot; -H &quot;X-aws-ec2-metadata-token-ttl-seconds: 21600&quot;)
 
-<span class="c1"># Get the Public IPv4 DNS using the session token</span>
-<span class="nv">public_dns</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://169.254.169.254/latest/meta-data/public-hostname&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;X-aws-ec2-metadata-token: </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="k">)</span>
+# Get the Public IPv4 DNS using the session token
+public_dns=$(curl -s &quot;http://169.254.169.254/latest/meta-data/public-hostname&quot; -H &quot;X-aws-ec2-metadata-token: $TOKEN&quot;)
 
-sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>openssl<span class="w"> </span>mod_ssl
-sudo<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-nodes<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-newkey<span class="w"> </span>rsa:2048<span class="w"> </span>-keyout<span class="w"> </span>/etc/pki/tls/private/apache-selfsigned.key<span class="w"> </span>-out<span class="w"> </span>/etc/pki/tls/certs/apache-selfsigned.crt<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/C=US/ST=Idaho/L=Rexburg/O=BYUIStudent/OU=ITM300Class/CN=</span><span class="nv">$public_dns</span><span class="s2">/emailAddress=youremail@byui.edu&quot;</span>
+sudo dnf install -y openssl mod_ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/pki/tls/private/apache-selfsigned.key -out /etc/pki/tls/certs/apache-selfsigned.crt -subj &quot;/C=US/ST=Idaho/L=Rexburg/O=BYUIStudent/OU=ITM300Class/CN=$public_dns/emailAddress=youremail@byui.edu&quot;
 
-sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#&#39;</span><span class="w"> </span>/etc/httpd/conf.d/ssl.conf
+sudo sed -i 's#^SSLCertificateFile /etc/pki/tls/certs/localhost.crt#SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt#' /etc/httpd/conf.d/ssl.conf
 
-sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#&#39;</span><span class="w"> </span>/etc/httpd/conf.d/ssl.conf
-sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>httpd
-</code></pre></div>
+sudo sed -i 's#^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key#SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key#' /etc/httpd/conf.d/ssl.conf
+sudo systemctl restart httpd
+</code></pre>
 
 <h2 id="helpful-other-links">Helpful other links:</h2>
 <p><a href="https://medium.com/@eikachiu/install-nginx-on-amazon-linux-2023-d032160bfc20" target="_blank">nginx on Amazon Linux 2023</a></p>

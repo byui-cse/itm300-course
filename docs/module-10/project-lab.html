@@ -89,18 +89,18 @@ arrow_right
 </ul>
 <h2 id="install-and-configure-docker-to-work-with-aws">Install and Configure Docker to work with AWS</h2>
 <p>Install Docker</p>
-<div class="codehilite"><pre><span></span><code>sudo dnf install -y docker
-</code></pre></div>
+<pre class="codehilite"><code>sudo dnf install -y docker
+</code></pre>
 
 <p>Add your AWS Credentials:</p>
-<div class="codehilite"><pre><span></span><code>mkdir ~/.aws
-</code></pre></div>
+<pre class="codehilite"><code>mkdir ~/.aws
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>cd ~/.aws
-</code></pre></div>
+<pre class="codehilite"><code>cd ~/.aws
+</code></pre>
 
-<div class="codehilite"><pre><span></span><code>touch credentials
-</code></pre></div>
+<pre class="codehilite"><code>touch credentials
+</code></pre>
 
 <ul>
 <li>Click on the tab where you opened the AWS Lab</li>
@@ -117,42 +117,42 @@ arrow_right
 <p class="admonition-title">Credentials</p>
 <p>Please note that this file doesn't have an extension. It is just called <em>credentials</em></p>
 </div>
-<div class="codehilite"><pre><span></span><code>aws configure
-</code></pre></div>
+<pre class="codehilite"><code>aws configure
+</code></pre>
 
 <p>When you run this command it should read from the credentials file you just created. If the access key shows [None], you'll need to paste in the correct information from the ASW Details, otherwise you can accept the access key id and the secret access key by clicking enter twice. You'll need to enter <strong>us-east-1</strong> for the default region name and <strong>json</strong> for the Default output format.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
-</code></pre></div>
+<pre class="codehilite"><code>cd /var/www/html
+</code></pre>
 
 <p>We've created a basic Dockerfile for you. This file is called Dockerfile with no extension. Let's look at what is in the file:</p>
-<div class="codehilite"><pre><span></span><code>cat Dockerfile
-</code></pre></div>
+<pre class="codehilite"><code>cat Dockerfile
+</code></pre>
 
 <p>This will show you that we are using the latest version of nginx and that we'll copy all of the files from this folder into the /usr/share/nginx/html folder in the container. This will all happen when we create the container.</p>
 <p>Start up docker:</p>
-<div class="codehilite"><pre><span></span><code>sudo systemctl start docker
-</code></pre></div>
+<pre class="codehilite"><code>sudo systemctl start docker
+</code></pre>
 
 <p>Add a docker group (this might fail, if it does just continue on to the next step)</p>
-<div class="codehilite"><pre><span></span><code>sudo groupadd docker
-</code></pre></div>
+<pre class="codehilite"><code>sudo groupadd docker
+</code></pre>
 
 <p>Add your user to the docker group</p>
-<div class="codehilite"><pre><span></span><code>sudo usermod -aG docker $USER
-</code></pre></div>
+<pre class="codehilite"><code>sudo usermod -aG docker $USER
+</code></pre>
 
 <p>Log out</p>
-<div class="codehilite"><pre><span></span><code><span class="k">exit</span>
-</code></pre></div>
+<pre class="codehilite"><code>exit
+</code></pre>
 
 <p>Log back in by refreshing the page.</p>
 <p>Make sure docker is listed in the groups the user is assigned</p>
-<div class="codehilite"><pre><span></span><code>groups $USER
-</code></pre></div>
+<pre class="codehilite"><code>groups $USER
+</code></pre>
 
 <p>Verify your AWS CLI Authentication</p>
-<div class="codehilite"><pre><span></span><code>aws sts get-caller-identity
-</code></pre></div>
+<pre class="codehilite"><code>aws sts get-caller-identity
+</code></pre>
 
 <p>You should get something like this in return:</p>
 <div class='results'>
@@ -164,12 +164,12 @@ arrow_right
 </div>
 
 <p>We are going to switch to the root user to run the following commands</p>
-<div class="codehilite"><pre><span></span><code>sudo su
-</code></pre></div>
+<pre class="codehilite"><code>sudo su
+</code></pre>
 
 <p>Make sure we are in the correct folder</p>
-<div class="codehilite"><pre><span></span><code><span class="n">cd</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span>
-</code></pre></div>
+<pre class="codehilite"><code>cd /var/www/html
+</code></pre>
 
 <h2 id="create-the-container-registry">Create the container registry</h2>
 <p><span class="material-symbols-outlined">search</span> Search for ECR which will bring up Elastic Container Registry. Open this in a new tab.</p>
@@ -185,8 +185,8 @@ arrow_right
 <p><img alt="Docker Commands" src="https://byui-cse.github.io/itm300-course/shared/img/docker-commands.jpg" /></p>
 <p>You should receive a response that shows the docker container was pushed to the ECR.</p>
 <p>Exit out of the root user</p>
-<div class="codehilite"><pre><span></span><code><span class="k">exit</span>
-</code></pre></div>
+<pre class="codehilite"><code>exit
+</code></pre>
 
 <p>Go back to the ECR tab and click <span class="amz-white-button">Close</span></p>
 <ul>
