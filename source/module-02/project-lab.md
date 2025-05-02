@@ -183,7 +183,7 @@ Ctrl-X -->
 sudo systemctl restart httpd
 ```
 
-Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click on the lock icon to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.
+Go to your EC2 Instance and click on the Public IPv4 DNS "open address" link. You'll get a warning. Accept that warning and proceed to the site. Once you are there, you can click just to the left of the address bar where there is a icon (a lock, certificate, or something similar) to see information about the SSL cert. If you look at the certificate, you'll see the information you provided when you created the certificate.
 
 Submit a screenshot of your website running over https. You'll need to accept the warning and proceed to the website.
 
