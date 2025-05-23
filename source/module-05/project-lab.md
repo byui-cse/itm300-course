@@ -118,7 +118,7 @@ We will replace the previous dataService with the new dynamoService.
 import { getDynamoServiceRequests } from './dynamoService.mjs';
 ```
 
-* In the *index.mjs* file change the name of the function being called by repalacing *const jsonArray = await getServiceRequests();* with
+* In the *index.mjs* file change the name of the function being called by repalacing *const jsonArray = getServiceRequests();* with
 
 ```
 const jsonArray = await getDynamoServiceRequests();
