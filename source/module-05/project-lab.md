@@ -64,9 +64,9 @@ arrow_drop_down
 
 ## Update Lambda
 
-<span class="material-symbols-outlined">search</span> Search for Lambda and open your <span class="amz-link">getServiceRequests</span> lambda function
+<span class="material-symbols-outlined">search</span> Search for Lambda and open your <span class="amz-link">getServiceRequest</span> lambda function
 
-* Under Code -> Right click on getServiceRequests and choose New File
+* Under Code -> Right click on getServiceRequest and choose New File
 * Name it *dynamoService.mjs*
 * Paste the following code into that file:
 
@@ -192,7 +192,7 @@ In this lab, the primary objective was to create a DynamoDB table named *Vehicle
 
 1. **DynamoDB:** In this lab, a DynamoDB table was created with specific attributes like *license_plate* and *service_id* to store service request details.
 1. **DynamoDB Table Configuration:** The lab covered the configuration of a DynamoDB table, including defining a primary partition key (license_plate) and a sort key (service_id). Additionally, a global secondary index (StatusIndex) was created to facilitate efficient querying based on the *service_status* attribute.
-1. **Lambda Function Integration with DynamoDB:** The Lambda function (getServiceRequests) was updated to use the AWS SDK for DynamoDB to interact with the VehicleServices table. The function was modified to retrieve service requests based on certain filtering conditions (e.g., excluding completed or new requests) using a ScanCommand.
+1. **Lambda Function Integration with DynamoDB:** The Lambda function (getServiceRequest) was updated to use the AWS SDK for DynamoDB to interact with the VehicleServices table. The function was modified to retrieve service requests based on certain filtering conditions (e.g., excluding completed or new requests) using a ScanCommand.
 1. **Data Manipulation in DynamoDB:** The lab demonstrated how to add and update items in the DynamoDB table directly from the AWS Management Console. By duplicating an existing item and updating its attributes (e.g., changing service_status to "Accepted" for a new service request).
 
 ###Reflection Questions:
