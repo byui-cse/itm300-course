@@ -132,7 +132,7 @@ Go to the website and verify that you are getting a single ticket back. You can 
 
     Your website should be running on your EC2 instance. You can find the link to the website by clicking on the checkmark next to the EC2 and at the bottom of the page finding the Public IPv4 DNS.
 
-    If your website isn't running, you'll need to check to see if the httpd services is running and enabled. You can check this by connecting to the EC2 and then running the following commands:
+    If your website isn't running, you'll need to check to see if the httpd service is running and enabled. You can check this by connecting to the EC2 and then running the following commands:
 
     sudo systemctl enable httpd
 
@@ -193,7 +193,7 @@ In this lab, the primary objective was to create a DynamoDB table named *Vehicle
 1. **DynamoDB:** In this lab, a DynamoDB table was created with specific attributes like *license_plate* and *service_id* to store service request details.
 1. **DynamoDB Table Configuration:** The lab covered the configuration of a DynamoDB table, including defining a primary partition key (license_plate) and a sort key (service_id). Additionally, a global secondary index (StatusIndex) was created to facilitate efficient querying based on the *service_status* attribute.
 1. **Lambda Function Integration with DynamoDB:** The Lambda function (getServiceRequest) was updated to use the AWS SDK for DynamoDB to interact with the VehicleServices table. The function was modified to retrieve service requests based on certain filtering conditions (e.g., excluding completed or new requests) using a ScanCommand.
-1. **Data Manipulation in DynamoDB:** The lab demonstrated how to add and update items in the DynamoDB table directly from the AWS Management Console. By duplicating an existing item and updating its attributes (e.g., changing service_status to "Accepted" for a new service request).
+1. **Data Manipulation in DynamoDB:** The lab demonstrated how to add and update items in the DynamoDB table directly from the AWS Management Console by duplicating an existing item and updating its attributes (e.g., changing service_status to "Accepted" for a new service request).
 
 ###Reflection Questions:
 
