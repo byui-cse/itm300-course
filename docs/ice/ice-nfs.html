@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{TITLE}}</title>
+	<title>ICE: ICE CHALLENGE : EFS</title>
     <style>
         @font-face {
             font-family: 'icomoon';
@@ -21,11 +21,11 @@
     <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/fonts/fontawesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.css">
     <link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/lib/highlight/styles/monokai-sublime.min.css">
-	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/cse450.css?v1.5.12">
+	<link rel="stylesheet" type="text/css" href="https://byui-cse.github.io/itm300-course/shared/cse450.css?v1.5.13">
     <meta charset="utf-8">
 
 </head>
-<body class="">
+<body class="index-page">
      <div id="modal-screen">
         <div id="contents-wrapper">
             <div class="toc">
@@ -58,7 +58,7 @@
         <span class="icon-byui-logo"></span>
         <div id="titles">
             <h1>ITM 300 - Cloud Foundations</h1>
-            <h2>{{TITLE}}</h2>
+            <h2>ICE: ICE CHALLENGE : EFS</h2>
             <nav><a href="https://byui-cse.github.io/itm300-course"><span class="material-symbols-outlined house">
                 other_houses
                 </span></a><a href="https://byui-cse.github.io/itm300-course/modules/">Modules</a><a href="https://byui-cse.github.io/itm300-course/test-prep/">Test Prep</a></nav>
@@ -74,115 +74,145 @@
 <h2 id="create-security-groups">Create Security Groups</h2>
 <h3 id="create-sg-for-ec2">Create SG for EC2</h3>
 <p>Create a security group for SSH Access</p>
-<pre class="codehilite"><code>1) Security Group Name EC2-SG
-2) Description - Allow SSH Access for Developers
-2) VPC (default)
-3) Inbound Rules
-    1) SSH
-    2) Source 0.0.0.0/0 for this lab but you would want to lock this down in production
-4) Outbound - leave all traffic on 0.0.0.0/0
-</code></pre>
-
+<ol>
+<li>Security Group Name EC2-SG</li>
+<li>Description - Allow SSH Access for Developers</li>
+<li>VPC (default)</li>
+<li>Inbound Rules<ul>
+<li>SSH</li>
+<li>Source 0.0.0.0/0 for this lab but you would want to lock this down in production</li>
+</ul>
+</li>
+<li>Outbound - leave all traffic on 0.0.0.0/0</li>
+</ol>
 <h3 id="create-sg-for-efs">Create SG for EFS</h3>
 <p>Create a security group for the EFS</p>
-<pre class="codehilite"><code>1) Security Group Name EFS-SG
-2) Description - Allow Access to Website EFS Drive
-2) VPC (default)
-3) Inbound Rules
-    1) NFS
-    2) Source EC2-SG (scroll down to see the security groups)
-4) Outbound - leave all traffic on 0.0.0.0/0
-</code></pre>
-
+<ol>
+<li>Security Group Name EFS-SG</li>
+<li>Description - Allow Access to Website EFS Drive</li>
+<li>VPC (default)</li>
+<li>Inbound Rules<ul>
+<li>NFS</li>
+<li>Source EC2-SG (scroll down to see the security groups)</li>
+</ul>
+</li>
+<li>Outbound - leave all traffic on 0.0.0.0/0</li>
+</ol>
 <h3 id="verify-settings">Verify settings</h3>
 <p>Click on the individual security groups and verify that the inbound and outbound rules are correct.</p>
 <p>EC2-SG</p>
-<pre class="codehilite"><code>1) Inbound - SSH, TCP, 22, 0.0.0.0/0
-2) Outbound - All traffic, All, All, 0.0.0.0/0
-</code></pre>
-
+<ol>
+<li>Inbound - SSH, TCP, 22, 0.0.0.0/0</li>
+<li>Outbound - All traffic, All, All, 0.0.0.0/0</li>
+</ol>
 <p>EFS-SG</p>
-<pre class="codehilite"><code>1) Inbound - NFS, TCP, 2049, sg-XXXXXXXXXXXXXXXXX / EC2-SG
-2) Outbound - All traffic, All, All, 0.0.0.0/0
-</code></pre>
-
+<ol>
+<li>Inbound - NFS, TCP, 2049, sg-XXXXXXXXXXXXXXXXX / EC2-SG</li>
+<li>Outbound - All traffic, All, All, 0.0.0.0/0</li>
+</ol>
 <h2 id="create-efs">Create EFS</h2>
-<p>1) Create file system
-2) Customize button</p>
-<pre class="codehilite"><code>1) Name - Website Drive
-2) Regional
-3) Uncheck &quot;Enable automatic backups&quot;
-3) Lifecycle Management -&gt; Transition into Archive - Select None
-4) Throughput - Bursting
-5) Next
-
-1) Update all availability zones by
-    1) Remove the default security group
-    2) Add the EFS-SG
-2) Next
-3) Next (again)
-4) Create
-</code></pre>
-
+<ol>
+<li>Create file system</li>
+<li>Customize button<ul>
+<li>Name - Website Drive</li>
+<li>Regional</li>
+<li>Uncheck "Enable automatic backups"</li>
+<li>Lifecycle Management -&gt; Transition into Archive - Select None</li>
+<li>Throughput - Bursting</li>
+<li>Next</li>
+</ul>
+</li>
+<li>Update all availability zones by<ul>
+<li>Remove the default security group</li>
+<li>Add the EFS-SG</li>
+</ul>
+</li>
+<li>Next</li>
+<li>Next (again)</li>
+<li>Create</li>
+</ol>
 <h2 id="create-an-ec2-instance">Create an EC2 Instance</h2>
 <p>Go to AWS and create an ec2 instance. Use the 2023 Linux AMI. These should be in the us-east-1 region.</p>
-<p>1) Create Instance
-2) Give it a name
-3) Select the vockey for the Key Pair
-4) Click Edit on Network Settings</p>
-<pre class="codehilite"><code>1) Choose a subnet from that region (us-east-1c)
-2) Select existing security group
-3) Common Security Group - Select EC2-SG
-</code></pre>
-
-<p>5) Launch Instance</p>
+<ol>
+<li>Create Instance</li>
+<li>Give it a name</li>
+<li>Select the vockey for the Key Pair</li>
+<li>Click Edit on Network Settings<ul>
+<li>Choose a subnet from that region (us-east-1c)</li>
+<li>Select existing security group</li>
+<li>Common Security Group - Select EC2-SG</li>
+</ul>
+</li>
+<li>Launch Instance</li>
+</ol>
 <h2 id="connect-to-the-ec2-instance">Connect to the EC2 Instance</h2>
 <h2 id="mount-the-drive">mount the drive</h2>
-<p>1) sudo mkdir /mnt/efs
-2) sudo mkdir /mnt/efs/fs1</p>
+<pre class="codehilite"><code>sudo mkdir /mnt/efs
+sudo mkdir /mnt/efs/fs1
+</code></pre>
+
 <p>Go out to your EFS console</p>
-<p>1) Click on the WebDrive
-2) Click attach
-3) Select the *Using NFS Client"</p>
+<ol>
+<li>Click on the WebDrive</li>
+<li>Click attach</li>
+<li>Select the *Using NFS Client"</li>
+</ol>
 <p>Back on your console</p>
-<p>1) cd /mnt/efs
-1) Copy your command (it should look like this)
-    1) sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-XXXXXXXXXXXXXXX.efs.us-east-1.amazonaws.com:/ fs1
-    2) MAKE SURE YOU CHANGE THE efs at the end to fs1</p>
-<p>1) give your user access
-2) sudo chown ec2-user:ec2-user /mnt/efs/fs1
-3) sudo chmod 755 /mnt/efs/fs1</p>
+<ol>
+<li>cd /mnt/efs</li>
+<li>Copy your command (it should look like this)<ul>
+<li>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-XXXXXXXXXXXXXXX.efs.us-east-1.amazonaws.com:/ fs1</li>
+<li>MAKE SURE YOU CHANGE THE efs at the end to fs1</li>
+</ul>
+</li>
+<li>give your user access</li>
+<li>sudo chown ec2-user:ec2-user /mnt/efs/fs1</li>
+<li>sudo chmod 755 /mnt/efs/fs1</li>
+</ol>
 <h2 id="create-another-ec2-instances">Create another EC2 Instances</h2>
 <h2 id="do-the-automatic-add-from-the-console">Do the automatic add from the console</h2>
 <p>Create an EC2 instance.</p>
-<p>1) Give it a name
-2) Choose vockey for the key pair
-3) Network settings -&gt; Edit</p>
-<pre class="codehilite"><code>1) Choose a subnet (e.g. us-east-1b)
-2) Select existing security group
-3) EC2-SG
-</code></pre>
-
-<p>4) Configure Storage -&gt; Advanced
-    1) File systems -&gt; Show Details
-    2) Make sure EFS is selected
-    3) Add shared file system
-    4) Select the file system if you don't see it
-    5) Confirm mount point is /mnt/efs/fs1
-    6) Uncheck Automatically create and attach security groups
-    7) Leave Automatically mount shared file system... checked
-4) Launch instance</p>
+<ol>
+<li>Give it a name</li>
+<li>Choose vockey for the key pair</li>
+<li>Network settings -&gt; Edit<ul>
+<li>Choose a subnet (e.g. us-east-1b)</li>
+<li>Select existing security group</li>
+<li>EC2-SG</li>
+</ul>
+</li>
+<li>Configure Storage -&gt; Advanced<ul>
+<li>File systems -&gt; Show Details</li>
+<li>Make sure EFS is selected</li>
+<li>Add shared file system</li>
+<li>Select the file system if you don't see it</li>
+<li>Confirm mount point is /mnt/efs/fs1</li>
+<li>Uncheck Automatically create and attach security groups</li>
+<li>Leave Automatically mount shared file system... checked</li>
+</ul>
+</li>
+<li>Launch instance</li>
+</ol>
 <p>Connect to the server</p>
 <p>Make sure both checks pass to ensure that the mount has been added and that permissions have been given</p>
-<p>cd /mnt/efs/fs1
-ls -la</p>
+<pre class="codehilite"><code>cd /mnt/efs/fs1
+
+ls -la
+</code></pre>
+
 <p>Now you can create files on either ec2 instance and have it show up on the other</p>
-<p>touch "first.txt"</p>
+<pre class="codehilite"><code>touch &quot;first.txt&quot;
+</code></pre>
+
 <p>switch to the other computer</p>
-<p>ls -la</p>
-<p>touch "second.txt"</p>
+<pre class="codehilite"><code>ls -la
+
+touch &quot;second.txt&quot;
+</code></pre>
+
 <p>switch back to first ec2 instance</p>
-<p>ls -la</p>
+<pre class="codehilite"><code>ls -la
+</code></pre>
 	</article>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/highlight/highlight.pack.js"></script>
 	<script src="https://byui-cse.github.io/itm300-course/shared/lib/katex/katex.min.js"></script>
