@@ -195,7 +195,6 @@ Take a minute and review the lambda function code that you added. Identify what 
 Review the code found in the /var/www/html folder. Specifically look at the following code:
 
 * vehicle-history.html
-* scripts/vehicle-requests.js
 * scripts/vehicleHistoryHelper.js
 
 How does this code interact with the lambda functions that were created in the lab? Identify any code that you do not understand and research it using generative AI.
