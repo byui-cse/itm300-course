@@ -182,6 +182,8 @@ sudo bash ./rebuildapp.sh
 
 Now when you log in to your app you should have an area that will allow you to search for vehicle histories based on license plate number. Also, the license plate numbers in the current service requests will also be linked to quickly go to the vehicle histories.
 
+Submit a screenshot of the history page for one of the vehicles.
+
 ## Summary
 
 In this lab, students added a new feature to an existing AWS-based application, enabling technicians to view the repair history of vehicles. This involved creating a new AWS Lambda function, setting up appropriate resources in the API Gateway, and updating the application code. The lab walked through creating and configuring the Lambda function, updating the API Gateway to handle new endpoints, and deploying the changes to the application.
