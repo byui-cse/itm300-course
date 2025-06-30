@@ -362,7 +362,7 @@ We can enhance our API Gateway endpoint by integrating an authorizer. By linking
 * Token Source: **Authorization**
 * <span class="amz-orange-button">Create Authorizer</span>
 
-## Create a Get Method
+## Create a Get Method in the API Gateway
 
 * Create a Get Method under admin-service-requests
 * Get
