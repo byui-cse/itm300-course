@@ -358,7 +358,7 @@ We can enhance our API Gateway endpoint by integrating an authorizer. By linking
 * <span class="amz-orange-button">Create Authorizer</span>
 * Authorizer Name: **AdminServiceRequestAuthorizer**
 * Authorizer Type: **Cognito**
-* Cognito User Pool: **VehicleApp**
+* Cognito User Pool: Pick the pool from the dropdown
 * Token Source: **Authorization**
 * <span class="amz-orange-button">Create Authorizer</span>
 
