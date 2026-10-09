@@ -74,7 +74,7 @@ export const handler = async (event) => {
 
     The preparation material for this week has videos that go into what each status code is. We'll use more in the future as well as using different HTTP verbs besides GET.
 
-Right click on getServiceRequests and choose New file. Create a file named dataService.mjs
+Create a new file named dataService.mjs and paste the content below.
 
 ```
 export const getServiceRequests = () => {
@@ -88,9 +88,7 @@ Deploy the Lambda function by clicking the <span class="amz-white-button">Deploy
 
     If you make any changes to your function, you must click <span class="amz-white-button">Deploy</span> to deploy the new changes.
 
-Click the dropdown arrow <span class="material-symbols-outlined">
-arrow_drop_down
-</span>next to the blue Test button and choose Configure test event. 
+Click the blue "Test" button.  A new window will open.  Press the orange "Test" button to run the test. 
 
 
 Give the Test a name and then click <span class="amz-white-button">Invoke</span>. You should receive a response similar to this:
@@ -104,7 +102,7 @@ Give the Test a name and then click <span class="amz-white-button">Invoke</span>
 
 <span class="material-symbols-outlined">search</span> Search for API Gateway.
 
-Scroll down to REST API and Click <span class="amz-orange-button">Build</span>
+Scroll down to REST API section. Create REST API.</span>
 
 * New API
 * API Name : vehicleapp
